@@ -3,7 +3,7 @@ USE GD2C2018
 ---------------CREACION DE TABLAS---------------
 
 CREATE TABLE usuario(
-id_usuario INT IDENTITY PRIMARY KEY
+id_usuario INT IDENTITY(1,1) PRIMARY KEY
 )
 
 CREATE TABLE cliente(
@@ -17,6 +17,7 @@ id_empresa INT IDENTITY PRIMARY KEY
 CREATE TABLE domicilio(
 id_domicilio INT IDENTITY PRIMARY KEY
 )
+
 
 CREATE TABLE tarjeta(
 id_tarjeta INT IDENTITY PRIMARY KEY
@@ -119,7 +120,7 @@ ALTER TABLE domicilio ADD
 calle NVARCHAR(50),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
-depto NVARCHAR(50,0),
+depto NVARCHAR(50),
 codigo_postal NVARCHAR(50)
 
 ALTER TABLE tarjeta ADD
@@ -158,7 +159,7 @@ id_factura INT REFERENCES factura,
 fecha DATETIME,
 importe INT
 
-ALTER TABLE compra ADD
+ALTER TABLE ubicacion ADD
 id_publicacion INT REFERENCES publicacion,
 tipo_codigo INT REFERENCES tipoCodigo,
 id_compra INT REFERENCES compra,
@@ -175,10 +176,107 @@ id_empresa INT REFERENCES empresa,
 fecha_facturacion DATETIME,
 importe_total NUMERIC(18,2) --lo de la factura esta turbio
 
+
+
 ---------------MIGRACION DE TABLAS---------------
 
---.--.--.--EMPRESA--.--.--.--
 
+--.--.--.--domicilio--.--.--.--
+INSERT INTO domicilio(calle, numero_calle, piso, depto, codigo_postal)
+SELECT DISTINCT Espec_Empresa_Dom_Calle, Espec_Empresa_Nro_Calle, Espec_Empresa_Piso, Espec_Empresa_Depto, Espec_Empresa_Cod_Postal
+FROM gd_esquema.Maestra
+
+--.--.--.--empresa--.--.--.--
+INSERT INTO empresa(razon_social, mail, cuit, fecha_creacion)
+SELECT DISTINCT Espec_Empresa_Razon_Social, Espec_Empresa_Mail, Espec_Empresa_Cuit, Espec_Empresa_Fecha_Creacion
+FROM gd_esquema.Maestra
+
+
+
+
+--sorry re mal. help--
+INSERT INTO empresa(domicilio)
+SELECT id_domicilio
+FROM domicilio d
+JOIN gd_esquema.Maestra gd ON(gd.Espec_Empresa_Dom_Calle = d.calle AND gd.Espec_Empresa_Nro_Calle = d.numero_calle AND
+								gd.Espec_Empresa_Piso = d.piso AND gd.Espec_Empresa_Depto = d.depto AND gd.Espec_Empresa_Cod_Postal = d.codigo_postal)
+JOIN empresa e ON(gd.Espec_Empresa_Razon_Social = e.razon_social)
+WHERE gd.Espec_Empresa_Dom_Calle = d.calle AND gd.Espec_Empresa_Nro_Calle = d.numero_calle AND
+								gd.Espec_Empresa_Piso = d.piso AND gd.Espec_Empresa_Depto = d.depto AND gd.Espec_Empresa_Cod_Postal = d.codigo_postal
+
+
+
+
+--.--.--.--cliente--.--.--.--
+INSERT INTO cliente(nombre, apellido, tipo_documento, documento, mail, fecha_nacimiento)
+SELECT DISTINCT Cli_Nombre, Cli_Apeliido, 'DNI', Cli_Dni, Cli_Mail, Cli_Fecha_Nac
+FROM gd_esquema.Maestra
+
+--.--.--.--publicacion--.--.--.--
+INSERT INTO publicacion(id_publicacion ,descripcion, estado_publicacion, fecha_inicio, fecha_evento)
+SELECT  Espectaculo_Cod, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha, Espectaculo_Fecha_Venc
+FROM gd_esquema.Maestra
+
+--.--.--.--rubro--.--.--.--
+INSERT INTO rubro(descripcion)
+SELECT Espectaculo_Rubro_Descripcion
+FROM gd_esquema.Maestra
+
+--.--.--.--ubicacion--.--.--.--
+INSERT INTO ubicacion(id_tipo_codigo, fila, asiento, sin_numerar, precio)
+SELECT Ubicacion_Tipo_Codigo, Ubicacion_Fila, Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+FROM gd_esquema.Maestra
+
+--.--.--.--tipoUbicacion--.--.--.--
+INSERT INTO tipoUbicacion(tipo_descripcion)
+SELECT Ubicacion_Tipo_Descripcion
+FROM gd_esquema.Maestra
+
+--.--.--.--compra--.--.--.--
+INSERT INTO compra(fecha)
+SELECT Compra_Fecha
+FROM gd_esquema.Maestra
+
+--.--.--.--factura--.--.--.--
+INSERT INTO factura(id_factura, fecha, importe_total)
+SELECT Factura_Nro, Factura_Fecha, Factura_Total
+FROM gd_esquema.Maestra
+
+--.--.--.--usuario--.--.--.--
+--truchito. charlarlo
+--INSERT INTO usuario()
+--SELECT DISTINCT Cli_Nombre, Cli_Apeliido, 'DNI', Cli_Dni, Cli_Mail, Cli_Fecha_Nac
+--FROM gd_esquema.Maestra
+
+
+
+
+
+
+
+-----pruebas-----
+CREATE TABLE cliente_prueba(
+id_cliente INT IDENTITY(1,1) PRIMARY KEY,
+id_usuario INT REFERENCES usuario_prueba,
+dni INT
+)
+
+
+CREATE TABLE usuario_prueba(
+id_usuario INT IDENTITY(1,1) PRIMARY KEY,
+usuario VARCHAR(20)
+)
+
+INSERT INTO cliente_prueba(id_usuario, dni) SELECT id_usuario, dni FROM usuario_prueba
+INSERT INTO usuario_prueba(dni) SELECT Cli_Dni FROM gd_esquema.Maestra
+SELECT * FROM cliente_prueba
+
+
+
+
+
+
+---MIGRAR EMPRESA CON PROCEDURE Y CURSOR---
 CREATE PROCEDURE MigrarEmpresas
 AS
 BEGIN
@@ -222,5 +320,4 @@ BEGIN
 END
 
 EXEC MigrarEmpresas
-
 SELECT * FROM empresa
