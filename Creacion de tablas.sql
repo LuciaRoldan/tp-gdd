@@ -76,7 +76,6 @@ CREATE TABLE factura(
 id_factura INT IDENTITY PRIMARY KEY
 )
 
-
 SELECT * FROM usuario
 SELECT * FROM cliente
 SELECT * FROM empresa
@@ -131,6 +130,7 @@ fecha_vencimiento DATE
 
 ALTER TABLE premio ADD
 descripcion VARCHAR(110),
+--Un bigint me parece demasiado... 
 puntos BIGINT
 
 ALTER TABLE publicacion ADD
@@ -139,6 +139,7 @@ id_grado_publicacion INT REFERENCES gradoPublicacion,
 id_rubro INT REFERENCES rubro,
 descripcion NVARCHAR(255),
 --estado_publicacion CHAR(1) CHECK(estado_publicacion IN ('B', 'A', 'F')), dice que tiene que ser varchar de 255 :(
+--Creo que podemos hacer un check igual IN ('Borrador', 'Activa', 'Finalizada')
 estado_publicacion NVARCHAR(255),
 fecha_inicio DATETIME,
 fecha_evento DATETIME,
@@ -166,6 +167,7 @@ id_compra INT REFERENCES compra,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT, --esta asi en la BD... pero no puede ser NULL en fila? :(
+--Por lo que lei BIT puede ser 0, 1 o tambien NULL
 precio NUMERIC(18)
 
 ALTER TABLE tipoUbicacion ADD
@@ -175,24 +177,28 @@ ALTER TABLE factura ADD
 id_empresa INT REFERENCES empresa,
 fecha_facturacion DATETIME,
 importe_total NUMERIC(18,2) --lo de la factura esta turbio
-
+--No se si la vamos a necesitar realmente
 
 
 ---------------MIGRACION DE TABLAS---------------
 
+--Modelo de fila para comparar los campos y tenerlos de referencia
+SELECT TOP 1 * FROM gd_esquema.Maestra
 
---.--.--.--domicilio--.--.--.--
+--.--.--.--domicilios--.--.--.--
+--Empresas
 INSERT INTO domicilio(calle, numero_calle, piso, depto, codigo_postal)
 SELECT DISTINCT Espec_Empresa_Dom_Calle, Espec_Empresa_Nro_Calle, Espec_Empresa_Piso, Espec_Empresa_Depto, Espec_Empresa_Cod_Postal
+FROM gd_esquema.Maestra 
+--Clientes
+INSERT INTO domicilio(calle, numero_calle, piso, depto, codigo_postal)
+SELECT DISTINCT Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal
 FROM gd_esquema.Maestra
 
 --.--.--.--empresa--.--.--.--
 INSERT INTO empresa(razon_social, mail, cuit, fecha_creacion)
 SELECT DISTINCT Espec_Empresa_Razon_Social, Espec_Empresa_Mail, Espec_Empresa_Cuit, Espec_Empresa_Fecha_Creacion
 FROM gd_esquema.Maestra
-
-
-
 
 --sorry re mal. help--
 INSERT INTO empresa(domicilio)
@@ -203,9 +209,6 @@ JOIN gd_esquema.Maestra gd ON(gd.Espec_Empresa_Dom_Calle = d.calle AND gd.Espec_
 JOIN empresa e ON(gd.Espec_Empresa_Razon_Social = e.razon_social)
 WHERE gd.Espec_Empresa_Dom_Calle = d.calle AND gd.Espec_Empresa_Nro_Calle = d.numero_calle AND
 								gd.Espec_Empresa_Piso = d.piso AND gd.Espec_Empresa_Depto = d.depto AND gd.Espec_Empresa_Cod_Postal = d.codigo_postal
-
-
-
 
 --.--.--.--cliente--.--.--.--
 INSERT INTO cliente(nombre, apellido, tipo_documento, documento, mail, fecha_nacimiento)
