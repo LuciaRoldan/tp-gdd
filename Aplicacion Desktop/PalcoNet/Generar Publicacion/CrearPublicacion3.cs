@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Editar_Publicacion
+namespace PalcoNet.Generar_Publicacion
 {
-    public partial class Form1 : Form
+    public partial class CrearPublicacion1 : Form
     {
-        public Form1()
+        public CrearPublicacion1()
         {
             InitializeComponent();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

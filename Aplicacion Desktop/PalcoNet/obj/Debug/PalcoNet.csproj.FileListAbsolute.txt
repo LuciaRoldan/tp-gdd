@@ -9,3 +9,6 @@ C:\Users\Luli\Desktop\TP GDD\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 C:\Users\Luli\Desktop\TP GDD\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
 C:\Users\Luli\Desktop\TP GDD\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.AbmRol.resources
 C:\Users\Luli\Desktop\TP GDD\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Registro_de_Usuario.RegistroDeUsuario1.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe.config
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
