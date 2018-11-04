@@ -7,7 +7,7 @@ id_usuario INT IDENTITY(1,1) PRIMARY KEY
 )
 
 CREATE TABLE usuarioXrol(
-id_usario_rol INT IDENTITY(1,1) PRIMARY KEY,
+id_usuarioXrol INT IDENTITY(1,1) PRIMARY KEY,
 )
 
 CREATE TABLE cliente(
@@ -66,9 +66,9 @@ cantidad_puntos BIGINT,
 fecha_vencimiento DATE
 )
 
-CREATE TABLE rolXfuncionalidad(
-id_rol INT REFERENCES rol,
-id_funcionalidad INT REFERENCES funcionalidad
+
+CREATE TABLE funcionalidadXrol(
+id_funcionalidadXrol INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE factura(
@@ -194,3 +194,11 @@ importe_total NUMERIC(18,2) --lo de la factura esta turbio
 ALTER TABLE rol ADD
 nombre CHAR(40)
 
+ALTER TABLE funcionalidad ADD
+nombre VARCHAR(100)
+
+ALTER TABLE funcionalidadXrol ADD
+id_funcionalidad INTEGER REFERENCES funcionalidad,
+id_rol INTEGER REFERENCES rol
+
+SELECT * FROM funcionalidadXrol
