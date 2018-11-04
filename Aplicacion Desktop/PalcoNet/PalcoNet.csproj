@@ -105,7 +105,8 @@
     <Compile Include="Canje Puntos\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Busqueda.cs">
+    <Compile Include="ConeccionSQL.cs" />
+    <Compile Include="Comprar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Comprar\Busqueda.Designer.cs">
@@ -272,6 +273,7 @@
     <EmbeddedResource Include="Registro de Usuario\RegistroDeUsuario1.resx">
       <DependentUpon>RegistroDeUsuario1.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -283,7 +285,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
