@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Abm_Grado
 {
-    partial class Form1
+    partial class GradoDeLaPublicacion
     {
         /// <summary>
         /// Required designer variable.
@@ -103,7 +103,7 @@
             this.button3.Text = "Inicio";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // GradoDeLaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,8 +115,8 @@
             this.Controls.Add(this.checkedListBox2);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label2);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "GradoDeLaPublicacion";
+            this.Text = "Grado de la publicacion";
             this.ResumeLayout(false);
             this.PerformLayout();
 

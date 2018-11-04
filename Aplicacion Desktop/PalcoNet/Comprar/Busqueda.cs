@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Comprar
 {
-    public partial class Form1 : Form
+    public partial class Busqueda : Form
     {
-        public Form1()
+        public Busqueda()
         {
             InitializeComponent();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
