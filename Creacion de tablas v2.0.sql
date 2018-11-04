@@ -54,10 +54,6 @@ CREATE TABLE ubicacion(
 id_ubicacion INT IDENTITY PRIMARY KEY
 )
 
-CREATE TABLE tipoUbicacion(
-tipo_codigo INT PRIMARY KEY --es una PK que nos traemos de la bd... esta bueno eso?
-)
-
 -----TABLAS QUE HAY QUE CREAR DESPUES-----
 
 CREATE TABLE puntos(
@@ -175,16 +171,13 @@ importe INT
 
 ALTER TABLE ubicacion ADD
 id_publicacion INT REFERENCES publicacion,
-tipo_codigo INT REFERENCES tipoCodigo,
 id_compra INT REFERENCES compra,
 fila VARCHAR(3),
 asiento NUMERIC(18),
+tipo_ubicacion VARCHAR(100),
 sin_numerar BIT, --esta asi en la BD... pero no puede ser NULL en fila? :(
 --Por lo que lei BIT puede ser 0, 1 o tambien NULL
 precio NUMERIC(18)
-
-ALTER TABLE tipoUbicacion ADD
-tipo_descripcion NVARCHAR(255)
 
 ALTER TABLE factura ADD
 id_empresa INT REFERENCES empresa,

@@ -159,12 +159,22 @@ SELECT * from gd_esquema.Maestra
 
 
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
+--NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
+
 INSERT INTO compra(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
-SELECT c.id_cliente, p.id_publicacion, mp.id_medio_pago, f.id_factura, Compra_Fecha
+SELECT DISTINCT c.id_cliente, p.id_publicacion, mp.id_medio_pago, f.id_factura, Compra_Fecha
 FROM gd_esquema.Maestra gd
 JOIN cliente c ON(gd.Cli_Dni = c.documento)
 JOIN publicacion p ON(gd.Espectaculo_Cod = p.id_publicacion)
 JOIN medioDePago mp ON(mp.titular = gd.Forma_Pago_Desc)
-JOIN factura f ON(f.
+JOIN factura f ON(f.id_factura = gd.Factura_Nro)
 
 select * from compra
+
+--.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
+
+INSERT INTO ubicacion(id_publicacion, id_compra, fila, asiento, tipo_ubicacion, sin_numerar, precio)
+SELECT
+FROM gd_esquema.Maestra
+
+select * from ubicacion
