@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Cliente\Form1.cs">
+    <Compile Include="Abm Cliente\Busqueda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Cliente\Busqueda.Designer.cs">
+      <DependentUpon>Busqueda.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\ModificarCliente.cs">
       <SubType>Form</SubType>
@@ -110,6 +110,18 @@
     </Compile>
     <Compile Include="Comprar\Busqueda.Designer.cs">
       <DependentUpon>Busqueda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\Asientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\Asientos.Designer.cs">
+      <DependentUpon>Asientos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\MedioDePago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\MedioDePago.Designer.cs">
+      <DependentUpon>MedioDePago.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Seleccion.cs">
       <SubType>Form</SubType>
@@ -203,8 +215,8 @@
     <Compile Include="Registro de Usuario\RegistroDeUsuario1.Designer.cs">
       <DependentUpon>RegistroDeUsuario1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Abm Cliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\Busqueda.resx">
+      <DependentUpon>Busqueda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ModificarCliente.resx">
       <DependentUpon>ModificarCliente.cs</DependentUpon>
@@ -229,6 +241,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Busqueda.resx">
       <DependentUpon>Busqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\Asientos.resx">
+      <DependentUpon>Asientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\MedioDePago.resx">
+      <DependentUpon>MedioDePago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Seleccion.resx">
       <DependentUpon>Seleccion.cs</DependentUpon>
