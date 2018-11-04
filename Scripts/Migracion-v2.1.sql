@@ -169,7 +169,7 @@ WHERE gd.Forma_Pago_Desc IS NOT NULL AND gd.Compra_Cantidad IS NOT NULL
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
 INSERT INTO Ubicaciones(id_publicacion, id_compra, fila, asiento, tipo_ubicacion, sin_numerar, precio)
-SELECT DISTINCT Espectaculo_Cod, c.id_compra, Ubicacion_Fila, Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio---
+SELECT DISTINCT Espectaculo_Cod, c.id_compra, Ubicacion_Fila, Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
 JOIN Compras c ON(c.id_publicacion = gd.Espectaculo_Cod) --anda porque vendo de a UN asiento
 
