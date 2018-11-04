@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Cliente\BusquedaCliente.cs">
+    <Compile Include="Abm Cliente\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\BusquedaCliente.Designer.cs">
-      <DependentUpon>BusquedaCliente.cs</DependentUpon>
+    <Compile Include="Abm Cliente\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\ModificarCliente.cs">
       <SubType>Form</SubType>
@@ -81,11 +81,11 @@
     <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmpresa.Designer.cs">
       <DependentUpon>ResultadosBusquedaEmpresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Grado\Form1.cs">
+    <Compile Include="Abm Grado\GradoDeLaPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Grado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Grado\GradoDeLaPublicacion.Designer.cs">
+      <DependentUpon>GradoDeLaPublicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\AbmRol.cs">
       <SubType>Form</SubType>
@@ -105,17 +105,35 @@
     <Compile Include="Canje Puntos\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Form1.cs">
+    <Compile Include="Comprar\Busqueda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Comprar\Busqueda.Designer.cs">
+      <DependentUpon>Busqueda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\Form1.cs">
+    <Compile Include="Comprar\Seleccion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Comprar\Seleccion.Designer.cs">
+      <DependentUpon>Seleccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarUbicacionParticular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarUbicacionParticular.Designer.cs">
+      <DependentUpon>EditarUbicacionParticular.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarPublicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarPublicacion.Designer.cs">
+      <DependentUpon>EditarPublicacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarFechaParticular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarFechaParticular.Designer.cs">
+      <DependentUpon>EditarFechaParticular.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -123,11 +141,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.cs">
+    <Compile Include="Generar Publicacion\CrearPublicacion3.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\CrearPublicacion3.Designer.cs">
+      <DependentUpon>CrearPublicacion3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\CrearPublicacion2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\CrearPublicacion2.Designer.cs">
+      <DependentUpon>CrearPublicacion2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\CrearPublicacion1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\CrearPublicacion1.Designer.cs">
+      <DependentUpon>CrearPublicacion1.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.cs">
       <SubType>Form</SubType>
@@ -173,8 +203,8 @@
     <Compile Include="Registro de Usuario\RegistroDeUsuario1.Designer.cs">
       <DependentUpon>RegistroDeUsuario1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Abm Cliente\BusquedaCliente.resx">
-      <DependentUpon>BusquedaCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ModificarCliente.resx">
       <DependentUpon>ModificarCliente.cs</DependentUpon>
@@ -191,11 +221,35 @@
     <EmbeddedResource Include="Abm Empresa Espectaculo\ResultadosBusquedaEmpresa.resx">
       <DependentUpon>ResultadosBusquedaEmpresa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Grado\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Grado\GradoDeLaPublicacion.resx">
+      <DependentUpon>GradoDeLaPublicacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\Busqueda.resx">
+      <DependentUpon>Busqueda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\Seleccion.resx">
+      <DependentUpon>Seleccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editar Publicacion\EditarUbicacionParticular.resx">
+      <DependentUpon>EditarUbicacionParticular.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editar Publicacion\EditarFechaParticular.resx">
+      <DependentUpon>EditarFechaParticular.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editar Publicacion\EditarPublicacion.resx">
+      <DependentUpon>EditarPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion3.resx">
+      <DependentUpon>CrearPublicacion3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion2.resx">
+      <DependentUpon>CrearPublicacion2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion1.resx">
+      <DependentUpon>CrearPublicacion1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Abm_Grado
 {
-    public partial class BusquedaCliente : Form
+    public partial class GradoDeLaPublicacion : Form
     {
-        public BusquedaCliente()
+        public GradoDeLaPublicacion()
         {
             InitializeComponent();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }
