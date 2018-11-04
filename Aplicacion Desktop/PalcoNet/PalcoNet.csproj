@@ -69,17 +69,17 @@
     <Compile Include="Abm Empresa Espectaculo\BusquedaEmp.Designer.cs">
       <DependentUpon>BusquedaEmp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ModificarEmpresa.cs">
+    <Compile Include="Abm Empresa Espectaculo\ModificarEmp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ModificarEmpresa.Designer.cs">
-      <DependentUpon>ModificarEmpresa.cs</DependentUpon>
+    <Compile Include="Abm Empresa Espectaculo\ModificarEmp.Designer.cs">
+      <DependentUpon>ModificarEmp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmpresa.cs">
+    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmpresa.Designer.cs">
-      <DependentUpon>ResultadosBusquedaEmpresa.cs</DependentUpon>
+    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.Designer.cs">
+      <DependentUpon>ResultadosBusquedaEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Grado\GradoDeLaPublicacion.cs">
       <SubType>Form</SubType>
@@ -257,11 +257,11 @@
     <EmbeddedResource Include="Abm Empresa Espectaculo\BusquedaEmp.resx">
       <DependentUpon>BusquedaEmp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Empresa Espectaculo\ModificarEmpresa.resx">
-      <DependentUpon>ModificarEmpresa.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\ModificarEmp.resx">
+      <DependentUpon>ModificarEmp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Empresa Espectaculo\ResultadosBusquedaEmpresa.resx">
-      <DependentUpon>ResultadosBusquedaEmpresa.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.resx">
+      <DependentUpon>ResultadosBusquedaEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\GradoDeLaPublicacion.resx">
       <DependentUpon>GradoDeLaPublicacion.cs</DependentUpon>

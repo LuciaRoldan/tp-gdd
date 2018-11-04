@@ -16,5 +16,17 @@ namespace PalcoNet.Canje_Puntos
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Aca hay que hacer que se cambien los puntos
+            //Capaz estaria bueno que salga un cartelito de que salio todo bien
+        }
     }
 }

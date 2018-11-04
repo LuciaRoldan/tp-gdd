@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Registro_de_Usuario
+namespace PalcoNet.Comprar
 {
-    public partial class RegistroDeUsuario1 : Form
+    public partial class Ubicaciones : Form
     {
-        public RegistroDeUsuario1()
+        public Ubicaciones()
         {
             InitializeComponent();
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -29,13 +24,20 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button2_Click(object sender, EventArgs e)
         {
+            new Seleccion().Show();
+            this.Hide();
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new MedioPago().Show();
+            this.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
+            //Aca hay que ir gurdando una lista de todas las entradas
+            //Tambien podria salir un cartelito de que las cosas salieron bien
         }
     }
 }

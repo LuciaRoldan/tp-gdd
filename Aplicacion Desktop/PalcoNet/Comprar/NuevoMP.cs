@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet
+namespace PalcoNet.Comprar
 {
-    public partial class SeleccionarFuncionalidad : Form
+    public partial class NuevoMP : Form
     {
-        public SeleccionarFuncionalidad()
+        public NuevoMP()
         {
             InitializeComponent();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,8 +24,8 @@ namespace PalcoNet
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new LogIn().Show();
-            this.Hide();
+            //Agregar el medio de pago a la tabla
+            this.Close();
         }
     }
 }

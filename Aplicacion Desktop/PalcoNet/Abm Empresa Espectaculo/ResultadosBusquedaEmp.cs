@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Abm_Empresa_Espectaculo
 {
-    public partial class ResultadoBusquedaCli : Form
+    public partial class ResultadosBusquedaEmp : Form
     {
-        public ResultadoBusquedaCli()
+        public ResultadosBusquedaEmp()
         {
             InitializeComponent();
         }
@@ -25,8 +25,8 @@ namespace PalcoNet.Abm_Cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new BusquedaCli().Show();
-            this.Hide();
+            new BusquedaEmp().Show();
+            this.Hide(); 
         }
     }
 }

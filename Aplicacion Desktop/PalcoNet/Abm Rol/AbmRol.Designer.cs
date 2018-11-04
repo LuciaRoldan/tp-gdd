@@ -88,6 +88,7 @@
             this.button2.TabIndex = 9;
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -189,6 +190,7 @@
             this.button3.TabIndex = 16;
             this.button3.Text = "Aceptar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -198,6 +200,7 @@
             this.button4.TabIndex = 15;
             this.button4.Text = "Inicio";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // checkedListBox2
             // 

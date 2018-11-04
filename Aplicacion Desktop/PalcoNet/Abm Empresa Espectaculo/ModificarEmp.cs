@@ -8,23 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Abm_Empresa_Espectaculo
 {
-    public partial class BusquedaPublicacion : Form
+    public partial class ModificarEmp : Form
     {
-        public BusquedaPublicacion()
+        public ModificarEmp()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

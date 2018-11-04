@@ -16,5 +16,17 @@ namespace PalcoNet.Comprar
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new BuscarP().Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new Ubicacioines().Show();
+            this.Hide();
+        }
     }
 }

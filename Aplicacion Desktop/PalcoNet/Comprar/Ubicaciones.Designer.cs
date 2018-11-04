@@ -1,6 +1,6 @@
-﻿namespace PalcoNet.Abm_Grado
+﻿namespace PalcoNet.Comprar
 {
-    partial class GradoDeLaPublicacion
+    partial class Ubicaciones
     {
         /// <summary>
         /// Required designer variable.
@@ -30,11 +30,12 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -43,82 +44,80 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(245, 24);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Grado de mis publicaciones";
+            this.label2.Size = new System.Drawing.Size(197, 24);
+            this.label2.TabIndex = 108;
+            this.label2.Text = "Seleccionar ubicación";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // checkedListBox1
             // 
             this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 62);
+            this.checkedListBox1.Location = new System.Drawing.Point(16, 50);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(221, 124);
-            this.checkedListBox1.TabIndex = 15;
-            // 
-            // checkedListBox2
-            // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
-            "Alto",
-            "Medio",
-            "Bajo"});
-            this.checkedListBox2.Location = new System.Drawing.Point(269, 62);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(100, 49);
-            this.checkedListBox2.TabIndex = 16;
+            this.checkedListBox1.Size = new System.Drawing.Size(339, 94);
+            this.checkedListBox1.TabIndex = 109;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 46);
+            this.label1.Location = new System.Drawing.Point(16, 151);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Publicacion:";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 110;
+            this.label1.Text = "Cantidad:";
             // 
-            // label3
+            // numericUpDown1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(266, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Grado:";
+            this.numericUpDown1.Location = new System.Drawing.Point(74, 149);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDown1.TabIndex = 111;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(269, 127);
+            this.button1.Location = new System.Drawing.Point(237, 149);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 46;
-            this.button1.Text = "Aceptar cambios";
+            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.TabIndex = 112;
+            this.button1.Text = "Agregar al carrito";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(16, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 113;
+            this.button2.Text = "Volver";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(16, 194);
+            this.button3.Location = new System.Drawing.Point(280, 194);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 45;
-            this.button3.Text = "Inicio";
+            this.button3.TabIndex = 114;
+            this.button3.Text = "Siguiente";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // GradoDeLaPublicacion
+            // Ubicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 229);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(372, 233);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkedListBox2);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.label2);
-            this.Name = "GradoDeLaPublicacion";
-            this.Text = "Grado de la publicacion";
+            this.Name = "Ubicaciones";
+            this.Text = "Ubicaciones";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,10 +127,10 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
     }
 }

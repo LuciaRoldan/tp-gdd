@@ -16,5 +16,11 @@ namespace PalcoNet.Registro_de_Usuario
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide();
+        }
     }
 }

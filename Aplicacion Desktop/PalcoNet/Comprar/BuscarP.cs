@@ -16,5 +16,19 @@ namespace PalcoNet.Comprar
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Hay que hacer la query aca y obtener la lista para pasarla abajo
+
+            new Seleccion().Show();
+            this.Hide();
+        }
     }
 }
