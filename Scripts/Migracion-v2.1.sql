@@ -123,11 +123,11 @@ JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);
 --select * from Publicaciones
 
 --.--.--.--.--.--.--FACTURAS--.--.--.--.--.--.--
---no chequie si funca
 INSERT INTO Facturas(id_factura, id_empresa, fecha_facturacion, importe_total)
 SELECT DISTINCT Factura_Nro, e.id_empresa, Factura_Fecha, Factura_Total
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON(e.razon_social = gd.Espec_Empresa_Razon_Social)
+WHERE Factura_Nro IS NOT NULL
 
 --select * from Facturas
 
@@ -148,12 +148,19 @@ JOIN Publicaciones p ON(gd.Espectaculo_Cod = p.id_publicacion)
 JOIN Medios_de_pago mp ON(mp.titular = gd.Forma_Pago_Desc)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
 
+
+
 --select * from Compras
 
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
---INSERT INTO Ubicaciones(id_publicacion, id_compra, fila, asiento, tipo_ubicacion, sin_numerar, precio)
---SELECT
---FROM gd_esquema.Maestra
+INSERT INTO Ubicaciones(id_publicacion, id_compra, fila, asiento, tipo_ubicacion, sin_numerar, precio)
+SELECT DISTINCT Espectaculo_Cod, c.id_compra, Ubicacion_Fila, Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio---
+FROM gd_esquema.Maestra gd
+JOIN Compras c ON(c.id_publicacion = gd.Espectaculo_Cod) --anda porque vendo de a UN asiento
+
 
 --select * from ubicacion
+
+
+--select * from gd_esquema.Maestra

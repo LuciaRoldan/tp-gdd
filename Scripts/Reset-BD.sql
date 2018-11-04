@@ -5,7 +5,6 @@ DROP TABLE Funcionalidades
 DROP TABLE Premios
 DROP TABLE Puntos
 DROP TABLE Ubicaciones
-DROP TABLE Tipos_de_ubicacion
 DROP TABLE Compras
 DROP TABLE Facturas
 DROP TABLE Publicaciones
