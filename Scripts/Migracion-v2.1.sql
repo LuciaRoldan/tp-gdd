@@ -39,25 +39,29 @@ VALUES
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 --tabla
 INSERT INTO FuncionalidadXRol(id_rol, id_funcionalidad)
-SELECT r.id_rol, f.id_funcionalidad 
+SELECT r.id_rol, f.id_funcionalidad
 FROM Roles r, Funcionalidades f
 WHERE r.nombre = 'Cliente'
-AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar');
+AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar') --falta cargar todas las funcionalidades
+--del cliente
 
 --SELECT * FROM FuncionalidadXRol
 
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
+select * from gd_esquema.Maestra
+
 --usuarios cliente
 INSERT INTO Usuarios (username, password, habilitado, alta_logica)
 SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE()
 FROM gd_esquema.Maestra
-WHERE Cli_Dni IS NOT NULL;
+WHERE Cli_Dni IS NOT NULL
 
 --usuarios empresa
 INSERT INTO Usuarios (username, password, habilitado, alta_logica)
 SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE()
-FROM gd_esquema.Maestra;
+FROM gd_esquema.Maestra
+WHERE Espec_Empresa_Cuit IS NOT NULL
 
 --SELECT * FROM Usuarios
 
@@ -100,6 +104,13 @@ INSERT INTO Rubros
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
 FROM gd_esquema.Maestra;
 
+INSERT INTO Rubros
+VALUES
+('Infantil'),
+('Terror'),
+('Comedia'),
+('Drama')
+
 --SELECT * FROM Rubros
 
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
@@ -118,7 +129,9 @@ SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_De
 		Espectaculo_Fecha_Venc, NULL, NULL
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
-JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);
+JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion)
+--OPCIONAL. Si todo anda piola, sacarlo: No da igual pero deberia :o
+--WHERE Factura_Nro IS NULL
 
 --select * from Publicaciones
 
@@ -140,13 +153,13 @@ JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
 --NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
 
-INSERT INTO Compras(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
-SELECT DISTINCT c.id_cliente, p.id_publicacion, 'Efectivo', f.id_factura, Compra_Fecha
+INSERT INTO Compras(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha, importe)
+SELECT DISTINCT c.id_cliente, p.id_publicacion, 'Efectivo', f.id_factura, Compra_Fecha, Ubicacion_Precio --truchisimo
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN Publicaciones p ON(gd.Espectaculo_Cod = p.id_publicacion)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
-WHERE gd.Forma_Pago_Desc IS NOT NULL
+WHERE gd.Forma_Pago_Desc IS NOT NULL AND gd.Compra_Cantidad IS NOT NULL
 
 
 
@@ -179,8 +192,6 @@ VALUES
 ('SEGA', 2000),
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
-
-
 
 SELECT * FROM premios
 
