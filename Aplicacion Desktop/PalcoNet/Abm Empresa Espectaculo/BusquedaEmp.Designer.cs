@@ -164,7 +164,7 @@
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.groupBox1);
             this.Name = "BusquedaEmp";
-            this.Text = "BusquedaEmp";
+            this.Text = "Busqueda empresas";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

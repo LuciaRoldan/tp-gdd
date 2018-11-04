@@ -165,7 +165,7 @@
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // BusquedaCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -183,8 +183,8 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "BusquedaCli";
+            this.Text = "Busqueda clientes";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

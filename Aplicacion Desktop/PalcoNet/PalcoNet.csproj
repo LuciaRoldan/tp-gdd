@@ -105,11 +105,11 @@
     <Compile Include="Canje Puntos\CanjePuntos.Designer.cs">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Asientos2.cs">
+    <Compile Include="Comprar\Asientos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Asientos2.Designer.cs">
-      <DependentUpon>Asientos2.cs</DependentUpon>
+    <Compile Include="Comprar\Asientos.Designer.cs">
+      <DependentUpon>Asientos.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\BuscarP.cs">
       <SubType>Form</SubType>
@@ -260,8 +260,8 @@
     <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Asientos2.resx">
-      <DependentUpon>Asientos2.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\Asientos.resx">
+      <DependentUpon>Asientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\BuscarP.resx">
       <DependentUpon>BuscarP.cs</DependentUpon>

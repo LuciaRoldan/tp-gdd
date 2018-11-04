@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Comprar
 {
-    partial class Asientos2
+    partial class Asientos
     {
         /// <summary>
         /// Required designer variable.
@@ -109,11 +109,11 @@
             this.label2.TabIndex = 112;
             this.label2.Text = "Seleccionar ubicación";
             // 
-            // Asientos2
+            // Asientos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 292);
+            this.ClientSize = new System.Drawing.Size(444, 278);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
@@ -122,8 +122,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
-            this.Name = "Asientos2";
-            this.Text = "Asientos2";
+            this.Name = "Asientos";
+            this.Text = "Asientos";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
