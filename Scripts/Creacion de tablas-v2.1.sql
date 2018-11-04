@@ -62,10 +62,6 @@ CREATE TABLE Ubicaciones(
 id_ubicacion INT IDENTITY(1,1) PRIMARY KEY
 )
 
-CREATE TABLE Tipos_de_ubicacion(
-id_tipo_ubicacion INT IDENTITY(1,1) PRIMARY KEY --es una PK que nos traemos de la bd... esta bueno eso?
-)
-
 CREATE TABLE Premios(
 id_premio INT IDENTITY(1,1) PRIMARY KEY
 )
@@ -165,15 +161,12 @@ descripcion NVARCHAR(100);
 
 ALTER TABLE Ubicaciones ADD
 id_publicacion INT REFERENCES Publicaciones,
-id_tipo_de_ubicacion INT REFERENCES Tipos_de_ubicacion,
+tipo_ubicacion NVARCHAR(20),
 id_compra INT REFERENCES Compras,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
 precio NUMERIC(18);
-
-ALTER TABLE Tipos_de_ubicacion ADD
-tipo_descripcion NVARCHAR(255);
 
 ALTER TABLE Premios ADD
 descripcion VARCHAR(110),

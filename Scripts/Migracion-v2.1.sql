@@ -162,5 +162,11 @@ JOIN Compras c ON(c.id_publicacion = gd.Espectaculo_Cod) --anda porque vendo de 
 
 --select * from ubicacion
 
+--.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
+
+INSERT INTO Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
+
+select * from puntos
+
 
 --select * from gd_esquema.Maestra
