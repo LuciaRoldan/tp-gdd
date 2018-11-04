@@ -1,0 +1,17 @@
+DROP TABLE UsuarioXRol
+DROP TABLE FuncionalidadXRol
+DROP TABLE Roles
+DROP TABLE Funcionalidades
+DROP TABLE Premios
+DROP TABLE Puntos
+DROP TABLE Ubicaciones
+DROP TABLE Tipos_de_ubicacion
+DROP TABLE Compras
+DROP TABLE Facturas
+DROP TABLE Publicaciones
+DROP TABLE Rubros
+DROP TABLE Grados_publicacion
+DROP TABLE Empresas
+DROP TABLE Medios_de_pago
+DROP TABLE Clientes
+DROP TABLE Usuarios
