@@ -22,5 +22,23 @@ namespace PalcoNet.Editar_Publicacion
             new SeleccionarFuncionalidad().Show();
             this.Hide(); 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Hace que aparezcan los datos de la ubicacion
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Le pasa el id de la publicacion asi aparece esa
+            new Editar_publicacion().Show();
+            this.Hide(); 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Hace que se guarde en la base
+            //Que salga un cartelito de que salio todo bien
+        }
     }
 }

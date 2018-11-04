@@ -12,6 +12,9 @@ namespace PalcoNet.Registro_de_Usuario
 {
     public partial class RegistroDeUsuario1 : Form
     {
+        bool esCliente = false;
+        bool esEmpresa = false;
+
         public RegistroDeUsuario1()
         {
             InitializeComponent();
@@ -29,13 +32,18 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            //lleva a
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             new SeleccionarFuncionalidad().Show();
             this.Hide();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

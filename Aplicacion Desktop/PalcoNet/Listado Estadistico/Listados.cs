@@ -22,5 +22,23 @@ namespace PalcoNet.Listado_Estadistico
             new SeleccionarFuncionalidad().Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new ClientesMuchasCompras().Show();
+            this.Hide(); 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new EmpresaLocalidades().Show();
+            this.Hide(); 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new ClientesPuntos().Show();
+            this.Hide(); 
+        }
     }
 }

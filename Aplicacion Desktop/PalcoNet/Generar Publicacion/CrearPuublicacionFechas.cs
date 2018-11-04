@@ -16,5 +16,23 @@ namespace PalcoNet.Generar_Publicacion
         {
             InitializeComponent();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Hace que se guarde la fecha en la lista de abajo
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Se le agrega una lista de fechas al objeto de la publicacion
+            new CrearPublicacionUbicaciones().Show();
+            this.Hide(); 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new CrearPublicacion().Show();
+            this.Hide(); 
+        }
     }
 }

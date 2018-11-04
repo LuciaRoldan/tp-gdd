@@ -55,6 +55,7 @@
             this.button3.TabIndex = 82;
             this.button3.Text = "Agregar fecha";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // dateTimePicker1
             // 
@@ -71,6 +72,7 @@
             this.button2.TabIndex = 80;
             this.button2.Text = "Siguiente";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -80,6 +82,7 @@
             this.button1.TabIndex = 79;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
