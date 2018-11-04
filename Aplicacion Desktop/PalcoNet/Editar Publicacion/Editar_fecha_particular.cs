@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Editar_Publicacion
 {
-    public partial class Seleccion : Form
+    public partial class Editar_fecha_particular : Form
     {
-        public Seleccion()
+        public Editar_fecha_particular()
         {
             InitializeComponent();
         }

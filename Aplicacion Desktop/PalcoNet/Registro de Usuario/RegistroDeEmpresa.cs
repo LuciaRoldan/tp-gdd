@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Registro_de_Usuario
 {
-    public partial class Seleccion : Form
+    public partial class RegistroDeEmpresa : Form
     {
-        public Seleccion()
+        public RegistroDeEmpresa()
         {
             InitializeComponent();
         }
