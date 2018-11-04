@@ -12,9 +12,6 @@ namespace PalcoNet.Registro_de_Usuario
 {
     public partial class RegistroDeUsuario1 : Form
     {
-        bool esCliente = false;
-        bool esEmpresa = false;
-
         public RegistroDeUsuario1()
         {
             InitializeComponent();
@@ -32,7 +29,20 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //lleva a
+            if (comboBox1.SelectedItem == "Cliente"){
+                //Hay que guardar los datos del usuario en la base
+
+                new RegistroDeCliente().Show();
+                this.Hide();
+            }
+            else {
+                if (comboBox1.SelectedItem == "Empresa"){
+                    //Aca hay que guardar los datos del usuario
+
+                    new RegistroDeEmpresa().Show();
+                    this.Hide();
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,7 +53,7 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            Console.Write(comboBox1.SelectedItem);
         }
     }
 }
