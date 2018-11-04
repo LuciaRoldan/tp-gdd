@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet
 {
-    public partial class Asientos2 : Form
+    public partial class SeleccionarRol : Form
     {
-        public Asientos2()
+        public SeleccionarRol()
         {
             InitializeComponent();
+        }
+
+        private void SeleccionarRol_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
