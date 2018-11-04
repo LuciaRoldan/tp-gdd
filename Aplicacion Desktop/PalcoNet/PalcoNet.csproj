@@ -141,6 +141,16 @@
     <Compile Include="Comprar\Ubicaciones.Designer.cs">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\Compras.cs" />
+    <Compile Include="Dominio\Empresa.cs" />
+    <Compile Include="Dominio\Factura.cs" />
+    <Compile Include="Dominio\Funcionalidad.cs" />
+    <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Premio.cs" />
+    <Compile Include="Dominio\Publicacion.cs" />
+    <Compile Include="Dominio\Puntos.cs" />
+    <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
       <SubType>Form</SubType>
     </Compile>
