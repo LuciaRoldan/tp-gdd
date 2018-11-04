@@ -16,5 +16,19 @@ namespace PalcoNet.Abm_Cliente
         {
             InitializeComponent();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new BusquedaCli().Show();
+            this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Aca hay que hacer que realmente cambien las cosas
+
+            new BusquedaCli().Show();
+            this.Hide();
+        }
     }
 }

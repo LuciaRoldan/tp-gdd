@@ -57,6 +57,7 @@
             this.button1.TabIndex = 63;
             this.button1.Text = "Aceptar cambios";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label9
             // 
@@ -195,6 +196,7 @@
             this.button3.TabIndex = 46;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label2
             // 
@@ -206,7 +208,7 @@
             this.label2.TabIndex = 45;
             this.label2.Text = "Editar cliente";
             // 
-            // Form1
+            // ModificarCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -230,7 +232,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
-            this.Name = "Form1";
+            this.Name = "ModificarCli";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

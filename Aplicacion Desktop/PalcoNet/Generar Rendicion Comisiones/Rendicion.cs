@@ -8,26 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Generar_Rendicion_Comisiones
 {
-    public partial class Busqueda : Form
+    public partial class Rendicion : Form
     {
-        public Busqueda()
+        public Rendicion()
         {
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
         }
 
         private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
         {
 
         }

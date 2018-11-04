@@ -34,7 +34,8 @@ namespace PalcoNet.Abm_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -45,6 +46,24 @@ namespace PalcoNet.Abm_Rol
         private void label8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Aca hay que hacer que se cree el rol y se actualicen las tablas
+            //Capaz estaria bueno que salga un cartelito de que salio todo bien
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Aca hay que hacer que se guarden los cambios en las tablas
+            //Capaz estaria bueno que salga un cartelito de que salio todo bien
         }
     }
 }
