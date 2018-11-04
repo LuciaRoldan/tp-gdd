@@ -29,13 +29,31 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem == "Cliente"){
+                //Hay que guardar los datos del usuario en la base
 
+                new RegistroDeCliente().Show();
+                this.Hide();
+            }
+            else {
+                if (comboBox1.SelectedItem == "Empresa"){
+                    //Aca hay que guardar los datos del usuario
+
+                    new RegistroDeEmpresa().Show();
+                    this.Hide();
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             new SeleccionarFuncionalidad().Show();
             this.Hide();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.Write(comboBox1.SelectedItem);
         }
     }
 }

@@ -22,5 +22,18 @@ namespace PalcoNet.Registro_de_Usuario
             new SeleccionarFuncionalidad().Show();
             this.Hide();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            new RegistroDeUsuario1().Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Hay que seguir guardando los datos del usuario
+            new RegistroDomicilio().Show();
+            this.Hide();
+        }
     }
 }

@@ -22,5 +22,11 @@ namespace PalcoNet.Listado_Estadistico
             new SeleccionarFuncionalidad().Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Listados().Show();
+            this.Hide(); 
+        }
     }
 }

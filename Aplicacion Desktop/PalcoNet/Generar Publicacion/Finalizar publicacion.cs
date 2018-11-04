@@ -8,29 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Generar_Rendicion_Comisiones
+namespace PalcoNet.Generar_Publicacion
 {
-    public partial class Rendicion : Form
+    public partial class Finalizar_publicacion : Form
     {
-        public Rendicion()
+        public Finalizar_publicacion()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             new SeleccionarFuncionalidad().Show();
             this.Hide(); 
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            //Se guarda todo lo que se tenga que guardar en la base
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Le tiene que salir uun cartelito de que salio todo bien
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
         }
     }
 }

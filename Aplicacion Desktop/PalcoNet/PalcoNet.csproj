@@ -105,17 +105,17 @@
     <Compile Include="Canje Puntos\CanjePuntos.Designer.cs">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Asientos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Comprar\Asientos.Designer.cs">
-      <DependentUpon>Asientos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Comprar\BuscarP.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Comprar\BuscarP.Designer.cs">
       <DependentUpon>BuscarP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\FinalizarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\FinalizarCompra.Designer.cs">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\MedioPago.cs">
       <SubType>Form</SubType>
@@ -123,11 +123,23 @@
     <Compile Include="Comprar\MedioPago.Designer.cs">
       <DependentUpon>MedioPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comprar\NuevoMP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\NuevoMP.Designer.cs">
+      <DependentUpon>NuevoMP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comprar\Seleccion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Comprar\Seleccion.Designer.cs">
       <DependentUpon>Seleccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\Ubicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\Ubicaciones.Designer.cs">
+      <DependentUpon>Ubicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
       <SubType>Form</SubType>
@@ -164,6 +176,12 @@
     </Compile>
     <Compile Include="Generar Publicacion\CrearPuublicacionFechas.Designer.cs">
       <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Publicacion\Finalizar publicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\Finalizar publicacion.Designer.cs">
+      <DependentUpon>Finalizar publicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Rendicion.cs">
       <SubType>Form</SubType>
@@ -272,17 +290,23 @@
     <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Asientos.resx">
-      <DependentUpon>Asientos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Comprar\BuscarP.resx">
       <DependentUpon>BuscarP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\FinalizarCompra.resx">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\MedioPago.resx">
       <DependentUpon>MedioPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\NuevoMP.resx">
+      <DependentUpon>NuevoMP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Seleccion.resx">
       <DependentUpon>Seleccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\Ubicaciones.resx">
+      <DependentUpon>Ubicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Editar_fecha_particular.resx">
       <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
@@ -301,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\CrearPuublicacionFechas.resx">
       <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\Finalizar publicacion.resx">
+      <DependentUpon>Finalizar publicacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Rendicion Comisiones\Rendicion.resx">
       <DependentUpon>Rendicion.cs</DependentUpon>
