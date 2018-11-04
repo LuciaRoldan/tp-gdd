@@ -39,7 +39,7 @@ id_empresa INT IDENTITY(1,1) PRIMARY KEY
 )
 
 CREATE TABLE Facturas(
-id_factura INT IDENTITY(1,1) PRIMARY KEY
+id_factura INT PRIMARY KEY
 )
 
 CREATE TABLE Compras(
@@ -47,7 +47,7 @@ id_compra INT IDENTITY(1,1) PRIMARY KEY
 )
 
 CREATE TABLE Publicaciones(
-id_publicacion INT IDENTITY(1,1) PRIMARY KEY
+id_publicacion INT PRIMARY KEY
 )
 
 CREATE TABLE Rubros(
