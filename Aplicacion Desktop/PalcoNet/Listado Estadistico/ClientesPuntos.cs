@@ -8,23 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Listado_Estadistico
 {
-    public partial class BusquedaPublicacion : Form
+    public partial class ClientesPuntos : Form
     {
-        public BusquedaPublicacion()
+        public ClientesPuntos()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

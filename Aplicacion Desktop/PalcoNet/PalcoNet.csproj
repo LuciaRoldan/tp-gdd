@@ -99,11 +99,11 @@
     <Compile Include="Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.cs">
+    <Compile Include="Canje Puntos\CanjePuntos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Canje Puntos\CanjePuntos.Designer.cs">
+      <DependentUpon>CanjePuntos.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Asientos2.cs">
       <SubType>Form</SubType>
@@ -116,12 +116,6 @@
     </Compile>
     <Compile Include="Comprar\BuscarP.Designer.cs">
       <DependentUpon>BuscarP.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Comprar\Asientos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Comprar\Asientos.Designer.cs">
-      <DependentUpon>Asientos.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\MedioPago.cs">
       <SubType>Form</SubType>
@@ -177,23 +171,41 @@
     <Compile Include="Generar Publicacion\CrearPuublicacionFechas.Designer.cs">
       <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.cs">
+    <Compile Include="Generar Rendicion Comisiones\Rendicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Rendicion Comisiones\Rendicion.Designer.cs">
+      <DependentUpon>Rendicion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Historial Cliente\Form1.cs">
+    <Compile Include="Historial Cliente\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Historial Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Historial Cliente\Historial.Designer.cs">
+      <DependentUpon>Historial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="Listado Estadistico\ClientesMuchasCompras.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listado Estadistico\ClientesMuchasCompras.Designer.cs">
+      <DependentUpon>ClientesMuchasCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listado Estadistico\ClientesPuntos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ClientesPuntos.Designer.cs">
+      <DependentUpon>ClientesPuntos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listado Estadistico\EmpresaLocalidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\EmpresaLocalidades.Designer.cs">
+      <DependentUpon>EmpresaLocalidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listado Estadistico\Listados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\Listados.Designer.cs">
+      <DependentUpon>Listados.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -245,14 +257,14 @@
     <EmbeddedResource Include="Abm Rol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
+      <DependentUpon>CanjePuntos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Asientos2.resx">
       <DependentUpon>Asientos2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\BuscarP.resx">
       <DependentUpon>BuscarP.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Asientos.resx">
-      <DependentUpon>Asientos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\MedioPago.resx">
       <DependentUpon>MedioPago.cs</DependentUpon>
@@ -277,6 +289,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\CrearPuublicacionFechas.resx">
       <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Rendicion Comisiones\Rendicion.resx">
+      <DependentUpon>Rendicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\Historial.resx">
+      <DependentUpon>Historial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\ClientesMuchasCompras.resx">
+      <DependentUpon>ClientesMuchasCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\ClientesPuntos.resx">
+      <DependentUpon>ClientesPuntos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\EmpresaLocalidades.resx">
+      <DependentUpon>EmpresaLocalidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\Listados.resx">
+      <DependentUpon>Listados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

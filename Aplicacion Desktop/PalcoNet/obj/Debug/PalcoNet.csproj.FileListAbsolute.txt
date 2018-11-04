@@ -22,7 +22,6 @@ C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\o
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.AbmRol.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Asientos2.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.BuscarP.resources
-C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.BusquedaPublicacion.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.MedioPago.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Seleccion.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_fecha_particular.resources
@@ -44,3 +43,10 @@ C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\bin\Debug\
 C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
 C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.Historial.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.Rendicion.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ClientesMuchasCompras.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.ClientesPuntos.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.EmpresaLocalidades.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Listado_Estadistico.Listados.resources

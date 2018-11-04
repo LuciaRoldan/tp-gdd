@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Listado_Estadistico
 {
-    public partial class Form1 : Form
+    public partial class ClientesMuchasCompras : Form
     {
-        public Form1()
+        public ClientesMuchasCompras()
         {
             InitializeComponent();
         }
