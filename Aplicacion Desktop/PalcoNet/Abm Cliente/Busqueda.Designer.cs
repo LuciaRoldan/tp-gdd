@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Abm_Cliente
 {
-    partial class Form1
+    partial class Busqueda
     {
         /// <summary>
         /// Required designer variable.
