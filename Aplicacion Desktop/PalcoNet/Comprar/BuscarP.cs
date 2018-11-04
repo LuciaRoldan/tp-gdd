@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Comprar
 {
-    public partial class Seleccion : Form
+    public partial class BuscarP : Form
     {
-        public Seleccion()
+        public BuscarP()
         {
             InitializeComponent();
         }

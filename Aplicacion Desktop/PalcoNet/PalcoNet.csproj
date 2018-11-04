@@ -45,29 +45,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Cliente\Busqueda.cs">
+    <Compile Include="Abm Cliente\BusquedaCli.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\Busqueda.Designer.cs">
-      <DependentUpon>Busqueda.cs</DependentUpon>
+    <Compile Include="Abm Cliente\BusquedaCli.Designer.cs">
+      <DependentUpon>BusquedaCli.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarCliente.cs">
+    <Compile Include="Abm Cliente\ModificarCli.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\ModificarCliente.Designer.cs">
-      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ModificarCli.Designer.cs">
+      <DependentUpon>ModificarCli.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\ResultadosBusquedaCliente.cs">
+    <Compile Include="Abm Cliente\ResultadoBusquedaCli.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\ResultadosBusquedaCliente.Designer.cs">
-      <DependentUpon>ResultadosBusquedaCliente.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ResultadoBusquedaCli.Designer.cs">
+      <DependentUpon>ResultadoBusquedaCli.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\BusquedaEmpresa.cs">
+    <Compile Include="Abm Empresa Espectaculo\BusquedaEmp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Empresa Espectaculo\BusquedaEmpresa.Designer.cs">
-      <DependentUpon>BusquedaEmpresa.cs</DependentUpon>
+    <Compile Include="Abm Empresa Espectaculo\BusquedaEmp.Designer.cs">
+      <DependentUpon>BusquedaEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\ModificarEmpresa.cs">
       <SubType>Form</SubType>
@@ -105,11 +105,17 @@
     <Compile Include="Canje Puntos\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Busqueda.cs">
+    <Compile Include="Comprar\Asientos2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Busqueda.Designer.cs">
-      <DependentUpon>Busqueda.cs</DependentUpon>
+    <Compile Include="Comprar\Asientos2.Designer.cs">
+      <DependentUpon>Asientos2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comprar\BuscarP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\BuscarP.Designer.cs">
+      <DependentUpon>BuscarP.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Asientos.cs">
       <SubType>Form</SubType>
@@ -117,11 +123,11 @@
     <Compile Include="Comprar\Asientos.Designer.cs">
       <DependentUpon>Asientos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\MedioDePago.cs">
+    <Compile Include="Comprar\MedioPago.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\MedioDePago.Designer.cs">
-      <DependentUpon>MedioDePago.cs</DependentUpon>
+    <Compile Include="Comprar\MedioPago.Designer.cs">
+      <DependentUpon>MedioPago.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Seleccion.cs">
       <SubType>Form</SubType>
@@ -129,23 +135,23 @@
     <Compile Include="Comprar\Seleccion.Designer.cs">
       <DependentUpon>Seleccion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarUbicacionParticular.cs">
+    <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarUbicacionParticular.Designer.cs">
-      <DependentUpon>EditarUbicacionParticular.cs</DependentUpon>
+    <Compile Include="Editar Publicacion\Editar_fecha_particular.Designer.cs">
+      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarPublicacion.cs">
+    <Compile Include="Editar Publicacion\Editar_publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarPublicacion.Designer.cs">
-      <DependentUpon>EditarPublicacion.cs</DependentUpon>
+    <Compile Include="Editar Publicacion\Editar_publicacion.Designer.cs">
+      <DependentUpon>Editar_publicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarFechaParticular.cs">
+    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarFechaParticular.Designer.cs">
-      <DependentUpon>EditarFechaParticular.cs</DependentUpon>
+    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
+      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -153,23 +159,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion3.cs">
+    <Compile Include="Generar Publicacion\CrearPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion3.Designer.cs">
-      <DependentUpon>CrearPublicacion3.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\CrearPublicacion.Designer.cs">
+      <DependentUpon>CrearPublicacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion2.cs">
+    <Compile Include="Generar Publicacion\CrearPublicacionUbicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion2.Designer.cs">
-      <DependentUpon>CrearPublicacion2.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\CrearPublicacionUbicaciones.Designer.cs">
+      <DependentUpon>CrearPublicacionUbicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion1.cs">
+    <Compile Include="Generar Publicacion\CrearPuublicacionFechas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion1.Designer.cs">
-      <DependentUpon>CrearPublicacion1.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\CrearPuublicacionFechas.Designer.cs">
+      <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.cs">
       <SubType>Form</SubType>
@@ -191,23 +197,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registro de Usuario\RegistroDeUsuarioCliente.cs">
+    <Compile Include="Registro de Usuario\RegistroDeCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro de Usuario\RegistroDeUsuarioCliente.Designer.cs">
-      <DependentUpon>RegistroDeUsuarioCliente.cs</DependentUpon>
+    <Compile Include="Registro de Usuario\RegistroDeCliente.Designer.cs">
+      <DependentUpon>RegistroDeCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro de Usuario\RegistroDeDomicilio.cs">
+    <Compile Include="Registro de Usuario\RegistroDeEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro de Usuario\RegistroDeDomicilio.Designer.cs">
-      <DependentUpon>RegistroDeDomicilio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registro de Usuario\RegistroDeUsuarioEmpresa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registro de Usuario\RegistroDeUsuarioEmpresa.Designer.cs">
-      <DependentUpon>RegistroDeUsuarioEmpresa.cs</DependentUpon>
+    <Compile Include="Registro de Usuario\RegistroDeEmpresa.Designer.cs">
+      <DependentUpon>RegistroDeEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro de Usuario\RegistroDeUsuario1.cs">
       <SubType>Form</SubType>
@@ -215,17 +215,23 @@
     <Compile Include="Registro de Usuario\RegistroDeUsuario1.Designer.cs">
       <DependentUpon>RegistroDeUsuario1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Abm Cliente\Busqueda.resx">
-      <DependentUpon>Busqueda.cs</DependentUpon>
+    <Compile Include="Registro de Usuario\RegistroDomicilio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\RegistroDomicilio.Designer.cs">
+      <DependentUpon>RegistroDomicilio.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Abm Cliente\BusquedaCli.resx">
+      <DependentUpon>BusquedaCli.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\ModificarCliente.resx">
-      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\ModificarCli.resx">
+      <DependentUpon>ModificarCli.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\ResultadosBusquedaCliente.resx">
-      <DependentUpon>ResultadosBusquedaCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\ResultadoBusquedaCli.resx">
+      <DependentUpon>ResultadoBusquedaCli.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Empresa Espectaculo\BusquedaEmpresa.resx">
-      <DependentUpon>BusquedaEmpresa.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Empresa Espectaculo\BusquedaEmp.resx">
+      <DependentUpon>BusquedaEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\ModificarEmpresa.resx">
       <DependentUpon>ModificarEmpresa.cs</DependentUpon>
@@ -239,35 +245,38 @@
     <EmbeddedResource Include="Abm Rol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Busqueda.resx">
-      <DependentUpon>Busqueda.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\Asientos2.resx">
+      <DependentUpon>Asientos2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\BuscarP.resx">
+      <DependentUpon>BuscarP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Asientos.resx">
       <DependentUpon>Asientos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\MedioDePago.resx">
-      <DependentUpon>MedioDePago.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\MedioPago.resx">
+      <DependentUpon>MedioPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Seleccion.resx">
       <DependentUpon>Seleccion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\EditarUbicacionParticular.resx">
-      <DependentUpon>EditarUbicacionParticular.cs</DependentUpon>
+    <EmbeddedResource Include="Editar Publicacion\Editar_fecha_particular.resx">
+      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\EditarFechaParticular.resx">
-      <DependentUpon>EditarFechaParticular.cs</DependentUpon>
+    <EmbeddedResource Include="Editar Publicacion\Editar_publicacion.resx">
+      <DependentUpon>Editar_publicacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\EditarPublicacion.resx">
-      <DependentUpon>EditarPublicacion.cs</DependentUpon>
+    <EmbeddedResource Include="Editar Publicacion\Editar_ubicacion_particular.resx">
+      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion3.resx">
-      <DependentUpon>CrearPublicacion3.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion.resx">
+      <DependentUpon>CrearPublicacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion2.resx">
-      <DependentUpon>CrearPublicacion2.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacionUbicaciones.resx">
+      <DependentUpon>CrearPublicacionUbicaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion1.resx">
-      <DependentUpon>CrearPublicacion1.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\CrearPuublicacionFechas.resx">
+      <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -278,17 +287,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Registro de Usuario\RegistroDeUsuarioCliente.resx">
-      <DependentUpon>RegistroDeUsuarioCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Registro de Usuario\RegistroDeCliente.resx">
+      <DependentUpon>RegistroDeCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro de Usuario\RegistroDeDomicilio.resx">
-      <DependentUpon>RegistroDeDomicilio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registro de Usuario\RegistroDeUsuarioEmpresa.resx">
-      <DependentUpon>RegistroDeUsuarioEmpresa.cs</DependentUpon>
+    <EmbeddedResource Include="Registro de Usuario\RegistroDeEmpresa.resx">
+      <DependentUpon>RegistroDeEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\RegistroDeUsuario1.resx">
       <DependentUpon>RegistroDeUsuario1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro de Usuario\RegistroDomicilio.resx">
+      <DependentUpon>RegistroDomicilio.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

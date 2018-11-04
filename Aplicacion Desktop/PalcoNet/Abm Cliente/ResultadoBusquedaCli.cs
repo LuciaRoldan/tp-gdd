@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Abm_Cliente
 {
-    public partial class Seleccion : Form
+    public partial class ResultadoBusquedaCli : Form
     {
-        public Seleccion()
+        public ResultadoBusquedaCli()
         {
             InitializeComponent();
         }

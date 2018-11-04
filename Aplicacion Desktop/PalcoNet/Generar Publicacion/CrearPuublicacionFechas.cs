@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet.Generar_Publicacion
 {
-    public partial class Seleccion : Form
+    public partial class CrearPuublicacionFechas : Form
     {
-        public Seleccion()
+        public CrearPuublicacionFechas()
         {
             InitializeComponent();
         }
