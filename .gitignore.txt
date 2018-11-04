@@ -2,3 +2,4 @@ Base De Datos/
 bin/
 obj/
 PalcoNet.csproj.user
+PalcoNet.vshost.exe.manifest
