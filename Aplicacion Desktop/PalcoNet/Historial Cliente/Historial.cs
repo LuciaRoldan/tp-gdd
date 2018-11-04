@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Cliente
+namespace PalcoNet.Historial_Cliente
 {
-    public partial class Resultados : Form
+    public partial class Historial : Form
     {
-        public Resultados()
+        public Historial()
         {
             InitializeComponent();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide();
         }
     }
 }

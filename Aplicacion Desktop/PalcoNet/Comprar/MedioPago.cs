@@ -16,5 +16,22 @@ namespace PalcoNet.Comprar
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Ubicaciones().Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new FinalizarCompra().Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new NuevoMP().Show();
+        }
     }
 }

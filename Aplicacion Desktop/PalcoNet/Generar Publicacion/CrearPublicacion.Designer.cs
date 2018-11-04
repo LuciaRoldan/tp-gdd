@@ -152,6 +152,7 @@
             this.button1.TabIndex = 71;
             this.button1.Text = "Inicio";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -161,8 +162,9 @@
             this.button2.TabIndex = 72;
             this.button2.Text = "Siguiente";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // CrearPublicacion1
+            // CrearPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -180,7 +182,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
-            this.Name = "CrearPublicacion1";
+            this.Name = "CrearPublicacion";
             this.Text = "Generar publicación";
             this.ResumeLayout(false);
             this.PerformLayout();

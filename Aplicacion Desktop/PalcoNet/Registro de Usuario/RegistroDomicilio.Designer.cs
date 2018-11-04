@@ -39,8 +39,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox10
@@ -132,15 +132,6 @@
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Inicio";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -151,11 +142,21 @@
             this.label2.TabIndex = 41;
             this.label2.Text = "Registro de domicilio";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(16, 226);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 54;
+            this.button1.Text = "Volver";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // RegistroDomicilio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBox5);
@@ -167,7 +168,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Name = "RegistroDomicilio";
             this.Text = "RegistroDomicilio";
@@ -189,7 +189,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }

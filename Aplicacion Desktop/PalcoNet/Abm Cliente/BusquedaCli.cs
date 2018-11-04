@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Registro_de_Usuario;
 
 namespace PalcoNet.Abm_Cliente
 {
@@ -15,6 +16,26 @@ namespace PalcoNet.Abm_Cliente
         public BusquedaCli()
         {
             InitializeComponent();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new RegistroDeCliente().Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Aca hay que agarrar los valores, buscar y pasarle los resultados a la ventana
+
+            new ResultadoBusquedaCli().Show();
+            this.Hide();
         }
     }
 }

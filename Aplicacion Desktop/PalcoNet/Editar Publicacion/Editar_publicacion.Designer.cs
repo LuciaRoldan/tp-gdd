@@ -76,6 +76,7 @@
             this.button7.TabIndex = 129;
             this.button7.Text = "Modificar ubicaciones existentes";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -85,6 +86,7 @@
             this.button6.TabIndex = 128;
             this.button6.Text = "Modificar fechas existentes";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // dataGridView2
             // 
@@ -102,6 +104,7 @@
             this.button5.TabIndex = 124;
             this.button5.Text = "Agregar fecha";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // dateTimePicker1
             // 
@@ -127,6 +130,7 @@
             this.button4.TabIndex = 121;
             this.button4.Text = "Elegir";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox1
             // 
@@ -277,6 +281,7 @@
             this.button3.TabIndex = 112;
             this.button3.Text = "Agregar ubicación";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -286,6 +291,7 @@
             this.button2.TabIndex = 111;
             this.button2.Text = "Aceptar cambios";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -295,6 +301,7 @@
             this.button1.TabIndex = 110;
             this.button1.Text = "Inicio";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 

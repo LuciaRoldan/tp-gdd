@@ -16,5 +16,22 @@ namespace PalcoNet.Generar_Publicacion
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new CrearPuublicacionFechas().Show();
+            this.Hide(); 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Se agrega a la lista de abajo
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new Finalizar_publicacion().Show();
+            this.Hide(); 
+        }
     }
 }

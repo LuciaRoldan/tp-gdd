@@ -37,6 +37,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -47,6 +48,7 @@
             this.button1.TabIndex = 115;
             this.button1.Text = "Inicio";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -56,6 +58,7 @@
             this.button2.TabIndex = 114;
             this.button2.Text = "Aceptar cambios";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox2
             // 
@@ -101,6 +104,7 @@
             this.button4.TabIndex = 109;
             this.button4.Text = "Elegir";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // comboBox1
             // 
@@ -120,11 +124,22 @@
             this.label2.TabIndex = 107;
             this.label2.Text = "Editar fecha";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(160, 162);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(102, 23);
+            this.button3.TabIndex = 116;
+            this.button3.Text = "Volver";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Editar_fecha_particular
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 197);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox2);
@@ -152,5 +167,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button3;
     }
 }

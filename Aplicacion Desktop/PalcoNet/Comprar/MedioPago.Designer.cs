@@ -46,6 +46,7 @@
             this.button3.TabIndex = 123;
             this.button3.Text = "Ingresar tarjeta nueva";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox1
             // 
@@ -88,6 +89,7 @@
             this.button2.TabIndex = 118;
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -97,6 +99,7 @@
             this.button1.TabIndex = 117;
             this.button1.Text = "Atras";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 

@@ -16,5 +16,28 @@ namespace PalcoNet.Editar_Publicacion
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Hace que aparezcan los datos de la fecha
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new Editar_publicacion().Show();
+            this.Hide(); 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Hace que se guarde la data en la base
+            //Que aparezca un cartelito
+        }
     }
 }

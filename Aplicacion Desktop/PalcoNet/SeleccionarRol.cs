@@ -8,23 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Comprar
+namespace PalcoNet
 {
-    public partial class BusquedaPublicacion : Form
+    public partial class SeleccionarRol : Form
     {
-        public BusquedaPublicacion()
+        public SeleccionarRol()
         {
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void SeleccionarRol_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }
