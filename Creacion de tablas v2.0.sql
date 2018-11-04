@@ -18,8 +18,8 @@ CREATE TABLE empresa(
 id_empresa INT IDENTITY PRIMARY KEY
 )
 
-CREATE TABLE tarjeta(
-id_tarjeta INT IDENTITY PRIMARY KEY
+CREATE TABLE medioDePago(
+id_medio_de_pag INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE rol(
@@ -135,7 +135,7 @@ ALTER TABLE usuarioXrol ADD
 id_usuario INT REFERENCES usuario,
 id_rol INT REFERENCES rol
 
-ALTER TABLE tarjeta ADD
+ALTER TABLE medioDePago ADD
 id_cliente INT REFERENCES cliente,
 nro_tarjeta NUMERIC(30),
 titular NVARCHAR(50),
@@ -168,7 +168,7 @@ nombre NVARCHAR(20)
 ALTER TABLE compra ADD
 id_cliente INT REFERENCES cliente,
 id_publicacion INT REFERENCES publicacion,
-id_tarjeta INT REFERENCES tarjeta,
+id_medio_de_pago INT REFERENCES medioDePago,
 id_factura INT REFERENCES factura,
 fecha DATETIME,
 importe INT

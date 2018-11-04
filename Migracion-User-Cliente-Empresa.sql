@@ -109,6 +109,14 @@ INSERT INTO rubro
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
 FROM gd_esquema.Maestra
 
+INSERT INTO rubro
+VALUES
+('Terror'),
+('Infantil'),
+('Comedia'),
+('Drama'),
+('Musical')
+
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
 INSERT INTO gradoPublicacion(comision, nombre)
 VALUES
@@ -119,11 +127,44 @@ VALUES
 select * from gradoPublicacion
 
 --.--.--.--.--.--.--PUBLICACION--.--.--.--.--.--.--
-INSERT INTO publicacion(id_duenio, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
+INSERT INTO publicacion(id_publicacion, id_duenio, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
 			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
-SELECT e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
+SELECT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
 		Espectaculo_Fecha_Venc, NULL, NULL
-FROM gd_esquema.Maestra
+FROM gd_esquema.Maestra gd
+JOIN empresa e ON(gd.Espec_Empresa_Razon_Social = e.razon_social)
+JOIN rubro ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion)
 
 select * from gd_esquema.Maestra
 select * from publicacion
+
+--.--.--.--.--.--.--FACTURAS--.--.--.--.--.--.--
+--no chequie si funca
+INSERT INTO factura(id_factura, id_empresa, fecha_facturacion, importe_total)
+SELECT DISTINCT Factura_Nro, e.id_empresa, Factura_Fecha, Factura_Total
+FROM gd_esquema.Maestra gd
+JOIN empresa e ON(e.razon_social = gd.Espec_Empresa_Razon_Social)
+
+
+select * from factura
+
+--.--.--.--.--.--.--MEDIODEPAGO--.--.--.--.--.--.--
+INSERT INTO medioDePago(c.id_cliente, numero_tarjeta, titular, fecha_vencimiento)
+SELECT DISTINCT c.id_cliente, NULL, Forma_Pago_Desc, NULL
+FROM gd_esquema.Maestra gd
+JOIN cliente c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice 'Efectivo'
+
+
+SELECT * from gd_esquema.Maestra
+
+
+--.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
+INSERT INTO compra(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
+SELECT c.id_cliente, p.id_publicacion, mp.id_medio_pago, f.id_factura, Compra_Fecha
+FROM gd_esquema.Maestra gd
+JOIN cliente c ON(gd.Cli_Dni = c.documento)
+JOIN publicacion p ON(gd.Espectaculo_Cod = p.id_publicacion)
+JOIN medioDePago mp ON(mp.titular = gd.Forma_Pago_Desc)
+JOIN factura f ON(f.
+
+select * from compra
