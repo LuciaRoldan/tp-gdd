@@ -3,3 +3,6 @@ bin/
 obj/
 PalcoNet.csproj.user
 PalcoNet.vshost.exe.manifest
+*.cache
+*.Cache
+PalcoNet.csproj.FileListAbsolute.txt
