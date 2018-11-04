@@ -91,7 +91,39 @@ SELECT * FROM empresa
 
 --.--.--.--.--.--.--ROLXUSUARIO--.--.--.--.--.--.--
 
+--truchito
 INSERT INTO usuarioXrol(id_usuario, id_rol)
-SELECT id_usuario, id_rol
-FROM usuarios u, rol r
-WHERE 
+SELECT c.id_usuario, r.id_rol
+FROM cliente c, rol r
+WHERE r.nombre = 'Cliente'
+
+INSERT INTO usuarioXrol(id_usuario, id_rol)
+SELECT u.id_usuario, r.id_rol
+FROM usuario u, rol r
+JOIN cliente c ON(c.id_usuario = u.id_usuario)
+WHERE r.nombre = 'Cliente'
+
+
+--.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
+INSERT INTO rubro
+SELECT DISTINCT Espectaculo_Rubro_Descripcion
+FROM gd_esquema.Maestra
+
+--.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
+INSERT INTO gradoPublicacion(comision, nombre)
+VALUES
+(0.5, 'Alto'),
+(0.35, 'Medio'),
+(0.2, 'Bajo')
+
+select * from gradoPublicacion
+
+--.--.--.--.--.--.--PUBLICACION--.--.--.--.--.--.--
+INSERT INTO publicacion(id_duenio, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
+			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
+SELECT e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
+		Espectaculo_Fecha_Venc, NULL, NULL
+FROM gd_esquema.Maestra
+
+select * from gd_esquema.Maestra
+select * from publicacion

@@ -150,19 +150,20 @@ id_duenio INT REFERENCES empresa,
 id_grado_publicacion INT REFERENCES gradoPublicacion,
 id_rubro INT REFERENCES rubro,
 descripcion NVARCHAR(255),
---estado_publicacion CHAR(1) CHECK(estado_publicacion IN ('B', 'A', 'F')), dice que tiene que ser varchar de 255 :(
---Creo que podemos hacer un check igual IN ('Borrador', 'Activa', 'Finalizada')
-estado_publicacion NVARCHAR(255),
+estado_publicacion CHAR(1) CHECK(estado_publicacion IN ('Borrador', 'Publicada', 'Finalizada')),
 fecha_inicio DATETIME,
 fecha_evento DATETIME,
 cantidad_asientos INT,
 direccion VARCHAR(80)
 
 ALTER TABLE rubro ADD
-descripcion NVARCHAR(255)
+descripcion NVARCHAR(100)
+
+DROP TABLE gradoPublicacion
 
 ALTER TABLE gradoPublicacion ADD
-comision INT
+comision NUMERIC(3,3),
+nombre NVARCHAR(20)
 
 ALTER TABLE compra ADD
 id_cliente INT REFERENCES cliente,
