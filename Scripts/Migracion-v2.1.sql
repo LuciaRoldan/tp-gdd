@@ -141,12 +141,13 @@ JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice
 --NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
 
 INSERT INTO Compras(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
-SELECT DISTINCT c.id_cliente, p.id_publicacion, mp.id_medio_de_pago, f.id_factura, Compra_Fecha
+SELECT DISTINCT c.id_cliente, p.id_publicacion, 'Efectivo', f.id_factura, Compra_Fecha
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN Publicaciones p ON(gd.Espectaculo_Cod = p.id_publicacion)
-JOIN Medios_de_pago mp ON(mp.titular = gd.Forma_Pago_Desc)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
+WHERE gd.Forma_Pago_Desc IS NOT NULL
+
 
 
 
