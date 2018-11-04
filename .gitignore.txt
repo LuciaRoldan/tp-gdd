@@ -1,4 +1,0 @@
-Base De Datos/
-bin/
-obj/
-PalcoNet.csproj.user
