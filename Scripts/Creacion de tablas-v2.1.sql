@@ -98,11 +98,11 @@ cuil NUMERIC(18,0), --??
 mail NVARCHAR(50),
 telefono NUMERIC(15),
 fecha_creacion DATETIME,
-fecha_nacimiento DATE,
-calle NVARCHAR(50),
+fecha_nacimiento DATETIME,
+calle NVARCHAR(255),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
-depto NVARCHAR(50),
+depto NVARCHAR(255),
 codigo_postal NVARCHAR(50);
 
 ALTER TABLE Medios_de_pago ADD

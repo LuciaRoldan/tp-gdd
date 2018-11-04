@@ -165,8 +165,22 @@ JOIN Compras c ON(c.id_publicacion = gd.Espectaculo_Cod) --anda porque vendo de 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 
 INSERT INTO Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
+SELECT DISTINCT id_cliente, 0, NULL, NULL
+FROM Clientes
 
-select * from puntos
+--.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 
+INSERT INTO Premios(descripcion, puntos)
+VALUES
+('Plancha', 800),
+('2x1 en la proxima compra', 300),
+('Set de 6 platos', 500),
+('SEGA', 2000),
+('Fin de semana en Tandil', 8000),
+('Batidora', 1000)
+
+
+
+SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
