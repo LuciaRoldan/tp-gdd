@@ -169,6 +169,12 @@
     <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
       <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </Compile>
+    <Compile Include="MiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiForm.Designer.cs">
+      <DependentUpon>MiForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generar Publicacion\CrearPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>

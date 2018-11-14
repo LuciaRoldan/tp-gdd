@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PalcoNet
 {
-    public partial class SeleccionarFuncionalidad : Form
+    public partial class SeleccionarFuncionalidad : MiForm
     {
         public SeleccionarFuncionalidad()
         {

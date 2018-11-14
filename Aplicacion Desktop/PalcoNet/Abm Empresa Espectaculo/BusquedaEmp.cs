@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Registro_de_Usuario;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Abm_Empresa_Espectaculo
 {
@@ -33,8 +34,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            new RegistroDeEmpresa().Show();
+        {   //SACAR ESE NULL
+            new RegistroDeEmpresa(new Empresa(), null).Show();
             this.Hide(); 
         }
     }

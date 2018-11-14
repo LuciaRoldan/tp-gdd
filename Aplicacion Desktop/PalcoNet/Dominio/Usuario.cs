@@ -6,10 +6,45 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Usuario
+    public class Usuario
     {
         string nombreUsuario;
         string contrasenia;
+        string calle;
+        string ciudad;
+        string localidad;
+        int numeroDeCalle;
+        int piso;
+        
+        public int Piso
+        {
+            get { return piso; }
+            set { piso = value; }
+        }
+        
+        public string Calle
+        {
+            get { return calle; }
+            set { calle = value; }
+        }
+
+        public string Ciudad
+        {
+            get { return ciudad; }
+            set { ciudad = value; }
+        }
+        
+        public string Localidad
+        {
+            get { return localidad; }
+            set { localidad = value; }
+        }
+        
+        public int NumeroDeCalle
+        {
+            get { return numeroDeCalle; }
+            set { numeroDeCalle = value; }
+        }
 
         public string NombreUsuario
         {

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Empresa : Usuario
+    public class Empresa : Usuario
     {
         string razonSocial;
         string mail;
         int cuit;
         DateTime fechaDeCreacion;
-        string calle;
-        int piso;
-        string departamento;
-        int numeroDeCalle;
+        int telefono;
+
+        public int Telefono
+        {
+            get { return telefono; }
+            set { telefono = value; }
+        }
 
         string codigoPostal;
 
@@ -41,30 +44,6 @@ namespace PalcoNet.Dominio
         {
             get { return fechaDeCreacion; }
             set { fechaDeCreacion = value; }
-        }
-
-        public string Calle
-        {
-            get { return calle; }
-            set { calle = value; }
-        }
-
-        public int NumeroDeCalle
-        {
-            get { return numeroDeCalle; }
-            set { numeroDeCalle = value; }
-        }
-
-        public int Piso
-        {
-            get { return piso; }
-            set { piso = value; }
-        }
-
-        public string Departamento
-        {
-            get { return departamento; }
-            set { departamento = value; }
         }
 
         public string CodigoPostal
