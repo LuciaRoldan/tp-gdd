@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Registro_de_Usuario;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Abm_Cliente
 {
@@ -25,8 +26,8 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            new RegistroDeCliente().Show();
+        {   //SACARA ESE NULL
+            new RegistroDeCliente(new Cliente(),null).Show();
             this.Hide();
         }
 

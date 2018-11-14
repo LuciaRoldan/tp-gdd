@@ -1,4 +1,6 @@
-﻿namespace PalcoNet.Registro_de_Usuario
+﻿using PalcoNet.Dominio;
+
+namespace PalcoNet.Registro_de_Usuario
 {
     partial class RegistroDeEmpresa
     {
@@ -28,25 +30,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxCUIT = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxTelefono = new System.Windows.Forms.TextBox();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
+            this.textBoxRazonSocial = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonSiguiente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonVolver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox4
+            // textBoxCUIT
             // 
-            this.textBox4.Location = new System.Drawing.Point(91, 125);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 71;
+            this.textBoxCUIT.Location = new System.Drawing.Point(91, 125);
+            this.textBoxCUIT.Name = "textBoxCUIT";
+            this.textBoxCUIT.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCUIT.TabIndex = 71;
             // 
             // label5
             // 
@@ -57,26 +59,26 @@
             this.label5.TabIndex = 70;
             this.label5.Text = "CUIT:";
             // 
-            // textBox3
+            // textBoxTelefono
             // 
-            this.textBox3.Location = new System.Drawing.Point(91, 99);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 69;
+            this.textBoxTelefono.Location = new System.Drawing.Point(91, 99);
+            this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.Size = new System.Drawing.Size(121, 20);
+            this.textBoxTelefono.TabIndex = 69;
             // 
-            // textBox2
+            // textBoxMail
             // 
-            this.textBox2.Location = new System.Drawing.Point(91, 73);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
-            this.textBox2.TabIndex = 68;
+            this.textBoxMail.Location = new System.Drawing.Point(91, 73);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(121, 20);
+            this.textBoxMail.TabIndex = 68;
             // 
-            // textBox1
+            // textBoxRazonSocial
             // 
-            this.textBox1.Location = new System.Drawing.Point(91, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 67;
+            this.textBoxRazonSocial.Location = new System.Drawing.Point(91, 47);
+            this.textBoxRazonSocial.Name = "textBoxRazonSocial";
+            this.textBoxRazonSocial.Size = new System.Drawing.Size(121, 20);
+            this.textBoxRazonSocial.TabIndex = 67;
             // 
             // label3
             // 
@@ -105,15 +107,15 @@
             this.label4.TabIndex = 64;
             this.label4.Text = "Razón social:";
             // 
-            // button2
+            // buttonSiguiente
             // 
-            this.button2.Location = new System.Drawing.Point(141, 161);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 63;
-            this.button2.Text = "Siguiente";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonSiguiente.Location = new System.Drawing.Point(141, 161);
+            this.buttonSiguiente.Name = "buttonSiguiente";
+            this.buttonSiguiente.Size = new System.Drawing.Size(75, 23);
+            this.buttonSiguiente.TabIndex = 63;
+            this.buttonSiguiente.Text = "Siguiente";
+            this.buttonSiguiente.UseVisualStyleBackColor = true;
+            this.buttonSiguiente.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -121,35 +123,35 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(173, 24);
+            this.label2.Size = new System.Drawing.Size(185, 24);
             this.label2.TabIndex = 61;
-            this.label2.Text = "Registro de usuario";
+            this.label2.Text = "Registro de empresa";
             // 
-            // button1
+            // buttonVolver
             // 
-            this.button1.Location = new System.Drawing.Point(16, 161);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 72;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonVolver.Location = new System.Drawing.Point(16, 161);
+            this.buttonVolver.Name = "buttonVolver";
+            this.buttonVolver.Size = new System.Drawing.Size(75, 23);
+            this.buttonVolver.TabIndex = 72;
+            this.buttonVolver.Text = "Volver";
+            this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // RegistroDeEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(229, 199);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.buttonVolver);
+            this.Controls.Add(this.textBoxCUIT);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxTelefono);
+            this.Controls.Add(this.textBoxMail);
+            this.Controls.Add(this.textBoxRazonSocial);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonSiguiente);
             this.Controls.Add(this.label2);
             this.Name = "RegistroDeEmpresa";
             this.Text = "RegistroDeEmpresa";
@@ -160,16 +162,16 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxCUIT;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxTelefono;
+        private System.Windows.Forms.TextBox textBoxMail;
+        private System.Windows.Forms.TextBox textBoxRazonSocial;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonSiguiente;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonVolver;
     }
 }
