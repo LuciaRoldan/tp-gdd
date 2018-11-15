@@ -43,7 +43,7 @@ id_factura INT PRIMARY KEY
 )
 
 CREATE TABLE Compras(
-id_compra INT IDENTITY(1,1) PRIMARY KEY
+id_compra INT PRIMARY KEY
 )
 
 CREATE TABLE Publicaciones(
@@ -161,6 +161,7 @@ descripcion NVARCHAR(100);
 
 ALTER TABLE Ubicaciones ADD
 id_publicacion INT REFERENCES Publicaciones,
+codigo_tipo_ubicacion INT,
 tipo_ubicacion NVARCHAR(20),
 id_compra INT REFERENCES Compras,
 fila VARCHAR(3),

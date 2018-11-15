@@ -2,9 +2,7 @@ USE GD2C2018
 
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
---.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.--A PARTIR DE ACA ESTA BIEN---.--.--.--.--
---.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 
@@ -39,29 +37,25 @@ VALUES
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 --tabla
 INSERT INTO FuncionalidadXRol(id_rol, id_funcionalidad)
-SELECT r.id_rol, f.id_funcionalidad
+SELECT r.id_rol, f.id_funcionalidad 
 FROM Roles r, Funcionalidades f
 WHERE r.nombre = 'Cliente'
-AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar') --falta cargar todas las funcionalidades
---del cliente
+AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar');
 
 --SELECT * FROM FuncionalidadXRol
 
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
-select * from gd_esquema.Maestra
-
 --usuarios cliente
 INSERT INTO Usuarios (username, password, habilitado, alta_logica)
 SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE()
 FROM gd_esquema.Maestra
-WHERE Cli_Dni IS NOT NULL
+WHERE Cli_Dni IS NOT NULL;
 
 --usuarios empresa
 INSERT INTO Usuarios (username, password, habilitado, alta_logica)
 SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE()
-FROM gd_esquema.Maestra
-WHERE Espec_Empresa_Cuit IS NOT NULL
+FROM gd_esquema.Maestra;
 
 --SELECT * FROM Usuarios
 
@@ -97,19 +91,17 @@ SELECT c.id_usuario, r.id_rol
 FROM Clientes c, Roles r
 WHERE r.nombre = 'Cliente';
 
+INSERT INTO UsuarioXRol(id_usuario, id_rol)
+SELECT e.id_usuario, r.id_rol
+FROM Empresas e, Roles r
+WHERE r.nombre = 'Empresa';
+
 --SELECT * FROM UsuarioXRol
 
 --.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
 INSERT INTO Rubros
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
 FROM gd_esquema.Maestra;
-
-INSERT INTO Rubros
-VALUES
-('Infantil'),
-('Terror'),
-('Comedia'),
-('Drama')
 
 --SELECT * FROM Rubros
 
@@ -129,9 +121,7 @@ SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_De
 		Espectaculo_Fecha_Venc, NULL, NULL
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
-JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion)
---OPCIONAL. Si todo anda piola, sacarlo: No da igual pero deberia :o
---WHERE Factura_Nro IS NULL
+JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);
 
 --select * from Publicaciones
 
@@ -149,37 +139,61 @@ INSERT INTO Medios_de_pago(c.id_cliente, nro_tarjeta, titular, fecha_vencimiento
 SELECT DISTINCT c.id_cliente, NULL, Forma_Pago_Desc, NULL
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice 'Efectivo'
+WHERE gd.Item_Factura_Monto IS NOT NULL
+
+--SELECT * FROM Medios_de_pago
 
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
 --NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
 
-INSERT INTO Compras(id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha, importe)
-SELECT DISTINCT c.id_cliente, p.id_publicacion, 'Efectivo', f.id_factura, Compra_Fecha, Ubicacion_Precio --truchisimo
+CREATE TABLE #ComprasTemp(
+id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
+id_cliente INT REFERENCES Clientes,
+id_publicacion INT REFERENCES Publicaciones,
+id_medio_de_pago INT REFERENCES Medios_de_pago,
+id_factura INT REFERENCES Facturas,
+fecha DATETIME,
+asiento INT,
+fila CHAR(1),
+tipo_codigo INT
+)
+
+INSERT INTO #ComprasTemp(id_cliente, id_publicacion, id_medio_de_pago,
+id_factura, fecha, asiento, fila, tipo_codigo)
+SELECT c.id_cliente, p.id_publicacion, mp.id_medio_de_pago, f.id_factura, Compra_Fecha,
+Ubicacion_Asiento, Ubicacion_Fila, Ubicacion_Tipo_Codigo
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN Publicaciones p ON(gd.Espectaculo_Cod = p.id_publicacion)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
-WHERE gd.Forma_Pago_Desc IS NOT NULL AND gd.Compra_Cantidad IS NOT NULL
+JOIN Medios_de_pago mp ON (c.id_cliente = mp.id_cliente)
+WHERE gd.Forma_Pago_Desc IS NOT NULL
 
+INSERT INTO Compras(id_compra, id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
+SELECT id_compra, id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha
+FROM #ComprasTemp
 
-
-
+--select * from #ComprasTemp
+--SELECT * FROM Medios_de_pago
 --select * from Compras
 
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
-INSERT INTO Ubicaciones(id_publicacion, id_compra, fila, asiento, tipo_ubicacion, sin_numerar, precio)
-SELECT DISTINCT Espectaculo_Cod, c.id_compra, Ubicacion_Fila, Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+INSERT INTO Ubicaciones(id_publicacion, id_compra, codigo_tipo_ubicacion, fila, asiento,
+tipo_ubicacion, sin_numerar, precio)
+SELECT DISTINCT ct.id_publicacion, ct.id_compra, gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Fila, gd.Ubicacion_Asiento,
+Ubicacion_Tipo_Descripcion, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
-JOIN Compras c ON(c.id_publicacion = gd.Espectaculo_Cod) --anda porque vendo de a UN asiento
+JOIN #ComprasTemp ct ON (ct.id_publicacion = gd.Espectaculo_Cod AND ct.asiento = gd.Ubicacion_Asiento AND ct.fila = gd.Ubicacion_Fila AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 
+DROP TABLE #ComprasTemp
 
 --select * from ubicacion
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 
 INSERT INTO Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
-SELECT DISTINCT id_cliente, 0, NULL, NULL
+SELECT DISTINCT id_cliente, 0, NULL
 FROM Clientes
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
@@ -193,6 +207,6 @@ VALUES
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
 
-SELECT * FROM premios
+--SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
