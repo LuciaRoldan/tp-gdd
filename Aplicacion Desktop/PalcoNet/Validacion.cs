@@ -9,7 +9,5 @@ namespace PalcoNet
     class Validacion
     {
 
-
-
     }
 }
