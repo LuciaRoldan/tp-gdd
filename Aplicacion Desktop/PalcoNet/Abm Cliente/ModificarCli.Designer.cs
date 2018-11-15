@@ -30,18 +30,18 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.dateTimePickerNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.comboBoxDocumento = new System.Windows.Forms.ComboBox();
+            this.textBoxCuil = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxDocumento = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxTelefono = new System.Windows.Forms.TextBox();
+            this.textBoxApellido = new System.Windows.Forms.TextBox();
+            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -68,19 +68,19 @@
             this.label9.TabIndex = 62;
             this.label9.Text = "Fecha de nacimiento:";
             // 
-            // dateTimePicker1
+            // dateTimePickerNacimiento
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(219, 123);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 61;
+            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(219, 123);
+            this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
+            this.dateTimePickerNacimiento.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerNacimiento.TabIndex = 61;
             // 
-            // textBox4
+            // textBoxMail
             // 
-            this.textBox4.Location = new System.Drawing.Point(73, 123);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 60;
+            this.textBoxMail.Location = new System.Drawing.Point(73, 123);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(121, 20);
+            this.textBoxMail.TabIndex = 60;
             // 
             // label8
             // 
@@ -91,20 +91,24 @@
             this.label8.TabIndex = 59;
             this.label8.Text = "Mail:";
             // 
-            // comboBox1
+            // comboBoxDocumento
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(324, 44);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 58;
+            this.comboBoxDocumento.FormattingEnabled = true;
+            this.comboBoxDocumento.Items.AddRange(new object[] {
+            "DNI",
+            "CI"});
+            this.comboBoxDocumento.Location = new System.Drawing.Point(324, 44);
+            this.comboBoxDocumento.Name = "comboBoxDocumento";
+            this.comboBoxDocumento.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDocumento.TabIndex = 58;
+            this.comboBoxDocumento.SelectedIndexChanged += new System.EventHandler(this.comboBoxDocumento_SelectedIndexChanged);
             // 
-            // textBox6
+            // textBoxCuil
             // 
-            this.textBox6.Location = new System.Drawing.Point(73, 149);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(121, 20);
-            this.textBox6.TabIndex = 57;
+            this.textBoxCuil.Location = new System.Drawing.Point(73, 149);
+            this.textBoxCuil.Name = "textBoxCuil";
+            this.textBoxCuil.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCuil.TabIndex = 57;
             // 
             // label7
             // 
@@ -115,12 +119,12 @@
             this.label7.TabIndex = 56;
             this.label7.Text = "CUIL:";
             // 
-            // textBox5
+            // textBoxDocumento
             // 
-            this.textBox5.Location = new System.Drawing.Point(324, 71);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(121, 20);
-            this.textBox5.TabIndex = 55;
+            this.textBoxDocumento.Location = new System.Drawing.Point(324, 71);
+            this.textBoxDocumento.Name = "textBoxDocumento";
+            this.textBoxDocumento.Size = new System.Drawing.Size(121, 20);
+            this.textBoxDocumento.TabIndex = 55;
             // 
             // label6
             // 
@@ -140,26 +144,26 @@
             this.label5.TabIndex = 53;
             this.label5.Text = "Tipo de documento:";
             // 
-            // textBox3
+            // textBoxTelefono
             // 
-            this.textBox3.Location = new System.Drawing.Point(73, 97);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 52;
+            this.textBoxTelefono.Location = new System.Drawing.Point(73, 97);
+            this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.Size = new System.Drawing.Size(121, 20);
+            this.textBoxTelefono.TabIndex = 52;
             // 
-            // textBox2
+            // textBoxApellido
             // 
-            this.textBox2.Location = new System.Drawing.Point(73, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
-            this.textBox2.TabIndex = 51;
+            this.textBoxApellido.Location = new System.Drawing.Point(73, 71);
+            this.textBoxApellido.Name = "textBoxApellido";
+            this.textBoxApellido.Size = new System.Drawing.Size(121, 20);
+            this.textBoxApellido.TabIndex = 51;
             // 
-            // textBox1
+            // textBoxNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(73, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 50;
+            this.textBoxNombre.Location = new System.Drawing.Point(73, 45);
+            this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.Size = new System.Drawing.Size(121, 20);
+            this.textBoxNombre.TabIndex = 50;
             // 
             // label3
             // 
@@ -215,25 +219,25 @@
             this.ClientSize = new System.Drawing.Size(459, 216);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.dateTimePickerNacimiento);
+            this.Controls.Add(this.textBoxMail);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.comboBoxDocumento);
+            this.Controls.Add(this.textBoxCuil);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.textBoxDocumento);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxTelefono);
+            this.Controls.Add(this.textBoxApellido);
+            this.Controls.Add(this.textBoxNombre);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label2);
             this.Name = "ModificarCli";
-            this.Text = "Form1";
+            this.Text = "Editar cliente";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,18 +247,18 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.DateTimePicker dateTimePickerNacimiento;
+        private System.Windows.Forms.TextBox textBoxMail;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.ComboBox comboBoxDocumento;
+        private System.Windows.Forms.TextBox textBoxCuil;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxDocumento;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxTelefono;
+        private System.Windows.Forms.TextBox textBoxApellido;
+        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;

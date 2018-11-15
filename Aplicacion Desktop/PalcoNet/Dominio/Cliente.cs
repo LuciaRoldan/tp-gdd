@@ -10,7 +10,8 @@ namespace PalcoNet.Dominio
     {
         string nombre;
         string apellido;
-        char[] tipoDocumento = new char[3];
+        //char[] tipoDocumento = new char[4];
+        string tipoDocumento;
         int numeroDeDocumento;
         int cuil;
         string mail;
@@ -33,7 +34,7 @@ namespace PalcoNet.Dominio
             set { apellido = value; }
         }
 
-        public char[] TipoDocumento
+        public string TipoDocumento
         {
             get { return tipoDocumento; }
             set { tipoDocumento = value; }

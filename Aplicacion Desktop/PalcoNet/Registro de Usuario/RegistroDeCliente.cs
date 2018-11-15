@@ -45,7 +45,6 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void siguiente_Click(object sender, EventArgs e)
         {
-            //Hay que seguir guardando los datos del usuario
             if (this.VerificarCampos())
             {
                 cliente.FechaDeCreacion = DateTime.Now;
@@ -54,9 +53,16 @@ namespace PalcoNet.Registro_de_Usuario
                 cliente.Mail = textBoxMail.Text;
                 cliente.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
                 cliente.Cuil = Int32.Parse(textBoxCuil.Text);
-                cliente.TipoDocumento = comboBoxDocumento.SelectedText.ToCharArray();
+                cliente.TipoDocumento = comboBoxDocumento.SelectedText;
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = Int32.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
+
+                //Capaz aca hay que encriptar la contrasenia
+                if (string.IsNullOrWhiteSpace(cliente.NombreUsuario)) {
+                    cliente.NombreUsuario = textBoxDocumento.Text;
+                    cliente.Contrasenia = textBoxDocumento.Text;
+                }
+                
                 new RegistroDomicilio(this, cliente).Show();
                 this.Hide();
             }
