@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using PalcoNet.Registro_de_Usuario;
 using PalcoNet.Abm_Cliente;
 using PalcoNet.Dominio;
+using PalcoNet.Abm_Empresa_Espectaculo;
 
 namespace PalcoNet
 {
@@ -19,7 +20,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BusquedaCli(new SeleccionarFuncionalidad()));
+            Application.Run(new BusquedaEmp(new SeleccionarFuncionalidad()));
         }
     }
 }

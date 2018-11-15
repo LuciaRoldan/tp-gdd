@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxCuit = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxTelefono = new System.Windows.Forms.TextBox();
+            this.textBoxMail = new System.Windows.Forms.TextBox();
+            this.textBoxRazonSocial = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,12 +41,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox4
+            // textBoxCuit
             // 
-            this.textBox4.Location = new System.Drawing.Point(93, 127);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 63;
+            this.textBoxCuit.Location = new System.Drawing.Point(93, 127);
+            this.textBoxCuit.Name = "textBoxCuit";
+            this.textBoxCuit.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCuit.TabIndex = 63;
             // 
             // label5
             // 
@@ -57,26 +57,26 @@
             this.label5.TabIndex = 62;
             this.label5.Text = "CUIT:";
             // 
-            // textBox3
+            // textBoxTelefono
             // 
-            this.textBox3.Location = new System.Drawing.Point(93, 101);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 61;
+            this.textBoxTelefono.Location = new System.Drawing.Point(93, 101);
+            this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.Size = new System.Drawing.Size(121, 20);
+            this.textBoxTelefono.TabIndex = 61;
             // 
-            // textBox2
+            // textBoxMail
             // 
-            this.textBox2.Location = new System.Drawing.Point(93, 75);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
-            this.textBox2.TabIndex = 60;
+            this.textBoxMail.Location = new System.Drawing.Point(93, 75);
+            this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.Size = new System.Drawing.Size(121, 20);
+            this.textBoxMail.TabIndex = 60;
             // 
-            // textBox1
+            // textBoxRazonSocial
             // 
-            this.textBox1.Location = new System.Drawing.Point(93, 49);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 59;
+            this.textBoxRazonSocial.Location = new System.Drawing.Point(93, 49);
+            this.textBoxRazonSocial.Name = "textBoxRazonSocial";
+            this.textBoxRazonSocial.Size = new System.Drawing.Size(121, 20);
+            this.textBoxRazonSocial.TabIndex = 59;
             // 
             // label3
             // 
@@ -113,6 +113,7 @@
             this.button1.TabIndex = 55;
             this.button1.Text = "Aceptar cambios";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button3
             // 
@@ -122,6 +123,7 @@
             this.button3.TabIndex = 54;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label2
             // 
@@ -138,11 +140,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(244, 199);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBoxCuit);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxTelefono);
+            this.Controls.Add(this.textBoxMail);
+            this.Controls.Add(this.textBoxRazonSocial);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
@@ -158,11 +160,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxCuit;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxTelefono;
+        private System.Windows.Forms.TextBox textBoxMail;
+        private System.Windows.Forms.TextBox textBoxRazonSocial;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
