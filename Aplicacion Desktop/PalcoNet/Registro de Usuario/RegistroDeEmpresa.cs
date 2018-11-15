@@ -55,6 +55,14 @@ namespace PalcoNet.Registro_de_Usuario
                 Empresa.FechaDeCreacion = DateTime.Now;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Empresa.Telefono = Int32.Parse(textBoxTelefono.Text); }
+
+                //Capaz aca hay que encriptar la contrasenia
+                if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
+                {
+                    empresa.NombreUsuario = textBoxRazonSocial.Text;
+                    empresa.Contrasenia = textBoxRazonSocial.Text;
+                }
+
                 new RegistroDomicilio(this, this.Empresa).Show();
                 this.Hide();
             }

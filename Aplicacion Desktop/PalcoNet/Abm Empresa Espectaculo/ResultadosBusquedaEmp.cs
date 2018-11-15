@@ -7,26 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Abm_Empresa_Espectaculo
 {
-    public partial class ResultadosBusquedaEmp : Form
+    public partial class ResultadosBusquedaEmp : MiForm
     {
-        public ResultadosBusquedaEmp()
+        public ResultadosBusquedaEmp(List<Empresa> resultados, MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+            var bindingList = new BindingList<Empresa>(resultados);
+            var source = new BindingSource(bindingList, null);
+            dataGridViewResultados.DataSource = source;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide(); 
+            this.Hide();
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new BusquedaEmp().Show();
-            this.Hide(); 
+            this.Anterior.Show();
+            this.Close(); 
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            Empresa empresa = (Empresa)dataGridViewResultados.CurrentRow.DataBoundItem;
+            this.Hide();
+            new ModificarEmp(empresa, this).Show();
         }
     }
 }
