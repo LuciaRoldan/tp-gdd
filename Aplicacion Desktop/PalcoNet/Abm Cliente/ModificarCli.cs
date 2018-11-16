@@ -70,6 +70,7 @@ namespace PalcoNet.Abm_Cliente
                 //Aca hay que hacer el update en la base
             }
 
+            //this.Hide();
             this.cerrarAnteriores();
         }
 
