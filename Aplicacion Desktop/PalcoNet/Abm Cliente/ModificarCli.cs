@@ -65,13 +65,12 @@ namespace PalcoNet.Abm_Cliente
             clienteModificado.TipoDocumento = comboBoxDocumento.SelectedText;
             clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
 
-            if (!this.clienteNoFueModifiado(clienteModificado))
+            if (!this.clienteNoFueModifiado(clienteModificado)) //Tambien habria que verificar que no sean nulos
             {
                 //Aca hay que hacer el update en la base
             }
 
-            new BusquedaCli(this.Anterior.Anterior.Anterior).Show();
-            this.Close();
+            this.cerrarAnteriores();
         }
 
         private void comboBoxDocumento_SelectedIndexChanged(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using PalcoNet.Registro_de_Usuario;
 using PalcoNet.Abm_Cliente;
 using PalcoNet.Dominio;
 using PalcoNet.Abm_Empresa_Espectaculo;
+using PalcoNet.Abm_Grado;
 
 namespace PalcoNet
 {
@@ -20,7 +21,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BusquedaEmp(new SeleccionarFuncionalidad()));
+            Application.Run(new GradoDeLaPublicacion(null, new SeleccionarFuncionalidad()));
         }
     }
 }

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxPublicaciones = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxGrado = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonAceptar = new System.Windows.Forms.Button();
+            this.buttonVolver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -47,25 +47,30 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Grado de mis publicaciones";
             // 
-            // checkedListBox1
+            // checkedListBoxPublicaciones
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 62);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(221, 124);
-            this.checkedListBox1.TabIndex = 15;
+            this.checkedListBoxPublicaciones.CheckOnClick = true;
+            this.checkedListBoxPublicaciones.FormattingEnabled = true;
+            this.checkedListBoxPublicaciones.Location = new System.Drawing.Point(16, 62);
+            this.checkedListBoxPublicaciones.Name = "checkedListBoxPublicaciones";
+            this.checkedListBoxPublicaciones.Size = new System.Drawing.Size(221, 124);
+            this.checkedListBoxPublicaciones.TabIndex = 15;
+            this.checkedListBoxPublicaciones.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxPublicaciones_SelectedIndexChanged);
             // 
-            // checkedListBox2
+            // checkedListBoxGrado
             // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
+            this.checkedListBoxGrado.CheckOnClick = true;
+            this.checkedListBoxGrado.Enabled = false;
+            this.checkedListBoxGrado.FormattingEnabled = true;
+            this.checkedListBoxGrado.Items.AddRange(new object[] {
             "Alto",
             "Medio",
             "Bajo"});
-            this.checkedListBox2.Location = new System.Drawing.Point(269, 62);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(100, 49);
-            this.checkedListBox2.TabIndex = 16;
+            this.checkedListBoxGrado.Location = new System.Drawing.Point(269, 62);
+            this.checkedListBoxGrado.Name = "checkedListBoxGrado";
+            this.checkedListBoxGrado.Size = new System.Drawing.Size(100, 49);
+            this.checkedListBoxGrado.TabIndex = 16;
+            this.checkedListBoxGrado.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxGrado_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -85,37 +90,37 @@
             this.label3.TabIndex = 18;
             this.label3.Text = "Grado:";
             // 
-            // button1
+            // buttonAceptar
             // 
-            this.button1.Location = new System.Drawing.Point(269, 127);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 46;
-            this.button1.Text = "Aceptar cambios";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAceptar.Location = new System.Drawing.Point(269, 127);
+            this.buttonAceptar.Name = "buttonAceptar";
+            this.buttonAceptar.Size = new System.Drawing.Size(100, 23);
+            this.buttonAceptar.TabIndex = 46;
+            this.buttonAceptar.Text = "Aceptar cambios";
+            this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button3
+            // buttonVolver
             // 
-            this.button3.Location = new System.Drawing.Point(16, 194);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 45;
-            this.button3.Text = "Inicio";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.buttonVolver.Location = new System.Drawing.Point(16, 194);
+            this.buttonVolver.Name = "buttonVolver";
+            this.buttonVolver.Size = new System.Drawing.Size(75, 23);
+            this.buttonVolver.TabIndex = 45;
+            this.buttonVolver.Text = "Inicio";
+            this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.button3_Click);
             // 
             // GradoDeLaPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(386, 229);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.buttonAceptar);
+            this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkedListBox2);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.checkedListBoxGrado);
+            this.Controls.Add(this.checkedListBoxPublicaciones);
             this.Controls.Add(this.label2);
             this.Name = "GradoDeLaPublicacion";
             this.Text = "Grado de la publicacion";
@@ -127,11 +132,11 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPublicaciones;
+        private System.Windows.Forms.CheckedListBox checkedListBoxGrado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonAceptar;
+        private System.Windows.Forms.Button buttonVolver;
     }
 }
