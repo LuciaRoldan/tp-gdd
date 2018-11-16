@@ -43,6 +43,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 List<Empresa> resultados = new List<Empresa>();
 
                 //Aca hay que buscar en la base
+                //Verificar que la lista no este vacia
 
                 new ResultadosBusquedaEmp(resultados, this).Show();
                 this.Hide();

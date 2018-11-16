@@ -8,6 +8,13 @@ namespace PalcoNet.Dominio
 {
     class Publicacion
     {
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
         string gradoDePublicacion;
         string rubro;
         string descripcion;

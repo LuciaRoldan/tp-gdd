@@ -44,19 +44,18 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Empresa empresaModificada = new Empresa();
+            Empresa empresaModificada = new Empresa();      
             empresaModificada.RazonSocial = textBoxRazonSocial.Text;
             empresaModificada.Cuit = Int32.Parse(textBoxCuit.Text);
             empresaModificada.Mail = textBoxMail.Text;
             empresaModificada.Telefono = Int32.Parse(textBoxTelefono.Text);
 
-            if (!this.empresaNoFueModifiada(empresaModificada))
+            if (!this.empresaNoFueModifiada(empresaModificada)) //Tambien faltaria verificar que no sean nulos los ingresados
             {
                 //Aca hay que hacer el update en la base
             }
 
-            new BusquedaEmp(this.Anterior.Anterior.Anterior).Show();
-            this.Close();
+            this.cerrarAnteriores();
         }
     }
 }
