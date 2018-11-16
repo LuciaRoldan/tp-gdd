@@ -23,9 +23,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Cliente cliente = new Cliente();
-            cliente.Puntos = 1700;
-            Application.Run(new CanjePuntos(cliente, new SeleccionarFuncionalidad()));
+            Application.Run(new RegistroDeUsuario1(null));
         }
     }
 }
