@@ -45,5 +45,10 @@ namespace PalcoNet.Abm_Cliente
             this.Hide();
             new ModificarCli(cliente, this).Show();
         }
+
+        private void ResultadoBusquedaCli_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

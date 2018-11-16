@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Listado_Estadistico
 {
-    public partial class ClientesMuchasCompras : Form
+    public partial class ClientesMuchasCompras : MiForm
     {
-        public ClientesMuchasCompras()
+        public ClientesMuchasCompras(List<CompraCliente> comprasClientes, MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
+            var bindingList = new BindingList<CompraCliente>(comprasClientes);
+            var source = new BindingSource(bindingList, null);
+            clientesComprasGrid.DataSource = source;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -27,11 +31,6 @@ namespace PalcoNet.Listado_Estadistico
         {
             new Listados().Show();
             this.Hide(); 
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //Hace qu aparezcan los datos abajo
         }
     }
 }
