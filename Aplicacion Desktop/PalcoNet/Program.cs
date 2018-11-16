@@ -22,7 +22,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AbmRol(new SeleccionarFuncionalidad()));
+            Application.Run(new RegistroDeUsuario1(null));
         }
     }
 }
