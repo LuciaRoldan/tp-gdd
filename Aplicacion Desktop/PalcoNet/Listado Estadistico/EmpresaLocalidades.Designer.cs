@@ -30,7 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.localidadesEmpresaGrid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -40,7 +40,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.Empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CUIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalidadesNoVendidas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.localidadesEmpresaGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -63,13 +66,17 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridView1
+            // localidadesEmpresaGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 117);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(365, 150);
-            this.dataGridView1.TabIndex = 120;
+            this.localidadesEmpresaGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.localidadesEmpresaGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Empresa,
+            this.CUIT,
+            this.LocalidadesNoVendidas});
+            this.localidadesEmpresaGrid.Location = new System.Drawing.Point(16, 117);
+            this.localidadesEmpresaGrid.Name = "localidadesEmpresaGrid";
+            this.localidadesEmpresaGrid.Size = new System.Drawing.Size(343, 150);
+            this.localidadesEmpresaGrid.TabIndex = 120;
             // 
             // label2
             // 
@@ -154,6 +161,21 @@
             this.label5.TabIndex = 130;
             this.label5.Text = "localidades no vendidas";
             // 
+            // Empresa
+            // 
+            this.Empresa.HeaderText = "Empresa";
+            this.Empresa.Name = "Empresa";
+            // 
+            // CUIT
+            // 
+            this.CUIT.HeaderText = "CUIT";
+            this.CUIT.Name = "CUIT";
+            // 
+            // LocalidadesNoVendidas
+            // 
+            this.LocalidadesNoVendidas.HeaderText = "LocalidadesNoVendidas";
+            this.LocalidadesNoVendidas.Name = "LocalidadesNoVendidas";
+            // 
             // EmpresaLocalidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,11 +191,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.localidadesEmpresaGrid);
             this.Controls.Add(this.label2);
             this.Name = "EmpresaLocalidades";
             this.Text = "EmpresaLocalidades";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.localidadesEmpresaGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,7 +205,7 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView localidadesEmpresaGrid;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -193,5 +215,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Empresa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CUIT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LocalidadesNoVendidas;
     }
 }

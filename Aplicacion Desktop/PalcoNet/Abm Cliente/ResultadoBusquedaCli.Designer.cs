@@ -268,6 +268,7 @@
             this.Controls.Add(this.dataGridResultados);
             this.Name = "ResultadoBusquedaCli";
             this.Text = "Resultado Busqueda";
+            this.Load += new System.EventHandler(this.ResultadoBusquedaCli_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridResultados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

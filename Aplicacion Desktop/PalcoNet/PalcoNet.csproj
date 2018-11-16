@@ -143,7 +143,9 @@
     <Compile Include="Comprar\Ubicaciones.Designer.cs">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\CantidadLocalidadesEmpresa.cs" />
     <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\CompraCliente.cs" />
     <Compile Include="Dominio\Compras.cs" />
     <Compile Include="Dominio\Empresa.cs" />
     <Compile Include="Dominio\Factura.cs" />
