@@ -65,7 +65,7 @@ namespace PalcoNet.Abm_Grado
         {
             this.PubSelecc.GradoDePublicacion = this.GradoSelecc;
             //Aca hay que hacer un update en la base de la publicacion seleccionada
-            Console.WriteLine(this.GradoSelecc + this.PubSelecc.Descripcion);
+            //Estaria bueno que salga un cartelito de que salio todo ok
 
         }
 

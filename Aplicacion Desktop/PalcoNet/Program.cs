@@ -8,6 +8,7 @@ using PalcoNet.Abm_Cliente;
 using PalcoNet.Dominio;
 using PalcoNet.Abm_Empresa_Espectaculo;
 using PalcoNet.Abm_Grado;
+using PalcoNet.Abm_Rol;
 
 namespace PalcoNet
 {
@@ -21,7 +22,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GradoDeLaPublicacion(null, new SeleccionarFuncionalidad()));
+            Application.Run(new AbmRol(new SeleccionarFuncionalidad()));
         }
     }
 }
