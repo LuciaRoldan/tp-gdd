@@ -24,7 +24,7 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new Seleccion().Show();
+            //new Seleccion().Show();
             this.Hide();
         }
 

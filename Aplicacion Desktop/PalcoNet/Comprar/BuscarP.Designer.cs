@@ -31,14 +31,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerHasta = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDesde = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxDescripcion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxCategorias = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -71,12 +71,12 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dateTimePicker2
+            // dateTimePickerHasta
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(63, 214);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 115;
+            this.dateTimePickerHasta.Location = new System.Drawing.Point(63, 214);
+            this.dateTimePickerHasta.Name = "dateTimePickerHasta";
+            this.dateTimePickerHasta.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerHasta.TabIndex = 115;
             // 
             // label5
             // 
@@ -87,12 +87,12 @@
             this.label5.TabIndex = 114;
             this.label5.Text = "Hasta:";
             // 
-            // dateTimePicker1
+            // dateTimePickerDesde
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(63, 188);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 113;
+            this.dateTimePickerDesde.Location = new System.Drawing.Point(63, 188);
+            this.dateTimePickerDesde.Name = "dateTimePickerDesde";
+            this.dateTimePickerDesde.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerDesde.TabIndex = 113;
             // 
             // label3
             // 
@@ -103,13 +103,13 @@
             this.label3.TabIndex = 112;
             this.label3.Text = "Desde:";
             // 
-            // textBox6
+            // textBoxDescripcion
             // 
-            this.textBox6.Location = new System.Drawing.Point(237, 88);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(174, 94);
-            this.textBox6.TabIndex = 111;
+            this.textBoxDescripcion.Location = new System.Drawing.Point(237, 88);
+            this.textBoxDescripcion.Multiline = true;
+            this.textBoxDescripcion.Name = "textBoxDescripcion";
+            this.textBoxDescripcion.Size = new System.Drawing.Size(174, 94);
+            this.textBoxDescripcion.TabIndex = 111;
             // 
             // label1
             // 
@@ -129,13 +129,13 @@
             this.label4.TabIndex = 109;
             this.label4.Text = "Categoría:";
             // 
-            // checkedListBox1
+            // checkedListBoxCategorias
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 88);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(198, 94);
-            this.checkedListBox1.TabIndex = 108;
+            this.checkedListBoxCategorias.FormattingEnabled = true;
+            this.checkedListBoxCategorias.Location = new System.Drawing.Point(16, 88);
+            this.checkedListBoxCategorias.Name = "checkedListBoxCategorias";
+            this.checkedListBoxCategorias.Size = new System.Drawing.Size(198, 94);
+            this.checkedListBoxCategorias.TabIndex = 108;
             // 
             // label2
             // 
@@ -155,14 +155,14 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dateTimePickerHasta);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePickerDesde);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBoxDescripcion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.checkedListBoxCategorias);
             this.Controls.Add(this.label2);
             this.Name = "BuscarP";
             this.Text = "Buscar publicaciones";
@@ -176,14 +176,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerHasta;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDesde;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBoxDescripcion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxCategorias;
         private System.Windows.Forms.Label label2;
     }
 }
