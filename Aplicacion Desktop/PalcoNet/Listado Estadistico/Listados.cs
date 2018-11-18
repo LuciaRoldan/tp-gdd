@@ -71,8 +71,8 @@ namespace PalcoNet.Listado_Estadistico
 
             List<CompraCliente> comprasClientes = new List<CompraCliente>();
 
-            new ClientesMuchasCompras(comprasClientes, this).Show();
-            this.Hide();
+      /*      new ClientesMuchasCompras(comprasClientes, this).Show();
+      */      this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)

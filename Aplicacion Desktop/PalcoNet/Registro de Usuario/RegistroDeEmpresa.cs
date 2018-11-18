@@ -54,7 +54,6 @@ namespace PalcoNet.Registro_de_Usuario
                 Empresa.Cuit = Int32.Parse(textBoxCUIT.Text);
                 Empresa.FechaDeCreacion = DateTime.Now;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Empresa.Telefono = Int32.Parse(textBoxTelefono.Text); }
 
                 //Capaz aca hay que encriptar la contrasenia
                 if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
