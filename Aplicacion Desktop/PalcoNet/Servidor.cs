@@ -11,10 +11,11 @@ namespace PalcoNet
 {
     public class Servidor
     {
-        string servidor = ConfigurationSettings.AppSettings["server"];
-        string db = ConfigurationSettings.AppSettings["database"];
-        string user = ConfigurationSettings.AppSettings["username"];
-        string password = ConfigurationSettings.AppSettings["password"];
+        string servidor = ConfigurationManager.AppSettings["server"];
+        string db = ConfigurationManager.AppSettings["database"];
+        string user = ConfigurationManager.AppSettings["username"];
+        string password = ConfigurationManager.AppSettings["password"];
+
 
 
         public static Servidor server;

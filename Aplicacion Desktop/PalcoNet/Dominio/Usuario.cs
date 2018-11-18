@@ -15,6 +15,8 @@ namespace PalcoNet.Dominio
         string localidad;
         int numeroDeCalle;
         int piso;
+        string depto;
+        string codigoPostal;
         
         public int Piso
         {
@@ -56,6 +58,16 @@ namespace PalcoNet.Dominio
         {
             get { return contrasenia; }
             set { contrasenia = value; }
+        }
+        public string Departamento
+        {
+            get { return depto; }
+            set { depto = value; }
+        }
+        public string CodigoPostal
+        {
+            get { return codigoPostal; }
+            set { codigoPostal = value; }
         }
     }
 }

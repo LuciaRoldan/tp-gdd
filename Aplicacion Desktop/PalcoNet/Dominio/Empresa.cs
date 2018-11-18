@@ -20,8 +20,6 @@ namespace PalcoNet.Dominio
             set { telefono = value; }
         }
 
-        string codigoPostal;
-
         public string RazonSocial
         {
             get { return razonSocial; }
@@ -44,12 +42,6 @@ namespace PalcoNet.Dominio
         {
             get { return fechaDeCreacion; }
             set { fechaDeCreacion = value; }
-        }
-
-        public string CodigoPostal
-        {
-            get { return codigoPostal; }
-            set { codigoPostal = value; }
         }
     }
 }

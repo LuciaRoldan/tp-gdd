@@ -48,19 +48,62 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (this.camposCompletos()) {
-                this.Usuario.Calle = textBoxCalle.Text;
-                this.Usuario.NumeroDeCalle = Int32.Parse(textBoxNro.Text);
-                this.Usuario.Ciudad = textBoxCiudad.Text;
-                if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { this.Usuario.Localidad = textBoxLocalidad.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
-                this.Hide();
-                this.cerrarAnteriores();
-            }
+            Servidor servidor = Servidor.getInstance();
+            if (this.camposCompletos())
+            {
+     
+                    this.Usuario.Calle = textBoxCalle.Text;
+                    this.Usuario.NumeroDeCalle = Int32.Parse(textBoxNro.Text);
+                    this.Usuario.Ciudad = textBoxCiudad.Text;
+                    if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { this.Usuario.Localidad = textBoxLocalidad.Text; }
+                    if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
+                    this.Usuario.Departamento = textBoxDepto.Text;
+                    this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
+
+                    if (this.Usuario is Empresa)
+                    {
+                            string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
+                            + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
+                            + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
+                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+
+                        Console.WriteLine(query);
+
+                        servidor.realizarQuery("EXEC dbo.registroEmpresa " + query);
+
+                    }
+
+                    string queryCli = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
+                            + ((Cliente)this.Usuario).Nombre + "', '" + ((Cliente)this.Usuario).Apellido + "', '"
+                            + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
+                            + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '" 
+                            + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
+                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+
+                    Console.WriteLine(queryCli);
+
+                    servidor.realizarQuery("EXEC dbo.registroCliente " + queryCli);
+
+
+                    this.Hide();
+                    this.cerrarAnteriores();
+                }
+
             
+             
         }
 
         private void textBoxCiudad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxCodigoPostal_TextChanged(object sender, EventArgs e)
         {
 
         }
