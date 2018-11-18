@@ -10,6 +10,13 @@ namespace PalcoNet.Dominio
     {
         int cantidadDePuntos;
         DateTime fechaDeVencimiento;
+        string descripcion;
+
+        public string Descripcion
+        {
+            get { return descripcion; }
+            set { descripcion = value; }
+        }
 
         public int CantidadDePuntos
         {

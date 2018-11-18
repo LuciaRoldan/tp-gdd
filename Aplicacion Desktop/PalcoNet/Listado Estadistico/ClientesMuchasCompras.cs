@@ -13,18 +13,18 @@ namespace PalcoNet.Listado_Estadistico
 {
     public partial class ClientesMuchasCompras : MiForm
     {
-        public ClientesMuchasCompras(List<CompraCliente> comprasClientes, MiForm formAnterior) : base(formAnterior)
-        {
+        public ClientesMuchasCompras(/*List<CompraCliente> comprasClientes,*/ MiForm formAnterior) : base(formAnterior)
+        {/*
             InitializeComponent();
             var bindingList = new BindingList<CompraCliente>(comprasClientes);
             var source = new BindingSource(bindingList, null);
-            clientesComprasGrid.DataSource = source;
+            clientesComprasGrid.DataSource = source;*/
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
             this.Hide();
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)
