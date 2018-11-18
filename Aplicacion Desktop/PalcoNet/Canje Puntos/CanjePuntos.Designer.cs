@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxPuntos = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxPremios = new System.Windows.Forms.CheckedListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxTotal = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -47,12 +49,14 @@
             this.label2.TabIndex = 108;
             this.label2.Text = "Canje de puntos";
             // 
-            // textBox1
+            // textBoxPuntos
             // 
-            this.textBox1.Location = new System.Drawing.Point(102, 47);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 20);
-            this.textBox1.TabIndex = 109;
+            this.textBoxPuntos.Location = new System.Drawing.Point(102, 47);
+            this.textBoxPuntos.Name = "textBoxPuntos";
+            this.textBoxPuntos.ReadOnly = true;
+            this.textBoxPuntos.Size = new System.Drawing.Size(145, 20);
+            this.textBoxPuntos.TabIndex = 109;
+            this.textBoxPuntos.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -66,23 +70,25 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 85);
+            this.label3.Location = new System.Drawing.Point(13, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 13);
             this.label3.TabIndex = 111;
             this.label3.Text = "Canjear por:";
             // 
-            // checkedListBox1
+            // checkedListBoxPremios
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 102);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(199, 109);
-            this.checkedListBox1.TabIndex = 112;
+            this.checkedListBoxPremios.CheckOnClick = true;
+            this.checkedListBoxPremios.FormattingEnabled = true;
+            this.checkedListBoxPremios.Location = new System.Drawing.Point(16, 96);
+            this.checkedListBoxPremios.Name = "checkedListBoxPremios";
+            this.checkedListBoxPremios.Size = new System.Drawing.Size(231, 109);
+            this.checkedListBoxPremios.TabIndex = 112;
+            this.checkedListBoxPremios.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxPremios_SelectedIndexChanged);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(16, 226);
+            this.button2.Location = new System.Drawing.Point(16, 252);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 113;
@@ -92,7 +98,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(140, 226);
+            this.button1.Location = new System.Drawing.Point(172, 252);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 114;
@@ -100,20 +106,39 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 223);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 13);
+            this.label4.TabIndex = 116;
+            this.label4.Text = "Total:";
+            // 
+            // textBoxTotal
+            // 
+            this.textBoxTotal.Location = new System.Drawing.Point(53, 220);
+            this.textBoxTotal.Name = "textBoxTotal";
+            this.textBoxTotal.ReadOnly = true;
+            this.textBoxTotal.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTotal.TabIndex = 115;
+            // 
             // CanjePuntos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 261);
+            this.ClientSize = new System.Drawing.Size(259, 287);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBoxTotal);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.checkedListBoxPremios);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxPuntos);
             this.Controls.Add(this.label2);
             this.Name = "CanjePuntos";
-            this.Text = "Canje de punntos";
+            this.Text = "Canje de puntos";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,11 +147,13 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxPuntos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPremios;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxTotal;
     }
 }

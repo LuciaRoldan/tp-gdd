@@ -9,6 +9,7 @@ using PalcoNet.Dominio;
 using PalcoNet.Abm_Empresa_Espectaculo;
 using PalcoNet.Abm_Grado;
 using PalcoNet.Abm_Rol;
+using PalcoNet.Canje_Puntos;
 
 namespace PalcoNet
 {
@@ -22,7 +23,9 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new RegistroDeUsuario1(null));
+            Cliente cliente = new Cliente();
+            cliente.Puntos = 1700;
+            Application.Run(new CanjePuntos(cliente, new SeleccionarFuncionalidad()));
         }
     }
 }
