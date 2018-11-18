@@ -18,7 +18,6 @@ namespace PalcoNet.Dominio
         int telefono;
         DateTime fechaDeCreacion;
         DateTime fechaDeNacimiento;
-        string codigoPostal;
         int puntos;
 
 
@@ -75,13 +74,6 @@ namespace PalcoNet.Dominio
             get { return fechaDeNacimiento; }
             set { fechaDeNacimiento = value; }
         }
-
-        public string CodigoPostal
-        {
-            get { return codigoPostal; }
-            set { codigoPostal = value; }
-        }
-
         public int Puntos
         {
             get { return puntos; }

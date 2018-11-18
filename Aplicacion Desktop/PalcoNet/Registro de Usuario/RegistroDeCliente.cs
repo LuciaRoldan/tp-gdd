@@ -64,6 +64,8 @@ namespace PalcoNet.Registro_de_Usuario
                 }
                 
                 new RegistroDomicilio(this, cliente).Show();
+                
+               
                 this.Hide();
             }
             
