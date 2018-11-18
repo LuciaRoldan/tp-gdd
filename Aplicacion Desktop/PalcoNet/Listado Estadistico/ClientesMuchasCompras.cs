@@ -13,13 +13,9 @@ namespace PalcoNet.Listado_Estadistico
 {
     public partial class ClientesMuchasCompras : MiForm
     {
-<<<<<<< HEAD
-    /*   public ClientesMuchasCompras(List<CompraCliente> comprasClientes, MiForm formAnterior) : base(formAnterior)
-        { 
-=======
+
  /*       public ClientesMuchasCompras(List<CompraCliente> comprasClientes, MiForm formAnterior) : base(formAnterior)
         {
->>>>>>> 2312e50b3242454aa54139a3c20953fc0612082c
             InitializeComponent();
             var bindingList = new BindingList<CompraCliente>(comprasClientes);
             var source = new BindingSource(bindingList, null);
