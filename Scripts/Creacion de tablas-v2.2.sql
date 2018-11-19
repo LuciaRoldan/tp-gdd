@@ -79,7 +79,8 @@ id_usuario INT REFERENCES Usuarios,
 id_rol INT REFERENCES Roles;
 
 ALTER TABLE Roles ADD
-nombre CHAR(40);
+nombre CHAR(40),
+habilitado BIT;
 
 ALTER TABLE FuncionalidadXRol ADD
 id_funcionalidad INT REFERENCES Funcionalidades,

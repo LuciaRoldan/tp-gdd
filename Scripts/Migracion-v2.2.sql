@@ -8,8 +8,8 @@ USE GD2C2018
 
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 --tabla roles
-INSERT INTO Roles(nombre)
-VALUES ('Administrativo'),('Empresa'),('Cliente');
+INSERT INTO Roles(nombre, habilitado)
+VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1);
 
 --SELECT * FROM Roles
 
