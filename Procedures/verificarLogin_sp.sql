@@ -4,6 +4,9 @@ CREATE PROCEDURE verificarLogin_sp
 AS
 	IF EXISTS(SELECT * FROM Usuarios WHERE username = @usuario AND password = @contrasenia)
 	BEGIN
+		UPDATE Usuarios
+		SET intentos_fallidos = 0
+
 		SELECT COUNT(*) FROM Usuarios WHERE username = @usuario AND password = @contrasenia
 	END
 	ELSE --existe el usuario pero la contrasenia es otra
