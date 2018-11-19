@@ -62,28 +62,30 @@ namespace PalcoNet.Registro_de_Usuario
 
                     if (this.Usuario is Empresa)
                     {
-                            string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
-                            + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
-                            + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+                        string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
+                        + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
+                        + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
+                        + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
 
                         Console.WriteLine(query);
 
                         servidor.realizarQuery("EXEC dbo.registroEmpresa " + query);
 
                     }
+                    else
+                    {
 
-                    string queryCli = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
-                            + ((Cliente)this.Usuario).Nombre + "', '" + ((Cliente)this.Usuario).Apellido + "', '"
-                            + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
-                            + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '" 
-                            + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+                        string queryCli = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
+                                + ((Cliente)this.Usuario).Nombre + "', '" + ((Cliente)this.Usuario).Apellido + "', '"
+                                + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
+                                + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
+                                + ((Cliente)this.Usuario).FechaDeNacimiento + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
+                                + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
 
-                    Console.WriteLine(queryCli);
+                        Console.WriteLine(queryCli);
 
-                    servidor.realizarQuery("EXEC dbo.registroCliente " + queryCli);
-
+                        servidor.realizarQuery("EXEC dbo.registroCliente " + queryCli);
+                    }
 
                     this.Hide();
                     this.cerrarAnteriores();
