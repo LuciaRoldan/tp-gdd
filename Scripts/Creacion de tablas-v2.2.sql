@@ -72,7 +72,8 @@ ALTER TABLE Usuarios ADD
 username VARCHAR(25),
 password VARCHAR(25),
 habilitado BIT,
-alta_logica DATETIME;
+alta_logica DATETIME,
+intentos_fallidos INT;
 
 ALTER TABLE UsuarioXRol ADD
 id_usuario INT REFERENCES Usuarios,

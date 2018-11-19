@@ -47,14 +47,14 @@ AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar');
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
 --usuarios cliente
-INSERT INTO Usuarios (username, password, habilitado, alta_logica)
-SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE()
+INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
+SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0
 FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL;
 
 --usuarios empresa
-INSERT INTO Usuarios (username, password, habilitado, alta_logica)
-SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE()
+INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
+SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0
 FROM gd_esquema.Maestra;
 
 --SELECT * FROM Usuarios
