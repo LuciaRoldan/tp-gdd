@@ -46,11 +46,6 @@ namespace PalcoNet.Registro_de_Usuario
                     cliente.NombreUsuario = textBox1.Text;
                     cliente.Contrasenia = textBox2.Text;
                     new RegistroDeCliente(cliente,  this).Show();
-
-                    Servidor servidor = Servidor.getInstance();
-                    String query = "INSERT INTO dbo.Usuarios (username, password, habilitado, alta_logica) VALUES ('" + cliente.NombreUsuario +  "', '" + cliente.Contrasenia + "', '1', GETDATE())";
-                    servidor.query(query);
-
                     this.Hide();
                 }
                 else
