@@ -103,6 +103,15 @@ INSERT INTO Rubros
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
 FROM gd_esquema.Maestra;
 
+INSERT INTO Rubros
+VALUES
+('Concierto'),
+('Obra infantil'),
+('Musical'),
+('Stand-up'),
+('Familiar')
+
+
 --SELECT * FROM Rubros
 
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
