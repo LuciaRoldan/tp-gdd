@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Compras
+    public class Compra
     {
         Publicacion publicacion;
         MedioDePago medioDePago;
         float importe;
+        List<Ubicacion> ubicaciones;
+
+        internal List<Ubicacion> Ubicaciones
+        {
+            get { return ubicaciones; }
+            set { ubicaciones = value; }
+        }
 
         internal Publicacion Publicacion
         {
@@ -25,13 +32,13 @@ namespace PalcoNet.Dominio
         }
         DateTime fecha;
 
-        public DateTime Fecha
+        internal DateTime Fecha
         {
             get { return fecha; }
             set { fecha = value; }
         }
 
-        public float Importe
+        internal float Importe
         {
             get { return importe; }
             set { importe = value; }

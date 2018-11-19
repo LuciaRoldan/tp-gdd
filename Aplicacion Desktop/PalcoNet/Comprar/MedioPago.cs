@@ -19,7 +19,7 @@ namespace PalcoNet.Comprar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Ubicaciones().Show();
+            //new Ubicaciones().Show();
             this.Hide();
         }
 

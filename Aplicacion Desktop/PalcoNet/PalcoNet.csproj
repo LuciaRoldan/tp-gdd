@@ -153,6 +153,7 @@
     <Compile Include="Dominio\Publicacion.cs" />
     <Compile Include="Dominio\Puntos.cs" />
     <Compile Include="Dominio\Rol.cs" />
+    <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
       <SubType>Form</SubType>

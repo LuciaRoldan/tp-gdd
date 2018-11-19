@@ -27,7 +27,7 @@ namespace PalcoNet.Comprar
         {
             //hay que guardar las cosas en la base
 
-            new Ubicaciones().Show();
+            //new Ubicaciones().Show();
             this.Hide();
         }
     }

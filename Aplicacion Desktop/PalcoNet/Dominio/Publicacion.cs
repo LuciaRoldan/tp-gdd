@@ -23,6 +23,13 @@ namespace PalcoNet.Dominio
         int cantidadDeAsientos;
         DateTime fechaDeEvento;
         string direccion;
+        List<Ubicacion> ubicaciones;
+
+        internal List<Ubicacion> Ubicaciones
+        {
+            get { return ubicaciones; }
+            set { ubicaciones = value; }
+        }
 
         public string GradoDePublicacion
         {
