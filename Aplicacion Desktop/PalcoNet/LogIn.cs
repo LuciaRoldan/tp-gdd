@@ -56,19 +56,20 @@ namespace PalcoNet
             try
             {
 
-                servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
+                servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
                 Sesion s = Sesion.getInstance();
                 s.usuario = textBox1.Text.Trim();
                 List<String> roles = new List<String>();
 
-                String query = "SELECT r.nombre FROM UsuarioXRol ur JOIN Usuarios u ON (u.id_usuario = ur.id_usuario) JOIN Roles r ON (r.id_rol = ur.id_rol) WHERE username like ' " + s.usuario + "'";
+               
+                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
 
-                SqlDataReader reader = servidor.query(query);
 
                 while (reader.Read())
                 {
                     String rol;
                     rol = reader["nombre"].ToString();
+                    s.rol = reader["nombre"].ToString(); //se deberia cambiar para que quede mas lindo
                     roles.Add(rol);
                 }
                 reader.Close();
@@ -79,7 +80,9 @@ namespace PalcoNet
                   }
                   else
                 {
-                      new SeleccionarFuncionalidad().Show();
+                    Console.Write("EL USUARIO ES: " + s.usuario);
+                    Console.Write("EL ROL ES: " + Sesion.sesion.rol);
+                    new SeleccionarFuncionalidad().Show();
                 }
             }
             catch (SqlException ex)

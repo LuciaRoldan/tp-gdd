@@ -69,7 +69,7 @@ namespace PalcoNet.Registro_de_Usuario
 
                         Console.WriteLine(query);
 
-                        servidor.realizarQuery("EXEC dbo.registroEmpresa " + query);
+                        servidor.realizarQuery("EXEC dbo.registroEmpresa_sp " + query);
 
                     }
                     else
@@ -84,7 +84,7 @@ namespace PalcoNet.Registro_de_Usuario
 
                         Console.WriteLine(queryCli);
 
-                        servidor.realizarQuery("EXEC dbo.registroCliente " + queryCli);
+                        servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
                     }
 
                     this.Hide();
