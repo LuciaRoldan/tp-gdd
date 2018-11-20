@@ -69,8 +69,8 @@ id_premio INT IDENTITY(1,1) PRIMARY KEY
 -----ALTER TABLES-----
 
 ALTER TABLE Usuarios ADD
-username VARCHAR(25),
-password VARCHAR(25),
+username VARCHAR(255),
+password VARCHAR(255),
 habilitado BIT,
 alta_logica DATETIME,
 intentos_fallidos INT;
