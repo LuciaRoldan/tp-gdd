@@ -112,7 +112,7 @@ VALUES
 ('Familiar')
 
 
---SELECT * FROM Rubros
+SELECT * FROM Rubros
 
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
 INSERT INTO Grados_publicacion(comision, nombre)
