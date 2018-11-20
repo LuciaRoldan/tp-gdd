@@ -81,7 +81,9 @@ namespace PalcoNet.Comprar
         private void button4_Click(object sender, EventArgs e)
         {
             Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
-            new Ubicaciones().Show();
+            Compra compra = new Compra();
+            compra.Publicacion = publicacionSeleccionada;
+            new Ubicaciones(compra, this).Show();
             this.Hide();
         }
 
