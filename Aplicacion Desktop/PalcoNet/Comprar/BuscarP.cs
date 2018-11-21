@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,14 @@ namespace PalcoNet.Comprar
         public BuscarP(Cliente cliente, MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+            Servidor servidor = Servidor.getInstance();
+            SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+            while (reader.Read())
+            {
+                checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
+            }
+            reader.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,6 +82,11 @@ namespace PalcoNet.Comprar
                     this.Hide();
                 }
             }
+        }
+
+        private void checkedListBoxCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

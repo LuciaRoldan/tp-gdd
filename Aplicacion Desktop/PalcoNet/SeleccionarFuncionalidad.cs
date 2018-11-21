@@ -20,15 +20,19 @@ using PalcoNet.Historial_Cliente;
 using PalcoNet.Canje_Puntos;
 using PalcoNet.Generar_Rendicion_Comisiones;
 using PalcoNet.Listado_Estadistico;
+using PalcoNet.Dominio;
 
 namespace PalcoNet
 {
     public partial class SeleccionarFuncionalidad : MiForm
     {
+        Sesion sesion = Sesion.getInstance();
+        Servidor servidor = Servidor.getInstance();
+              
         public SeleccionarFuncionalidad()
         {
             InitializeComponent();
-            Servidor servidor = Servidor.getInstance();
+            
             SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
 
             while (reader.Read())
@@ -36,7 +40,7 @@ namespace PalcoNet
               comboBox1.Items.Add(reader["nombre"].ToString());
             }
             reader.Close();
-        }
+         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -86,7 +90,8 @@ namespace PalcoNet
                         new Editar_publicacion().Show();
                         break;
                     case "Comprar":
-                        //new BuscarP().Show(); es para cliente
+                        Cliente cliente = this.obtenerCliente();
+                        new BuscarP(cliente,this).Show();
                         break;
                     case "Historial del cliente":
                         new Historial().Show();
@@ -106,6 +111,32 @@ namespace PalcoNet
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private Cliente obtenerCliente()
+        {
+            Cliente cliente = new Cliente();
+            SqlDataReader reader = servidor.query("EXEC dbo.buscarClientePorUsername_sp '" + Sesion.sesion.usuario + "'");
+
+            while (reader.Read())
+            {
+                cliente.Nombre = (reader["nombre"].ToString());
+                cliente.Apellido = (reader["apellido"].ToString());
+                cliente.TipoDocumento = (reader["tipo_documento"].ToString());
+                cliente.NumeroDeDocumento = (Convert.ToInt32(reader["documento"]));
+                cliente.Cuil = (Convert.ToInt32(reader["cuil"].ToString()));
+                cliente.Mail = (reader["mail"].ToString());
+                cliente.Telefono = (Convert.ToInt32(reader["telefono"].ToString()));
+                cliente.FechaDeNacimiento = (Convert.ToDateTime(reader["fecha_creacion"].ToString()));
+                cliente.Calle = (reader["calle"].ToString());
+                cliente.NumeroDeCalle = (Convert.ToInt16(reader["numero_calle"].ToString()));
+                cliente.Piso = (Convert.ToInt16(reader["piso"].ToString()));
+                cliente.Departamento = (reader["depto"].ToString());
+                cliente.CodigoPostal = (reader["codigo_postal"].ToString());
+            }
+            reader.Close();
+
+            return cliente;
         }
     }
 }
