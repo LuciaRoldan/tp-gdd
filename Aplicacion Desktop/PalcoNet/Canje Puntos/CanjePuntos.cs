@@ -95,6 +95,8 @@ namespace PalcoNet.Canje_Puntos
             }
             this.textBoxPuntos.Text = this.PuntosOriginales.ToString();
             this.textBoxTotal.Text = this.PuntosAcumulados.ToString();
+
+            //Cambiar los puntos en el objeto cliente de la sesion
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

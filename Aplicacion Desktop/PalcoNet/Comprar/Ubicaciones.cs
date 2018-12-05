@@ -14,6 +14,13 @@ namespace PalcoNet.Comprar
     public partial class Ubicaciones : MiForm
     {
         Compra compra;
+        Cliente cliente;
+
+        public Cliente Cliente
+        {
+            get { return cliente; }
+            set { cliente = value; }
+        }
 
         internal Compra Compra
         {
@@ -29,17 +36,19 @@ namespace PalcoNet.Comprar
             set { ubicacionesDisponibles = value; }
         }
 
-        public Ubicaciones(Compra compra, MiForm anterior) : base(anterior)
+        public Ubicaciones(Compra compra, Cliente cliente, MiForm anterior) : base(anterior)
         {
             this.Compra = compra;
+            this.Cliente = cliente;
             InitializeComponent();
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
 
             foreach (Ubicacion u in this.UbicacionesDisponibles)
             {
-                this.checkedListBoxUbicaciones.Items.Add(u);
+                comboBoxUbicaciones.Items.Add(u.TipoAsiento);
             }
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -55,7 +64,7 @@ namespace PalcoNet.Comprar
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new MedioPago().Show();
+            new MedioPago(this, this.Compra, this.Cliente).Show();
             this.Hide();
         }
 
@@ -64,37 +73,47 @@ namespace PalcoNet.Comprar
             //Aca hay que ir gurdando una lista de todas las entradas
             //Tambien podria salir un cartelito de que las cosas salieron bien
 
-            if (this.numericUpDownCantidad.Value > 0 && this.checkedListBoxUbicaciones.SelectedIndices.Count > 0) {
+            if (this.numericUpDownCantidad.Value > 0 && this.comboBoxUbicaciones.SelectedIndex > -1)
+            {
                 Ubicacion ubicacion = new Ubicacion();
-                ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.checkedListBoxUbicaciones.SelectedIndices[0]].TipoAsiento;
-                ubicacion.Precio = this.UbicacionesDisponibles[this.checkedListBoxUbicaciones.SelectedIndices[0]].Precio;
-                ubicacion.Numerada = this.UbicacionesDisponibles[this.checkedListBoxUbicaciones.SelectedIndices[0]].Numerada;
+                ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
+                ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
+                ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
                 if (ubicacion.Numerada)
-                { 
-                    //Alguna idea de como mostrar los asientos disponibles para elegir fila y asiento???????
+                {
+                    List<Asiento> asientos = new List<Asiento>();
+                    for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
+                    {
+                        SeleccionAsiento seleccion = new SeleccionAsiento(ubicacion, compra);
+                        seleccion.Show();
+                        asientos.Add(seleccion.Asiento);
+                        seleccion.Close();
+                    }
+                    ubicacion.Asientos = asientos;
                 }
+                this.Compra.Ubicaciones.Add(ubicacion);
             }
 
         }
 
         private void checkedListBoxUbicaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (checkedListBoxUbicaciones.CheckedItems.Count > 1)
-            {
-                Int32 checkedItemIndex = checkedListBoxUbicaciones.CheckedIndices[0];
-                checkedListBoxUbicaciones.ItemCheck -= checkedListBoxUbicaciones_ItemCheck;
-                checkedListBoxUbicaciones.SetItemChecked(checkedItemIndex, false);
-                checkedListBoxUbicaciones.ItemCheck += checkedListBoxUbicaciones_ItemCheck;
-            }
-            this.numericUpDownCantidad.Value = 0;
+            
         }
 
          private void checkedListBoxUbicaciones_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (e.NewValue == CheckState.Checked)
-                for (int ix = 0; ix < checkedListBoxUbicaciones.Items.Count; ++ix)
-                    if (e.Index != ix) checkedListBoxUbicaciones.SetItemChecked(ix, false);
         }
+
+         private void numericUpDownCantidad_ValueChanged(object sender, EventArgs e)
+         {
+
+         }
+
+         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+         {
+
+         }
             
     }
 }

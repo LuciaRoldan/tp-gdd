@@ -22,26 +22,20 @@ namespace PalcoNet.Dominio
             get { return numerada; }
             set { numerada = value; }
         }
-        int fila;
-
-        public int Fila
-        {
-            get { return fila; }
-            set { fila = value; }
-        }
-        int asiento;
-
-        public int Asiento
-        {
-            get { return asiento; }
-            set { asiento = value; }
-        }
         decimal precio;
 
         public decimal Precio
         {
             get { return precio; }
             set { precio = value; }
+        }
+
+        List<Asiento> asientos = new List<Asiento>();
+
+        internal List<Asiento> Asientos
+        {
+            get { return asientos; }
+            set { asientos = value; }
         }
     }
 }

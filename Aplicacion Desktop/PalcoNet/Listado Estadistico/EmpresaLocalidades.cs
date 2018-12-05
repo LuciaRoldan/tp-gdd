@@ -47,7 +47,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Listados().Show();
+            this.Anterior.Show();
             this.Hide(); 
         }
     }

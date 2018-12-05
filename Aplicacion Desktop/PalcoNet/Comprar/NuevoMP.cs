@@ -7,11 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Comprar
 {
     public partial class NuevoMP : Form
     {
+        Tarjeta tarjeta;
+
+        internal Tarjeta Tarjeta
+        {
+            get { return tarjeta; }
+            set { tarjeta = value; }
+        }
+
         public NuevoMP()
         {
             InitializeComponent();
@@ -24,8 +33,10 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Agregar el medio de pago a la tabla
-            this.Close();
+            this.Tarjeta = new Tarjeta();
+            this.Tarjeta.NumeroDeTarjeta = Int32.Parse(this.textBoxNumero.Text);
+            this.Tarjeta.Titular = this.textBoxTitular.Text;
+            //Agregar el medio de pago a la base
         }
     }
 }

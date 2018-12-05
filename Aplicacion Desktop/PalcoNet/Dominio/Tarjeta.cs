@@ -5,11 +5,10 @@ using System.Text;
 
 namespace PalcoNet.Dominio
 {
-    class MedioDePago
+    class Tarjeta
     {
         int numeroDeTarjeta;
         string titular;
-        DateTime fechaDeVencimiento;
 
         public int NumeroDeTarjeta
         {
@@ -21,12 +20,6 @@ namespace PalcoNet.Dominio
         {
             get { return titular; }
             set { titular = value; }
-        }
-     
-        public DateTime FechaDeVencimiento
-        {
-            get { return fechaDeVencimiento; }
-            set { fechaDeVencimiento = value; }
-        }  
+        } 
     }
 }
