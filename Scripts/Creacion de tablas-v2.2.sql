@@ -47,7 +47,15 @@ id_compra INT PRIMARY KEY
 )
 
 CREATE TABLE Publicaciones(
-id_publicacion INT PRIMARY KEY
+id_publicacion INT IDENTITY PRIMARY KEY
+)
+
+CREATE TABLE Espectaculos(
+id_espectaculo INT PRIMARY KEY
+)
+
+CREATE TABLE UbicacionXEspectaculo(
+id_ubicacion_x_espectaculo INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Rubros(
@@ -137,22 +145,41 @@ importe_total NUMERIC(18,2);
 
 ALTER TABLE Compras ADD
 id_cliente INT REFERENCES Clientes,
-id_publicacion INT REFERENCES Publicaciones,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
 fecha DATETIME,
 importe INT;
+
+--ALTER TABLE Publicaciones ADD
+--id_empresa INT REFERENCES Empresas,
+--id_grado_publicacion INT REFERENCES Grados_publicacion,
+--id_rubro INT REFERENCES Rubros,
+--descripcion NVARCHAR(255),
+--estado_publicacion CHAR(15) CHECK(estado_publicacion IN ('Borrador', 'Publicada', 'Finalizada')),
+--fecha_inicio DATETIME,
+--fecha_evento DATETIME,
+--cantidad_asientos INT,
+--direccion VARCHAR(80);
 
 ALTER TABLE Publicaciones ADD
 id_empresa INT REFERENCES Empresas,
 id_grado_publicacion INT REFERENCES Grados_publicacion,
 id_rubro INT REFERENCES Rubros,
 descripcion NVARCHAR(255),
-estado_publicacion CHAR(15) CHECK(estado_publicacion IN ('Borrador', 'Publicada', 'Finalizada')),
-fecha_inicio DATETIME,
-fecha_evento DATETIME,
 cantidad_asientos INT,
 direccion VARCHAR(80);
+
+ALTER TABLE Espectaculos ADD
+id_publicacion INT REFERENCES Publicaciones,
+fecha_inicio DATETIME,
+fecha_evento DATETIME,
+estado_espectaculo CHAR(15) CHECK(estado_espectaculo IN ('Borrador', 'Publicada', 'Finalizada'))
+
+ALTER TABLE UbicacionXEspectaculo ADD
+id_espectaculo INT REFERENCES Espectaculos,
+id_ubicacion INT REFERENCES Ubicaciones,
+id_compra INT REFERENCES Compras,
+esta_ocupado BIT
 
 ALTER TABLE Grados_publicacion ADD
 comision NUMERIC(3,3),
@@ -161,11 +188,19 @@ nombre NVARCHAR(20);
 ALTER TABLE Rubros ADD
 descripcion NVARCHAR(100);
 
+--ALTER TABLE Ubicaciones ADD
+--id_publicacion INT REFERENCES Publicaciones,
+--codigo_tipo_ubicacion INT,
+--tipo_ubicacion NVARCHAR(20),
+--id_compra INT REFERENCES Compras,
+--fila VARCHAR(3),
+--asiento NUMERIC(18),
+--sin_numerar BIT,
+--precio NUMERIC(18);
+
 ALTER TABLE Ubicaciones ADD
-id_publicacion INT REFERENCES Publicaciones,
 codigo_tipo_ubicacion INT,
 tipo_ubicacion NVARCHAR(20),
-id_compra INT REFERENCES Compras,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,

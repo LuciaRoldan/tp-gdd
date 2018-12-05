@@ -112,7 +112,7 @@ VALUES
 ('Familiar')
 
 
-SELECT * FROM Rubros
+--SELECT * FROM Rubros
 
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
 INSERT INTO Grados_publicacion(comision, nombre)
@@ -124,15 +124,39 @@ VALUES
 --select * from Grados_publicacion
 
 --.--.--.--.--.--.--PUBLICACION--.--.--.--.--.--.--
-INSERT INTO Publicaciones(id_publicacion, id_empresa, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
+/*INSERT INTO Publicaciones(id_publicacion, id_empresa, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
 			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
 SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
 		Espectaculo_Fecha_Venc, NULL, NULL
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
-JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);
+JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);*/
+
+/*INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
+			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
+SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
+		Espectaculo_Fecha_Venc, NULL, NULL
+FROM gd_esquema.Maestra gd
+JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
+JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);*/
+
+INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
+			cantidad_asientos, direccion)
+SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL, NULL
+FROM gd_esquema.Maestra gd
+JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
+
+--select * from gd_esquema.Maestra order by Espectaculo_Cod
 
 --select * from Publicaciones
+
+--.--.--.--.--.--.--ESPECTÁCULOS--.--.--.--.--.--.--
+INSERT INTO Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
+SELECT DISTINCT gd.Espectaculo_Cod, p.id_publicacion, Espectaculo_Fecha, Espectaculo_Fecha_Venc, Espectaculo_Estado
+FROM gd_esquema.Maestra gd
+JOIN Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
+
+--SELECT * FROM Espectaculos
 
 --.--.--.--.--.--.--FACTURAS--.--.--.--.--.--.--
 INSERT INTO Facturas(id_factura, id_empresa, fecha_facturacion, importe_total)
@@ -158,28 +182,22 @@ WHERE gd.Item_Factura_Monto IS NOT NULL
 CREATE TABLE #ComprasTemp(
 id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
 id_cliente INT REFERENCES Clientes,
-id_publicacion INT REFERENCES Publicaciones,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
 fecha DATETIME,
-asiento INT,
-fila CHAR(1),
-tipo_codigo INT
 )
 
-INSERT INTO #ComprasTemp(id_cliente, id_publicacion, id_medio_de_pago,
-id_factura, fecha, asiento, fila, tipo_codigo)
-SELECT c.id_cliente, p.id_publicacion, mp.id_medio_de_pago, f.id_factura, Compra_Fecha,
-Ubicacion_Asiento, Ubicacion_Fila, Ubicacion_Tipo_Codigo
+INSERT INTO #ComprasTemp(id_cliente, id_medio_de_pago, id_factura, fecha)
+SELECT c.id_cliente, mp.id_medio_de_pago, f.id_factura, Compra_Fecha
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
-JOIN Publicaciones p ON(gd.Espectaculo_Cod = p.id_publicacion)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
 JOIN Medios_de_pago mp ON (c.id_cliente = mp.id_cliente)
 WHERE gd.Forma_Pago_Desc IS NOT NULL
 
-INSERT INTO Compras(id_compra, id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha)
-SELECT id_compra, id_cliente, id_publicacion, id_medio_de_pago, id_factura, fecha
+--Acá ver lo del @@SCOPE_IDENTITY
+INSERT INTO Compras(id_compra, id_cliente, id_medio_de_pago, id_factura, fecha)
+SELECT id_compra, id_cliente, id_medio_de_pago, id_factura, fecha
 FROM #ComprasTemp
 
 --select * from #ComprasTemp
@@ -188,16 +206,35 @@ FROM #ComprasTemp
 
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
-INSERT INTO Ubicaciones(id_publicacion, id_compra, codigo_tipo_ubicacion, fila, asiento,
-tipo_ubicacion, sin_numerar, precio)
-SELECT DISTINCT ct.id_publicacion, ct.id_compra, gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Fila, gd.Ubicacion_Asiento,
-Ubicacion_Tipo_Descripcion, Ubicacion_Sin_numerar, Ubicacion_Precio
+INSERT INTO Ubicaciones(codigo_tipo_ubicacion, tipo_ubicacion, fila, asiento, sin_numerar, precio)
+SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Tipo_Descripcion, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
-JOIN #ComprasTemp ct ON (ct.id_publicacion = gd.Espectaculo_Cod AND ct.asiento = gd.Ubicacion_Asiento AND ct.fila = gd.Ubicacion_Fila AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 
-DROP TABLE #ComprasTemp
+--select * from Ubicaciones
 
---select * from ubicacion
+--.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
+
+INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra, esta_ocupado)
+--Falta agregar el id_compra
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, NULL, 1, u.codigo_tipo_ubicacion, u.precio
+FROM gd_esquema.Maestra gd
+JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar AND gd.Ubicacion_Precio = u.precio)
+WHERE Espectaculo_Cod = 12353
+ORDER BY Espectaculo_Cod
+
+
+
+
+SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353 ORDER BY Ubicacion_Precio desc
+
+
+--INSERT INTO UbicacionXEspectaculo(id_compra)
+--
+
+DROP TABLE #ComprasTemp 
+--Compra de 18 ubicaciones con este Espectaculo_Cod pero me está tirando menos? => Me devuelve las 8 que no fueron compradas, tienen Cli_Dni en NULL
+--ME ESTÁ RETORNANDO LAS QUE TIENEN Cli_Dni en NULL realmente
+--SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 

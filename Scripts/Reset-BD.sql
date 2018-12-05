@@ -4,6 +4,8 @@ DROP TABLE Roles
 DROP TABLE Funcionalidades
 DROP TABLE Premios
 DROP TABLE Puntos
+DROP TABLE UbicacionXEspectaculo
+DROP TABLE Espectaculos
 DROP TABLE Ubicaciones
 DROP TABLE Compras
 DROP TABLE Facturas
