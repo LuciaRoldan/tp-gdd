@@ -158,6 +158,14 @@ JOIN Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
 
 --SELECT * FROM Espectaculos
 
+--.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
+
+INSERT INTO Ubicaciones(codigo_tipo_ubicacion, tipo_ubicacion, fila, asiento, sin_numerar, precio)
+SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Tipo_Descripcion, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+FROM gd_esquema.Maestra gd
+
+--select * from Ubicaciones
+
 --.--.--.--.--.--.--FACTURAS--.--.--.--.--.--.--
 INSERT INTO Facturas(id_factura, id_empresa, fecha_facturacion, importe_total)
 SELECT DISTINCT Factura_Nro, e.id_empresa, Factura_Fecha, Factura_Total
@@ -179,62 +187,86 @@ WHERE gd.Item_Factura_Monto IS NOT NULL
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
 --NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
 
-CREATE TABLE #ComprasTemp(
+/*CREATE TABLE #ComprasTemp(
 id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
 id_cliente INT REFERENCES Clientes,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
 fecha DATETIME,
-)
+)*/
 
-INSERT INTO #ComprasTemp(id_cliente, id_medio_de_pago, id_factura, fecha)
+/*--INSERT INTO #ComprasTemp(id_cliente, id_medio_de_pago, id_factura, fecha)
+INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha)
 SELECT c.id_cliente, mp.id_medio_de_pago, f.id_factura, Compra_Fecha
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
 JOIN Medios_de_pago mp ON (c.id_cliente = mp.id_cliente)
-WHERE gd.Forma_Pago_Desc IS NOT NULL
+WHERE gd.Forma_Pago_Desc IS NOT NULL*/
 
 --Acá ver lo del @@SCOPE_IDENTITY
-INSERT INTO Compras(id_compra, id_cliente, id_medio_de_pago, id_factura, fecha)
-SELECT id_compra, id_cliente, id_medio_de_pago, id_factura, fecha
-FROM #ComprasTemp
+--INSERT INTO Compras(id_compra, id_cliente, id_medio_de_pago, id_factura, fecha)
+--SELECT id_compra, id_cliente, id_medio_de_pago, id_factura, fecha
+--FROM #ComprasTemp
 
 --select * from #ComprasTemp
 --SELECT * FROM Medios_de_pago
 --select * from Compras
 
---.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
+CREATE TABLE #ComprasTemp(
+id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
+id_cliente INT REFERENCES Clientes,
+id_espectaculo INT REFERENCES Espectaculos,
+id_medio_de_pago INT REFERENCES Medios_de_pago,
+id_factura INT REFERENCES Facturas,
+fecha DATETIME,
+asiento INT,
+fila CHAR(1),
+tipo_codigo INT
+)
 
-INSERT INTO Ubicaciones(codigo_tipo_ubicacion, tipo_ubicacion, fila, asiento, sin_numerar, precio)
-SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Tipo_Descripcion, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+INSERT INTO #ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, fecha, asiento, fila, tipo_codigo)
+SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, gd.Compra_Fecha, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo
 FROM gd_esquema.Maestra gd
-
---select * from Ubicaciones
+JOIN Clientes c ON(gd.Cli_Dni = c.documento)
+JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
+JOIN Medios_de_pago mp ON(c.id_cliente = mp.id_cliente)
+WHERE gd.Forma_Pago_Desc IS NOT NULL
 
 --.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
 
-INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra, esta_ocupado)
+INSERT INTO Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha)
+SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
+FROM #ComprasTemp
+
+INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion)
 --Falta agregar el id_compra
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, NULL, 1, u.codigo_tipo_ubicacion, u.precio
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion
 FROM gd_esquema.Maestra gd
-JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar AND gd.Ubicacion_Precio = u.precio)
-WHERE Espectaculo_Cod = 12353
+JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
+	AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
+	AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar
+	AND gd.Ubicacion_Precio = u.precio)
+--WHERE Espectaculo_Cod = 12353
 ORDER BY Espectaculo_Cod
 
 
+INSERT INTO UbicacionXEspectaculo(id_compra)
+SELECT DISTINCT ct.id_compra
+FROM gd_esquema.Maestra gd
+JOIN #ComprasTemp ct ON(
+		ct.id_espectaculo = gd.Espectaculo_Cod
+		AND ct.asiento = gd.Ubicacion_Asiento
+		AND ct.fila = gd.Ubicacion_Fila
+		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 
 
-SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353 ORDER BY Ubicacion_Precio desc
-
+DROP TABLE #ComprasTemp
 
 --INSERT INTO UbicacionXEspectaculo(id_compra)
---
-
-DROP TABLE #ComprasTemp 
 --Compra de 18 ubicaciones con este Espectaculo_Cod pero me está tirando menos? => Me devuelve las 8 que no fueron compradas, tienen Cli_Dni en NULL
 --ME ESTÁ RETORNANDO LAS QUE TIENEN Cli_Dni en NULL realmente
---SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353
+--SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353 OR Espectaculo_Cod = 12355
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 

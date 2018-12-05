@@ -55,7 +55,7 @@ id_espectaculo INT PRIMARY KEY
 )
 
 CREATE TABLE UbicacionXEspectaculo(
-id_ubicacion_x_espectaculo INT IDENTITY PRIMARY KEY
+id_ubicacion_espectaculo INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Rubros(
@@ -178,8 +178,7 @@ estado_espectaculo CHAR(15) CHECK(estado_espectaculo IN ('Borrador', 'Publicada'
 ALTER TABLE UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES Espectaculos,
 id_ubicacion INT REFERENCES Ubicaciones,
-id_compra INT REFERENCES Compras,
-esta_ocupado BIT
+id_compra INT REFERENCES Compras
 
 ALTER TABLE Grados_publicacion ADD
 comision NUMERIC(3,3),
