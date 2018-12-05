@@ -1,12 +1,12 @@
-CREATE PROCEDURE modificarRol_sp
-@nombre_rol VARCHAR(50),
-@habilitado BIT
+CREATE PROCEDURE modificarNombreRol_sp
+@nombre_viejo VARCHAR(50),
+@nombre_nuevo VARCHAR(50)
 AS
-	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_rol)
+	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_viejo)
 	BEGIN
 		UPDATE Roles
-		SET nombre = @nombre_rol, habilitado = @habilitado
-		WHERE nombre = @nombre_rol
+		SET nombre = @nombre_nuevo
+		WHERE nombre = @nombre_viejo
 	END
 	ELSE
 		BEGIN

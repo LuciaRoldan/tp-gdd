@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,11 +14,12 @@ namespace PalcoNet.Abm_Rol
 {
     public partial class AbmRol : MiForm
     {
-        List<Funcionalidad> funcionalidades = Enum.GetValues(typeof(Funcionalidad)).Cast<Funcionalidad>().ToList();
-
+        List<String> funcionalidades = new List<String>();
+        List<String> funcionalidadesSeleccionadas = new List<String>();
         List<Rol> roles = new List<Rol>();
 
-        Rol rolSeleccionado;
+        Rol rolSeleccionado = new Rol();
+        Servidor servidor = Servidor.getInstance();
 
         internal Rol RolSeleccionado
         {
@@ -31,7 +33,7 @@ namespace PalcoNet.Abm_Rol
             set { roles = value; }
         }
 
-        internal List<Funcionalidad> Funcionalidades
+        internal List<String> Funcionalidades
         {
             get { return funcionalidades; }
             set { funcionalidades = value; }
@@ -40,34 +42,26 @@ namespace PalcoNet.Abm_Rol
         public AbmRol(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            foreach (Funcionalidad fun in this.Funcionalidades)
-            {
-                checkedListBoxFun2.Items.Add(fun);
-                checkedListBoxFuncionalidades.Items.Add(fun);
-            }
+  
+                SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM Funcionalidades");
 
+                while (reader.Read())
+                {
+                    checkedListBoxFuncionalidades.Items.Add(reader["nombre"].ToString());
+                    this.Funcionalidades.Add(reader["nombre"].ToString());
+                    checkedListBoxFun2.Items.Add(reader["nombre"].ToString());
+                }
+                reader.Close();
+
+                reader = servidor.query("SELECT DISTINCT nombre FROM Roles");
+
+                while (reader.Read())
+                {
+                    comboBoxRoles.Items.Add(reader["nombre"].ToString());
+                }
+                reader.Close();
+            
             //Aca hay que traer todos los roles de la base y guardarlos en la lista roles
-
-            Rol rol1 = new Rol();
-            Rol rol2 = new Rol();
-            rol1.Nombre = "UNO";
-            rol2.Nombre = "DOS";
-            List<Funcionalidad> ff = new List<Funcionalidad>();
-            ff.Add(Funcionalidad.Comprar);
-            ff.Add(Funcionalidad.ABMRubro);
-            List<Funcionalidad> fff = new List<Funcionalidad>();
-            fff.Add(Funcionalidad.EditarPublicacion);
-            fff.Add(Funcionalidad.VerHistorial);
-            rol1.Funcionalidades = ff;
-            rol2.Funcionalidades = fff;
-
-            this.Roles.Add(rol1);
-            this.Roles.Add(rol2);
-
-            foreach (Rol rol in this.Roles)
-            {
-                comboBoxRoles.Items.Add(rol.Nombre);
-            }
 
         }
 
@@ -113,17 +107,26 @@ namespace PalcoNet.Abm_Rol
             //Capaz estaria bueno que salga un cartelito de que salio todo bien
             if (!string.IsNullOrWhiteSpace(textBoxNombre.Text) && checkedListBoxFuncionalidades.CheckedIndices.Count > 0)
             {
-                string Nombre = textBoxNombre.Text;
-                List<Funcionalidad> funcionalidadesSeleccionadas = new List<Funcionalidad>();
-                foreach(Funcionalidad f in checkedListBoxFuncionalidades.CheckedItems){
+                string nombre = textBoxNombre.Text;
+                servidor.realizarQuery("EXEC dbo.agregarRol_sp '" + nombre + "'");
+                foreach(String f in checkedListBoxFuncionalidades.CheckedItems){
                     funcionalidadesSeleccionadas.Add(f);
+                }
+                foreach (String fun in funcionalidadesSeleccionadas)
+                {
+                    servidor.realizarQuery("EXEC dbo.AgregarFuncionalidadARol_sp '" + nombre + "', '" + fun + "'");
                 }
 
                 //Aca hay que guardar una nueva funcionalidad en la base con el nombre del rol y las funcionalidades
 
-                MessageBox.Show("Se creó el rol " + Nombre + " de forma exitosa.", "Rol creado", MessageBoxButtons.OK);
-            }
+                for (int i = 0; this.checkedListBoxFuncionalidades.Items.Count > i; i++)
+                {
+                    this.checkedListBoxFuncionalidades.SetItemChecked(i, false);
+                }
+                textBoxNombre.ResetText();
 
+                MessageBox.Show("Se creó el rol " + nombre + " de forma exitosa.", "Rol creado", MessageBoxButtons.OK);
+            } 
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -133,33 +136,70 @@ namespace PalcoNet.Abm_Rol
 
             if (!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) && checkedListBoxFun2.SelectedItems.Count > 0)
             {
+
                 Rol rolModificado = new Rol();
                 rolModificado.Nombre = this.textBoxNomb.Text;
-                List<Funcionalidad> funcionalidadesSeleccionadas = new List<Funcionalidad>();
-                foreach (Funcionalidad f in checkedListBoxFuncionalidades.CheckedItems)
+                Console.WriteLine(rolSeleccionado.Nombre);
+
+                servidor.realizarQuery("EXEC dbo.eliminarFuncionalidadesRol_sp '" + rolSeleccionado.Nombre + "'");
+                               
+                foreach (String f in checkedListBoxFun2.CheckedItems)
                 {
                     funcionalidadesSeleccionadas.Add(f);
                 }
-                rolModificado.Funcionalidades = funcionalidadesSeleccionadas;
+                foreach (String fun in funcionalidadesSeleccionadas)
+                {
+                    servidor.realizarQuery("EXEC dbo.AgregarFuncionalidadARol_sp '" + rolSeleccionado.Nombre + "', '" + fun + "'");
+                }
 
+                servidor.realizarQuery("EXEC dbo.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
+                rolSeleccionado = rolModificado;
+               
                 //Aca hay que actualizar los datos en la base
 
+                for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
+                {
+                     this.checkedListBoxFun2.SetItemChecked(i, false);
+                }
+                textBoxNomb.ResetText();
+                comboBoxRoles.ResetText();
+
                 MessageBox.Show("Se actualizó el rol de forma exitosa.", "Rol editado", MessageBoxButtons.OK);
+
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            rolSeleccionado.Nombre = comboBoxRoles.SelectedItem.ToString();
             this.checkedListBoxFun2.Enabled = true;
-            this.RolSeleccionado = this.Roles[comboBoxRoles.SelectedIndex];
+
+            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeRol_sp '" + rolSeleccionado.Nombre + "'");
+
+
+            while (reader.Read())
+            {
+                String funcionalidadSeleccionada;
+                funcionalidadSeleccionada = reader["nombre"].ToString();
+                funcionalidadesSeleccionadas.Add(funcionalidadSeleccionada);
+                
+            }
+            reader.Close();
+            
             for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++) {
-                if (this.RolSeleccionado.Funcionalidades.Contains(this.Funcionalidades[i])){
+                if (funcionalidadesSeleccionadas.Contains(this.Funcionalidades[i])){
                     this.checkedListBoxFun2.SetItemChecked(i, true);
                 } else {
                     this.checkedListBoxFun2.SetItemChecked(i, false);
                 }
             }
-            this.textBoxNomb.Text = this.RolSeleccionado.Nombre;
+            this.textBoxNomb.Text = this.rolSeleccionado.Nombre;
+            funcionalidadesSeleccionadas.Clear();
+        }
+
+        private void checkedListBoxFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
