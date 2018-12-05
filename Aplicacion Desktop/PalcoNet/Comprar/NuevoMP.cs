@@ -33,7 +33,10 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Agregar el medio de pago a la tabla
+            this.Tarjeta = new Tarjeta();
+            this.Tarjeta.NumeroDeTarjeta = Int32.Parse(this.textBoxNumero.Text);
+            this.Tarjeta.Titular = this.textBoxTitular.Text;
+            //Agregar el medio de pago a la base
         }
     }
 }

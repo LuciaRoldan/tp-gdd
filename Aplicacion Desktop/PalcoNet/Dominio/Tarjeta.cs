@@ -9,7 +9,6 @@ namespace PalcoNet.Dominio
     {
         int numeroDeTarjeta;
         string titular;
-        DateTime fechaDeVencimiento;
 
         public int NumeroDeTarjeta
         {
@@ -21,12 +20,6 @@ namespace PalcoNet.Dominio
         {
             get { return titular; }
             set { titular = value; }
-        }
-     
-        public DateTime FechaDeVencimiento
-        {
-            get { return fechaDeVencimiento; }
-            set { fechaDeVencimiento = value; }
-        }  
+        } 
     }
 }

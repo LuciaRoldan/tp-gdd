@@ -12,6 +12,13 @@ namespace PalcoNet.Dominio
         Tarjeta medioDePago;
         float importe;
         List<Ubicacion> ubicaciones;
+        int cantidadEntradas;
+
+        public int CantidadEntradas
+        {
+            get { return cantidadEntradas; }
+            set { cantidadEntradas = value; }
+        }
 
         internal List<Ubicacion> Ubicaciones
         {
