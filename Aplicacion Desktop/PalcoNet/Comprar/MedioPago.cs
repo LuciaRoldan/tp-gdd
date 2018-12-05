@@ -62,7 +62,7 @@ namespace PalcoNet.Comprar
             //Aca hay que verificar que la tarjeta exista en la base y que los datos coincidan
             if(/*verificacion es correcta*/true) {
                 this.Compra.MedioDePago = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex];
-                new FinalizarCompra().Show();
+                new FinalizarCompra(this, this.Cliente, this.Compra).Show();
                 this.Hide();
             } else {
                 MessageBox.Show("Los datos ingresados para el medio de pago con invalidos.", "Error", MessageBoxButtons.OK);

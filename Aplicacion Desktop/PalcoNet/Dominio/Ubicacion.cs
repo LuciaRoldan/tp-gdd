@@ -6,31 +6,44 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Ubicacion
+    public class Ubicacion
     {
         string tipoAsiento;
+        bool numerada;
+        decimal precio;
+        List<Asiento> asientos = new List<Asiento>();
+        int cantidadAsientos;
+        int cantidadFilas;
+
+        public int CantidadFilas
+        {
+            get { return cantidadFilas; }
+            set { cantidadFilas = value; }
+        }
+
+        public int CantidadAsientos
+        {
+            get { return cantidadAsientos; }
+            set { cantidadAsientos = value; }
+        }
 
         public string TipoAsiento
         {
             get { return tipoAsiento; }
             set { tipoAsiento = value; }
         }
-        bool numerada;
 
         public bool Numerada
         {
             get { return numerada; }
             set { numerada = value; }
         }
-        decimal precio;
 
         public decimal Precio
         {
             get { return precio; }
             set { precio = value; }
         }
-
-        List<Asiento> asientos = new List<Asiento>();
 
         internal List<Asiento> Asientos
         {

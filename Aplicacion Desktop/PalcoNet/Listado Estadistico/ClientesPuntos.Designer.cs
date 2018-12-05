@@ -107,6 +107,7 @@
             this.puntosClientesGrid.Name = "puntosClientesGrid";
             this.puntosClientesGrid.Size = new System.Drawing.Size(443, 150);
             this.puntosClientesGrid.TabIndex = 124;
+            this.puntosClientesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.puntosClientesGrid_CellContentClick);
             // 
             // Nombre
             // 

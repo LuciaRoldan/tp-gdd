@@ -10,6 +10,7 @@ using PalcoNet.Abm_Empresa_Espectaculo;
 using PalcoNet.Abm_Grado;
 using PalcoNet.Abm_Rol;
 using PalcoNet.Canje_Puntos;
+using PalcoNet.Generar_Publicacion;
 
 namespace PalcoNet
 {
@@ -25,7 +26,7 @@ namespace PalcoNet
             Application.SetCompatibleTextRenderingDefault(false);
             Cliente cliente = new Cliente();
             cliente.Puntos = 1700;
-            Application.Run(new CanjePuntos(cliente, new SeleccionarFuncionalidad()));
+            Application.Run(new CrearPublicacion(new SeleccionarFuncionalidad(), null));
         }
     }
 }

@@ -30,6 +30,7 @@ namespace PalcoNet
 
         public void cerrarAnteriores()
         {
+            this.Hide();
             if ((this.anterior is SeleccionarFuncionalidad)) { anterior.ShowDialog(); }
             else { anterior.cerrarAnteriores(); }
             this.Close();

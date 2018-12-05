@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class CompraCliente
+    public class CompraCliente
     {
 
         string nombre;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Publicacion
+    public class Publicacion
     {
         int id;
 
@@ -23,7 +23,14 @@ namespace PalcoNet.Dominio
         int cantidadDeAsientos;
         DateTime fechaDeEvento;
         string direccion;
-        List<Ubicacion> ubicaciones;
+        List<Ubicacion> ubicaciones = new List<Ubicacion>();
+        List<DateTime> fechas = new List<DateTime>();
+
+        public List<DateTime> Fechas
+        {
+            get { return fechas; }
+            set { fechas = value; }
+        }
 
         internal List<Ubicacion> Ubicaciones
         {
