@@ -1,4 +1,11 @@
-USE GD2C2018
+--USE GD2C2018
+
+
+CREATE PROCEDURE crearTablas_sp
+AS
+BEGIN
+
+
 
 ---------------CREACION DE TABLAS---------------
 
@@ -208,3 +215,7 @@ precio NUMERIC(18);
 ALTER TABLE Premios ADD
 descripcion VARCHAR(110),
 puntos BIGINT;
+
+
+
+END

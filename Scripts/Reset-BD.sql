@@ -1,3 +1,9 @@
+CREATE PROCEDURE eliminarTablas_sp
+AS
+BEGIN
+
+
+
 DROP TABLE UsuarioXRol
 DROP TABLE FuncionalidadXRol
 DROP TABLE Roles
@@ -16,3 +22,7 @@ DROP TABLE Empresas
 DROP TABLE Medios_de_pago
 DROP TABLE Clientes
 DROP TABLE Usuarios
+
+
+
+END

@@ -1,4 +1,12 @@
-USE GD2C2018
+--USE GD2C2018
+
+
+CREATE PROCEDURE migrarTablas_sp
+AS
+BEGIN
+
+
+
 
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
@@ -177,7 +185,7 @@ WHERE Factura_Nro IS NOT NULL
 
 --.--.--.--.--.--.--MEDIODEPAGO--.--.--.--.--.--.--
 INSERT INTO Medios_de_pago(c.id_cliente, descripcion, nro_tarjeta, titular)
-SELECT DISTINCT c.id_cliente, NULL, Forma_Pago_Desc
+SELECT DISTINCT c.id_cliente, Forma_Pago_Desc, NULL, NULL
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice 'Efectivo'
 WHERE gd.Item_Factura_Monto IS NOT NULL
@@ -283,3 +291,10 @@ VALUES
 --SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
+
+
+
+
+
+
+END
