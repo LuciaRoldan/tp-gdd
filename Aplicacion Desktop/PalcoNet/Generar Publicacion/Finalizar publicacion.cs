@@ -49,7 +49,7 @@ namespace PalcoNet.Generar_Publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             //Se guarda todo lo que se tenga que guardar en la base
-
+            MessageBox.Show("La publicación se creó exitosamente!", "Publicación", MessageBoxButtons.OK);
             this.cerrarAnteriores(); 
         }
     }
