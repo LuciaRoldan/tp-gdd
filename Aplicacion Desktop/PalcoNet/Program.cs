@@ -10,6 +10,7 @@ using PalcoNet.Abm_Empresa_Espectaculo;
 using PalcoNet.Abm_Grado;
 using PalcoNet.Abm_Rol;
 using PalcoNet.Canje_Puntos;
+using PalcoNet.Generar_Publicacion;
 
 namespace PalcoNet
 {

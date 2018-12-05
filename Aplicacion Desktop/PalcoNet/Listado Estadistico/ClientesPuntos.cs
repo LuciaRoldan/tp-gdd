@@ -32,5 +32,10 @@ namespace PalcoNet.Listado_Estadistico
             this.Anterior.Show();
             this.Hide(); 
         }
+
+        private void puntosClientesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

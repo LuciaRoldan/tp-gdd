@@ -131,11 +131,11 @@
     <Compile Include="Comprar\NuevoMP.Designer.cs">
       <DependentUpon>NuevoMP.cs</DependentUpon>
     </Compile>
-    <Compile Include="Comprar\Seleccion.cs">
+    <Compile Include="Comprar\SeleccionAsiento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Comprar\Seleccion.Designer.cs">
-      <DependentUpon>Seleccion.cs</DependentUpon>
+    <Compile Include="Comprar\SeleccionAsiento.Designer.cs">
+      <DependentUpon>SeleccionAsiento.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Ubicaciones.cs">
       <SubType>Form</SubType>
@@ -143,14 +143,16 @@
     <Compile Include="Comprar\Ubicaciones.Designer.cs">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\Asiento.cs" />
     <Compile Include="Dominio\CantidadLocalidadesEmpresa.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\CompraCliente.cs" />
     <Compile Include="Dominio\Compras.cs" />
+    <Compile Include="Dominio\ElementoHitorialCliente.cs" />
     <Compile Include="Dominio\Empresa.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
-    <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Tarjeta.cs" />
     <Compile Include="Dominio\Premio.cs" />
     <Compile Include="Dominio\Publicacion.cs" />
     <Compile Include="Dominio\Puntos.cs" />
@@ -193,11 +195,11 @@
     <Compile Include="Generar Publicacion\CrearPublicacionUbicaciones.Designer.cs">
       <DependentUpon>CrearPublicacionUbicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPuublicacionFechas.cs">
+    <Compile Include="Generar Publicacion\AgregarFechas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPuublicacionFechas.Designer.cs">
-      <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\AgregarFechas.Designer.cs">
+      <DependentUpon>AgregarFechas.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\Finalizar publicacion.cs">
       <SubType>Form</SubType>
@@ -327,8 +329,8 @@
     <EmbeddedResource Include="Comprar\NuevoMP.resx">
       <DependentUpon>NuevoMP.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\Seleccion.resx">
-      <DependentUpon>Seleccion.cs</DependentUpon>
+    <EmbeddedResource Include="Comprar\SeleccionAsiento.resx">
+      <DependentUpon>SeleccionAsiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\Ubicaciones.resx">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
@@ -348,8 +350,8 @@
     <EmbeddedResource Include="Generar Publicacion\CrearPublicacionUbicaciones.resx">
       <DependentUpon>CrearPublicacionUbicaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\CrearPuublicacionFechas.resx">
-      <DependentUpon>CrearPuublicacionFechas.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\AgregarFechas.resx">
+      <DependentUpon>AgregarFechas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\Finalizar publicacion.resx">
       <DependentUpon>Finalizar publicacion.cs</DependentUpon>
