@@ -173,6 +173,8 @@ namespace PalcoNet.Abm_Rol
         {
             rolSeleccionado.Nombre = comboBoxRoles.SelectedItem.ToString();
             this.checkedListBoxFun2.Enabled = true;
+            this.button5.Enabled = true;
+            this.button6.Enabled = true;
 
             SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeRol_sp '" + rolSeleccionado.Nombre + "'");
 
@@ -197,9 +199,40 @@ namespace PalcoNet.Abm_Rol
             funcionalidadesSeleccionadas.Clear();
         }
 
+      
         private void checkedListBoxFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 0);
+
+            MessageBox.Show("El Rol ha sido inhabilitado.", "Rol inhabilitado", MessageBoxButtons.OK);
+
+            for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
+            {
+                this.checkedListBoxFun2.SetItemChecked(i, false);
+            }
+            textBoxNomb.ResetText();
+            comboBoxRoles.ResetText();
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+             servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
+
+            MessageBox.Show("El Rol ha sido habilitado.", "Rol habilitado", MessageBoxButtons.OK);
+
+            for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
+            {
+                this.checkedListBoxFun2.SetItemChecked(i, false);
+            }
+            textBoxNomb.ResetText();
+            comboBoxRoles.ResetText();
+        
         }
     }
 }
