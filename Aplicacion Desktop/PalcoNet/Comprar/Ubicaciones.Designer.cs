@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBoxUbicaciones = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownCantidad = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -49,13 +49,14 @@
             this.label2.Text = "Seleccionar ubicación";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // checkedListBox1
+            // checkedListBoxUbicaciones
             // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(16, 50);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(339, 94);
-            this.checkedListBox1.TabIndex = 109;
+            this.checkedListBoxUbicaciones.FormattingEnabled = true;
+            this.checkedListBoxUbicaciones.Location = new System.Drawing.Point(16, 50);
+            this.checkedListBoxUbicaciones.Name = "checkedListBoxUbicaciones";
+            this.checkedListBoxUbicaciones.Size = new System.Drawing.Size(339, 94);
+            this.checkedListBoxUbicaciones.TabIndex = 109;
+            this.checkedListBoxUbicaciones.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxUbicaciones_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -66,12 +67,12 @@
             this.label1.TabIndex = 110;
             this.label1.Text = "Cantidad:";
             // 
-            // numericUpDown1
+            // numericUpDownCantidad
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(74, 149);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(51, 20);
-            this.numericUpDown1.TabIndex = 111;
+            this.numericUpDownCantidad.Location = new System.Drawing.Point(74, 149);
+            this.numericUpDownCantidad.Name = "numericUpDownCantidad";
+            this.numericUpDownCantidad.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDownCantidad.TabIndex = 111;
             // 
             // button1
             // 
@@ -111,13 +112,13 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericUpDownCantidad);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.checkedListBoxUbicaciones);
             this.Controls.Add(this.label2);
             this.Name = "Ubicaciones";
             this.Text = "Ubicaciones";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCantidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,9 +127,9 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBoxUbicaciones;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDownCantidad;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;

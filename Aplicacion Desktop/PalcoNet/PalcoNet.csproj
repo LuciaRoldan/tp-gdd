@@ -33,8 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -141,6 +143,20 @@
     <Compile Include="Comprar\Ubicaciones.Designer.cs">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\CantidadLocalidadesEmpresa.cs" />
+    <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\CompraCliente.cs" />
+    <Compile Include="Dominio\Compras.cs" />
+    <Compile Include="Dominio\Empresa.cs" />
+    <Compile Include="Dominio\Factura.cs" />
+    <Compile Include="Dominio\Funcionalidad.cs" />
+    <Compile Include="Dominio\MedioDePago.cs" />
+    <Compile Include="Dominio\Premio.cs" />
+    <Compile Include="Dominio\Publicacion.cs" />
+    <Compile Include="Dominio\Puntos.cs" />
+    <Compile Include="Dominio\Rol.cs" />
+    <Compile Include="Dominio\Ubicacion.cs" />
+    <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +174,12 @@
     </Compile>
     <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
       <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MiForm.Designer.cs">
+      <DependentUpon>MiForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\CrearPublicacion.cs">
       <SubType>Form</SubType>
@@ -263,6 +285,9 @@
     <Compile Include="SeleccionarRol.Designer.cs">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Servidor.cs" />
+    <Compile Include="Sesion.cs" />
+    <Compile Include="Validacion.cs" />
     <EmbeddedResource Include="Abm Cliente\BusquedaCli.resx">
       <DependentUpon>BusquedaCli.cs</DependentUpon>
     </EmbeddedResource>
