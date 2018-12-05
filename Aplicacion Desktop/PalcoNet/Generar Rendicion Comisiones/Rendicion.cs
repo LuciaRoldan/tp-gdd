@@ -32,5 +32,10 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
         {
             //Le tiene que salir uun cartelito de que salio todo bien
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace PalcoNet.Listado_Estadistico
 
 
 
-        public Listados()
+        public Listados(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
         }
@@ -69,10 +69,10 @@ namespace PalcoNet.Listado_Estadistico
             //por cantidad de compras. Agrupando las publicaciones por empresa.
             //Nombre - Apellido - Usuario - Empresa - CantidadCompras
 
-            /*List<CompraCliente> comprasClientes = new List<CompraCliente>();
+            List<CompraCliente> comprasClientes = new List<CompraCliente>();
 
             new ClientesMuchasCompras(comprasClientes, this).Show();
-            this.Hide();*/
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)

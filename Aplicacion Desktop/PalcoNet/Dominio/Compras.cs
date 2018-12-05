@@ -9,7 +9,7 @@ namespace PalcoNet.Dominio
     public class Compra
     {
         Publicacion publicacion;
-        MedioDePago medioDePago;
+        Tarjeta medioDePago;
         float importe;
         List<Ubicacion> ubicaciones;
 
@@ -25,7 +25,7 @@ namespace PalcoNet.Dominio
             set { publicacion = value; }
         }
 
-        internal MedioDePago MedioDePago
+        internal Tarjeta MedioDePago
         {
             get { return medioDePago; }
             set { medioDePago = value; }

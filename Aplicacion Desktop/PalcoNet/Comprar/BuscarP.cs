@@ -69,10 +69,51 @@ namespace PalcoNet.Comprar
                 if (!resultados.Any()){
                     MessageBox.Show("No se encontraron resultados.", "Error", MessageBoxButtons.OK);
                 } else {
-                    new Seleccion(descripcion, desde, hasta, categoriasSelecc, this).Show();
-                    this.Hide();
+                    //Mantener numero de pagina, no se como sera mejor manejarlo
+
+                    var bindingList = new BindingList<Publicacion>(resultados);
+                    var source = new BindingSource(bindingList, null);
+                    dataGridViewResultados.DataSource = source;
                 }
             }
+        }
+
+        private void dataGridViewResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Aca hay que buscar los anteriores elementos en la base y reemplazar el contenido de la lista a la que esta bindeada la tabla
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //Aca hay que buscar los siguientes elementos en la base y reemplazar el contenido de la lista a la que esta bindeada la tabla
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
+            Compra compra = new Compra();
+            compra.Publicacion = publicacionSeleccionada;
+            new Ubicaciones(compra, cliente, this).Show();
+            this.Hide();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            for (int ix = 0; ix < checkedListBoxCategorias.Items.Count; ++ix)
+                checkedListBoxCategorias.SetItemChecked(ix, false);
+            textBoxDescripcion.Text = "";
+            dateTimePickerDesde.Value = DateTimePicker.MinimumDateTime;
+            dateTimePickerHasta.Value = DateTimePicker.MinimumDateTime;
         }
     }
 }

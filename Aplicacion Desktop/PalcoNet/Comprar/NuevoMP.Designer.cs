@@ -30,12 +30,12 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxNumero = new System.Windows.Forms.TextBox();
+            this.textBoxTitular = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxMes = new System.Windows.Forms.TextBox();
+            this.textBoxAnio = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -60,19 +60,19 @@
             this.label1.TabIndex = 109;
             this.label1.Text = "Numero de tarjeta:";
             // 
-            // textBox1
+            // textBoxNumero
             // 
-            this.textBox1.Location = new System.Drawing.Point(113, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 110;
+            this.textBoxNumero.Location = new System.Drawing.Point(113, 45);
+            this.textBoxNumero.Name = "textBoxNumero";
+            this.textBoxNumero.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNumero.TabIndex = 110;
             // 
-            // textBox2
+            // textBoxTitular
             // 
-            this.textBox2.Location = new System.Drawing.Point(113, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 111;
+            this.textBoxTitular.Location = new System.Drawing.Point(113, 71);
+            this.textBoxTitular.Name = "textBoxTitular";
+            this.textBoxTitular.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTitular.TabIndex = 111;
             // 
             // label3
             // 
@@ -92,19 +92,19 @@
             this.label4.TabIndex = 113;
             this.label4.Text = "Vencimiento (MM/AA):";
             // 
-            // textBox3
+            // textBoxMes
             // 
-            this.textBox3.Location = new System.Drawing.Point(147, 97);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(24, 20);
-            this.textBox3.TabIndex = 114;
+            this.textBoxMes.Location = new System.Drawing.Point(147, 97);
+            this.textBoxMes.Name = "textBoxMes";
+            this.textBoxMes.Size = new System.Drawing.Size(24, 20);
+            this.textBoxMes.TabIndex = 114;
             // 
-            // textBox4
+            // textBoxAnio
             // 
-            this.textBox4.Location = new System.Drawing.Point(189, 97);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(24, 20);
-            this.textBox4.TabIndex = 115;
+            this.textBoxAnio.Location = new System.Drawing.Point(189, 97);
+            this.textBoxAnio.Name = "textBoxAnio";
+            this.textBoxAnio.Size = new System.Drawing.Size(24, 20);
+            this.textBoxAnio.TabIndex = 115;
             // 
             // label5
             // 
@@ -143,12 +143,12 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBoxAnio);
+            this.Controls.Add(this.textBoxMes);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxTitular);
+            this.Controls.Add(this.textBoxNumero);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "NuevoMP";
@@ -162,12 +162,12 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxNumero;
+        private System.Windows.Forms.TextBox textBoxTitular;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxMes;
+        private System.Windows.Forms.TextBox textBoxAnio;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
