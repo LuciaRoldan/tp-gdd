@@ -55,8 +55,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)

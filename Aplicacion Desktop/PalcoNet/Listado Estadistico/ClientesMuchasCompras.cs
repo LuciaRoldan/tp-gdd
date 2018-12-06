@@ -23,7 +23,6 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
             this.cerrarAnteriores();
         }
 

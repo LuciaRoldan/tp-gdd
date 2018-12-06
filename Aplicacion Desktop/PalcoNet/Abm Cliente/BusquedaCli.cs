@@ -28,8 +28,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Anterior.Show();
-            this.Close(); 
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,23 +46,33 @@ namespace PalcoNet.Abm_Cliente
                 Cliente cliente = new Cliente();
                 if (!string.IsNullOrWhiteSpace(textBoxNombre.Text)) { cliente.Nombre = textBoxNombre.Text; }
                 if (!string.IsNullOrWhiteSpace(textBoxApellido.Text)) { cliente.Apellido = textBoxApellido.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); }
+                if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { cliente.Apellido = textBoxMail.Text; }
+                if (!string.IsNullOrWhiteSpace(textBoxDni.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); }
                 List<Cliente> resultados = new List<Cliente>();
                 
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
 
-                List<Cliente> lista = new List<Cliente>();
-                Cliente clienteP = new Cliente();
-                clienteP.Nombre = "Luis";
-                clienteP.Apellido = "Lucena";
-                clienteP.TipoDocumento = "DNI";
-                clienteP.FechaDeNacimiento = new DateTime(2012, 05, 28);
-                lista.Add(clienteP);
-
-                new ResultadoBusquedaCli(lista, this).Show();
-                this.Hide();
+                var bindingList = new BindingList<Cliente>(resultados);
+                var source = new BindingSource(bindingList, null);
+                dataGridResultados.DataSource = source;
             }
             
         }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = (Cliente)dataGridResultados.CurrentRow.DataBoundItem;
+            this.Hide();
+            new ModificarCli(cliente, this).Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBoxNombre.Text = "";
+            textBoxApellido.Text = "";
+            textBoxMail.Text = "";
+            textBoxDni.Text = "";
+        }
+
     }
 }

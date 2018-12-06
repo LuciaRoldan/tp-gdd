@@ -57,12 +57,6 @@
     <Compile Include="Abm Cliente\ModificarCli.Designer.cs">
       <DependentUpon>ModificarCli.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\ResultadoBusquedaCli.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Cliente\ResultadoBusquedaCli.Designer.cs">
-      <DependentUpon>ResultadoBusquedaCli.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Empresa Espectaculo\BusquedaEmp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,12 +68,6 @@
     </Compile>
     <Compile Include="Abm Empresa Espectaculo\ModificarEmp.Designer.cs">
       <DependentUpon>ModificarEmp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.Designer.cs">
-      <DependentUpon>ResultadosBusquedaEmp.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Grado\GradoDeLaPublicacion.cs">
       <SubType>Form</SubType>
@@ -150,6 +138,7 @@
     <Compile Include="Dominio\Empresa.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
+    <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Tarjeta.cs" />
     <Compile Include="Dominio\Premio.cs" />
     <Compile Include="Dominio\Publicacion.cs" />
@@ -157,23 +146,11 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
-    <Compile Include="Editar Publicacion\Editar_fecha_particular.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editar Publicacion\Editar_fecha_particular.Designer.cs">
-      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
-    </Compile>
     <Compile Include="Editar Publicacion\Editar_publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editar Publicacion\Editar_publicacion.Designer.cs">
       <DependentUpon>Editar_publicacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
-      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </Compile>
     <Compile Include="MiForm.cs">
       <SubType>Form</SubType>
@@ -291,17 +268,11 @@
     <EmbeddedResource Include="Abm Cliente\ModificarCli.resx">
       <DependentUpon>ModificarCli.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\ResultadoBusquedaCli.resx">
-      <DependentUpon>ResultadoBusquedaCli.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\BusquedaEmp.resx">
       <DependentUpon>BusquedaEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\ModificarEmp.resx">
       <DependentUpon>ModificarEmp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Empresa Espectaculo\ResultadosBusquedaEmp.resx">
-      <DependentUpon>ResultadosBusquedaEmp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\GradoDeLaPublicacion.resx">
       <DependentUpon>GradoDeLaPublicacion.cs</DependentUpon>
@@ -330,14 +301,8 @@
     <EmbeddedResource Include="Comprar\Ubicaciones.resx">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\Editar_fecha_particular.resx">
-      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Editar_publicacion.resx">
       <DependentUpon>Editar_publicacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\Editar_ubicacion_particular.resx">
-      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\CrearPublicacion.resx">
       <DependentUpon>CrearPublicacion.cs</DependentUpon>
