@@ -63,6 +63,7 @@
             this.clientesComprasGrid.Name = "clientesComprasGrid";
             this.clientesComprasGrid.Size = new System.Drawing.Size(547, 187);
             this.clientesComprasGrid.TabIndex = 112;
+            this.clientesComprasGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientesComprasGrid_CellContentClick);
             // 
             // Nombre
             // 

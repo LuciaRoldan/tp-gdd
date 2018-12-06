@@ -187,5 +187,15 @@ namespace PalcoNet.Editar_Publicacion
         {
 
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

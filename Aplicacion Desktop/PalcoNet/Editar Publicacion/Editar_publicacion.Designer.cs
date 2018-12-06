@@ -34,6 +34,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxRubro = new System.Windows.Forms.ComboBox();
             this.comboBoxEstado = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxDireccion = new System.Windows.Forms.TextBox();
@@ -49,21 +50,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.comboBoxRubro = new System.Windows.Forms.ComboBox();
-            this.dateTimePickerHora = new System.Windows.Forms.DateTimePicker();
             this.checkBoxNumerado = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxFilas = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.comboBoxTipo = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.textBoxPrecio = new System.Windows.Forms.TextBox();
-            this.textBoxCantidad = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBoxFilas = new System.Windows.Forms.TextBox();
+            this.textBoxPrecio = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dateTimePickerHora = new System.Windows.Forms.DateTimePicker();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxCantidad = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechas)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUbicaciones)).BeginInit();
@@ -131,6 +131,19 @@
             this.groupBox1.TabIndex = 120;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Base";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // comboBoxRubro
+            // 
+            this.comboBoxRubro.FormattingEnabled = true;
+            this.comboBoxRubro.Items.AddRange(new object[] {
+            "Borrador",
+            "Activo"});
+            this.comboBoxRubro.Location = new System.Drawing.Point(82, 79);
+            this.comboBoxRubro.Name = "comboBoxRubro";
+            this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);
+            this.comboBoxRubro.TabIndex = 81;
+            this.comboBoxRubro.SelectedIndexChanged += new System.EventHandler(this.comboBoxRubro_SelectedIndexChanged);
             // 
             // comboBoxEstado
             // 
@@ -282,6 +295,86 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Asientos";
             // 
+            // checkBoxNumerado
+            // 
+            this.checkBoxNumerado.AutoSize = true;
+            this.checkBoxNumerado.Location = new System.Drawing.Point(11, 72);
+            this.checkBoxNumerado.Name = "checkBoxNumerado";
+            this.checkBoxNumerado.Size = new System.Drawing.Size(121, 17);
+            this.checkBoxNumerado.TabIndex = 141;
+            this.checkBoxNumerado.Text = "Asientos numerados";
+            this.checkBoxNumerado.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxTipo
+            // 
+            this.comboBoxTipo.FormattingEnabled = true;
+            this.comboBoxTipo.Items.AddRange(new object[] {
+            "Esto no va jeje"});
+            this.comboBoxTipo.Location = new System.Drawing.Point(98, 19);
+            this.comboBoxTipo.Name = "comboBoxTipo";
+            this.comboBoxTipo.Size = new System.Drawing.Size(94, 21);
+            this.comboBoxTipo.TabIndex = 137;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(213, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 13);
+            this.label6.TabIndex = 140;
+            this.label6.Text = "Filas:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 23);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(83, 13);
+            this.label18.TabIndex = 131;
+            this.label18.Text = "Tipo de asiento:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 48);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(40, 13);
+            this.label16.TabIndex = 133;
+            this.label16.Text = "Precio:";
+            // 
+            // textBoxFilas
+            // 
+            this.textBoxFilas.Enabled = false;
+            this.textBoxFilas.Location = new System.Drawing.Point(271, 45);
+            this.textBoxFilas.Name = "textBoxFilas";
+            this.textBoxFilas.Size = new System.Drawing.Size(81, 20);
+            this.textBoxFilas.TabIndex = 139;
+            // 
+            // textBoxPrecio
+            // 
+            this.textBoxPrecio.Location = new System.Drawing.Point(98, 46);
+            this.textBoxPrecio.Name = "textBoxPrecio";
+            this.textBoxPrecio.Size = new System.Drawing.Size(60, 20);
+            this.textBoxPrecio.TabIndex = 135;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(164, 49);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(28, 13);
+            this.label15.TabIndex = 136;
+            this.label15.Text = "AR$";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(213, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(52, 13);
+            this.label17.TabIndex = 132;
+            this.label17.Text = "Cantidad:";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridViewFechas);
@@ -296,26 +389,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fechas";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(11, 32);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(40, 13);
-            this.label12.TabIndex = 98;
-            this.label12.Text = "Fecha:";
-            // 
-            // comboBoxRubro
-            // 
-            this.comboBoxRubro.FormattingEnabled = true;
-            this.comboBoxRubro.Items.AddRange(new object[] {
-            "Borrador",
-            "Activo"});
-            this.comboBoxRubro.Location = new System.Drawing.Point(82, 79);
-            this.comboBoxRubro.Name = "comboBoxRubro";
-            this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);
-            this.comboBoxRubro.TabIndex = 81;
-            // 
             // dateTimePickerHora
             // 
             this.dateTimePickerHora.Format = System.Windows.Forms.DateTimePickerFormat.Time;
@@ -325,32 +398,14 @@
             this.dateTimePickerHora.Size = new System.Drawing.Size(92, 20);
             this.dateTimePickerHora.TabIndex = 130;
             // 
-            // checkBoxNumerado
+            // label12
             // 
-            this.checkBoxNumerado.AutoSize = true;
-            this.checkBoxNumerado.Location = new System.Drawing.Point(11, 72);
-            this.checkBoxNumerado.Name = "checkBoxNumerado";
-            this.checkBoxNumerado.Size = new System.Drawing.Size(121, 17);
-            this.checkBoxNumerado.TabIndex = 141;
-            this.checkBoxNumerado.Text = "Asientos numerados";
-            this.checkBoxNumerado.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(213, 49);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 13);
-            this.label6.TabIndex = 140;
-            this.label6.Text = "Filas:";
-            // 
-            // textBoxFilas
-            // 
-            this.textBoxFilas.Enabled = false;
-            this.textBoxFilas.Location = new System.Drawing.Point(271, 45);
-            this.textBoxFilas.Name = "textBoxFilas";
-            this.textBoxFilas.Size = new System.Drawing.Size(81, 20);
-            this.textBoxFilas.TabIndex = 139;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 32);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(40, 13);
+            this.label12.TabIndex = 98;
+            this.label12.Text = "Fecha:";
             // 
             // label14
             // 
@@ -361,65 +416,12 @@
             this.label14.TabIndex = 138;
             this.label14.Tag = "Filas:";
             // 
-            // comboBoxTipo
-            // 
-            this.comboBoxTipo.FormattingEnabled = true;
-            this.comboBoxTipo.Items.AddRange(new object[] {
-            "Esto no va jeje"});
-            this.comboBoxTipo.Location = new System.Drawing.Point(98, 19);
-            this.comboBoxTipo.Name = "comboBoxTipo";
-            this.comboBoxTipo.Size = new System.Drawing.Size(94, 21);
-            this.comboBoxTipo.TabIndex = 137;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(164, 49);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(28, 13);
-            this.label15.TabIndex = 136;
-            this.label15.Text = "AR$";
-            // 
-            // textBoxPrecio
-            // 
-            this.textBoxPrecio.Location = new System.Drawing.Point(98, 46);
-            this.textBoxPrecio.Name = "textBoxPrecio";
-            this.textBoxPrecio.Size = new System.Drawing.Size(60, 20);
-            this.textBoxPrecio.TabIndex = 135;
-            // 
             // textBoxCantidad
             // 
             this.textBoxCantidad.Location = new System.Drawing.Point(285, 108);
             this.textBoxCantidad.Name = "textBoxCantidad";
             this.textBoxCantidad.Size = new System.Drawing.Size(81, 20);
             this.textBoxCantidad.TabIndex = 134;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 48);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(40, 13);
-            this.label16.TabIndex = 133;
-            this.label16.Text = "Precio:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(213, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(52, 13);
-            this.label17.TabIndex = 132;
-            this.label17.Text = "Cantidad:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 23);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(83, 13);
-            this.label18.TabIndex = 131;
-            this.label18.Text = "Tipo de asiento:";
             // 
             // Editar_publicacion
             // 

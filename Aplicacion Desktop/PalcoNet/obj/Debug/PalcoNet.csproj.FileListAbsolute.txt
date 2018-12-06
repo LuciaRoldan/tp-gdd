@@ -94,3 +94,4 @@ C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\
 C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.SeleccionAsiento.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AgregarFechas.resources
+C:\Users\Rocío\Documents\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
