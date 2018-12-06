@@ -12,5 +12,5 @@ BEGIN
 		COMMIT TRANSACTION
 	END
 	ELSE
-		RAISERROR( 'La empresa ya existe',16,1) WITH SETERROR
+		RAISERROR( 'La empresa ya existe',20,1) WITH LOG
 END 

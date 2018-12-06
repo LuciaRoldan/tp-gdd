@@ -84,17 +84,17 @@ namespace PalcoNet
                         // new GradoDeLaPublicacion(this).Show(); tiene que ser con empresa
                         break;
                     case " Generar publicacion":
-                        new CrearPublicacion().Show();
+                       // new CrearPublicacion(this).Show();
                         break;
                     case "Editar publicacion":
-                        new Editar_publicacion().Show();
+                       // new Editar_publicacion().Show();
                         break;
                     case "Comprar":
                         Cliente cliente = this.obtenerCliente();
                         new BuscarP(cliente,this).Show();
                         break;
                     case "Historial del cliente":
-                        new Historial().Show();
+                        //new Historial().Show();
                         break;
                     case "Canje y administracion de puntos":
                         //new CanjePuntos().Show(); es para cliente
@@ -103,7 +103,7 @@ namespace PalcoNet
                         new Rendicion().Show();
                         break;
                     case "Listado estadistico":
-                        new Listados().Show();
+                        //new Listados().Show();
                         break;
                 }
             }

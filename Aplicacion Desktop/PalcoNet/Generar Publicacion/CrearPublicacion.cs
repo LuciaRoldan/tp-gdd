@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -14,6 +15,7 @@ namespace PalcoNet.Generar_Publicacion
     public partial class CrearPublicacion : MiForm
     {
         Empresa empresa;
+        Servidor servidor = Servidor.getInstance();
 
         public Empresa Empresa
         {
@@ -25,6 +27,14 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.Empresa = empresa;
             InitializeComponent();
+
+            SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+            while (reader.Read())
+            {
+                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+            }
+            reader.Close();
             //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
         }
 
@@ -71,6 +81,11 @@ namespace PalcoNet.Generar_Publicacion
 
         private void comboBoxGrado_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -26,8 +26,6 @@ BEGIN
 		COMMIT TRANSACTION
 		END
 	ELSE
-	RAISERROR('El Cliente ya existe', 16, 1) WITH SETERROR
+	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
 END
-
-DROP PROCEDURE registroEmpresa
 GO

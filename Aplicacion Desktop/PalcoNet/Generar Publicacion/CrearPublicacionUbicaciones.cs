@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -13,6 +14,7 @@ namespace PalcoNet.Generar_Publicacion
 {
     public partial class CrearPublicacionUbicaciones : MiForm
     {
+        Servidor servidor = Servidor.getInstance();
         Empresa empresa;
         Publicacion publicacion;
         List<Ubicacion> ubicaciones = new List<Ubicacion>();
@@ -40,6 +42,14 @@ namespace PalcoNet.Generar_Publicacion
             this.Publicacion = publicacion;
             this.Empresa = empresa;
             InitializeComponent();
+
+            SqlDataReader reader = servidor.query("EXEC dbo.getTipoUbicacion_sp");
+
+            while (reader.Read())
+            {
+                comboBoxTipo.Items.Add(reader["tipo_ubicacion"].ToString());
+            }
+            reader.Close();
             //Aca habria que buscar todos los rubros disponibles que hay que
         }
 
