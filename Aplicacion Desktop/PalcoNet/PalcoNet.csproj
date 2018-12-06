@@ -138,6 +138,7 @@
     <Compile Include="Dominio\Empresa.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
+    <Compile Include="Dominio\Sesion.cs" />
     <Compile Include="Dominio\Tarjeta.cs" />
     <Compile Include="Dominio\Premio.cs" />
     <Compile Include="Dominio\Publicacion.cs" />
