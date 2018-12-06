@@ -57,8 +57,7 @@ namespace PalcoNet.Abm_Grado
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new SeleccionarFuncionalidad().Show();
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -169,6 +169,7 @@
             this.textBoxDni.Name = "textBoxDni";
             this.textBoxDni.Size = new System.Drawing.Size(164, 20);
             this.textBoxDni.TabIndex = 31;
+            this.textBoxDni.TextChanged += new System.EventHandler(this.textBoxDni_TextChanged);
             // 
             // groupBox1
             // 
@@ -375,6 +376,7 @@
             this.button4.TabIndex = 39;
             this.button4.Text = "Nueva Búsqueda";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // BusquedaCli
             // 

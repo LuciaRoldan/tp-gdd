@@ -35,7 +35,6 @@ namespace PalcoNet.Comprar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
             this.cerrarAnteriores();
         }
 

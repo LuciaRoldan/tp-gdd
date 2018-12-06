@@ -44,7 +44,6 @@ namespace PalcoNet.Comprar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide();
             this.cerrarAnteriores();
         }
 
@@ -53,7 +52,6 @@ namespace PalcoNet.Comprar
             //hay que guardar las cosas en la base
 
             MessageBox.Show("La compra se realizó exitosamente!", "Compra", MessageBoxButtons.OK);
-            this.Hide();
             this.cerrarAnteriores();
         }
 

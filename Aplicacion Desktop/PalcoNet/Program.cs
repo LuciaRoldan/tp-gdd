@@ -11,6 +11,7 @@ using PalcoNet.Abm_Grado;
 using PalcoNet.Abm_Rol;
 using PalcoNet.Canje_Puntos;
 using PalcoNet.Generar_Publicacion;
+using PalcoNet.Comprar;
 
 namespace PalcoNet
 {
@@ -26,7 +27,7 @@ namespace PalcoNet
             Application.SetCompatibleTextRenderingDefault(false);
             Cliente cliente = new Cliente();
             cliente.Puntos = 1700;
-            Application.Run(new BusquedaEmp(new SeleccionarFuncionalidad()));
+            Application.Run(new BuscarP(null, new SeleccionarFuncionalidad()));
         }
     }
 }

@@ -69,9 +69,8 @@ namespace PalcoNet.Abm_Cliente
             {
                 //Aca hay que hacer el update en la base
             }
-
-            //this.Hide();
             this.cerrarAnteriores();
+            //Faltaria tirar el mensajito de que salio todo okey
         }
 
         private void comboBoxDocumento_SelectedIndexChanged(object sender, EventArgs e)

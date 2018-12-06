@@ -63,8 +63,7 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
+            this.cerrarAnteriores();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

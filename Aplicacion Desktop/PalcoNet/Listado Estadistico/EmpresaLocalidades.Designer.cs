@@ -31,6 +31,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.localidadesEmpresaGrid = new System.Windows.Forms.DataGridView();
+            this.Empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CUIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LocalidadesNoVendidas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -40,9 +43,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.Empresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CUIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LocalidadesNoVendidas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.localidadesEmpresaGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,8 +75,23 @@
             this.LocalidadesNoVendidas});
             this.localidadesEmpresaGrid.Location = new System.Drawing.Point(16, 117);
             this.localidadesEmpresaGrid.Name = "localidadesEmpresaGrid";
-            this.localidadesEmpresaGrid.Size = new System.Drawing.Size(343, 150);
+            this.localidadesEmpresaGrid.Size = new System.Drawing.Size(365, 150);
             this.localidadesEmpresaGrid.TabIndex = 120;
+            // 
+            // Empresa
+            // 
+            this.Empresa.HeaderText = "Empresa";
+            this.Empresa.Name = "Empresa";
+            // 
+            // CUIT
+            // 
+            this.CUIT.HeaderText = "CUIT";
+            this.CUIT.Name = "CUIT";
+            // 
+            // LocalidadesNoVendidas
+            // 
+            this.LocalidadesNoVendidas.HeaderText = "LocalidadesNoVendidas";
+            this.LocalidadesNoVendidas.Name = "LocalidadesNoVendidas";
             // 
             // label2
             // 
@@ -112,7 +127,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 93);
+            this.label3.Location = new System.Drawing.Point(205, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 125;
@@ -120,14 +135,14 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(105, 89);
+            this.textBox1.Location = new System.Drawing.Point(297, 62);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(30, 20);
             this.textBox1.TabIndex = 126;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(160, 89);
+            this.textBox2.Location = new System.Drawing.Point(352, 62);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(30, 20);
             this.textBox2.TabIndex = 127;
@@ -135,7 +150,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(142, 92);
+            this.label4.Location = new System.Drawing.Point(334, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(12, 13);
             this.label4.TabIndex = 128;
@@ -143,7 +158,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(221, 86);
+            this.button3.Location = new System.Drawing.Point(306, 87);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 129;
@@ -160,21 +175,6 @@
             this.label5.Size = new System.Drawing.Size(213, 24);
             this.label5.TabIndex = 130;
             this.label5.Text = "localidades no vendidas";
-            // 
-            // Empresa
-            // 
-            this.Empresa.HeaderText = "Empresa";
-            this.Empresa.Name = "Empresa";
-            // 
-            // CUIT
-            // 
-            this.CUIT.HeaderText = "CUIT";
-            this.CUIT.Name = "CUIT";
-            // 
-            // LocalidadesNoVendidas
-            // 
-            this.LocalidadesNoVendidas.HeaderText = "LocalidadesNoVendidas";
-            this.LocalidadesNoVendidas.Name = "LocalidadesNoVendidas";
             // 
             // EmpresaLocalidades
             // 
