@@ -45,8 +45,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 //Aca hay que buscar en la base
                 //Verificar que la lista no este vacia
 
-                new ResultadosBusquedaEmp(resultados, this).Show();
-                this.Hide();
+                var bindingList = new BindingList<Empresa>(resultados);
+                var source = new BindingSource(bindingList, null);
+                dataGridViewResultados.DataSource = source;
             }
         }
 
@@ -55,6 +56,25 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             Empresa cliente = new Empresa();
             new RegistroDeEmpresa(cliente, this).Show();
             this.Hide(); 
+        }
+
+        private void BusquedaEmp_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            Empresa empresa = (Empresa)dataGridViewResultados.CurrentRow.DataBoundItem;
+            this.Hide();
+            new ModificarEmp(empresa, this).Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox4.Text = "";
         }
     }
 }

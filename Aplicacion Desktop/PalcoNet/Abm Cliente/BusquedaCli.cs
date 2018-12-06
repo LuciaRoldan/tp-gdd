@@ -28,8 +28,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Anterior.Show();
-            this.Close(); 
+            this.cerrarAnteriores();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,18 +51,18 @@ namespace PalcoNet.Abm_Cliente
                 
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
 
-                List<Cliente> lista = new List<Cliente>();
-                Cliente clienteP = new Cliente();
-                clienteP.Nombre = "Luis";
-                clienteP.Apellido = "Lucena";
-                clienteP.TipoDocumento = "DNI";
-                clienteP.FechaDeNacimiento = new DateTime(2012, 05, 28);
-                lista.Add(clienteP);
-
-                new ResultadoBusquedaCli(lista, this).Show();
-                this.Hide();
+                var bindingList = new BindingList<Cliente>(resultados);
+                var source = new BindingSource(bindingList, null);
+                dataGridResultados.DataSource = source;
             }
             
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            Cliente cliente = (Cliente)dataGridResultados.CurrentRow.DataBoundItem;
+            this.Hide();
+            new ModificarCli(cliente, this).Show();
         }
     }
 }

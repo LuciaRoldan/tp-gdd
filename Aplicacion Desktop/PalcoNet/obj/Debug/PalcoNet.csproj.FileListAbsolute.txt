@@ -12,16 +12,13 @@ C:\Users\Luli\Desktop\TP GDD\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Regi
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.BusquedaCli.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ModificarCli.resources
-C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Cliente.ResultadoBusquedaCli.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.BusquedaEmp.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Grado.GradoDeLaPublicacion.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rol.AbmRol.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Canje_Puntos.CanjePuntos.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.BuscarP.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.MedioPago.resources
-C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_fecha_particular.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_publicacion.resources
-C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_ubicacion_particular.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CrearPublicacion.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CrearPublicacionUbicaciones.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.Rendicion.resources
@@ -43,7 +40,6 @@ C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\b
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.exe
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\bin\Debug\PalcoNet.pdb
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ModificarEmp.resources
-C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Empresa_Espectaculo.ResultadosBusquedaEmp.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.FinalizarCompra.resources

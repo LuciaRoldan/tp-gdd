@@ -26,7 +26,7 @@ namespace PalcoNet
             Application.SetCompatibleTextRenderingDefault(false);
             Cliente cliente = new Cliente();
             cliente.Puntos = 1700;
-            Application.Run(new CrearPublicacion(new SeleccionarFuncionalidad(), null));
+            Application.Run(new BusquedaEmp(new SeleccionarFuncionalidad()));
         }
     }
 }
