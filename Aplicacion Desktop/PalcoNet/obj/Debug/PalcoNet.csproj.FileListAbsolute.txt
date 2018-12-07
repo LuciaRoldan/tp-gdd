@@ -133,3 +133,5 @@ C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.SeleccionAsiento.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AgregarFechas.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.SeleccionAsiento.resources
+C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AgregarFechas.resources

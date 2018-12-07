@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -161,26 +161,16 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
-<<<<<<< HEAD
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs" />
     <Compile Include="Editar Publicacion\Editar_fecha_particular.Designer.cs">
       <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
     </Compile>
-=======
->>>>>>> conexion-base-de-datos
     <Compile Include="Editar Publicacion\Editar_publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editar Publicacion\Editar_publicacion.Designer.cs">
       <DependentUpon>Editar_publicacion.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.cs" />
-    <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
-      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
-    </Compile>
-=======
->>>>>>> conexion-base-de-datos
     <Compile Include="MiForm.cs">
       <SubType>Form</SubType>
     </Compile>
