@@ -28,4 +28,3 @@ BEGIN
 	ELSE
 	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
 END
-GO
