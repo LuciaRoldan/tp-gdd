@@ -50,6 +50,7 @@ namespace PalcoNet.Generar_Publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             //Se guarda todo lo que se tenga que guardar en la base
+            //insertar la publicacion falla con un tema de datos que no se que es
 
             string query = "'" + Sesion.sesion.usuario + "', '" + publicacion.GradoDePublicacion + "', '"
                             + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
@@ -59,24 +60,18 @@ namespace PalcoNet.Generar_Publicacion
                 Console.WriteLine(query);
 
                 servidor.realizarQuery("EXEC dbo.agregarPublicacion_sp " + query);
-            //@codigo_tipo_ubicacion int, @tipo_ubicacion nvarchar(20), @fila varchar(3),
-       // @asiento numeric(18,0), @sin_numerar bit, @precio numeric(18,0) 
+ 
              /*   string queryUbicacion;
                 foreach (Ubicacion ubicacion in publicacion.Ubicaciones)
                 {
-                    for (int i = 0; i <= ubicacion.CantidadAsientos; i++)
-                    {
-                        if (ubicacion.Numerada)
-                        {
-                            queryUbicacion = "'" + agregarCodigoTipo + "', '" + ubicacion.TipoAsiento + "', '"
+                              queryUbicacion = "'" + agregarCodigoTipo + "', '" + ubicacion.TipoAsiento + "', '"
                                         + ubicacion.fi + "', '" + publicacion.Descripcion + "', '"
                                         + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
                                         + publicacion.FechaDeEvento + "', " + publicacion.EstadoDePublicacion + "'"; ;
-                        }
-                    }
-
+            esto seria lo que iria para el SP que se haga para agregar la ubicacion
                 }
-                    //aca deberia crear ubicaciones?
+                    //Osea aca lo que hay que hacer es ver el sp de insertar la publicacion con el espectaculo que lo arme 
+              * pero hay algo que esta mal y el sp para insertar la ubicacion con ubicacionXespectaculo
 
             */
 
