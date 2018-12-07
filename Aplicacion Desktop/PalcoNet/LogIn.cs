@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using PalcoNet.Dominio;
+using PalcoNet.Registro_de_Usuario;
 
 namespace PalcoNet
 {
@@ -94,6 +95,22 @@ namespace PalcoNet
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (comboBoxUsuario.SelectedIndex != null){
+                switch (comboBoxUsuario.Text) { 
+                    case "Cliente":
+                        new RegistroDeCliente(new Cliente(), null).Show();
+                        break;
+                    case "Empresa":
+                        new RegistroDeEmpresa(new Empresa(), null).Show();
+                        break;
+                }
+            }else {
+                MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
+            }
         }
     }
 }
