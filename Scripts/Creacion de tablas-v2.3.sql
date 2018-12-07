@@ -1,11 +1,4 @@
---USE GD2C2018
-
-
-CREATE PROCEDURE crearTablas_sp
-AS
-BEGIN
-
-
+USE GD2C2018
 
 ---------------CREACION DE TABLAS---------------
 
@@ -124,9 +117,9 @@ codigo_postal NVARCHAR(50);
 
 ALTER TABLE Medios_de_pago ADD
 id_cliente INT REFERENCES Clientes,
-descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
 nro_tarjeta NUMERIC(30),
-titular NVARCHAR(50)
+titular NVARCHAR(50),
+fecha_vencimiento DATE;
 
 ALTER TABLE Puntos ADD
 id_cliente INT REFERENCES Clientes,
@@ -215,7 +208,3 @@ precio NUMERIC(18);
 ALTER TABLE Premios ADD
 descripcion VARCHAR(110),
 puntos BIGINT;
-
-
-
-END

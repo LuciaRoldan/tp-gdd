@@ -1,12 +1,4 @@
---USE GD2C2018
-
-
-CREATE PROCEDURE migrarTablas_sp
-AS
-BEGIN
-
-
-
+USE GD2C2018
 
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
@@ -184,8 +176,8 @@ WHERE Factura_Nro IS NOT NULL
 --select * from Facturas
 
 --.--.--.--.--.--.--MEDIODEPAGO--.--.--.--.--.--.--
-INSERT INTO Medios_de_pago(c.id_cliente, descripcion, nro_tarjeta, titular)
-SELECT DISTINCT c.id_cliente, Forma_Pago_Desc, NULL, NULL
+INSERT INTO Medios_de_pago(c.id_cliente, nro_tarjeta, titular, fecha_vencimiento)
+SELECT DISTINCT c.id_cliente, NULL, Forma_Pago_Desc, NULL
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice 'Efectivo'
 WHERE gd.Item_Factura_Monto IS NOT NULL
@@ -247,25 +239,30 @@ INSERT INTO Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha)
 SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
 FROM #ComprasTemp
 
-INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
+INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion)
 --Falta agregar el id_compra
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion
 FROM gd_esquema.Maestra gd
 JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
 	AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
 	AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar
 	AND gd.Ubicacion_Precio = u.precio)
-LEFT JOIN #ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
+--WHERE Espectaculo_Cod = 12353
+ORDER BY Espectaculo_Cod
+
+
+INSERT INTO UbicacionXEspectaculo(id_compra)
+SELECT DISTINCT ct.id_compra
+FROM gd_esquema.Maestra gd
+JOIN #ComprasTemp ct ON(
+		ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.asiento = gd.Ubicacion_Asiento
 		AND ct.fila = gd.Ubicacion_Fila
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 
+
 DROP TABLE #ComprasTemp
 
---Select * from UbicacionXEspectaculo
---select * from UbicacionXEspectaculo ORDER BY id_compra
-
---select * from gd_esquema.Maestra
 --INSERT INTO UbicacionXEspectaculo(id_compra)
 --Compra de 18 ubicaciones con este Espectaculo_Cod pero me está tirando menos? => Me devuelve las 8 que no fueron compradas, tienen Cli_Dni en NULL
 --ME ESTÁ RETORNANDO LAS QUE TIENEN Cli_Dni en NULL realmente
@@ -291,10 +288,3 @@ VALUES
 --SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
-
-
-
-
-
-
-END
