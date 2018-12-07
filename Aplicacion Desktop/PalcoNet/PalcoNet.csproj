@@ -85,11 +85,11 @@
     <Compile Include="Abm Rol\AbmRol.Designer.cs">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rubro\Form1.cs">
+    <Compile Include="Abm Rubro\AbmRubro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Rubro\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Rubro\AbmRubro.Designer.cs">
+      <DependentUpon>AbmRubro.cs</DependentUpon>
     </Compile>
     <Compile Include="Canje Puntos\CanjePuntos.cs">
       <SubType>Form</SubType>
