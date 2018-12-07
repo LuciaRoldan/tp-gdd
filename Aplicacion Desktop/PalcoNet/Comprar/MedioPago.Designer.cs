@@ -72,6 +72,7 @@
             this.comboBoxTarjeta.Name = "comboBoxTarjeta";
             this.comboBoxTarjeta.Size = new System.Drawing.Size(144, 21);
             this.comboBoxTarjeta.TabIndex = 120;
+            this.comboBoxTarjeta.SelectedIndexChanged += new System.EventHandler(this.comboBoxTarjeta_SelectedIndexChanged);
             // 
             // label4
             // 

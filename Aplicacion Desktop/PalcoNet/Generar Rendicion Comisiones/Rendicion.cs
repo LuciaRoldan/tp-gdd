@@ -53,16 +53,21 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Le tiene que salir uun cartelito de que salio todo bien
-
             List<Compra> comprasSeleccionadas = new List<Compra>();
-            if (checkedListBox1.CheckedIndices.Count > 0)
-            {
+            if (checkedListBox1.CheckedIndices.Count > 0){
                 foreach(Compra c in checkedListBox1.CheckedItems){
                     comprasSeleccionadas.Add(c);
+                }
             }
+
+            if (comprasSeleccionadas.Count() > 0) {
+                //Aca se persiste la rendicion de las comprasSeleccionadas
+
+                MessageBox.Show("La rendición de comisiones se realizó exitosamente.", "Rendición de Comisiones", MessageBoxButtons.OK);
+            } else {
+                MessageBox.Show("No se seleccionó ninguna venta.", "Error", MessageBoxButtons.OK);
             }
-            //Aca se persiste la rendicion de las comprasSeleccionadas
+            
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

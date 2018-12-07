@@ -22,9 +22,17 @@ namespace PalcoNet.Registro_de_Usuario
         }
 
         private bool camposCompletos() {
-            return !string.IsNullOrWhiteSpace(textBox1.Text)
-                && !string.IsNullOrWhiteSpace(textBox2.Text)
-                && comboBox1.SelectedItem != null;
+            string errores = "";
+            
+            if (string.IsNullOrWhiteSpace(textBox1.Text)) { errores += "Se debe completar el nombre de usuario. \n"; }
+            if (string.IsNullOrWhiteSpace(textBox2.Text)) { errores += "Se debe completar la contraseña. \n"; }
+            if (comboBox1.SelectedItem == null) { errores += "Se debe seleccionar un tipo de usuario. \n"; }
+
+            if (errores != ""){
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

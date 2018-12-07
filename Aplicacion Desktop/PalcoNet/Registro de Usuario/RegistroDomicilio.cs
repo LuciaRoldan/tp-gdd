@@ -29,9 +29,19 @@ namespace PalcoNet.Registro_de_Usuario
 
         private bool camposCompletos()
         {
-            return !string.IsNullOrWhiteSpace(textBoxCalle.Text)
-                && !string.IsNullOrWhiteSpace(textBoxNro.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCiudad.Text);
+            string error = "";
+            int x;
+            if (string.IsNullOrWhiteSpace(textBoxCalle.Text)) { error += "El campo 'Calle' no puede estar vacío\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxNro.Text)) { error += "El campo 'Número de Calle' no puede estar vacío\n"; }
+            if (!int.TryParse(textBoxCalle.Text, out x)) { error += "El campo 'Calle' debe ser numerico\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCiudad.Text)) { error += "El campo 'Ciudad' no puede estar vacío\n"; }
+
+            if (error != "")
+            {
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e)

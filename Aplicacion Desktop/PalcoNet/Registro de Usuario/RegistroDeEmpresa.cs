@@ -31,8 +31,18 @@ namespace PalcoNet.Registro_de_Usuario
 
         private bool camposCompletos()
         {
-            return !string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCUIT.Text);
+            string error = "";
+            int x;
+            if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
+            if (int.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
+
+            if (error != "")
+            {
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e)

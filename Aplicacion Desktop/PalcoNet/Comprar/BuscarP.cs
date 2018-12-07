@@ -48,9 +48,24 @@ namespace PalcoNet.Comprar
         }
 
         public bool verificarCampos() {
-            return !string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text) 
+            string error = "";
+            bool camposCompletos = !string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text) 
                 || this.checkedListBoxCategorias.SelectedIndices.Count > 0
                 || ((this.dateTimePickerDesde.Value != null) && (this.dateTimePickerHasta.Value != null));
+
+            if (!camposCompletos) {
+                error += "Se debe completar al menos un campo para realizar la búsqueda.";
+            } else {
+                if (/*Verificar que las fechas sean en el futuro*/ true) { error += "Las fechas no son correctas."; }
+            }
+
+            if (error != "")
+            {
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
         }
 
         private void button2_Click(object sender, EventArgs e)
