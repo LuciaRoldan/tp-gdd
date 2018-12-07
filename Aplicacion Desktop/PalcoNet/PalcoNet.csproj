@@ -287,6 +287,9 @@
     <EmbeddedResource Include="Abm Rol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rubro\AbmRubro.resx">
+      <DependentUpon>AbmRubro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
       <DependentUpon>CanjePuntos.cs</DependentUpon>
     </EmbeddedResource>
