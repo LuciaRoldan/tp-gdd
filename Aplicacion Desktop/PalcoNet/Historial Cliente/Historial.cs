@@ -26,8 +26,7 @@ namespace PalcoNet.Historial_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
+            this.cerrarAnteriores();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

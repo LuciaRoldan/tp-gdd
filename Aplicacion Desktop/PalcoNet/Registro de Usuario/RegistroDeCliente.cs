@@ -39,8 +39,8 @@ namespace PalcoNet.Registro_de_Usuario
 
         private void volver_Click_1(object sender, EventArgs e)
         {
+            this.Close();
             this.Anterior.Show();
-            this.Hide();
         }
 
         private void siguiente_Click(object sender, EventArgs e)

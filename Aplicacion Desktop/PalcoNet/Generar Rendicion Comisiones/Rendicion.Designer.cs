@@ -34,7 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxEmpresas = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -55,6 +55,7 @@
             this.label1.Size = new System.Drawing.Size(205, 13);
             this.label1.TabIndex = 110;
             this.label1.Text = "Seleccione las compras que quera añadir.";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // checkedListBox1
             // 
@@ -63,6 +64,7 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(359, 154);
             this.checkedListBox1.TabIndex = 111;
+            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -94,21 +96,22 @@
             this.label3.Text = "Seleccione la empresa para la que quiere crear la fatura.";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // comboBox1
+            // comboBoxEmpresas
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 61);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(359, 21);
-            this.comboBox1.TabIndex = 118;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxEmpresas.AccessibleDescription = "comboBoxEmpresas";
+            this.comboBoxEmpresas.FormattingEnabled = true;
+            this.comboBoxEmpresas.Location = new System.Drawing.Point(16, 61);
+            this.comboBoxEmpresas.Name = "comboBoxEmpresas";
+            this.comboBoxEmpresas.Size = new System.Drawing.Size(359, 21);
+            this.comboBoxEmpresas.TabIndex = 118;
+            this.comboBoxEmpresas.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Rendicion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(387, 307);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxEmpresas);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
@@ -117,6 +120,7 @@
             this.Controls.Add(this.label2);
             this.Name = "Rendicion";
             this.Text = "Generar rendición de factura";
+            this.Load += new System.EventHandler(this.Rendicion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,6 +134,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxEmpresas;
     }
 }

@@ -157,6 +157,7 @@ namespace PalcoNet.Editar_Publicacion
                 this.PublicacionElegida.Ubicaciones = ubicaciones;
 
                 //Hay que actualizar en la base los cambios en la publicacion elegida, inclyendo en sus fechas y sus ubicaciones
+                //3 SP uno de lo basico de publicacion, uno de las fechas y uno de las ubicaciones, en ese orden.
             }
             else
             {
@@ -184,6 +185,16 @@ namespace PalcoNet.Editar_Publicacion
         }
 
         private void textBoxDescripcion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

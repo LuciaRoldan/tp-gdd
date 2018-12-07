@@ -54,7 +54,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             {
                 //Aca hay que hacer el update en la base
             }
-
+            //Deberia salir el caartelito de que salio todo bien
             this.cerrarAnteriores();
         }
     }

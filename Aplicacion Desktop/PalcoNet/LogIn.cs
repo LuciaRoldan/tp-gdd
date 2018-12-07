@@ -99,7 +99,7 @@ namespace PalcoNet
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (comboBoxUsuario.SelectedIndex != null){
+            if (comboBoxUsuario.SelectedIndex > -1){
                 switch (comboBoxUsuario.Text) { 
                     case "Cliente":
                         new RegistroDeCliente(new Cliente(), null).Show();
@@ -108,6 +108,7 @@ namespace PalcoNet
                         new RegistroDeEmpresa(new Empresa(), null).Show();
                         break;
                 }
+                this.Hide();
             }else {
                 MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
             }

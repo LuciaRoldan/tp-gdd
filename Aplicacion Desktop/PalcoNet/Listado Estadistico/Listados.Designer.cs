@@ -53,7 +53,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(16, 246);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(184, 23);
             this.button2.TabIndex = 116;
             this.button2.Text = "Inicio";
             this.button2.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             "Octubre-Diciembre"});
             this.trimestreCombobox.Location = new System.Drawing.Point(16, 103);
             this.trimestreCombobox.Name = "trimestreCombobox";
-            this.trimestreCombobox.Size = new System.Drawing.Size(121, 21);
+            this.trimestreCombobox.Size = new System.Drawing.Size(184, 21);
             this.trimestreCombobox.TabIndex = 120;
             // 
             // label1
@@ -130,7 +130,7 @@
             "2018"});
             this.anioCombobox.Location = new System.Drawing.Point(16, 63);
             this.anioCombobox.Name = "anioCombobox";
-            this.anioCombobox.Size = new System.Drawing.Size(121, 21);
+            this.anioCombobox.Size = new System.Drawing.Size(184, 21);
             this.anioCombobox.TabIndex = 126;
             this.anioCombobox.SelectedIndexChanged += new System.EventHandler(this.anioCombobox_SelectedIndexChanged);
             // 

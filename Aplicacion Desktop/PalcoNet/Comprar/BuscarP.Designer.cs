@@ -41,10 +41,10 @@
             this.checkedListBoxCategorias = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.dataGridViewResultados = new System.Windows.Forms.DataGridView();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResultados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,16 +171,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(16, 348);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 23);
-            this.button3.TabIndex = 122;
-            this.button3.Text = "Atrás";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // dataGridViewResultados
             // 
             this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -210,6 +200,16 @@
             this.button6.Text = "Limpiar";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(16, 348);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(76, 23);
+            this.button3.TabIndex = 122;
+            this.button3.Text = "Atrás";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // BuscarP
             // 
@@ -257,9 +257,9 @@
         private System.Windows.Forms.CheckedListBox checkedListBoxCategorias;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataGridViewResultados;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button3;
     }
 }

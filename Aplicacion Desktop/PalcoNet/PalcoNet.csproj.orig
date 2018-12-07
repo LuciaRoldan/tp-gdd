@@ -150,6 +150,13 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
+<<<<<<< HEAD
+    <Compile Include="Editar Publicacion\Editar_fecha_particular.cs" />
+    <Compile Include="Editar Publicacion\Editar_fecha_particular.Designer.cs">
+      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
+    </Compile>
+=======
+>>>>>>> GUI
     <Compile Include="Editar Publicacion\Editar_publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
