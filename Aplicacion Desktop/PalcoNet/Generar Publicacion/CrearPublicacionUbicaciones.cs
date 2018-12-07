@@ -126,6 +126,7 @@ namespace PalcoNet.Generar_Publicacion
             if (checkBoxNumerado.Checked)
             {
                 textBoxFilas.Enabled = true;
+                     
             }
             else
             {

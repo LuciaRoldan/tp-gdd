@@ -1,5 +1,6 @@
 ALTER PROCEDURE agregarPublicacion_sp @nombre_empresa varchar(255), @grado_publicacion nvarchar(20), @rubro nvarchar(100), 
-@descripcion varchar(255), @cantidad_asientos int, @direccion varchar(80), @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo char(15)
+@descripcion varchar(255), @cantidad_asientos int, @direccion varchar(80), @fecha_inicio DATETIME, @fecha_evento DATETIME, 
+@estado_espectaculo char(15), @id_publicacion int OUTPUT
 AS
 BEGIN
 
@@ -7,7 +8,6 @@ BEGIN
 								WHERE username like @nombre_empresa)
 	DECLARE @id_grado_publicacion int = (SELECT id_grado_publicacion FROM Grados_publicacion WHERE nombre like @grado_publicacion)
 	DECLARE @id_rubro int = (SELECT id_rubro FROM Rubros WHERE descripcion like @rubro)
-	DECLARE @id_publicacion int
 	
 	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, cantidad_asientos, direccion)
 	VALUES(@id_empresa, @id_grado_publicacion, @id_rubro, @descripcion, @cantidad_asientos, @direccion)

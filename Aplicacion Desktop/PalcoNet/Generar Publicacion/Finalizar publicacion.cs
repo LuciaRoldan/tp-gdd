@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -59,21 +60,33 @@ namespace PalcoNet.Generar_Publicacion
 
                 Console.WriteLine(query);
 
-                servidor.realizarQuery("EXEC dbo.agregarPublicacion_sp " + query);
- 
-             /*   string queryUbicacion;
-                foreach (Ubicacion ubicacion in publicacion.Ubicaciones)
-                {
-                              queryUbicacion = "'" + agregarCodigoTipo + "', '" + ubicacion.TipoAsiento + "', '"
-                                        + ubicacion.fi + "', '" + publicacion.Descripcion + "', '"
-                                        + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
-                                        + publicacion.FechaDeEvento + "', " + publicacion.EstadoDePublicacion + "'"; ;
-            esto seria lo que iria para el SP que se haga para agregar la ubicacion
-                }
-                    //Osea aca lo que hay que hacer es ver el sp de insertar la publicacion con el espectaculo que lo arme 
-              * pero hay algo que esta mal y el sp para insertar la ubicacion con ubicacionXespectaculo
+               SqlDataReader reader = servidor.query("EXEC dbo.agregarPublicacion_sp " + query);
+            
 
-            */
+                while (reader.Read())
+                {
+                    publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);
+                    
+                }
+
+ 
+                string queryUbicacion;
+                foreach (Ubicacion u in this.publicacion.Ubicaciones)
+                {
+                    if(u.Numerada){
+                        queryUbicacion = "'" + publicacion.Id + "', '" + u.TipoAsiento + "', '"
+                                         + u.CantidadAsientos + "', '" + u.CantidadFilas + "', '"
+                                         + u.Precio + "'";
+                       servidor.realizarQuery("EXEC dbo.agregarUbicacionNumerada_sp " + query);
+
+
+                    } else{
+                        queryUbicacion = "'" + publicacion.Id + "', '" + u.TipoAsiento + "', '"
+                                         + u.CantidadAsientos + "', '" + u.Precio + "'";
+                        servidor.realizarQuery("EXEC dbo.agregarUbicacionSinNumerar_sp " + query);
+                    }
+
+                }
 
             MessageBox.Show("La publicación se creó exitosamente!", "Publicación", MessageBoxButtons.OK);
             this.cerrarAnteriores(); 
