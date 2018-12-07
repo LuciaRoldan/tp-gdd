@@ -20,10 +20,25 @@ namespace PalcoNet.Abm_Cliente
         }
 
         public bool verificarCampos() {
-            return !string.IsNullOrWhiteSpace(textBoxNombre.Text)
+            string errores = "";
+            int dni;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
                 || !string.IsNullOrWhiteSpace(textBoxApellido.Text)
                 || !string.IsNullOrWhiteSpace(textBoxDni.Text)
                 || !string.IsNullOrWhiteSpace(textBoxMail.Text);
+
+            if (!camposCompletos) {
+                errores += "Se debe completar al menos un campo para realizar la búsqueda.";
+            } else {
+                if (!int.TryParse(textBoxDni.Text, out dni)) { errores += "El DNI debe ser un valor numérico."; }
+            }
+
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -44,10 +59,10 @@ namespace PalcoNet.Abm_Cliente
             if (this.verificarCampos())
             {
                 Cliente cliente = new Cliente();
-                if (!string.IsNullOrWhiteSpace(textBoxNombre.Text)) { cliente.Nombre = textBoxNombre.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxApellido.Text)) { cliente.Apellido = textBoxApellido.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { cliente.Apellido = textBoxMail.Text; }
-                if (!string.IsNullOrWhiteSpace(textBoxDni.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); }
+                cliente.Nombre = textBoxNombre.Text;
+                cliente.Apellido = textBoxApellido.Text;
+                cliente.Apellido = textBoxMail.Text;
+                cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text);
                 List<Cliente> resultados = new List<Cliente>();
                 
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda

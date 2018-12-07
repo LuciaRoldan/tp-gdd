@@ -71,9 +71,12 @@
             // dateTimePickerNacimiento
             // 
             this.dateTimePickerNacimiento.Location = new System.Drawing.Point(219, 123);
+            this.dateTimePickerNacimiento.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
             this.dateTimePickerNacimiento.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerNacimiento.TabIndex = 61;
+            this.dateTimePickerNacimiento.Value = new System.DateTime(2018, 12, 7, 0, 0, 0, 0);
+            this.dateTimePickerNacimiento.ValueChanged += new System.EventHandler(this.dateTimePickerNacimiento_ValueChanged);
             // 
             // textBoxMail
             // 
@@ -81,6 +84,7 @@
             this.textBoxMail.Name = "textBoxMail";
             this.textBoxMail.Size = new System.Drawing.Size(121, 20);
             this.textBoxMail.TabIndex = 60;
+            this.textBoxMail.TextChanged += new System.EventHandler(this.textBoxMail_TextChanged);
             // 
             // label8
             // 
@@ -93,6 +97,7 @@
             // 
             // comboBoxDocumento
             // 
+            this.comboBoxDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDocumento.FormattingEnabled = true;
             this.comboBoxDocumento.Items.AddRange(new object[] {
             "DNI",
@@ -109,6 +114,7 @@
             this.textBoxCuil.Name = "textBoxCuil";
             this.textBoxCuil.Size = new System.Drawing.Size(121, 20);
             this.textBoxCuil.TabIndex = 57;
+            this.textBoxCuil.TextChanged += new System.EventHandler(this.textBoxCuil_TextChanged);
             // 
             // label7
             // 
@@ -125,6 +131,7 @@
             this.textBoxDocumento.Name = "textBoxDocumento";
             this.textBoxDocumento.Size = new System.Drawing.Size(121, 20);
             this.textBoxDocumento.TabIndex = 55;
+            this.textBoxDocumento.TextChanged += new System.EventHandler(this.textBoxDocumento_TextChanged);
             // 
             // label6
             // 
@@ -150,6 +157,7 @@
             this.textBoxTelefono.Name = "textBoxTelefono";
             this.textBoxTelefono.Size = new System.Drawing.Size(121, 20);
             this.textBoxTelefono.TabIndex = 52;
+            this.textBoxTelefono.TextChanged += new System.EventHandler(this.textBoxTelefono_TextChanged);
             // 
             // textBoxApellido
             // 
@@ -157,6 +165,7 @@
             this.textBoxApellido.Name = "textBoxApellido";
             this.textBoxApellido.Size = new System.Drawing.Size(121, 20);
             this.textBoxApellido.TabIndex = 51;
+            this.textBoxApellido.TextChanged += new System.EventHandler(this.textBoxApellido_TextChanged);
             // 
             // textBoxNombre
             // 
@@ -164,6 +173,7 @@
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(121, 20);
             this.textBoxNombre.TabIndex = 50;
+            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
             // 
             // label3
             // 

@@ -13,12 +13,12 @@ namespace PalcoNet.Abm_Cliente
 {
     public partial class ModificarCli : MiForm
     {
-        Cliente cliente;
+        bool fueModificado = false;
 
-        public Cliente Cliente
+        public bool FueModificado
         {
-            get { return cliente; }
-            set { cliente = value; }
+            get { return fueModificado; }
+            set { fueModificado = value; }
         }
 
         public ModificarCli(Cliente cliente, MiForm formAnterior) : base(formAnterior)
@@ -35,15 +35,34 @@ namespace PalcoNet.Abm_Cliente
             dateTimePickerNacimiento.Value = cliente.FechaDeNacimiento;
         }
 
-        public bool clienteNoFueModifiado(Cliente clienteModificado) {
-           /* return cliente.Nombre.Equals(clienteModificado.Nombre)
-                && cliente.Apellido.Equals(clienteModificado.Apellido)
-                && cliente.Mail.Equals(clienteModificado.Mail)
-                && cliente.Telefono.Equals(clienteModificado.Telefono)
-                && cliente.NumeroDeDocumento.Equals(clienteModificado.NumeroDeDocumento)
-                && cliente.Cuil.Equals(clienteModificado.Cuil)
-                && cliente.TipoDocumento.Equals(clienteModificado.TipoDocumento)
-                && cliente.FechaDeNacimiento.Equals(clienteModificado.FechaDeNacimiento);*/
+        public bool verificarCampos() {
+            string errores = "";
+            int numero;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
+                && !string.IsNullOrWhiteSpace(textBoxApellido.Text)
+                && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
+                && !string.IsNullOrWhiteSpace(textBoxMail.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
+                && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
+                && comboBoxDocumento.SelectedIndex > -1
+                && dateTimePickerNacimiento.Value == null;
+
+            if (!camposCompletos)
+            {
+                errores += "Todos los campos deben estar completos.";
+            }
+            else
+            {
+                if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
+                if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+                if(/*ACA VERIFICACION DE FECHA ANTERIOR A HOY*/ false) {errores += "La fecha de nacimiento no puede ser anterior a hoy. \n";}
+            }
+
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
             return true;
         }
 
@@ -55,27 +74,61 @@ namespace PalcoNet.Abm_Cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Cliente clienteModificado = new Cliente();
-            clienteModificado.Apellido = textBoxApellido.Text;
-            clienteModificado.Nombre = textBoxNombre.Text;
-            clienteModificado.Mail = textBoxMail.Text;
-            clienteModificado.Telefono = Int32.Parse(textBoxTelefono.Text);
-            clienteModificado.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-            clienteModificado.Cuil = Int32.Parse(textBoxCuil.Text);
-            clienteModificado.TipoDocumento = comboBoxDocumento.SelectedText;
-            clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
-
-            if (!this.clienteNoFueModifiado(clienteModificado)) //Tambien habria que verificar que no sean nulos
-            {
+            if (this.verificarCampos() && this.fueModificado){
+                Cliente clienteModificado = new Cliente();
+                clienteModificado.Apellido = textBoxApellido.Text;
+                clienteModificado.Nombre = textBoxNombre.Text;
+                clienteModificado.Mail = textBoxMail.Text;
+                clienteModificado.Telefono = Int32.Parse(textBoxTelefono.Text);
+                clienteModificado.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
+                clienteModificado.Cuil = Int32.Parse(textBoxCuil.Text);
+                clienteModificado.TipoDocumento = comboBoxDocumento.SelectedText;
+                clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
+
+                MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
+                this.cerrarAnteriores();
             }
-            this.cerrarAnteriores();
-            //Faltaria tirar el mensajito de que salio todo okey
         }
 
         private void comboBoxDocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.fueModificado = true;
+        }
 
+        private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxApellido_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxTelefono_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxMail_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxCuil_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxDocumento_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void dateTimePickerNacimiento_ValueChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
         }
     }
 }

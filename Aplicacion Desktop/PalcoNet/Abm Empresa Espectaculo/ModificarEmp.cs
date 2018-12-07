@@ -13,27 +13,41 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 {
     public partial class ModificarEmp : MiForm
     {
-        Empresa empresa;
+        bool fueModificada = false;
 
-        public Empresa Empresa
+        public bool FueModificada
         {
-            get { return empresa; }
-            set { empresa = value; }
+            get { return fueModificada; }
+            set { fueModificada = value; }
         }
 
         public ModificarEmp(Empresa empresa, MiForm anterior) : base(anterior)
         {
-            this.empresa = empresa;
             InitializeComponent();
         }
 
-        public bool empresaNoFueModifiada(Empresa empresaModificada)
+        public bool verificarCampos()
         {
-            /* return empresa.RazonSocial.Equals(empresaModificada.RazonSocial)
-                 && empresa.Cuit.Equals(empresaModificada.Cuit)
-                 && empresa.Mail.Equals(empresaModificada.Mail)
-                 && empresa.Telefono.Equals(empresaModificada.Telefono);*/
+            string errores = "";
+            int numero;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
+                && !string.IsNullOrWhiteSpace(textBoxMail.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCuit.Text)
+                && !string.IsNullOrWhiteSpace(textBoxRazonSocial.Text);
+
+            if (!camposCompletos) {
+                errores += "Todos los campos deben estar completos.";
+            } else {
+                if (!int.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
+                if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+            }
+
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
             return true;
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -44,18 +58,19 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Empresa empresaModificada = new Empresa();      
-            empresaModificada.RazonSocial = textBoxRazonSocial.Text;
-            empresaModificada.Cuit = Int32.Parse(textBoxCuit.Text);
-            empresaModificada.Mail = textBoxMail.Text;
-            empresaModificada.Telefono = Int32.Parse(textBoxTelefono.Text);
-
-            if (!this.empresaNoFueModifiada(empresaModificada)) //Tambien faltaria verificar que no sean nulos los ingresados
+            if (this.verificarCampos() && this.FueModificada) //Tambien faltaria verificar que no sean nulos los ingresados
             {
+                Empresa empresaModificada = new Empresa();
+                empresaModificada.RazonSocial = textBoxRazonSocial.Text;
+                empresaModificada.Cuit = Int32.Parse(textBoxCuit.Text);
+                empresaModificada.Mail = textBoxMail.Text;
+                empresaModificada.Telefono = Int32.Parse(textBoxTelefono.Text);
                 //Aca hay que hacer el update en la base
+
+                MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
+                this.cerrarAnteriores();
             }
-            //Deberia salir el caartelito de que salio todo bien
-            this.cerrarAnteriores();
+            
         }
     }
 }
