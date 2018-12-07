@@ -15,6 +15,7 @@ namespace PalcoNet.Generar_Publicacion
     {
         Empresa empresa;
         Publicacion publicacion;
+        Servidor servidor = Servidor.getInstance();
 
         public Publicacion Publicacion
         {
@@ -49,6 +50,36 @@ namespace PalcoNet.Generar_Publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             //Se guarda todo lo que se tenga que guardar en la base
+
+            string query = "'" + Sesion.sesion.usuario + "', '" + publicacion.GradoDePublicacion + "', '"
+                            + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
+                            + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
+                            + publicacion.FechaDeEvento + "', '" + publicacion.EstadoDePublicacion + "'";
+
+                Console.WriteLine(query);
+
+                servidor.realizarQuery("EXEC dbo.agregarPublicacion_sp " + query);
+            //@codigo_tipo_ubicacion int, @tipo_ubicacion nvarchar(20), @fila varchar(3),
+       // @asiento numeric(18,0), @sin_numerar bit, @precio numeric(18,0) 
+             /*   string queryUbicacion;
+                foreach (Ubicacion ubicacion in publicacion.Ubicaciones)
+                {
+                    for (int i = 0; i <= ubicacion.CantidadAsientos; i++)
+                    {
+                        if (ubicacion.Numerada)
+                        {
+                            queryUbicacion = "'" + agregarCodigoTipo + "', '" + ubicacion.TipoAsiento + "', '"
+                                        + ubicacion.fi + "', '" + publicacion.Descripcion + "', '"
+                                        + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
+                                        + publicacion.FechaDeEvento + "', " + publicacion.EstadoDePublicacion + "'"; ;
+                        }
+                    }
+
+                }
+                    //aca deberia crear ubicaciones?
+
+            */
+
             MessageBox.Show("La publicación se creó exitosamente!", "Publicación", MessageBoxButtons.OK);
             this.cerrarAnteriores(); 
         }
