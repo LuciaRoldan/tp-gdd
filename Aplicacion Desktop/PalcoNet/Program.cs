@@ -24,7 +24,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LogIn());
+            Application.Run(new CrearPublicacion(new SeleccionarFuncionalidad(), new Empresa()));
         }
     }
 }

@@ -161,20 +161,26 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Ubicacion.cs" />
     <Compile Include="Dominio\Usuario.cs" />
+<<<<<<< HEAD
     <Compile Include="Editar Publicacion\Editar_fecha_particular.cs" />
     <Compile Include="Editar Publicacion\Editar_fecha_particular.Designer.cs">
       <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
     </Compile>
+=======
+>>>>>>> conexion-base-de-datos
     <Compile Include="Editar Publicacion\Editar_publicacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editar Publicacion\Editar_publicacion.Designer.cs">
       <DependentUpon>Editar_publicacion.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Editar Publicacion\Editar_ubicacion_particular.cs" />
     <Compile Include="Editar Publicacion\Editar_ubicacion_particular.Designer.cs">
       <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </Compile>
+=======
+>>>>>>> conexion-base-de-datos
     <Compile Include="MiForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,14 +339,8 @@
     <EmbeddedResource Include="Comprar\Ubicaciones.resx">
       <DependentUpon>Ubicaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\Editar_fecha_particular.resx">
-      <DependentUpon>Editar_fecha_particular.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\Editar_publicacion.resx">
       <DependentUpon>Editar_publicacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\Editar_ubicacion_particular.resx">
-      <DependentUpon>Editar_ubicacion_particular.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\CrearPublicacion.resx">
       <DependentUpon>CrearPublicacion.cs</DependentUpon>

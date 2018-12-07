@@ -62,7 +62,7 @@ namespace PalcoNet.Editar_Publicacion
         private void button4_Click(object sender, EventArgs e)
         {
             //Hace que se completen los campos de abajo con la informacion de la publicacion seleccionada
-            if (comboBoxPublicaciones.SelectedIndex != null) {
+ /*           if (comboBoxPublicaciones.SelectedIndex != null) {
                 this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
                 textBoxDescripcion.Text = publicacionElegida.Descripcion;
                 textBoxDireccion.Text = publicacionElegida.Direccion;
@@ -72,7 +72,7 @@ namespace PalcoNet.Editar_Publicacion
                 this.actualizarUbicaciones();
             } else {
                 MessageBox.Show("Se debe sleccionar alguna publicación", "Error", MessageBoxButtons.OK);
-            }
+            } */
         }
 
         public void actualizarFechas() {

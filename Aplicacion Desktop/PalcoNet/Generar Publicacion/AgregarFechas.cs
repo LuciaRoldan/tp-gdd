@@ -54,9 +54,15 @@ namespace PalcoNet.Generar_Publicacion
             //Hace que se guarde la fecha en la lista de abajo
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
             //Hay que verificar que las fechas no sean anteriore a hoy
-            this.Fechas.Add(fecha);
-            this.Publicacion.Fechas.Add(fecha);
-            this.actualizarFechas();
+            DateTime hoy = DateTime.Today;
+            if (fecha >= hoy){
+                this.Fechas.Add(fecha);
+                this.Publicacion.Fechas.Add(fecha);
+                this.actualizarFechas();
+            }
+            else{
+                MessageBox.Show("La fecha debe ser de hoy en adelante", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

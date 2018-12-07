@@ -108,14 +108,10 @@ C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.FinalizarCompra.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.MedioPago.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.NuevoMP.resources
-C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Seleccion.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Ubicaciones.resources
-C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_fecha_particular.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_publicacion.resources
-C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Editar_Publicacion.Editar_ubicacion_particular.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CrearPublicacion.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CrearPublicacionUbicaciones.resources
-C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.CrearPuublicacionFechas.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.Finalizar_publicacion.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Rendicion_Comisiones.Rendicion.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Historial_Cliente.Historial.resources
@@ -135,3 +131,5 @@ C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.exe
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.pdb
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csprojResolveAssemblyReference.cache
+C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.SeleccionAsiento.resources
+C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Generar_Publicacion.AgregarFechas.resources

@@ -70,7 +70,7 @@ namespace PalcoNet.Registro_de_Usuario
                         Console.WriteLine(query);
 
                         servidor.realizarQuery("EXEC dbo.registroEmpresa_sp " + query);
-
+                        //atrapar error y mostrar mensaje si la empresa ya existe
                     }
                     else
                     {
@@ -85,6 +85,7 @@ namespace PalcoNet.Registro_de_Usuario
                         Console.WriteLine(queryCli);
 
                         servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
+                        //atrapar error y mostrar mensaje si el cliente ya existe
                     }
 
                     this.Hide();
