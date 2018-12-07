@@ -117,6 +117,7 @@ codigo_postal NVARCHAR(50);
 
 ALTER TABLE Medios_de_pago ADD
 id_cliente INT REFERENCES Clientes,
+descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
 nro_tarjeta NUMERIC(30),
 titular NVARCHAR(50),
 fecha_vencimiento DATE;

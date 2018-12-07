@@ -28,6 +28,3 @@ BEGIN
 	ELSE
 	RAISERROR('El Cliente ya existe', 16, 1) WITH SETERROR
 END
-
-DROP PROCEDURE registroEmpresa
-GO

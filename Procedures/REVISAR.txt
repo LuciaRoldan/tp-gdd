@@ -1,0 +1,4 @@
+TOP5 Procedures (por cambio en las tablas)
+Particularmente top5EmpresasLocalidadesNoVendidas_sp que no está retornando nada
+
+getRubros_sp está raro, el where podría no ir
