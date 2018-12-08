@@ -76,32 +76,25 @@ namespace PalcoNet.Abm_Cliente
                                 "', '" + cliente.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarUsuarioPorCriterio_sp '" + query );
-                
-                var bindingList = new BindingList<Cliente>(resultados);
-                var source = new BindingSource(bindingList, null);
-                dataGridResultados.DataSource = source;
 
                 while (reader.Read())
                 {
                     Cliente clienteEnc = new Cliente();
-                    cliente.Nombre = reader["nombre"].ToString();
-                    cliente.Apellido = reader["apellido"].ToString();
-                   // cliente.Cuil = Convert.ToInt32(reader["cuil"]); NO SE QUE HACER SI SON NULOS
-                    cliente.Mail = reader["mail"].ToString();
-                    // cliente.Telefono = Convert.ToInt32(reader["telefono"]); NO SE QUE HACER SI SON NULOS
-                    cliente.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
-                    cliente.TipoDocumento = reader["tipo_documento"].ToString();
-                    cliente.Calle = reader["calle"].ToString();
-                    cliente.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
-                    cliente.Piso = Convert.ToInt16(reader["piso"]);
-                    cliente.CodigoPostal = reader["codigo_postal"].ToString();
-                    cliente.NombreUsuario = reader["username"].ToString();
-                    cliente.Contrasenia = reader["password"].ToString();
-                    cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
-                    cliente.FechaDeCreacion = (DateTime) reader["fecha_creacion"];
+                    clienteEnc.Nombre = reader["nombre"].ToString();
+                    clienteEnc.Apellido = reader["apellido"].ToString();
+                    Console.WriteLine(reader["nombre"]);
+                    clienteEnc.Cuil = Convert.ToInt32(reader["cuil"]);
+                    clienteEnc.Mail = reader["mail"].ToString();
+                    clienteEnc.Telefono = Convert.ToInt32(reader["telefono"]);
+                    clienteEnc.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
+                    clienteEnc.TipoDocumento = reader["tipo_documento"].ToString();
+                    clienteEnc.Calle = reader["calle"].ToString();
+                    clienteEnc.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
+                    clienteEnc.FechaDeNacimiento = (DateTime)reader["fecha_nacimiento"];
+                    clienteEnc.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
 
                     clientesEncontrados.Add(clienteEnc);
-                    bindingList.Add(clienteEnc);
+                    resultados.Add(clienteEnc);
 
   /*                  dataGridResultados.Rows.Add(cliente.Nombre, cliente.Apellido, cliente.Cuil, cliente.Mail);
                     dataGridResultados.Rows.Add(reader["nombre"].ToString(), reader["apellido"], reader["cuil"].ToString(),
@@ -112,6 +105,10 @@ namespace PalcoNet.Abm_Cliente
   */                   
                 }
                 reader.Close();
+
+                var bindingList = new BindingList<Cliente>(resultados);
+                var source = new BindingSource(bindingList, null);
+                dataGridResultados.DataSource = source;
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
 
                 }
