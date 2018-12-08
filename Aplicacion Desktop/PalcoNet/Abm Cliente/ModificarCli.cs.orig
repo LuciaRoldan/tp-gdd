@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,7 +48,7 @@ namespace PalcoNet.Abm_Cliente
                 && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
                 && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
                 && comboBoxDocumento.SelectedIndex > -1
-                && dateTimePickerNacimiento.Value != null;
+                && dateTimePickerNacimiento.Value == null;
 
             if (!camposCompletos)
             {
@@ -57,9 +57,12 @@ namespace PalcoNet.Abm_Cliente
             else
             {
                 if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
-                if (!int.TryParse(textBoxCuil.Text, out numero)) { errores += "El CUIL debe ser un valor numérico. \n"; }
                 if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
-                if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
+<<<<<<< HEAD
+                if(/*ACA VERIFICACION DE FECHA ANTERIOR A HOY*/ false) {errores += "La fecha de nacimiento no puede ser anterior a hoy. \n";}
+=======
+                if (dateTimePickerNacimiento.Value < Sesion.getInstance().fecha) { errores += "La fecha de nacimiento no puede ser anterior a hoy. \n"; }
+>>>>>>> GUI
             }
 
             if (errores != "") { 
@@ -89,6 +92,7 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.TipoDocumento = comboBoxDocumento.SelectedText;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
+<<<<<<< HEAD
                 //sp que le paso el cuil (validar que el nuevo cuil no exista)del cliente que es unico para que busque el viejo y todos los datos nuevos
 
                 String query = clienteViejo.Cuil + "', '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
@@ -96,6 +100,9 @@ namespace PalcoNet.Abm_Cliente
                                 + "', '" + clienteModificado.TipoDocumento + "', '" + clienteModificado.NumeroDeDocumento + "', '" + clienteModificado.FechaDeNacimiento + "'";
 
                 servidor.realizarQuery("EXEC modificarCliente_sp '" + query);
+=======
+
+>>>>>>> GUI
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }
@@ -110,6 +117,7 @@ namespace PalcoNet.Abm_Cliente
         {
             this.fueModificado = true;
         }
+<<<<<<< HEAD
 
         private void textBoxApellido_TextChanged(object sender, EventArgs e)
         {
@@ -126,6 +134,24 @@ namespace PalcoNet.Abm_Cliente
             this.fueModificado = true;
         }
 
+=======
+
+        private void textBoxApellido_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxTelefono_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+        private void textBoxMail_TextChanged(object sender, EventArgs e)
+        {
+            this.fueModificado = true;
+        }
+
+>>>>>>> GUI
         private void textBoxCuil_TextChanged(object sender, EventArgs e)
         {
             this.fueModificado = true;

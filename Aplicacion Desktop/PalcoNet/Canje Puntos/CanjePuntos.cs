@@ -42,28 +42,32 @@ namespace PalcoNet.Canje_Puntos
             set { puntosAcumulados = value; }
         }
 
-        public CanjePuntos(Cliente cliente, MiForm anterior) : base(anterior)
+        public CanjePuntos(MiForm anterior) : base(anterior)
         {
-            InitializeComponent();
-            this.PuntosOriginales = cliente.Puntos;
-            this.textBoxPuntos.Text = cliente.Puntos.ToString();
-            this.Cliente = cliente;
+            if (Sesion.getInstance().rol.Nombre == "Cliente") {
+                this.Cliente = (Cliente) Sesion.getInstance().usuario;
+                this.PuntosOriginales = this.Cliente.Puntos;
+                this.textBoxPuntos.Text = this.Cliente.Puntos.ToString();
 
-            //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
+                //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
 
-            Premio premio1 = new Premio();
-            premio1.Descripcion = "Pava electrica";
-            premio1.CantidadDePuntos = 1000;
-            Premio premio2 = new Premio();
-            premio2.Descripcion = "Set misladrillos";
-            premio2.CantidadDePuntos = 650;
-            premios.Add(premio1);
-            premios.Add(premio2);
+                Premio premio1 = new Premio();
+                premio1.Descripcion = "Pava electrica";
+                premio1.CantidadDePuntos = 1000;
+                Premio premio2 = new Premio();
+                premio2.Descripcion = "Set misladrillos";
+                premio2.CantidadDePuntos = 650;
+                premios.Add(premio1);
+                premios.Add(premio2);
 
-            foreach (Premio premio in premios)
-            {
-                checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
+                foreach (Premio premio in premios) {
+                    checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
+                }
+            } else {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                button1.Enabled = false;
             }
+            InitializeComponent();
         }
 
         private void button2_Click(object sender, EventArgs e)

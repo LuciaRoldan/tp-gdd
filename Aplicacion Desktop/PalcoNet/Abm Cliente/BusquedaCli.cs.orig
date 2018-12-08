@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,7 +37,8 @@ namespace PalcoNet.Abm_Cliente
             if (!camposCompletos) {
                 errores += "Se debe completar al menos un campo para realizar la búsqueda.";
             } else {
-                if (!string.IsNullOrWhiteSpace(textBoxDni.Text) ? !int.TryParse(textBoxDni.Text, out dni) : false) { errores += "El DNI debe ser un valor numérico."; }
+                if (!int.TryParse(textBoxDni.Text, out dni)) { errores += "El DNI debe ser un valor numérico."; }
+
             }
 
             if (errores != "") { 
@@ -68,8 +69,12 @@ namespace PalcoNet.Abm_Cliente
                 Cliente cliente = new Cliente();
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Apellido = textBoxApellido.Text;
+<<<<<<< HEAD
                 cliente.Mail = textBoxMail.Text;
-                if(!string.IsNullOrWhiteSpace(textBoxDni.Text)) {cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text);}
+=======
+                cliente.Apellido = textBoxMail.Text;
+>>>>>>> GUI
+                cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text);
                 List<Cliente> resultados = new List<Cliente>();
 
                 String query = cliente.Nombre + "', '" + cliente.Apellido + "', '" + cliente.NumeroDeDocumento + 

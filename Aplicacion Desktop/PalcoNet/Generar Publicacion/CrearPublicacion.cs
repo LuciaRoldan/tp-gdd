@@ -23,27 +23,44 @@ namespace PalcoNet.Generar_Publicacion
             set { empresa = value; }
         }
 
-        public CrearPublicacion(MiForm anterior, Empresa empresa) : base(anterior)
+        public CrearPublicacion(MiForm anterior) : base(anterior)
         {
-            this.Empresa = empresa;
             InitializeComponent();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
-
-            while (reader.Read())
+            if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
-                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
+
+
+                SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+                while (reader.Read())
+                {
+                    comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+                }
+                reader.Close();
+                //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
             }
-            reader.Close();
-            //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
+            else {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
+                "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
+            }
         }
 
         public bool verificarCampos() {
-            return !string.IsNullOrWhiteSpace(textBoxDescripcion.Text)
-                && !string.IsNullOrWhiteSpace(textBoxDireccion.Text)
-                && comboBoxEstado.SelectedIndex > -1
-                && comboBoxGrado.SelectedIndex > -1
-                && comboBoxRubro.SelectedIndex > -1;
+            string errores = "";
+            if(string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) {errores += "El campo Descripción no puede estar vacío.\n"; }
+            if(string.IsNullOrWhiteSpace(textBoxDireccion.Text)) {errores += "El campo Dirección no puede estar vacío.\n"; }
+            if(comboBoxEstado.SelectedIndex > -1) {errores += "Se debe seleccionar un Estado.\n"; }
+            if(comboBoxGrado.SelectedIndex > -1) {errores += "Se debe seleccionar un Grado.\n"; }
+            if(comboBoxRubro.SelectedIndex > -1) {errores += "Se debe seleccionar un Rubro.\n"; }
+
+            if (errores != "")
+            {
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -63,18 +80,8 @@ namespace PalcoNet.Generar_Publicacion
                 publicacion.GradoDePublicacion = comboBoxGrado.Text;
                 publicacion.EstadoDePublicacion = comboBoxEstado.Text;
                 publicacion.Rubro = comboBoxRubro.Text;
-                new AgregarFechas(this, publicacion, this.Empresa).Show();
+                new AgregarFechas(this, publicacion).Show();
                 this.Hide();
-            }
-            else{
-                string mensaje = "Los siguientes campos deben ser completados:";
-                if (string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) { mensaje = mensaje + "\n Descripción"; }
-                if (string.IsNullOrWhiteSpace(textBoxDireccion.Text)) { mensaje = mensaje + "\n Dirección"; }
-                if (comboBoxEstado.SelectedIndex <= -1) { mensaje = mensaje + "\n Estado"; }
-                if (comboBoxGrado.SelectedIndex <= -1) { mensaje = mensaje + "\n Grado"; }
-                if (comboBoxRubro.SelectedIndex <= -1) { mensaje = mensaje + "\n Rubro"; }
-
-                MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK);
             }
             
         }

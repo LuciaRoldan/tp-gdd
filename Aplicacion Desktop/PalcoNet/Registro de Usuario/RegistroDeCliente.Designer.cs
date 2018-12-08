@@ -66,6 +66,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
             this.dateTimePickerNacimiento.Size = new System.Drawing.Size(226, 20);
             this.dateTimePickerNacimiento.TabIndex = 77;
+            this.dateTimePickerNacimiento.ValueChanged += new System.EventHandler(this.dateTimePickerNacimiento_ValueChanged);
             // 
             // textBoxMail
             // 

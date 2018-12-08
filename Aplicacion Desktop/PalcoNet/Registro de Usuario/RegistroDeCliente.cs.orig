@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,7 +40,8 @@ namespace PalcoNet.Registro_de_Usuario
             if (!int.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; }
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
             if (!int.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
-            if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value ) { error += "La fecha de nacimiento no es válida\n"; }
+            if (dateTimePickerNacimiento.Value < Sesion.getInstance().fecha) { error += "La fecha de nacimiento no es válida\n"; }
+
 
             if (error != "")
             {

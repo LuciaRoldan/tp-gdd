@@ -33,7 +33,7 @@ namespace PalcoNet
         {
             InitializeComponent();
             
-            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
+            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + Sesion.sesion.usuario.NombreUsuario + "'");
 
             while (reader.Read())
             {
@@ -91,7 +91,7 @@ namespace PalcoNet
                         break;
                     case "Comprar":
                         Cliente cliente = this.obtenerCliente();
-                        new BuscarP(cliente,this).Show();
+                        new BuscarP(this).Show();
                         break;
                     case "Historial del cliente":
                         //new Historial().Show();

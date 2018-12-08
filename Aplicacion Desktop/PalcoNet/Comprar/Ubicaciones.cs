@@ -14,13 +14,6 @@ namespace PalcoNet.Comprar
     public partial class Ubicaciones : MiForm
     {
         Compra compra;
-        Cliente cliente;
-
-        public Cliente Cliente
-        {
-            get { return cliente; }
-            set { cliente = value; }
-        }
 
         internal Compra Compra
         {
@@ -36,10 +29,9 @@ namespace PalcoNet.Comprar
             set { ubicacionesDisponibles = value; }
         }
 
-        public Ubicaciones(Compra compra, Cliente cliente, MiForm anterior) : base(anterior)
+        public Ubicaciones(Compra compra, MiForm anterior) : base(anterior)
         {
             this.Compra = compra;
-            this.Cliente = cliente;
             InitializeComponent();
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
@@ -64,7 +56,7 @@ namespace PalcoNet.Comprar
 
         private void button3_Click(object sender, EventArgs e)
         {
-            new MedioPago(this, this.Compra, this.Cliente).Show();
+            new MedioPago(this, this.Compra).Show();
             this.Hide();
         }
 

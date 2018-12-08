@@ -36,5 +36,10 @@ namespace PalcoNet
         {
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Falta asignar el rol a la sesion y pasar a la siguiente pantalla
+        }
     }
 }

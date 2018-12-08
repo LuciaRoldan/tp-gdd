@@ -26,7 +26,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BusquedaCli(new SeleccionarFuncionalidad()));
+            Application.Run(new BusquedaCli(null));
         }
     }
 }
