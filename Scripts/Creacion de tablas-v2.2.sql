@@ -62,7 +62,7 @@ id_espectaculo INT PRIMARY KEY
 )
 
 CREATE TABLE UbicacionXEspectaculo(
-id_ubicacion_espectaculo INT PRIMARY KEY
+id_ubicacion_espectaculo INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Rubros(
@@ -74,7 +74,7 @@ id_grado_publicacion INT IDENTITY(1,1) PRIMARY KEY
 )
 
 CREATE TABLE Ubicaciones(
-id_ubicacion INT PRIMARY KEY
+id_ubicacion INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Premios(
@@ -173,7 +173,6 @@ id_empresa INT REFERENCES Empresas,
 id_grado_publicacion INT REFERENCES Grados_publicacion,
 id_rubro INT REFERENCES Rubros,
 descripcion NVARCHAR(255),
-cantidad_asientos INT,
 direccion VARCHAR(80);
 
 ALTER TABLE Espectaculos ADD
