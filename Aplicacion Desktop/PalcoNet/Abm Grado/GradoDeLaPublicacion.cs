@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -16,6 +17,7 @@ namespace PalcoNet.Abm_Grado
         List<Publicacion> publicaciones = new List<Publicacion>();
         Publicacion pubSelecc;
         String gradoSelecc;
+        Servidor servidor = Servidor.getInstance();
 
         public String GradoSelecc
         {
@@ -60,7 +62,27 @@ namespace PalcoNet.Abm_Grado
             }
 
             InitializeComponent();
-            
+
+            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
+
+
+            while (reader.Read())
+            {
+                checkedListBoxGrado.Items.Add(reader["descripcion"].ToString());
+      
+            }
+            reader.Close();
+            Publicacion publicacion = new Publicacion();
+            publicacion.Descripcion = "Mi grado es medio";
+            publicacion.GradoDePublicacion = "Medio";
+            Publicaciones.Add(publicacion);
+            Publicacion publicacion2 = new Publicacion();
+            publicacion2.Descripcion = "Mi grado es bajo";
+            publicacion2.GradoDePublicacion = "Bajo";
+            Publicaciones.Add(publicacion2);
+            foreach(Publicacion pub in this.Publicaciones){
+                checkedListBoxPublicaciones.Items.Add(pub.Descripcion);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
