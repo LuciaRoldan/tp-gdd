@@ -28,17 +28,24 @@ namespace PalcoNet.Generar_Publicacion
             set { empresa = value; }
         }
 
-        public Finalizar_publicacion(MiForm anterior, Empresa empresa, Publicacion publicacion)
+        public Finalizar_publicacion(MiForm anterior, Publicacion publicacion)
         {
-            this.Empresa = empresa;
-            this.Publicacion = publicacion;
-            InitializeComponent();
-            textBoxDescripcion.Text = this.publicacion.Descripcion;
-            textBoxFechas.Text = this.publicacion.Fechas.Count().ToString();
-            textBoxUbicaciones.Text = this.publicacion.Ubicaciones.Count().ToString();
-            int asientos = 0;
-            foreach (Ubicacion u in this.publicacion.Ubicaciones) { asientos = asientos + u.CantidadAsientos; }
-            textBoxAsientos.Text = asientos.ToString();
+            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            {
+                this.Empresa = (Empresa)Sesion.getInstance().usuario;
+                this.Publicacion = publicacion;
+                InitializeComponent();
+                textBoxDescripcion.Text = this.publicacion.Descripcion;
+                textBoxFechas.Text = this.publicacion.Fechas.Count().ToString();
+                textBoxUbicaciones.Text = this.publicacion.Ubicaciones.Count().ToString();
+                int asientos = 0;
+                foreach (Ubicacion u in this.publicacion.Ubicaciones) { asientos = asientos + u.CantidadAsientos; }
+                textBoxAsientos.Text = asientos.ToString();
+            }
+            else
+            {
+                button2.Enabled = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

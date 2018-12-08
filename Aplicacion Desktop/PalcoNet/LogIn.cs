@@ -59,21 +59,22 @@ namespace PalcoNet
 
                 servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
                 Sesion s = Sesion.getInstance();
-                s.usuario = textBox1.Text.Trim();
+                this.Usuario.NombreUsuario = textBox1.Text;
+                s.usuario = this.Usuario;
                 List<String> roles = new List<String>();
 
                
                 SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
 
 
-                while (reader.Read())
+                /*while (reader.Read())
                 {
                     String rol;
                     rol = reader["nombre"].ToString();
                     s.rol = reader["nombre"].ToString(); //se deberia cambiar para que quede mas lindo
                     roles.Add(rol);
                 }
-                reader.Close();
+                reader.Close();*/
 
                 if (roles.Count() > 1)
                 {

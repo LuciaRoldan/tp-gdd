@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Dominio;
+using System.Configuration;
 
 namespace PalcoNet
 {
     class Sesion
     {
-        public string rol { get; set; }
-        public string usuario { get; set; }
-        public DateTime fecha;
+        public Rol rol { get; set; }
+        public Usuario usuario { get; set; }
+        public DateTime fecha = DateTime.ParseExact(ConfigurationManager.AppSettings["horarioSistema"], "yyyy-dd-MM HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
 
         public static Sesion sesion { get; set; }
 

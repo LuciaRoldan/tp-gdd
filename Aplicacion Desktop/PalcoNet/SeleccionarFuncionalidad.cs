@@ -91,7 +91,7 @@ namespace PalcoNet
                         break;
                     case "Comprar":
                         Cliente cliente = this.obtenerCliente();
-                        new BuscarP(cliente,this).Show();
+                        new BuscarP(this).Show();
                         break;
                     case "Historial del cliente":
                         //new Historial().Show();

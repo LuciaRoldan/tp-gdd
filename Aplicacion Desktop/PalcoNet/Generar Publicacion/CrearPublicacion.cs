@@ -23,19 +23,28 @@ namespace PalcoNet.Generar_Publicacion
             set { empresa = value; }
         }
 
-        public CrearPublicacion(MiForm anterior, Empresa empresa) : base(anterior)
+        public CrearPublicacion(MiForm anterior) : base(anterior)
         {
-            this.Empresa = empresa;
             InitializeComponent();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
-
-            while (reader.Read())
+            if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
-                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
+
+
+                SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+                while (reader.Read())
+                {
+                    comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+                }
+                reader.Close();
+                //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
             }
-            reader.Close();
-            //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
+            else {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
+                "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
+            }
         }
 
         public bool verificarCampos() {
@@ -71,7 +80,7 @@ namespace PalcoNet.Generar_Publicacion
                 publicacion.GradoDePublicacion = comboBoxGrado.Text;
                 publicacion.EstadoDePublicacion = comboBoxEstado.Text;
                 publicacion.Rubro = comboBoxRubro.Text;
-                new AgregarFechas(this, publicacion, this.Empresa).Show();
+                new AgregarFechas(this, publicacion).Show();
                 this.Hide();
             }
             

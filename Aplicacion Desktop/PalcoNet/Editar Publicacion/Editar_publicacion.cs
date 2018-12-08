@@ -28,13 +28,26 @@ namespace PalcoNet.Editar_Publicacion
             set { publicaciones = value; }
         }
 
-        public Editar_publicacion(MiForm anterior, Empresa empresa)
+        public Editar_publicacion(MiForm anterior)
         {
             InitializeComponent();
 
-            //Aca hay que buscar en la base todas las publicaciones de la empresa y guardarlas en las lista de arriba
-            foreach (Publicacion p in this.Publicaciones) {
-                comboBoxPublicaciones.Items.Add(p.Descripcion);
+            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            {
+                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
+                //Aca hay que buscar en la base todas las publicaciones de la empresa y guardarlas en las lista de arriba
+                foreach (Publicacion p in this.Publicaciones)
+                {
+                    comboBoxPublicaciones.Items.Add(p.Descripcion);
+                }
+            }
+            else 
+            {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
+                button5.Enabled = false;
             }
         }
 
@@ -43,8 +56,8 @@ namespace PalcoNet.Editar_Publicacion
             string errores = "";
             int x;
             decimal y;
-            if(checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) {errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"}
-            if(!int.TryParse(textBoxCantidad.Text, out x)) {errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"}
+            if(checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) {errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"; }
+            if (!int.TryParse(textBoxCantidad.Text, out x)) { errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"; }
             if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
             if(comboBoxTipo.SelectedIndex < 0) {errores += "Se debe seleccionar un Tipo de Asiento.\n"; }
            

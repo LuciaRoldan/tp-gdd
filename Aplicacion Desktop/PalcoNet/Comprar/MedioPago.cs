@@ -20,13 +20,6 @@ namespace PalcoNet.Comprar
             get { return compra; }
             set { compra = value; }
         }
-        Cliente cliente;
-
-        public Cliente Cliente
-        {
-            get { return cliente; }
-            set { cliente = value; }
-        }
 
         List<Tarjeta> tarjetas = new List<Tarjeta>();
 
@@ -36,9 +29,9 @@ namespace PalcoNet.Comprar
             set { tarjetas = value; }
         }
 
-        public MedioPago(MiForm anterior, Compra compra, Cliente cliente) : base(anterior)
+        public MedioPago(MiForm anterior, Compra compra) : base(anterior)
         {
-            this.Cliente = cliente;
+            Cliente cliente = (Cliente)Sesion.getInstance().usuario;
             this.Compra = compra;
             InitializeComponent();
 
@@ -85,7 +78,7 @@ namespace PalcoNet.Comprar
                 if (/*verificacion es correcta*/true)
                 {
                     this.Compra.MedioDePago = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex];
-                    new FinalizarCompra(this, this.Cliente, this.Compra).Show();
+                    new FinalizarCompra(this, this.Compra).Show();
                     this.Hide();
                 }
                 else

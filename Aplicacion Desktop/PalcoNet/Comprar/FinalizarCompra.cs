@@ -13,7 +13,6 @@ namespace PalcoNet.Comprar
 {
     public partial class FinalizarCompra : MiForm
     {
-        Cliente cliente;
         Compra compra;
 
         public Compra Compra
@@ -22,24 +21,23 @@ namespace PalcoNet.Comprar
             set { compra = value; }
         }
 
-        public Cliente Cliente
+        public FinalizarCompra(MiForm anterior, Compra compra) : base(anterior)
         {
-            get { return cliente; }
-            set { cliente = value; }
-        }
+            if (Sesion.getInstance().rol.Nombre == "Cliente"){
+                Cliente cliente = (Cliente)Sesion.getInstance().usuario;
+                this.Compra = compra;
+                
 
-        public FinalizarCompra(MiForm anterior, Cliente cliente, Compra compra) : base(anterior)
-        {
-            this.Cliente = cliente;
-            this.Compra = compra;
+                //Estaria bueno hacer alguna magia para que en la compra aparezca el total calculado y la cantidad de entradas calculada
+
+                this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
+                this.textBoxCantidad.Text = this.Compra.CantidadEntradas.ToString();
+                this.textBoxTotal.Text = this.Compra.Importe.ToString();
+                this.textBoxFecha.Text = this.Compra.Fecha.ToString();
+            } else{
+                button2.Enabled = false;
+            }
             InitializeComponent();
-
-            //Estaria bueno hacer alguna magia para que en la compra aparezca el total calculado y la cantidad de entradas calculada
-
-            this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
-            this.textBoxCantidad.Text = this.Compra.CantidadEntradas.ToString();
-            this.textBoxTotal.Text = this.Compra.Importe.ToString();
-            this.textBoxFecha.Text = this.Compra.Fecha.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)

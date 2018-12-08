@@ -35,24 +35,32 @@ namespace PalcoNet.Abm_Grado
             set { publicaciones = value; }
         }
 
-        public GradoDeLaPublicacion(Empresa empresa, MiForm anterior) : base(anterior)
+        public GradoDeLaPublicacion(MiForm anterior) : base(anterior)
         {
-            //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
-            //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
-            //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
+            if (Sesion.getInstance().rol.Nombre == "Empresa") {
+                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
+                //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
+                //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
+                //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
+
+                Publicacion publicacion = new Publicacion();
+                publicacion.Descripcion = "Mi grado es medio";
+                publicacion.GradoDePublicacion = "Medio";
+                Publicaciones.Add(publicacion);
+                Publicacion publicacion2 = new Publicacion();
+                publicacion2.Descripcion = "Mi grado es bajo";
+                publicacion2.GradoDePublicacion = "Bajo";
+                Publicaciones.Add(publicacion2);
+                foreach (Publicacion pub in this.Publicaciones) {
+                    checkedListBoxPublicaciones.Items.Add(pub.Descripcion);
+                }
+            } else {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                buttonAceptar.Enabled = false;
+            }
 
             InitializeComponent();
-            Publicacion publicacion = new Publicacion();
-            publicacion.Descripcion = "Mi grado es medio";
-            publicacion.GradoDePublicacion = "Medio";
-            Publicaciones.Add(publicacion);
-            Publicacion publicacion2 = new Publicacion();
-            publicacion2.Descripcion = "Mi grado es bajo";
-            publicacion2.GradoDePublicacion = "Bajo";
-            Publicaciones.Add(publicacion2);
-            foreach(Publicacion pub in this.Publicaciones){
-                checkedListBoxPublicaciones.Items.Add(pub.Descripcion);
-            }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)

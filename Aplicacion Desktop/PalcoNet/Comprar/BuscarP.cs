@@ -29,17 +29,28 @@ namespace PalcoNet.Comprar
             set { cliente = value; }
         }
 
-        public BuscarP(Cliente cliente, MiForm anterior) : base(anterior)
+        public BuscarP(MiForm anterior) : base(anterior)
         {
-            InitializeComponent();
-            Servidor servidor = Servidor.getInstance();
-            SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+            if (Sesion.getInstance().rol.Nombre == "Cliente") {
+                this.Cliente = (Cliente)Sesion.getInstance().usuario;
 
-            while (reader.Read())
-            {
-                checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
+                Servidor servidor = Servidor.getInstance();
+                SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+                while (reader.Read())
+                {
+                    checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
+                }
+                reader.Close();
+
+            } else {
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
+                    "Podrá simular el proceso de compra pero no comprar.", "Advertencia", MessageBoxButtons.OK);
             }
-            reader.Close();
+            InitializeComponent();
+            
+
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,7 +137,7 @@ namespace PalcoNet.Comprar
             Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
             Compra compra = new Compra();
             compra.Publicacion = publicacionSeleccionada;
-            new Ubicaciones(compra, cliente, this).Show();
+            new Ubicaciones(compra, this).Show();
             this.Hide();
         }
 

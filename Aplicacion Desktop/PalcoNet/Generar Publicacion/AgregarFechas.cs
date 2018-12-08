@@ -14,19 +14,12 @@ namespace PalcoNet.Generar_Publicacion
     public partial class AgregarFechas : MiForm
     {
         Publicacion publicacion;
-        Empresa empresa;
         List<DateTime> fechas = new List<DateTime>();
 
         public List<DateTime> Fechas
         {
             get { return fechas; }
             set { fechas = value; }
-        }
-
-        public Empresa Empresa
-        {
-            get { return empresa; }
-            set { empresa = value; }
         }
 
         internal Publicacion Publicacion
@@ -36,9 +29,8 @@ namespace PalcoNet.Generar_Publicacion
         }
 
 
-        public AgregarFechas(MiForm anterior, Publicacion publicacion, Empresa empresa) : base(anterior)
+        public AgregarFechas(MiForm anterior, Publicacion publicacion) : base(anterior)
         {
-            this.Empresa = empresa;
             this.Publicacion = publicacion;
             InitializeComponent();
         }
@@ -69,7 +61,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             //Se le agrega una lista de fechas al objeto de la publicacion
             if (this.Fechas.Count > 0){
-                new CrearPublicacionUbicaciones(this, this.Publicacion, this.Empresa).Show();
+                new CrearPublicacionUbicaciones(this, this.Publicacion).Show();
                 this.Hide();
             }
             else {
