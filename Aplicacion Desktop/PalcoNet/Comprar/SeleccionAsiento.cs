@@ -62,9 +62,13 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Asiento.Fila = (int)comboBoxFila.SelectedItem;
-            this.Asiento.Asiento1 = (int)comboBoxAsiento.SelectedItem;
-            this.Hide();
+            if (comboBoxAsiento.SelectedIndex > -1 && comboBoxFila.SelectedIndex > -1){
+                this.Asiento.Fila = (int)comboBoxFila.SelectedItem;
+                this.Asiento.Asiento1 = (int)comboBoxAsiento.SelectedItem;
+                this.Hide();
+            } else {
+                MessageBox.Show("Se debe seleccionar un asiento", "Error", MessageBoxButtons.OK);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ using PalcoNet.Dominio;
 using PalcoNet.Abm_Empresa_Espectaculo;
 using PalcoNet.Abm_Grado;
 using PalcoNet.Abm_Rol;
+using PalcoNet.Abm_Rubro;
 using PalcoNet.Canje_Puntos;
 using PalcoNet.Generar_Publicacion;
 using PalcoNet.Comprar;
@@ -25,7 +26,7 @@ namespace PalcoNet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LogIn());
+            Application.Run(new BusquedaCli(new SeleccionarFuncionalidad()));
         }
     }
 }

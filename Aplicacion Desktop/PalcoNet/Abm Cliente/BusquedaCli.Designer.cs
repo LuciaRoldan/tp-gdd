@@ -43,6 +43,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridResultados = new System.Windows.Forms.DataGridView();
+            this.buttonModificar = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CUIL = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,17 +63,16 @@
             this.FechaNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.puntos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonModificar = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridResultados)).BeginInit();
             this.SuspendLayout();
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 394);
+            this.button3.Location = new System.Drawing.Point(18, 606);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(112, 35);
             this.button3.TabIndex = 36;
             this.button3.Text = "Inicio";
             this.button3.UseVisualStyleBackColor = true;
@@ -80,33 +81,37 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 109);
+            this.label1.Location = new System.Drawing.Point(32, 168);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 13);
+            this.label1.Size = new System.Drawing.Size(316, 20);
             this.label1.TabIndex = 27;
             this.label1.Text = "Complete uno o mas campos de búsqueda.";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 140);
+            this.label4.Location = new System.Drawing.Point(32, 215);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 24;
             this.label4.Text = "Nombre:";
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(359, 81);
+            this.textBoxMail.Location = new System.Drawing.Point(538, 125);
+            this.textBoxMail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(164, 20);
+            this.textBoxMail.Size = new System.Drawing.Size(244, 26);
             this.textBoxMail.TabIndex = 33;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 45);
+            this.button1.Location = new System.Drawing.Point(24, 69);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(519, 23);
+            this.button1.Size = new System.Drawing.Size(778, 35);
             this.button1.TabIndex = 34;
             this.button1.Text = "Crear nuevo cliente";
             this.button1.UseVisualStyleBackColor = true;
@@ -114,62 +119,68 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(76, 55);
+            this.textBoxNombre.Location = new System.Drawing.Point(114, 85);
+            this.textBoxNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(164, 20);
+            this.textBoxNombre.Size = new System.Drawing.Size(244, 26);
             this.textBoxNombre.TabIndex = 25;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(18, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 24);
+            this.label2.Size = new System.Drawing.Size(191, 33);
             this.label2.TabIndex = 26;
             this.label2.Text = "ABM Clientes";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(306, 84);
+            this.label5.Location = new System.Drawing.Point(459, 129);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.Size = new System.Drawing.Size(52, 20);
             this.label5.TabIndex = 32;
             this.label5.Text = "EMail:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(306, 58);
+            this.label6.Location = new System.Drawing.Point(459, 89);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.Size = new System.Drawing.Size(41, 20);
             this.label6.TabIndex = 30;
             this.label6.Text = "DNI:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 166);
+            this.label3.Location = new System.Drawing.Point(32, 255);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.Size = new System.Drawing.Size(69, 20);
             this.label3.TabIndex = 28;
             this.label3.Text = "Apellido:";
             // 
             // textBoxApellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(76, 81);
+            this.textBoxApellido.Location = new System.Drawing.Point(114, 125);
+            this.textBoxApellido.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(164, 20);
+            this.textBoxApellido.Size = new System.Drawing.Size(244, 26);
             this.textBoxApellido.TabIndex = 29;
             // 
             // textBoxDni
             // 
-            this.textBoxDni.Location = new System.Drawing.Point(359, 55);
+            this.textBoxDni.Location = new System.Drawing.Point(538, 85);
+            this.textBoxDni.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxDni.Name = "textBoxDni";
-            this.textBoxDni.Size = new System.Drawing.Size(164, 20);
+            this.textBoxDni.Size = new System.Drawing.Size(244, 26);
             this.textBoxDni.TabIndex = 31;
-            //this.textBoxDni.TextChanged += new System.EventHandler(this.textBoxDni_TextChanged);
             // 
             // groupBox1
             // 
@@ -180,18 +191,21 @@
             this.groupBox1.Controls.Add(this.textBoxMail);
             this.groupBox1.Controls.Add(this.textBoxNombre);
             this.groupBox1.Controls.Add(this.textBoxApellido);
-            this.groupBox1.Location = new System.Drawing.Point(12, 82);
+            this.groupBox1.Location = new System.Drawing.Point(18, 126);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(529, 147);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(794, 226);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 112);
+            this.button2.Location = new System.Drawing.Point(9, 172);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(517, 23);
+            this.button2.Size = new System.Drawing.Size(776, 35);
             this.button2.TabIndex = 23;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
@@ -223,146 +237,22 @@
             this.FechaC,
             this.puntos});
             this.dataGridResultados.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridResultados.Location = new System.Drawing.Point(12, 235);
+            this.dataGridResultados.Location = new System.Drawing.Point(18, 361);
+            this.dataGridResultados.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridResultados.MultiSelect = false;
             this.dataGridResultados.Name = "dataGridResultados";
             this.dataGridResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridResultados.ShowEditingIcon = false;
-            this.dataGridResultados.Size = new System.Drawing.Size(529, 153);
+            this.dataGridResultados.Size = new System.Drawing.Size(794, 235);
             this.dataGridResultados.TabIndex = 37;
-            // 
-            // Nombre
-            // 
-            this.Nombre.DataPropertyName = "nombre";
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 69;
-            // 
-            // Apellido
-            // 
-            this.Apellido.DataPropertyName = "apellido";
-            this.Apellido.HeaderText = "Apellido";
-            this.Apellido.Name = "Apellido";
-            this.Apellido.Width = 69;
-            // 
-            // CUIL
-            // 
-            this.CUIL.DataPropertyName = "cuil";
-            this.CUIL.HeaderText = "CUIL";
-            this.CUIL.Name = "CUIL";
-            this.CUIL.Width = 56;
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "mail";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.Width = 57;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "telefono";
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.Width = 74;
-            // 
-            // Nro_documento
-            // 
-            this.Nro_documento.DataPropertyName = "numeroDeDocumento";
-            this.Nro_documento.HeaderText = "Nro. documento";
-            this.Nro_documento.Name = "Nro_documento";
-            this.Nro_documento.Width = 99;
-            // 
-            // TipoDocumento
-            // 
-            this.TipoDocumento.DataPropertyName = "tipoDocumento";
-            this.TipoDocumento.HeaderText = "Tipo documento";
-            this.TipoDocumento.Name = "TipoDocumento";
-            // 
-            // Calle
-            // 
-            this.Calle.DataPropertyName = "calle";
-            this.Calle.HeaderText = "Calle";
-            this.Calle.Name = "Calle";
-            this.Calle.Width = 55;
-            // 
-            // Nro
-            // 
-            this.Nro.DataPropertyName = "NumeroDeCalle";
-            this.Nro.HeaderText = "Nro. Calle";
-            this.Nro.Name = "Nro";
-            this.Nro.Width = 72;
-            // 
-            // Piso
-            // 
-            this.Piso.DataPropertyName = "piso";
-            this.Piso.HeaderText = "Piso";
-            this.Piso.Name = "Piso";
-            this.Piso.Width = 52;
-            // 
-            // Ciudad
-            // 
-            this.Ciudad.DataPropertyName = "ciudad";
-            this.Ciudad.HeaderText = "Ciudad";
-            this.Ciudad.Name = "Ciudad";
-            this.Ciudad.Width = 65;
-            // 
-            // CP
-            // 
-            this.CP.DataPropertyName = "codigoPostal";
-            this.CP.HeaderText = "CP";
-            this.CP.Name = "CP";
-            this.CP.Width = 46;
-            // 
-            // Localidad
-            // 
-            this.Localidad.DataPropertyName = "localidad";
-            this.Localidad.HeaderText = "Localidad";
-            this.Localidad.Name = "Localidad";
-            this.Localidad.Width = 78;
-            // 
-            // Usuario
-            // 
-            this.Usuario.DataPropertyName = "nombreUsuario";
-            this.Usuario.HeaderText = "Usuario";
-            this.Usuario.Name = "Usuario";
-            this.Usuario.Visible = false;
-            this.Usuario.Width = 68;
-            // 
-            // Contraseña
-            // 
-            this.Contraseña.DataPropertyName = "contrasenia";
-            this.Contraseña.HeaderText = "Contraseña";
-            this.Contraseña.Name = "Contraseña";
-            this.Contraseña.Visible = false;
-            this.Contraseña.Width = 86;
-            // 
-            // FechaNa
-            // 
-            this.FechaNa.DataPropertyName = "FechaDeNacimiento";
-            this.FechaNa.HeaderText = "Fecha de nacimiento";
-            this.FechaNa.Name = "FechaNa";
-            this.FechaNa.Width = 120;
-            // 
-            // FechaC
-            // 
-            this.FechaC.DataPropertyName = "FechaDeCreacion";
-            this.FechaC.HeaderText = "Fecha de creacion";
-            this.FechaC.Name = "FechaC";
-            this.FechaC.Width = 111;
-            // 
-            // puntos
-            // 
-            this.puntos.DataPropertyName = "puntos";
-            this.puntos.HeaderText = "Puntos";
-            this.puntos.Name = "puntos";
-            this.puntos.Width = 65;
+            this.dataGridResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridResultados_CellContentClick);
             // 
             // buttonModificar
             // 
-            this.buttonModificar.Location = new System.Drawing.Point(218, 394);
+            this.buttonModificar.Location = new System.Drawing.Point(327, 606);
+            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(92, 23);
+            this.buttonModificar.Size = new System.Drawing.Size(138, 35);
             this.buttonModificar.TabIndex = 38;
             this.buttonModificar.Text = "Editar cliente";
             this.buttonModificar.UseVisualStyleBackColor = true;
@@ -370,19 +260,151 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(435, 394);
+            this.button4.Location = new System.Drawing.Point(652, 606);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 23);
+            this.button4.Size = new System.Drawing.Size(150, 35);
             this.button4.TabIndex = 39;
             this.button4.Text = "Nueva Búsqueda";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // Nombre
+            // 
+            this.Nombre.DataPropertyName = "nombre";
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 90;
+            // 
+            // Apellido
+            // 
+            this.Apellido.DataPropertyName = "apellido";
+            this.Apellido.HeaderText = "Apellido";
+            this.Apellido.Name = "Apellido";
+            this.Apellido.Width = 90;
+            // 
+            // CUIL
+            // 
+            this.CUIL.DataPropertyName = "cuil";
+            this.CUIL.HeaderText = "CUIL";
+            this.CUIL.Name = "CUIL";
+            this.CUIL.Width = 71;
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "mail";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.Width = 73;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.Width = 96;
+            // 
+            // Nro_documento
+            // 
+            this.Nro_documento.DataPropertyName = "numeroDeDocumento";
+            this.Nro_documento.HeaderText = "Nro. documento";
+            this.Nro_documento.Name = "Nro_documento";
+            this.Nro_documento.Width = 134;
+            // 
+            // TipoDocumento
+            // 
+            this.TipoDocumento.DataPropertyName = "tipoDocumento";
+            this.TipoDocumento.HeaderText = "Tipo documento";
+            this.TipoDocumento.Name = "TipoDocumento";
+            this.TipoDocumento.Width = 135;
+            // 
+            // Calle
+            // 
+            this.Calle.DataPropertyName = "calle";
+            this.Calle.HeaderText = "Calle";
+            this.Calle.Name = "Calle";
+            this.Calle.Width = 69;
+            // 
+            // Nro
+            // 
+            this.Nro.DataPropertyName = "NumeroDeCalle";
+            this.Nro.HeaderText = "Nro. Calle";
+            this.Nro.Name = "Nro";
+            this.Nro.Width = 94;
+            // 
+            // Piso
+            // 
+            this.Piso.DataPropertyName = "piso";
+            this.Piso.HeaderText = "Piso";
+            this.Piso.Name = "Piso";
+            this.Piso.Width = 64;
+            // 
+            // Ciudad
+            // 
+            this.Ciudad.DataPropertyName = "ciudad";
+            this.Ciudad.HeaderText = "Ciudad";
+            this.Ciudad.Name = "Ciudad";
+            this.Ciudad.Visible = false;
+            this.Ciudad.Width = 84;
+            // 
+            // CP
+            // 
+            this.CP.DataPropertyName = "codigoPostal";
+            this.CP.HeaderText = "CP";
+            this.CP.Name = "CP";
+            this.CP.Width = 55;
+            // 
+            // Localidad
+            // 
+            this.Localidad.DataPropertyName = "localidad";
+            this.Localidad.HeaderText = "Localidad";
+            this.Localidad.Name = "Localidad";
+            this.Localidad.Visible = false;
+            this.Localidad.Width = 102;
+            // 
+            // Usuario
+            // 
+            this.Usuario.DataPropertyName = "nombreUsuario";
+            this.Usuario.HeaderText = "Usuario";
+            this.Usuario.Name = "Usuario";
+            this.Usuario.Visible = false;
+            this.Usuario.Width = 89;
+            // 
+            // Contraseña
+            // 
+            this.Contraseña.DataPropertyName = "contrasenia";
+            this.Contraseña.HeaderText = "Contraseña";
+            this.Contraseña.Name = "Contraseña";
+            this.Contraseña.Visible = false;
+            this.Contraseña.Width = 117;
+            // 
+            // FechaNa
+            // 
+            this.FechaNa.DataPropertyName = "FechaDeNacimiento";
+            this.FechaNa.HeaderText = "Fecha de nacimiento";
+            this.FechaNa.Name = "FechaNa";
+            this.FechaNa.Width = 166;
+            // 
+            // FechaC
+            // 
+            this.FechaC.DataPropertyName = "FechaDeCreacion";
+            this.FechaC.HeaderText = "Fecha de creacion";
+            this.FechaC.Name = "FechaC";
+            this.FechaC.Width = 150;
+            // 
+            // puntos
+            // 
+            this.puntos.DataPropertyName = "puntos";
+            this.puntos.HeaderText = "Puntos";
+            this.puntos.Name = "puntos";
+            this.puntos.Visible = false;
+            this.puntos.Width = 84;
+            // 
             // BusquedaCli
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 429);
+            this.ClientSize = new System.Drawing.Size(830, 660);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.buttonModificar);
             this.Controls.Add(this.dataGridResultados);
@@ -393,6 +415,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "BusquedaCli";
             this.Text = "ABM Clientes";
             this.groupBox1.ResumeLayout(false);
@@ -420,6 +443,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridResultados;
+        private System.Windows.Forms.Button buttonModificar;
+        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn CUIL;
@@ -438,7 +463,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaNa;
         private System.Windows.Forms.DataGridViewTextBoxColumn FechaC;
         private System.Windows.Forms.DataGridViewTextBoxColumn puntos;
-        private System.Windows.Forms.Button buttonModificar;
-        private System.Windows.Forms.Button button4;
     }
 }

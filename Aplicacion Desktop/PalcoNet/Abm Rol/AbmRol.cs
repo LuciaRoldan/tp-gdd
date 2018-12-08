@@ -220,17 +220,18 @@ namespace PalcoNet.Abm_Rol
 
         private void button6_Click(object sender, EventArgs e)
         {
-             servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
+            if (/*aca faltaria verificar si esta deshabilitado*/ true){
+                    servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
 
-            MessageBox.Show("El Rol ha sido habilitado.", "Rol habilitado", MessageBoxButtons.OK);
+                    MessageBox.Show("El Rol ha sido habilitado.", "Rol habilitado", MessageBoxButtons.OK);
 
-            for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
-            {
-                this.checkedListBoxFun2.SetItemChecked(i, false);
+                    for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
+                    {
+                        this.checkedListBoxFun2.SetItemChecked(i, false);
+                    }
+                    textBoxNomb.ResetText();
+                    comboBoxRoles.ResetText();
             }
-            textBoxNomb.ResetText();
-            comboBoxRoles.ResetText();
-        
         }
     }
 }

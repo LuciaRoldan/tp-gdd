@@ -20,9 +20,24 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         }
 
         public bool verificarCampos(){
-            return !string.IsNullOrWhiteSpace(textBox1.Text)
+            string errores = "";
+            int cuit;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBox1.Text)
                 || !string.IsNullOrWhiteSpace(textBox2.Text)
                 || !string.IsNullOrWhiteSpace(textBox4.Text);
+
+            if (!camposCompletos) {
+                errores += "Se debe completar al menos un campo para realizar la búsqueda.";
+            } else {
+                if (!int.TryParse(textBox1.Text, out cuit)) { errores += "El CUIT debe ser un valor numérico"; }
+            }
+
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+
+            return true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -36,9 +51,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (this.verificarCampos())
             {
                 Empresa empresa = new Empresa();
-                if (!string.IsNullOrWhiteSpace(textBox1.Text)) { empresa.Cuit = Int32.Parse(textBox1.Text); }
-                if (!string.IsNullOrWhiteSpace(textBox2.Text)) { empresa.Mail = textBox2.Text; }
-                if (!string.IsNullOrWhiteSpace(textBox4.Text)) { empresa.RazonSocial = textBox4.Text; }
+                empresa.Cuit = Int32.Parse(textBox1.Text);
+                empresa.Mail = textBox2.Text;
+                empresa.RazonSocial = textBox4.Text;
                 List<Empresa> resultados = new List<Empresa>();
 
                 //Aca hay que buscar en la base

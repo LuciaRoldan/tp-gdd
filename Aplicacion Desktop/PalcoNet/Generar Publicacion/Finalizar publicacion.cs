@@ -60,7 +60,7 @@ namespace PalcoNet.Generar_Publicacion
 
                 Console.WriteLine(query);
 
-               SqlDataReader reader = servidor.query("EXEC dbo.agregarPublicacion_sp " + query);
+                SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
             
 
                 while (reader.Read())
@@ -68,7 +68,20 @@ namespace PalcoNet.Generar_Publicacion
                     publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);
                     
                 }
+                string queryEspectaculo;
+                List<int>id_espectaculos = new List<int>();
+                foreach (DateTime fecha in this.publicacion.Fechas)
+                {
 
+                    SqlDataReader readerEsp = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        id_espectaculos.Add(Convert.ToInt32(reader["id_publicacion"]));
+
+                    }
+
+                }
  
                 string queryUbicacion;
                 foreach (Ubicacion u in this.publicacion.Ubicaciones)
