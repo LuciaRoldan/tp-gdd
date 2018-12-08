@@ -61,7 +61,7 @@ namespace PalcoNet.Generar_Publicacion
                 this.actualizarFechas();
             }
             else{
-                MessageBox.Show("La fecha debe ser de hoy en adelante", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
             }
         }
 

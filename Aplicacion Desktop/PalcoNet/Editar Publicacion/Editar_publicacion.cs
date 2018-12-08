@@ -40,17 +40,36 @@ namespace PalcoNet.Editar_Publicacion
 
         public bool VerificarCamposUbicacion()
         {
-            return checkBoxNumerado.Checked ? !string.IsNullOrWhiteSpace(textBoxFilas.Text) : true
-                && !string.IsNullOrWhiteSpace(textBoxCantidad.Text)
-                && !string.IsNullOrWhiteSpace(textBoxPrecio.Text)
-                && comboBoxTipo.SelectedItem != null;
+            string errores = "";
+            int x;
+            decimal y;
+            if(checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) {errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"}
+            if(!int.TryParse(textBoxCantidad.Text, out x)) {errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"}
+            if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
+            if(comboBoxTipo.SelectedIndex < 0) {errores += "Se debe seleccionar un Tipo de Asiento.\n"; }
+           
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         public bool VerificarCampos() {
-            return !string.IsNullOrWhiteSpace(textBoxDescripcion.Text)
-                && !string.IsNullOrWhiteSpace(textBoxDireccion.Text)
-                && comboBoxEstado.SelectedIndex > -1
-                && comboBoxRubro.SelectedIndex > -1;
+            string errores = "";
+            if (string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) { errores += "El campo Descripción no puede estar vacío.\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxDireccion.Text)) { errores += "El campo Dirección no puede estar vacío.\n"; }
+            if (comboBoxEstado.SelectedIndex > -1) { errores += "Se debe seleccionar un Estado.\n"; }
+            if (comboBoxRubro.SelectedIndex > -1) { errores += "Se debe seleccionar un Rubro.\n"; }
+            if (dataGridViewFechas.Rows.Count < 1) { errores += "Debe haber por lo menos una Fecha.\n"; }
+            if (dataGridViewUbicaciones.Rows.Count < 1) { errores += "Debe haber por lo menos una Ubicación.\n"; }
+
+            if (errores != "")
+            {
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -104,16 +123,6 @@ namespace PalcoNet.Editar_Publicacion
                 this.PublicacionElegida.Ubicaciones.Add(ubicacion);
                 this.actualizarUbicaciones();
 
-            }
-            else
-            {
-                string mensaje = "Los siguientes campos deben ser completados:";
-                if (string.IsNullOrWhiteSpace(textBoxCantidad.Text)) { mensaje = mensaje + "\n Cantidad de Asientos"; }
-                if (string.IsNullOrWhiteSpace(textBoxPrecio.Text)) { mensaje = mensaje + "\n Precio"; }
-                if (comboBoxTipo.SelectedIndex <= -1) { mensaje = mensaje + "\n Tipo de Asiento"; }
-                if (checkBoxNumerado.Checked ? string.IsNullOrWhiteSpace(textBoxFilas.Text) : false) { mensaje = mensaje + "\n Cantidad de Filas"; }
-
-                MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK);
             }
         }
 

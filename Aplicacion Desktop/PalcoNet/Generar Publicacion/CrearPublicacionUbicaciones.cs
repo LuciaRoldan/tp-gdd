@@ -68,7 +68,7 @@ namespace PalcoNet.Generar_Publicacion
                 Ubicacion ubicacion = new Ubicacion();
 
                 ubicacion.CantidadAsientos = Int32.Parse(textBoxCantidad.Text);
-                ubicacion.Precio = Int32.Parse(textBoxPrecio.Text);
+                ubicacion.Precio = decimal.Parse(textBoxPrecio.Text);
                 ubicacion.TipoAsiento = comboBoxTipo.Text;
                 ubicacion.Numerada = checkBoxNumerado.Checked;
                 if (checkBoxNumerado.Checked) { ubicacion.CantidadFilas = Int32.Parse(textBoxFilas.Text); }
@@ -77,14 +77,6 @@ namespace PalcoNet.Generar_Publicacion
                 this.Publicacion.Ubicaciones.Add(ubicacion);
                 this.actualizarUbicaciones();
 
-            } else {
-                string mensaje = "Los siguientes campos deben ser completados:";
-                if (string.IsNullOrWhiteSpace(textBoxCantidad.Text)) { mensaje = mensaje + "\n Cantidad de Asientos"; }
-                if (string.IsNullOrWhiteSpace(textBoxPrecio.Text)) { mensaje = mensaje + "\n Precio"; }
-                if (comboBoxTipo.SelectedIndex <= -1) { mensaje = mensaje + "\n Tipo de Asiento"; }
-                if (checkBoxNumerado.Checked ? string.IsNullOrWhiteSpace(textBoxFilas.Text) : false) { mensaje = mensaje + "\n Cantidad de Filas"; }
-
-                MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK);
             }
 
         }
@@ -98,17 +90,30 @@ namespace PalcoNet.Generar_Publicacion
 
         public bool VerificarCampos()
         {
-            return checkBoxNumerado.Checked ? !string.IsNullOrWhiteSpace(textBoxFilas.Text) : true
-                && !string.IsNullOrWhiteSpace(textBoxCantidad.Text)
-                && !string.IsNullOrWhiteSpace(textBoxPrecio.Text)
-                && comboBoxTipo.SelectedItem != null;
+            string errores = "";
+            int x;
+            decimal y;
+            if(checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) {errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"}
+            if(!int.TryParse(textBoxCantidad.Text, out x)) {errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"}
+            if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
+            if(comboBoxTipo.SelectedIndex < 0) {errores += "Se debe seleccionar un Tipo de Asiento.\n"; }
+           
+            if (errores != "") { 
+                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new Finalizar_publicacion(this, this.Empresa, this.Publicacion).Show();
-            this.Hide(); 
+            if (this.Ubicaciones.Count() > 0) {
+                new Finalizar_publicacion(this, this.Empresa, this.Publicacion).Show();
+                this.Hide();
+            } else {
+                MessageBox.Show("Se debe ingresar al menos una Ubicación.", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void radioButtonNumerados_CheckedChanged(object sender, EventArgs e)
