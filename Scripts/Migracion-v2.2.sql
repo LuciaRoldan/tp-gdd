@@ -149,8 +149,8 @@ JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);*/
 
 INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
-			cantidad_asientos, direccion)
-SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL, NULL
+			direccion)
+SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 
