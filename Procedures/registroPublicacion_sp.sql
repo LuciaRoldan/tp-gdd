@@ -1,12 +1,18 @@
-CREATE PROCEDURE registroPublicacion_sp(
-@id_empresa int, @id_grado int, @id_rubro int, @descripcion varchar(255), @estado_publicacion char(15), @fecha_inicio DATETIME,
-@fecha_evento DATETIME, @cantidad_asientos int, @direccion varchar(80))
+CREATE PROCEDURE registrarPublicacion_sp(
+@id_empresa INT,
+@grado_publicacion NVARCHAR(20),
+@rubro NVARCHAR(100),
+@descripcion NVARCHAR(255),
+@estado_publicacion CHAR(15),
+@direccion NVARCHAR(80),
+@id_publicacion INT OUTPUT
+)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT * FROM Publicaciones u JOIN dbo.Empresas e ON (u.id_usuario = e.id_usuario) 
-	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, estado_publicacion, fecha_inicio, 
-	fecha_evento, cantidad_asientos, direccion)
-	VALUES(@id_empresa, @id_grado,
+	DECLARE @id_grado_publicacion INT = (SELECT id_grado_publicacion FROM Grados_publicacion WHERE nombre = @grado_publicacion)
+	DECLARE @id_rubro INT =  (SELECT id_rubro FROM Rubros WHERE descripcion = @rubro)
+	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)
+	VALUES (@id_empresa, @id_grado_publicacion, @id_rubro, @descripcion, @direccion)
 
-
-select * from Publicaciones
+	SET @id_publicacion = SCOPE_IDENTITY()
+END
