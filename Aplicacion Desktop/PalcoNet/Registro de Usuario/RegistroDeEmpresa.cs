@@ -35,7 +35,7 @@ namespace PalcoNet.Registro_de_Usuario
             int x;
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
-            if (int.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
+            if (!int.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
 
             if (error != "")
             {
@@ -54,7 +54,7 @@ namespace PalcoNet.Registro_de_Usuario
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
-            this.Anterior.Show();
+            if (this.Anterior == null) { new LogIn().Show(); } else { this.Anterior.Show(); }
         }
 
         private void button2_Click(object sender, EventArgs e)

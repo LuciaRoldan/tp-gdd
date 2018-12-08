@@ -33,7 +33,9 @@ namespace PalcoNet.Registro_de_Usuario
             int x;
             if (string.IsNullOrWhiteSpace(textBoxCalle.Text)) { error += "El campo 'Calle' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxNro.Text)) { error += "El campo 'Número de Calle' no puede estar vacío\n"; }
-            if (!int.TryParse(textBoxCalle.Text, out x)) { error += "El campo 'Calle' debe ser numerico\n"; }
+            if (!int.TryParse(textBoxNro.Text, out x)) { error += "El campo 'Número de Calle' debe ser numerico\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxDepto.Text)) { error += "El campo 'Depto.' no puede estar vacío\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { error += "El campo 'Código Postal' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCiudad.Text)) { error += "El campo 'Ciudad' no puede estar vacío\n"; }
 
             if (error != "")
@@ -59,9 +61,10 @@ namespace PalcoNet.Registro_de_Usuario
         private void button2_Click(object sender, EventArgs e)
         {
             Servidor servidor = Servidor.getInstance();
+            bool error = false;
             if (this.camposCompletos())
             {
-     
+                    string cambioContraseña = "";
                     this.Usuario.Calle = textBoxCalle.Text;
                     this.Usuario.NumeroDeCalle = Int32.Parse(textBoxNro.Text);
                     this.Usuario.Ciudad = textBoxCiudad.Text;
@@ -79,7 +82,15 @@ namespace PalcoNet.Registro_de_Usuario
 
                         Console.WriteLine(query);
 
-                        servidor.realizarQuery("EXEC dbo.registroEmpresa_sp " + query);
+                        try
+                        {
+                            servidor.realizarQuery("EXEC dbo.registroEmpresa_sp " + query);
+                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
+                        }
+                        catch (Exception ee) {
+                            error = true;
+                        }
+                        
                         //atrapar error y mostrar mensaje si la empresa ya existe
                     }
                     else
@@ -94,10 +105,27 @@ namespace PalcoNet.Registro_de_Usuario
 
                         Console.WriteLine(queryCli);
 
-                        servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
-                        //atrapar error y mostrar mensaje si el cliente ya existe
+                        try
+                        {
+                            servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
+                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
+                        }
+                        catch (Exception eee) {
+                            error = true;
+                        }
+                            
+                            //atrapar error y mostrar mensaje si el cliente ya existe
                     }
 
+                    if (!error)
+                    {
+                        MessageBox.Show("El usuario se creó exitosamente.\n" + cambioContraseña, "Creación completa", MessageBoxButtons.OK);
+                    }
+                    else {
+                        MessageBox.Show("No se pudo crear el usuario.\n", "Error", MessageBoxButtons.OK);
+                    }
+
+                
                     this.Hide();
                     this.cerrarAnteriores();
                 }

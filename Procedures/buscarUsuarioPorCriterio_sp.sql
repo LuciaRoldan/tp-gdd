@@ -12,8 +12,4 @@ BEGIN
 		AND mail LIKE '%' + @email + '%'
 END
 
-drop procedure buscarUsuarioPorCriterio_sp
-EXEC dbo.buscarUsuarioPorCriterio_sp '', '', '45023700', ''
-
-exec buscarUsuarioPorCriterio_sp 'INDA', 'Navarro', '45023700', 'inda_Navarro@gmail.com'
 
