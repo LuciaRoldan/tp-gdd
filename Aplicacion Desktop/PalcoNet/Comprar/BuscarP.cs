@@ -67,7 +67,7 @@ namespace PalcoNet.Comprar
             if (!camposCompletos) {
                 error += "Se debe completar al menos un campo para realizar la búsqueda.";
             } else {
-                if (/*Verificar que las fechas sean en el futuro*/ true) { error += "Las fechas no son correctas."; }
+                if (Sesion.getInstance().fecha > dateTimePickerDesde.Value || dateTimePickerDesde.Value > dateTimePickerHasta.Value) { error += "Las fechas no son correctas."; }
             }
 
             if (error != "")

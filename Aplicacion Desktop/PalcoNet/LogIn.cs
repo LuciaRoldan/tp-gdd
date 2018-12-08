@@ -61,27 +61,28 @@ namespace PalcoNet
                 Sesion s = Sesion.getInstance();
                 this.Usuario.NombreUsuario = textBox1.Text;
                 s.usuario = this.Usuario;
-                List<String> roles = new List<String>();
+                List<Rol> roles = new List<Rol>();
 
                
-                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
+                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + Sesion.sesion.usuario.NombreUsuario + "'");
 
 
-                /*while (reader.Read())
+                while (reader.Read())
                 {
-                    String rol;
-                    rol = reader["nombre"].ToString();
-                    s.rol = reader["nombre"].ToString(); //se deberia cambiar para que quede mas lindo
+                    Rol rol = new Rol();
+                    rol.Nombre = reader["nombre"].ToString();
+                    //s.rol.Nombre = reader["nombre"].ToString(); //se deberia cambiar para que quede mas lindo
                     roles.Add(rol);
                 }
-                reader.Close();*/
+                reader.Close();
 
                 if (roles.Count() > 1)
                 {
                       new SeleccionarRol().Show();
-                  }
-                  else
+                }
+                else
                 {
+                    s.rol = roles[0];
                     Console.Write("EL USUARIO ES: " + s.usuario);
                     Console.Write("EL ROL ES: " + Sesion.sesion.rol);
                     new SeleccionarFuncionalidad().Show();

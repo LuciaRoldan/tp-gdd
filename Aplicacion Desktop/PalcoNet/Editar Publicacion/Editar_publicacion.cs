@@ -143,10 +143,16 @@ namespace PalcoNet.Editar_Publicacion
         {
             //Agrega una fecha a la lista de abajo
             //Habria que verificar que la fecha sea valida
-
-            DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerFecha.Value.TimeOfDay;
-            this.PublicacionElegida.Fechas.Add(fecha);
-            this.actualizarFechas();
+            DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
+            if (fecha > Sesion.getInstance().fecha)
+            {
+                this.PublicacionElegida.Fechas.Add(fecha);
+                this.actualizarFechas();
+            }
+            else
+            {
+                MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

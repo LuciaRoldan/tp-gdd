@@ -55,7 +55,7 @@ namespace PalcoNet.Abm_Cliente
             {
                 if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
                 if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
-                if(/*ACA VERIFICACION DE FECHA ANTERIOR A HOY*/ false) {errores += "La fecha de nacimiento no puede ser anterior a hoy. \n";}
+                if (dateTimePickerNacimiento.Value < Sesion.getInstance().fecha) { errores += "La fecha de nacimiento no puede ser anterior a hoy. \n"; }
             }
 
             if (errores != "") { 

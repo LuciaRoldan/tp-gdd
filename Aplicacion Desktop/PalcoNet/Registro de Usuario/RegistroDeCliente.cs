@@ -40,7 +40,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (!int.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; }
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
             if (!int.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
-            if (/*validar fecha*/false) {error += "La fecha de nacimiento no es válida\n";}
+            if (dateTimePickerNacimiento.Value < Sesion.getInstance().fecha) { error += "La fecha de nacimiento no es válida\n"; }
 
             if (error != "")
             {
@@ -84,6 +84,11 @@ namespace PalcoNet.Registro_de_Usuario
         }
 
         private void comboBoxDocumento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePickerNacimiento_ValueChanged(object sender, EventArgs e)
         {
 
         }
