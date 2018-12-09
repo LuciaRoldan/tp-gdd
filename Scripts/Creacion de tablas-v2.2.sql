@@ -1,6 +1,5 @@
 --USE GD2C2018
 
-
 CREATE PROCEDURE crearTablas_sp
 AS
 BEGIN
