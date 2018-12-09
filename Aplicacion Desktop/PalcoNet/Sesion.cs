@@ -38,7 +38,7 @@ namespace PalcoNet
             {
                 empresa.Calle = reader["calle"].ToString();
                 empresa.CodigoPostal = reader["codigo_postal"].ToString();
-                empresa.Cuit = Convert.ToInt32(reader["cuit"]);
+                empresa.Cuit = Int64.Parse(reader["cuit"].ToString());
                 empresa.Departamento = reader["depto"].ToString();
                 empresa.FechaDeCreacion = (DateTime) reader["fecha_creacion"];
                 empresa.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
