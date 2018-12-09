@@ -64,6 +64,7 @@ namespace PalcoNet.Generar_Publicacion
                             + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                             + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
                             + publicacion.FechaDeEvento + "', '" + publicacion.EstadoDePublicacion + "'";*/
+            
             string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";

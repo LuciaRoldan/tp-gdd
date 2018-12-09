@@ -1,3 +1,5 @@
+--drop procedure agregarEspectaculo_sp
+
 CREATE PROCEDURE agregarEspectaculo_sp(
 @id_publicacion INT,
 @fecha DATETIME,
