@@ -30,16 +30,16 @@ namespace PalcoNet.Registro_de_Usuario
 
         public bool VerificarCampos(){
             string error = "";
-            int x;
+            long x;
             if (string.IsNullOrWhiteSpace(textBoxNombre.Text)) {error += "El Nombre no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxApellido.Text)) {error += "El Apellido no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxDocumento.Text)) {error += "El Número de Documento no puede estar vacío\n"; }
-            if (!int.TryParse(textBoxDocumento.Text, out x)) { error += "El campo 'Número de Documento' debe ser numérico\n"; }
+            if (!long.TryParse(textBoxDocumento.Text, out x)) { error += "El campo 'Número de Documento' debe ser numérico\n"; }
             if (comboBoxDocumento.SelectedItem == null) {error += "El Tipo de Documento no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) {error += "El CUIL no puede estar vacío\n"; }
-            if (!int.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; }
+            if (!long.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; }
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
-            if (!int.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
+            if (!long.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value ) { error += "La fecha de nacimiento no es válida\n"; }
 
             if (error != "")
