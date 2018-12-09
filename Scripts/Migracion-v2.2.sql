@@ -59,7 +59,7 @@ WHERE Cli_Dni IS NOT NULL;
 
 --usuarios empresa
 INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
-SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), Espec_Empresa_Cuit, 1, GETDATE(), 0
+SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0
 FROM gd_esquema.Maestra;
 
 --SELECT * FROM Usuarios

@@ -42,12 +42,11 @@ namespace PalcoNet.Abm_Grado
         {
             InitializeComponent();
             if (sesion.rol.Nombre == "Empresa") {
-                
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
                 //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
                 //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
-
+                
                 SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
                 List<Publicacion> publicaciones = new List<Publicacion>();
                 //19-67139304-09
@@ -83,7 +82,7 @@ namespace PalcoNet.Abm_Grado
             //Aca hay que hacer un update en la base de la publicacion seleccionada
             //Estaria bueno que salga un cartelito de que salio todo ok
 
-            servidor.realizarQuery("EXEC dbo.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion );
+            servidor.realizarQuery("EXEC dbo.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion + "'");
             MessageBox.Show("El grado de la publicacion se ha modificado con éxito", "Grado Publicación", MessageBoxButtons.OK);
         }
 
