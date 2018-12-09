@@ -17,7 +17,7 @@ BEGIN
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 --tabla roles
 INSERT INTO Roles(nombre, habilitado)
-VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1);
+VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1);
 
 --SELECT * FROM Roles
 
@@ -42,17 +42,14 @@ VALUES
 
 --SELECT * FROM Funcionalidades
 
---.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
---tabla
-INSERT INTO FuncionalidadXRol(id_rol, id_funcionalidad)
-SELECT r.id_rol, f.id_funcionalidad 
-FROM Roles r, Funcionalidades f
-WHERE r.nombre = 'Cliente'
-AND (f.nombre = 'Registro de usuario' OR f.nombre = 'Comprar');
-
---SELECT * FROM FuncionalidadXRol
-
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
+
+--usuarios del sistema
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos)
+VALUES('admin', LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'w23e'),2)), 1, GETDATE(), 0)
+
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos)
+VALUES('sa', LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'gestiondedatos'),2)), 1, GETDATE(), 0)
 
 --usuarios cliente
 INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
@@ -105,6 +102,32 @@ FROM Empresas e, Roles r
 WHERE r.nombre = 'Empresa';
 
 --SELECT * FROM UsuarioXRol
+
+INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'admin'), 4)
+INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'sa'), 1)
+
+--.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
+
+INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
+SELECT 1, id_funcionalidad
+FROM Funcionalidades
+WHERE nombre IN('ABM de cliente', 'ABM de empresa de espectaculos', 'Generar pago de comisiones', 'Listado estadistico', 'Registro de usuario')
+
+INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
+SELECT 2, id_funcionalidad
+FROM Funcionalidades
+WHERE nombre IN('ABM de categoria', 'ABM grado de publicacion', 'Editar publicacion', 'Generar publicacion')
+
+INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
+SELECT 3, id_funcionalidad
+FROM Funcionalidades
+WHERE nombre IN('Canje y administracion de puntos', 'Comprar', 'Historial del cliente')
+
+INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
+SELECT 4, id_funcionalidad
+FROM Funcionalidades
+
+--SELECT * FROM FuncionalidadXRol
 
 --.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
 INSERT INTO Rubros
