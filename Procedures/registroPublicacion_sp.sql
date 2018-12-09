@@ -1,3 +1,5 @@
+--drop procedure registrarPublicacion_sp
+
 CREATE PROCEDURE registrarPublicacion_sp(
 @nombre_empresa NVARCHAR(255),
 @grado_publicacion NVARCHAR(20),
@@ -16,3 +18,4 @@ BEGIN
 
 	SELECT SCOPE_IDENTITY() AS id_publicacion
 END
+

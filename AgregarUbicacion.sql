@@ -21,3 +21,5 @@ BEGIN
 
 	DROP TABLE #UbicacionesInsertadas
 END
+
+

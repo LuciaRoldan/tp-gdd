@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Editar_Publicacion
 {
@@ -15,6 +16,13 @@ namespace PalcoNet.Editar_Publicacion
     {
         List<Publicacion> publicaciones = new List<Publicacion>();
         Publicacion publicacionElegida;
+        bool hayCambios = false;
+
+        public bool HayCambios
+        {
+            get { return hayCambios; }
+            set { hayCambios = value; }
+        }
 
         public Publicacion PublicacionElegida
         {
@@ -34,11 +42,21 @@ namespace PalcoNet.Editar_Publicacion
 
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
-                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
+                Empresa empresa = Sesion.getInstance().traerEmpresa();
                 //Aca hay que buscar en la base todas las publicaciones de la empresa y guardarlas en las lista de arriba
-                foreach (Publicacion p in this.Publicaciones)
-                {
-                    comboBoxPublicaciones.Items.Add(p.Descripcion);
+                Servidor servidor = Servidor.getInstance();
+
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
+
+                while (reader.Read()) {
+                    Publicacion publicacion = new Publicacion();
+                    publicacion.Descripcion = reader["descripcion"].ToString();
+                    publicacion.Direccion = reader["direccion"].ToString();
+                    publicacion.EstadoDePublicacion = reader["estado"].ToString();
+                    publicacion.Id = Convert.ToInt32(reader["id"]);
+                    publicacion.Rubro = reader["rubro"].ToString();
+                    publicaciones.Add(publicacion);
+                    comboBoxPublicaciones.Items.Add(publicacion.Descripcion);
                 }
             }
             else 
@@ -59,7 +77,7 @@ namespace PalcoNet.Editar_Publicacion
             if(checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) {errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"; }
             if (!int.TryParse(textBoxCantidad.Text, out x)) { errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"; }
             if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
-            if(comboBoxTipo.SelectedIndex < 0) {errores += "Se debe seleccionar un Tipo de Asiento.\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxAsiento.Text)) { errores += "Se debe escribir un Tipo de Asiento.\n"; }
            
             if (errores != "") { 
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
@@ -93,22 +111,45 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button4_Click(object sender, EventArgs e)
         {
+            this.HayCambios = false;
+
             //Hace que se completen los campos de abajo con la informacion de la publicacion seleccionada
- /*           if (comboBoxPublicaciones.SelectedIndex != null) {
+            if (comboBoxPublicaciones.SelectedIndex > -1) {
                 this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
                 textBoxDescripcion.Text = publicacionElegida.Descripcion;
                 textBoxDireccion.Text = publicacionElegida.Direccion;
                 comboBoxRubro.Text = publicacionElegida.Rubro;
                 comboBoxEstado.Text = publicacionElegida.EstadoDePublicacion;
+                Servidor servidor = Servidor.getInstance();
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarEspectaculosPorPublicacion_sp " + this.PublicacionElegida.Id);
+
+                while (reader.Read())
+                {
+                    DateTime fecha = (DateTime)reader["fecha_evento"];
+                    this.PublicacionElegida.Fechas.Add(fecha);
+                }
                 this.actualizarFechas();
+
+                SqlDataReader reader2 = servidor.query("EXEC dbo.buscarUbicacionessPorPublicacion_sp " + this.PublicacionElegida.Id);
+
+                while (reader2.Read())
+                {
+                    Ubicacion ubicacion = new Ubicacion();
+                    ubicacion.CantidadAsientos = Int32.Parse(reader2["asientos"].ToString());
+                    ubicacion.Numerada = bool.Parse(reader2["sin_numerar"].ToString());
+                    if (ubicacion.Numerada) { ubicacion.CantidadFilas = Int32.Parse(reader2["filas"].ToString()); }
+                    ubicacion.Precio = decimal.Parse(reader2["precio"].ToString());
+                    ubicacion.TipoAsiento = reader2["tipo"].ToString();
+                    this.PublicacionElegida.Ubicaciones.Add(ubicacion);
+                }
                 this.actualizarUbicaciones();
             } else {
                 MessageBox.Show("Se debe sleccionar alguna publicación", "Error", MessageBoxButtons.OK);
-            } */
+            } 
         }
 
         public void actualizarFechas() {
-            var bindingList = new BindingList<DateTime>(this.PublicacionElegida.Fechas);
+          var bindingList = new BindingList<DateTime>(this.PublicacionElegida.Fechas);
             var source = new BindingSource(bindingList, null);
             dataGridViewFechas.DataSource = source;
         }
@@ -123,13 +164,15 @@ namespace PalcoNet.Editar_Publicacion
         {
             //Agrega una publicacion a la lista de abajo
 
+            this.HayCambios = true;
+
             if (this.VerificarCamposUbicacion())
             {
                 Ubicacion ubicacion = new Ubicacion();
 
                 ubicacion.CantidadAsientos = Int32.Parse(textBoxCantidad.Text);
                 ubicacion.Precio = Int32.Parse(textBoxPrecio.Text);
-                ubicacion.TipoAsiento = comboBoxTipo.Text;
+                ubicacion.TipoAsiento = textBoxAsiento.Text;
                 ubicacion.Numerada = checkBoxNumerado.Checked;
                 if (checkBoxNumerado.Checked) { ubicacion.CantidadFilas = Int32.Parse(textBoxFilas.Text); }
 
@@ -143,6 +186,9 @@ namespace PalcoNet.Editar_Publicacion
         {
             //Agrega una fecha a la lista de abajo
             //Habria que verificar que la fecha sea valida
+
+            this.HayCambios = true;
+
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
             if (fecha > Sesion.getInstance().fecha)
             {
@@ -160,7 +206,7 @@ namespace PalcoNet.Editar_Publicacion
             //Hace los cambios que haya que hacer en la base
             //Podria salir un cartelito que diga que los cambios se guardaron correctamente
 
-            if (this.VerificarCampos())
+            if (this.VerificarCampos() && this.hayCambios)
             {
                 this.PublicacionElegida.Descripcion = textBoxDescripcion.Text;
                 this.PublicacionElegida.Direccion = textBoxDireccion.Text;
@@ -183,6 +229,56 @@ namespace PalcoNet.Editar_Publicacion
 
                 this.PublicacionElegida.Fechas = fechas;
                 this.PublicacionElegida.Ubicaciones = ubicaciones;
+
+                Servidor servidor = Servidor.getInstance();
+                servidor.query("EXEC actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
+                    "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
+                Console.WriteLine("++++++++++++++++++");
+
+                servidor.query("EXEC vaciarEspectaculosPublicacio_sp " + this.PublicacionElegida.Id);
+
+                List<Int32> ids_espectaculos = new List<Int32>();
+
+                foreach (DateTime f in this.PublicacionElegida.Fechas)
+                {
+                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f + "', '" + this.PublicacionElegida.EstadoDePublicacion + "'";
+                    SqlDataReader readerEspectaculo = servidor.query("EXEC dbo.agregarEspectaculo_sp " + query2);
+
+                    readerEspectaculo.Read();
+                    Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
+                    ids_espectaculos.Add(id);
+
+                }
+
+
+                List<Int32> ids_ubicaciones = new List<Int32>();
+
+                foreach (Ubicacion u in this.PublicacionElegida.Ubicaciones)
+                {
+                    string query3 = "'" + u.TipoAsiento + "', '"
+                    + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
+
+                    SqlDataReader readerUbicaciones = servidor.query("EXEC dbo.agregarUbicaciones_sp " + query3);
+
+                    while (readerUbicaciones.Read())
+                    {
+                        ids_ubicaciones.Add(Convert.ToInt32(readerUbicaciones["id_ubicacion"]));
+                    }
+                }
+
+                foreach (Int32 id_u in ids_ubicaciones)
+                {
+                    foreach (Int32 id_e in ids_espectaculos)
+                    {
+                        Console.WriteLine(id_e);
+                        Console.WriteLine(id_u);
+
+                        string query4 = "'" + id_u + "', '" + id_e + "'";
+                        servidor.query("EXEC dbo.agregarUbicacionXEspectaculo_sp " + query4);
+                    }
+
+                }
+
 
                 //Hay que actualizar en la base los cambios en la publicacion elegida, inclyendo en sus fechas y sus ubicaciones
                 //3 SP uno de lo basico de publicacion, uno de las fechas y uno de las ubicaciones, en ese orden.
@@ -214,7 +310,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void textBoxDescripcion_TextChanged(object sender, EventArgs e)
         {
-
+            this.HayCambios = true;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -224,7 +320,17 @@ namespace PalcoNet.Editar_Publicacion
 
         private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.HayCambios = true;
+        }
 
+        private void textBoxDireccion_TextChanged(object sender, EventArgs e)
+        {
+            this.HayCambios = true;
+        }
+
+        private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.HayCambios = true;
         }
     }
 }

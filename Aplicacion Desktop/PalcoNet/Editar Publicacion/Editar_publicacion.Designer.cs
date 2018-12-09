@@ -51,7 +51,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxNumerado = new System.Windows.Forms.CheckBox();
-            this.comboBoxTipo = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -64,6 +63,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxCantidad = new System.Windows.Forms.TextBox();
+            this.textBoxAsiento = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechas)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUbicaciones)).BeginInit();
@@ -73,6 +73,7 @@
             // 
             // dataGridViewFechas
             // 
+            this.dataGridViewFechas.AllowUserToAddRows = false;
             this.dataGridViewFechas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFechas.Location = new System.Drawing.Point(15, 81);
             this.dataGridViewFechas.Name = "dataGridViewFechas";
@@ -155,6 +156,7 @@
             this.comboBoxEstado.Name = "comboBoxEstado";
             this.comboBoxEstado.Size = new System.Drawing.Size(268, 21);
             this.comboBoxEstado.TabIndex = 80;
+            this.comboBoxEstado.SelectedIndexChanged += new System.EventHandler(this.comboBoxEstado_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -171,6 +173,7 @@
             this.textBoxDireccion.Name = "textBoxDireccion";
             this.textBoxDireccion.Size = new System.Drawing.Size(268, 20);
             this.textBoxDireccion.TabIndex = 76;
+            this.textBoxDireccion.TextChanged += new System.EventHandler(this.textBoxDireccion_TextChanged);
             // 
             // textBoxDescripcion
             // 
@@ -219,6 +222,7 @@
             // 
             // dataGridViewUbicaciones
             // 
+            this.dataGridViewUbicaciones.AllowUserToAddRows = false;
             this.dataGridViewUbicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUbicaciones.Location = new System.Drawing.Point(21, 121);
             this.dataGridViewUbicaciones.Name = "dataGridViewUbicaciones";
@@ -276,9 +280,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxAsiento);
             this.groupBox2.Controls.Add(this.checkBoxNumerado);
             this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Controls.Add(this.comboBoxTipo);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.dataGridViewUbicaciones);
@@ -304,16 +308,6 @@
             this.checkBoxNumerado.TabIndex = 141;
             this.checkBoxNumerado.Text = "Asientos numerados";
             this.checkBoxNumerado.UseVisualStyleBackColor = true;
-            // 
-            // comboBoxTipo
-            // 
-            this.comboBoxTipo.FormattingEnabled = true;
-            this.comboBoxTipo.Items.AddRange(new object[] {
-            "Esto no va jeje"});
-            this.comboBoxTipo.Location = new System.Drawing.Point(98, 19);
-            this.comboBoxTipo.Name = "comboBoxTipo";
-            this.comboBoxTipo.Size = new System.Drawing.Size(94, 21);
-            this.comboBoxTipo.TabIndex = 137;
             // 
             // label6
             // 
@@ -423,6 +417,13 @@
             this.textBoxCantidad.Size = new System.Drawing.Size(81, 20);
             this.textBoxCantidad.TabIndex = 134;
             // 
+            // textBoxAsiento
+            // 
+            this.textBoxAsiento.Location = new System.Drawing.Point(98, 20);
+            this.textBoxAsiento.Name = "textBoxAsiento";
+            this.textBoxAsiento.Size = new System.Drawing.Size(94, 20);
+            this.textBoxAsiento.TabIndex = 139;
+            // 
             // Editar_publicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -482,7 +483,6 @@
         private System.Windows.Forms.ComboBox comboBoxRubro;
         private System.Windows.Forms.DateTimePicker dateTimePickerHora;
         private System.Windows.Forms.CheckBox checkBoxNumerado;
-        private System.Windows.Forms.ComboBox comboBoxTipo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label16;
@@ -492,5 +492,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxCantidad;
+        private System.Windows.Forms.TextBox textBoxAsiento;
     }
 }
