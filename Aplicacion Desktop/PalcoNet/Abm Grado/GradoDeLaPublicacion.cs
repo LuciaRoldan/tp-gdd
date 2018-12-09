@@ -72,17 +72,6 @@ namespace PalcoNet.Abm_Grado
       
             }
             reader.Close();
-            Publicacion publicacion = new Publicacion();
-            publicacion.Descripcion = "Mi grado es medio";
-            publicacion.GradoDePublicacion = "Medio";
-            Publicaciones.Add(publicacion);
-            Publicacion publicacion2 = new Publicacion();
-            publicacion2.Descripcion = "Mi grado es bajo";
-            publicacion2.GradoDePublicacion = "Bajo";
-            Publicaciones.Add(publicacion2);
-            foreach(Publicacion pub in this.Publicaciones){
-                checkedListBoxPublicaciones.Items.Add(pub.Descripcion);
-            }
         }
 
         private void button3_Click(object sender, EventArgs e)

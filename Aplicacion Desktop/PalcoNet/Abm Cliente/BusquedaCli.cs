@@ -69,14 +69,14 @@ namespace PalcoNet.Abm_Cliente
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Apellido = textBoxApellido.Text;
                 cliente.Mail = textBoxMail.Text;
-                if(!string.IsNullOrWhiteSpace(textBoxDni.Text)) {cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text);}
+                if (!string.IsNullOrWhiteSpace(textBoxDni.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); } 
                 List<Cliente> resultados = new List<Cliente>();
 
-                String query = cliente.Nombre + "', '" + cliente.Apellido + "', '" + cliente.NumeroDeDocumento + 
-                                "', '" + cliente.Mail + "'";
+                String query = cliente.Nombre + "', '" + cliente.Apellido + "', " + (cliente.NumeroDeDocumento == 0 ? "''" : cliente.NumeroDeDocumento.ToString()) + 
+                                ", '" + cliente.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarUsuarioPorCriterio_sp '" + query );
-
+                Console.WriteLine(query);
                 while (reader.Read())
                 {
                     Cliente clienteEnc = new Cliente();
