@@ -60,7 +60,7 @@ namespace PalcoNet
                 servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
                 sesion.usuario = this.Usuario;
-                List<String> roles = new List<String>();
+                List<Rol> roles = new List<Rol>();
 
                
                 SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
@@ -68,7 +68,9 @@ namespace PalcoNet
 
                 while (reader.Read())
                 {
-                    String rol = reader["nombre"].ToString();
+                    Rol rol = new Rol();
+                    string[] tokens = reader["nombre"].ToString().Split(' ');
+                    rol.Nombre = tokens[0];
                     roles.Add(rol);
                 }
                 reader.Close();
@@ -82,6 +84,7 @@ namespace PalcoNet
                 {
                     Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
+                    sesion.rol = roles[0];
                     new SeleccionarFuncionalidad().Show();
                     this.Hide();
                 }

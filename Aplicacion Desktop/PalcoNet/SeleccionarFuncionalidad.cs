@@ -89,7 +89,8 @@ namespace PalcoNet
                         new GradoDeLaPublicacion(this).Show();
                         this.Hide();
                         break;
-                    case " Generar publicacion":
+                    case "Generar publicacion":
+                        Console.WriteLine("Quiero generar una publicacionnnnnnnnnnnnnnnnnnnnnnnnn");
                         new CrearPublicacion(this).Show();
                         this.Hide();
                         break;

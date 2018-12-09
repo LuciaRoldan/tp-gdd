@@ -40,18 +40,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxTipo = new System.Windows.Forms.ComboBox();
             this.textBoxFilas = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBoxNumerado = new System.Windows.Forms.CheckBox();
+            this.textBoxTipo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(249, 74);
+            this.label6.Location = new System.Drawing.Point(230, 74);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 13);
             this.label6.TabIndex = 94;
@@ -61,7 +61,7 @@
             // 
             this.textBoxPrecio.Location = new System.Drawing.Point(105, 71);
             this.textBoxPrecio.Name = "textBoxPrecio";
-            this.textBoxPrecio.Size = new System.Drawing.Size(141, 20);
+            this.textBoxPrecio.Size = new System.Drawing.Size(119, 20);
             this.textBoxPrecio.TabIndex = 93;
             // 
             // textBoxCantidad
@@ -156,15 +156,6 @@
             this.label4.TabIndex = 82;
             this.label4.Text = "Tipo de asiento:";
             // 
-            // comboBoxTipo
-            // 
-            this.comboBoxTipo.FormattingEnabled = true;
-            this.comboBoxTipo.Location = new System.Drawing.Point(105, 44);
-            this.comboBoxTipo.Name = "comboBoxTipo";
-            this.comboBoxTipo.Size = new System.Drawing.Size(167, 21);
-            this.comboBoxTipo.TabIndex = 95;
-            this.comboBoxTipo.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipo_SelectedIndexChanged);
-            // 
             // textBoxFilas
             // 
             this.textBoxFilas.Enabled = false;
@@ -202,16 +193,23 @@
             this.checkBoxNumerado.UseVisualStyleBackColor = true;
             this.checkBoxNumerado.CheckedChanged += new System.EventHandler(this.checkBoxNumerado_CheckedChanged);
             // 
+            // textBoxTipo
+            // 
+            this.textBoxTipo.Location = new System.Drawing.Point(105, 45);
+            this.textBoxTipo.Name = "textBoxTipo";
+            this.textBoxTipo.Size = new System.Drawing.Size(141, 20);
+            this.textBoxTipo.TabIndex = 102;
+            // 
             // CrearPublicacionUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(505, 337);
+            this.Controls.Add(this.textBoxTipo);
             this.Controls.Add(this.checkBoxNumerado);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxFilas);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.comboBoxTipo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxPrecio);
             this.Controls.Add(this.textBoxCantidad);
@@ -246,10 +244,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBoxTipo;
         private System.Windows.Forms.TextBox textBoxFilas;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxNumerado;
+        private System.Windows.Forms.TextBox textBoxTipo;
     }
 }

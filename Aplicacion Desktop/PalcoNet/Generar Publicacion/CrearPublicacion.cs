@@ -26,11 +26,9 @@ namespace PalcoNet.Generar_Publicacion
         public CrearPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
-                Empresa empresa = (Empresa)Sesion.getInstance().usuario;
-
+                Empresa empresa = Sesion.getInstance().traerEmpresa();
 
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
 
@@ -51,9 +49,9 @@ namespace PalcoNet.Generar_Publicacion
             string errores = "";
             if(string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) {errores += "El campo Descripción no puede estar vacío.\n"; }
             if(string.IsNullOrWhiteSpace(textBoxDireccion.Text)) {errores += "El campo Dirección no puede estar vacío.\n"; }
-            if(comboBoxEstado.SelectedIndex > -1) {errores += "Se debe seleccionar un Estado.\n"; }
-            if(comboBoxGrado.SelectedIndex > -1) {errores += "Se debe seleccionar un Grado.\n"; }
-            if(comboBoxRubro.SelectedIndex > -1) {errores += "Se debe seleccionar un Rubro.\n"; }
+            if(comboBoxEstado.SelectedIndex < 0) {errores += "Se debe seleccionar un Estado.\n"; }
+            if(comboBoxGrado.SelectedIndex < 0) {errores += "Se debe seleccionar un Grado.\n"; }
+            if(comboBoxRubro.SelectedIndex < 0) {errores += "Se debe seleccionar un Rubro.\n"; }
 
             if (errores != "")
             {
