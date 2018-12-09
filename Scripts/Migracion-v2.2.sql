@@ -79,7 +79,7 @@ WHERE Cli_Dni IS NOT NULL;
 --.--.--.--.--.--.--EMPRESAS--.--.--.--.--.--.--
 
 INSERT INTO Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
-SELECT DISTINCT u.id_usuario, Espec_Empresa_Razon_Social ,Espec_Empresa_Mail, Espec_Empresa_Cuit, Espec_Empresa_Fecha_Creacion,
+SELECT DISTINCT u.id_usuario, Espec_Empresa_Razon_Social ,Espec_Empresa_Mail, replace(Espec_Empresa_Cuit, '-', ''), Espec_Empresa_Fecha_Creacion,
 				Espec_Empresa_Dom_Calle, Espec_Empresa_Nro_Calle, Espec_Empresa_Piso, Espec_Empresa_Depto,
 				Espec_Empresa_Cod_Postal
 FROM gd_esquema.Maestra gd
@@ -314,7 +314,6 @@ VALUES
 --SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
-
 
 
 
