@@ -10,12 +10,11 @@ namespace PalcoNet.Dominio
     {
         string nombre;
         string apellido;
-        //char[] tipoDocumento = new char[4];
         string tipoDocumento;
-        int numeroDeDocumento;
-        int cuil;
+        long numeroDeDocumento;
+        long cuil;
         string mail;
-        int telefono;
+        long telefono;
         DateTime fechaDeCreacion;
         DateTime fechaDeNacimiento;
         int puntos;
@@ -39,25 +38,25 @@ namespace PalcoNet.Dominio
             set { tipoDocumento = value; }
         }
 
-        public int NumeroDeDocumento
+        public long NumeroDeDocumento
         {
             get { return numeroDeDocumento; }
             set { numeroDeDocumento = value; }
         }
 
-        public int Cuil
+        public long Cuil
         {
             get { return cuil; }
             set { cuil = value; }
         }
-
+        
         public string Mail
         {
             get { return mail; }
             set { mail = value; }
         }
 
-        public int Telefono
+        public long Telefono
         {
             get { return telefono; }
             set { telefono = value; }

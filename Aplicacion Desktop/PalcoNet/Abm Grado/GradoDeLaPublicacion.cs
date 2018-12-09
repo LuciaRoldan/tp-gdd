@@ -40,20 +40,20 @@ namespace PalcoNet.Abm_Grado
 
         public GradoDeLaPublicacion(MiForm anterior) : base(anterior)
         {
-            if (sesion.rolEmpresa().Nombre == "Empresa") {
+            if (sesion.rol.Nombre == "Empresa") {
                 Empresa empresa = (Empresa)Sesion.getInstance().usuario;
                 //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
                 //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
                 //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
 
             } else {
-                MessageBox.Show("Se encuentra loggeado como " + sesion.rolEmpresa().Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 buttonAceptar.Enabled = false;
             }
 
             InitializeComponent();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.empresaDefault() + "'");
+            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
             List<int> idPublicaciones = new List<int>();
 
             while (reader.Read())
