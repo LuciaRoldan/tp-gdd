@@ -18,3 +18,4 @@ BEGIN
 
 	SELECT SCOPE_IDENTITY() AS id_publicacion
 END
+
