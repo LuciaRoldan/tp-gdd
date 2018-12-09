@@ -172,10 +172,7 @@
             // 
             // dataGridViewResultados
             // 
-            this.dataGridViewResultados.Column
-            
-            
-            ersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.razonSocial,
             this.mail,

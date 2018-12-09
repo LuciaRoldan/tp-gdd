@@ -8,8 +8,7 @@ CREATE PROCEDURE registrarPublicacion_sp(
 )
 AS
 BEGIN
-	DECLARE @id_empresa INT = (SELECT id_empresa FROM Empresas e JOIN Usuarios u ON (e.id_usuario = u.id_usuario)
-																 WHERE username = @nombre_empresa)
+	DECLARE @id_empresa INT = (SELECT id_empresa FROM Empresas e WHERE @nombre_empresa = razon_social)
 	DECLARE @id_grado_publicacion INT = (SELECT id_grado_publicacion FROM Grados_publicacion WHERE nombre = @grado_publicacion)
 	DECLARE @id_rubro INT =  (SELECT id_rubro FROM Rubros WHERE descripcion = @rubro)
 	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)

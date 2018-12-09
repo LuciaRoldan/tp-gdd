@@ -134,7 +134,7 @@ fecha_vencimiento DATE;
 
 ALTER TABLE Empresas ADD
 id_usuario INT REFERENCES Usuarios,
-razon_social NVARCHAR(255),
+razon_social NVARCHAR(255) UNIQUE,
 mail NVARCHAR(50),
 cuit NVARCHAR(255),
 fecha_creacion DATETIME,
