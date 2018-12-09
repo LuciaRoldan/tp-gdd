@@ -21,28 +21,12 @@ namespace PalcoNet.Canje_Puntos
         int puntosAcumulados = 0;
         List<Premio> premios = new List<Premio>();
 
-        internal List<Premio> Premios
-        {
-            get { return premios; }
-            set { premios = value; }
-        }
-
-        public int PuntosOriginales
-        {
-            get { return puntosOriginales; }
-            set { puntosOriginales = value; }
-        }
-
-        public int PuntosAcumulados
-        {
-            get { return puntosAcumulados; }
-            set { puntosAcumulados = value; }
-        }
-
         public CanjePuntos(MiForm anterior) : base(anterior)
         {
             Cliente cliente = new Cliente();
             String username = sesion.usuario.NombreUsuario;
+            String descripcion;
+            int puntos;
            
             Console.WriteLine("LLEGA ACA CON ROL: " + sesion.rol.Nombre);
 
@@ -50,31 +34,32 @@ namespace PalcoNet.Canje_Puntos
                          
                           SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + username + "'");
                           Console.WriteLine("ENTONCES ENTRA ACA CON USER: " + username);
-                          while (reader.Read())
+                          
+                         while (reader.Read())
                           {
-
-                              puntosAcumulados = Convert.ToInt32(reader["cantidad_puntos"]);
-                              cliente.Puntos = Convert.ToInt32(reader["cantidad_puntos"]);
-                              Console.WriteLine("SALE DEL WHILE CON PUNTOS: " + puntosAcumulados);
+                              Console.WriteLine(reader["cantidad_puntos"]);
+                              int guarda_puntos = Convert.ToInt32(reader["cantidad_puntos"]);
+                             
                           }
                           
                           reader.Close();
-                         
-                          reader = servidor.query("EXEC dbo.getPremios_sp");
+
+                           reader = servidor.query("EXEC dbo.getPremios_sp");
 
                           while (reader.Read())
                           {
                               Console.WriteLine("LLEGA ACA TAMBIEN");
                               Premio premio = new Premio();
-                              premio.Descripcion = reader["nombre"].ToString();
+                              premio.Descripcion = reader["descripcion"].ToString();
                               premio.CantidadDePuntos = Convert.ToInt32(reader["puntos"]);
-                              checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
-                              premios.Add(premio);
-                              Console.WriteLine("LLEGA AL FINAL CON PREMIO: " + premio.Descripcion);
                               
+                        //      checkedListBoxPremios.Items.Add("descripcion" + " (" + "puntos" + " puntos)");
+            
+                                                           
                           }
                           reader.Close();
                           Console.WriteLine("TERMINA LOS DOS WHILE");
+                        //  checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
 
                           //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
 
@@ -96,10 +81,10 @@ namespace PalcoNet.Canje_Puntos
             //Aca hay que hacer que se cambien los puntos
             //Capaz estaria bueno que salga un cartelito de que salio todo bien
             
-             cliente.Puntos = this.PuntosOriginales - this.PuntosAcumulados;
+             cliente.Puntos = puntosOriginales - puntosAcumulados;
             List<Premio> premiosSeleccionados = new List<Premio>();
             foreach (int index in this.checkedListBoxPremios.SelectedIndices) {
-                premiosSeleccionados.Add(this.Premios[index]);
+                premiosSeleccionados.Add(this.premios[index]);
             }
 
             //Aca hay que actualizar los puntos del cliente y persistir los nuevos premios adquiridos
@@ -107,34 +92,34 @@ namespace PalcoNet.Canje_Puntos
 
             MessageBox.Show("El canje se realizó de forma exitosa.", "Premios", MessageBoxButtons.OK);
 
-            this.PuntosOriginales = this.PuntosOriginales - this.PuntosAcumulados;
+            puntosOriginales = puntosOriginales - puntosAcumulados;
             foreach (int index in this.checkedListBoxPremios.SelectedIndices){
                 checkedListBoxPremios.SetItemChecked(this.checkedListBoxPremios.SelectedIndex, false);
-                this.PuntosAcumulados = this.PuntosAcumulados - this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
+                puntosAcumulados = puntosAcumulados - premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
             }
-            this.textBoxPuntos.Text = this.PuntosOriginales.ToString();
-            this.textBoxTotal.Text = this.PuntosAcumulados.ToString();
+            this.textBoxPuntos.Text = puntosOriginales.ToString();
+            this.textBoxTotal.Text = puntosAcumulados.ToString();
 
             //Cambiar los puntos en el objeto cliente de la sesion
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            this.textBoxPuntos.Text = puntosAcumulados.ToString();
         }
 
         private void checkedListBoxPremios_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.checkedListBoxPremios.GetItemCheckState(this.checkedListBoxPremios.SelectedIndex) == CheckState.Checked){
-                if (this.PuntosAcumulados + this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos <= this.PuntosOriginales) {
-                    this.PuntosAcumulados = this.PuntosAcumulados + this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
+                if (puntosAcumulados + this.premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos <= puntosOriginales) {
+                    puntosAcumulados = puntosAcumulados + this.premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
                 } else {
                     checkedListBoxPremios.SetItemChecked(this.checkedListBoxPremios.SelectedIndex, false);
                 }
             } else {
-                this.PuntosAcumulados = this.PuntosAcumulados - this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
+               puntosAcumulados = puntosAcumulados - this.premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
             }
-            this.textBoxTotal.Text = this.PuntosAcumulados.ToString();
+            this.textBoxTotal.Text = puntosAcumulados.ToString();
         }
     }
 }
