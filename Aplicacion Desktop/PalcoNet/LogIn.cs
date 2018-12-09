@@ -17,8 +17,8 @@ namespace PalcoNet
     public partial class LogIn : Form
     {
         
-        Sesion sesion;
-        Usuario usuario;
+        Sesion sesion = Sesion.getInstance();
+        Usuario usuario = new Usuario();
 
         public Usuario Usuario
         {
@@ -58,20 +58,17 @@ namespace PalcoNet
             {
 
                 servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
-                Sesion s = Sesion.getInstance();
-                this.Usuario.NombreUsuario = textBox1.Text;
-                s.usuario = this.Usuario;
-                List<Rol> roles = new List<Rol>();
+                usuario.NombreUsuario = textBox1.Text.ToString();
+                sesion.usuario = this.Usuario;
+                List<String> roles = new List<String>();
 
                
-                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + Sesion.sesion.usuario.NombreUsuario + "'");
+                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
 
                 while (reader.Read())
                 {
-                    Rol rol = new Rol();
-                    rol.Nombre = reader["nombre"].ToString();
-                    //s.rol.Nombre = reader["nombre"].ToString(); //se deberia cambiar para que quede mas lindo
+                    String rol = reader["nombre"].ToString();
                     roles.Add(rol);
                 }
                 reader.Close();
@@ -82,9 +79,8 @@ namespace PalcoNet
                 }
                 else
                 {
-                    s.rol = roles[0];
-                    Console.Write("EL USUARIO ES: " + s.usuario);
-                    Console.Write("EL ROL ES: " + Sesion.sesion.rol);
+                    Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
+                   // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     new SeleccionarFuncionalidad().Show();
                 }
             }

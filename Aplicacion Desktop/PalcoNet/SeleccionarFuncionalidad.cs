@@ -33,7 +33,7 @@ namespace PalcoNet
         {
             InitializeComponent();
             
-            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + Sesion.sesion.usuario.NombreUsuario + "'");
+            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
             while (reader.Read())
             {

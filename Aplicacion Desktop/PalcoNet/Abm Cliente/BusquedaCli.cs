@@ -95,14 +95,7 @@ namespace PalcoNet.Abm_Cliente
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);
-
-  /*                  dataGridResultados.Rows.Add(cliente.Nombre, cliente.Apellido, cliente.Cuil, cliente.Mail);
-                    dataGridResultados.Rows.Add(reader["nombre"].ToString(), reader["apellido"], reader["cuil"].ToString(),
-                        reader["mail"].ToString(), reader["telefono"].ToString(), reader["documento"].ToString(), 
-                        reader["tipo_documento"].ToString(), reader["calle"].ToString(), reader["numero_calle"].ToString(),
-                        reader["piso"].ToString(), reader["codigo_postal"].ToString(), reader["username"].ToString(),
-                        reader["password"].ToString(), reader["fecha_nacimiento"].ToString(), reader["fecha_creacion"].ToString());
-  */                   
+            
                 }
                 reader.Close();
 

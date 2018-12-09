@@ -18,6 +18,7 @@ namespace PalcoNet.Abm_Grado
         Publicacion pubSelecc;
         String gradoSelecc;
         Servidor servidor = Servidor.getInstance();
+        Sesion sesion = Sesion.getInstance();
 
         public String GradoSelecc
         {
@@ -39,39 +40,57 @@ namespace PalcoNet.Abm_Grado
 
         public GradoDeLaPublicacion(MiForm anterior) : base(anterior)
         {
-            if (Sesion.getInstance().rol.Nombre == "Empresa") {
+            if (sesion.rolEmpresa().Nombre == "Empresa") {
                 Empresa empresa = (Empresa)Sesion.getInstance().usuario;
                 //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
                 //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
                 //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
 
-                Publicacion publicacion = new Publicacion();
-                publicacion.Descripcion = "Mi grado es medio";
-                publicacion.GradoDePublicacion = "Medio";
-                Publicaciones.Add(publicacion);
-                Publicacion publicacion2 = new Publicacion();
-                publicacion2.Descripcion = "Mi grado es bajo";
-                publicacion2.GradoDePublicacion = "Bajo";
-                Publicaciones.Add(publicacion2);
-                foreach (Publicacion pub in this.Publicaciones) {
-                    checkedListBoxPublicaciones.Items.Add(pub.Descripcion);
-                }
             } else {
-                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                MessageBox.Show("Se encuentra loggeado como " + sesion.rolEmpresa().Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 buttonAceptar.Enabled = false;
             }
 
             InitializeComponent();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + Sesion.sesion.usuario + "'");
-
+            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.empresaDefault() + "'");
+            List<int> idPublicaciones = new List<int>();
 
             while (reader.Read())
             {
-                checkedListBoxGrado.Items.Add(reader["descripcion"].ToString());
-      
+                checkedListBoxPublicaciones.Items.Add(reader["descripcion"].ToString());
+                idPublicaciones.Add(Convert.ToInt16(reader["id_empresa"]));  
             }
             reader.Close();
+            
+            foreach(int id in idPublicaciones){
+
+                SqlDataReader read = servidor.query("EXEC dbo.getGradoDePublicacion_sp '" + id + "'");
+
+                while (reader.Read())
+                {
+                    String grado = reader["nombre"].ToString();
+                    if (grado != "NULL")
+                    {
+                        for (int i = 0; this.checkedListBoxGrado.Items.Count > i; i++)
+                        {
+
+                         //   if (checkedListBoxGrado.i.Name == grado)
+                            {
+                            }
+                        }
+                    }
+
+                         
+                {
+
+                    //this.checkedListBox.SetItemChecked(i, false);
+                }
+                    }
+                    checkedListBoxGrado.Items.Add(reader["descripcion"].ToString());
+                    idPublicaciones.Add(Convert.ToInt16(reader["id_empresa"]));
+                }
+                reader.Close();
         }
 
         private void button3_Click(object sender, EventArgs e)

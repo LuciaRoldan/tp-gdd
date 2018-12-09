@@ -171,3 +171,4 @@ C:\Users\ABM\Desktop\TP-gdd\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debu
 C:\Users\ABM\Desktop\TP-gdd\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.SeleccionarRol.resources
 C:\Users\ABM\Desktop\TP-gdd\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rubro.AbmRubro.resources
+C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Abm_Rubro.AbmRubro.resources

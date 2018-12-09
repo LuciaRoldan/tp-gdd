@@ -16,6 +16,27 @@ namespace PalcoNet
 
         public static Sesion sesion { get; set; }
 
+        public Empresa empresaDefault()
+        {
+            Empresa empresa = new Empresa();
+            empresa.NombreUsuario = "19-67139304-09";
+            return empresa;
+
+        }
+
+        public Rol rolEmpresa()
+        {
+            Rol rol = new Rol();
+            rol.Nombre = "Empresa";
+            return rol;
+        }
+
+        public String rolCliente()
+        {
+            return "Cliente";
+        }
+
+
         public static Sesion getInstance()
         {
             if (sesion == null)
