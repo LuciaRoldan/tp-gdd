@@ -76,12 +76,14 @@ namespace PalcoNet
                 if (roles.Count() > 1)
                 {
                       new SeleccionarRol().Show();
+                      this.Hide();
                 }
                 else
                 {
                     Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     new SeleccionarFuncionalidad().Show();
+                    this.Hide();
                 }
             }
             catch (SqlException ex)
