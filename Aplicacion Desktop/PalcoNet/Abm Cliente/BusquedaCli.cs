@@ -13,9 +13,10 @@ using PalcoNet.Dominio;
 
 namespace PalcoNet.Abm_Cliente
 {
+  
     public partial class BusquedaCli : MiForm
     {
-        
+      
         public BusquedaCli(MiForm formAnterior) : base(formAnterior)
            
         {
