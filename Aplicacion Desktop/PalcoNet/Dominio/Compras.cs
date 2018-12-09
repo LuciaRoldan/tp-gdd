@@ -10,10 +10,17 @@ namespace PalcoNet.Dominio
     {
         Publicacion publicacion;
         Tarjeta medioDePago;
-        float importe;
+        decimal importe;
         List<Ubicacion> ubicaciones;
         int cantidadEntradas;
         int id;
+        decimal comision;
+
+        public decimal Comision
+        {
+            get { return comision; }
+            set { comision = value; }
+        }
 
         public int Id
         {
@@ -52,7 +59,7 @@ namespace PalcoNet.Dominio
             set { fecha = value; }
         }
 
-        internal float Importe
+        internal decimal Importe
         {
             get { return importe; }
             set { importe = value; }

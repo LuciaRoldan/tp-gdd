@@ -164,6 +164,7 @@ ALTER TABLE Compras ADD
 id_cliente INT REFERENCES Clientes,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
+comision NUMERIC(3,3),
 fecha DATETIME,
 importe INT;
 

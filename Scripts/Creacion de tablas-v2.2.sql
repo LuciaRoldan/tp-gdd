@@ -1,5 +1,6 @@
 --USE GD2C2018
-
+--exec crearTablas_sp
+--drop procedure crearTablas_sp
 CREATE PROCEDURE crearTablas_sp
 AS
 BEGIN
@@ -153,6 +154,7 @@ ALTER TABLE Compras ADD
 id_cliente INT REFERENCES Clientes,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
+comision NUMERIC(3,3),
 fecha DATETIME,
 importe INT;
 
