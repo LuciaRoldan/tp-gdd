@@ -13,6 +13,13 @@ namespace PalcoNet.Dominio
         float importe;
         List<Ubicacion> ubicaciones;
         int cantidadEntradas;
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public int CantidadEntradas
         {

@@ -83,7 +83,7 @@ namespace PalcoNet.Generar_Publicacion
                     + publicacion.EstadoDePublicacion + "', '" + u.TipoAsiento + "', '"
                     + u.CantidadAsientos + "', '" + (u.Numerada? u.CantidadFilas : 0) +  "', '" + u.Precio + "'";
 
-                    servidor.query("EXEC dbo.ragregarEspectaculoYUbicaciones_sp " + query);
+                    servidor.query("EXEC dbo.ragregarEspectaculoYUbicaciones_sp " + query2);
                 }
             }
 
