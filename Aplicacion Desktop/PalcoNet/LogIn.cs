@@ -84,7 +84,7 @@ namespace PalcoNet
                 {
                     Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
-                    sesion.rol = roles[0];
+                    //sesion.rol = roles[0];
                     new SeleccionarFuncionalidad().Show();
                     this.Hide();
                 }
