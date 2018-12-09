@@ -26,9 +26,10 @@ namespace PalcoNet.Generar_Publicacion
         public CrearPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-
+            Console.WriteLine(Sesion.getInstance().rol.Nombre + "+++++++++++++++");
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
+                
                 Empresa empresa = (Empresa)Sesion.getInstance().usuario;
 
 

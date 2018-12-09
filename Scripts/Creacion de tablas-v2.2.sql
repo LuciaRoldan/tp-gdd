@@ -215,6 +215,4 @@ ALTER TABLE Premios ADD
 descripcion VARCHAR(110),
 puntos BIGINT;
 
-
-
 END
