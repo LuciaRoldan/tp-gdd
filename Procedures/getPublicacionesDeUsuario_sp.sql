@@ -7,10 +7,3 @@ BEGIN
 	JOIN Usuarios u ON (e.id_usuario = u.id_usuario)
 	WHERE username = @usuario
 END
-
-select * from Publicaciones
-drop procedure getPublicacionesDeUsuario_sp
-
-exec getPublicacionesDeUsuario_sp '19-67139304-09'
-
-select * from Usuarios

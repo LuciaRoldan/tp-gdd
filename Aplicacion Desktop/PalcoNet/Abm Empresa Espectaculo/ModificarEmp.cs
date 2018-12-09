@@ -14,6 +14,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
     public partial class ModificarEmp : MiForm
     {
         bool fueModificada = false;
+        Servidor servidor = Servidor.getInstance();
+        Empresa empresaVieja;
 
         public bool FueModificada
         {
@@ -24,22 +26,26 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         public ModificarEmp(Empresa empresa, MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+
+            textBoxRazonSocial.Text += empresa.RazonSocial;
+            textBoxMail.Text += empresa.Mail;
+            textBoxCuit.Text += empresa.Cuit;
+   
+            empresaVieja = empresa;
         }
 
         public bool verificarCampos()
         {
             string errores = "";
-            int numero;
-            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
-                && !string.IsNullOrWhiteSpace(textBoxMail.Text)
+            long numero;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxMail.Text)
                 && !string.IsNullOrWhiteSpace(textBoxCuit.Text)
                 && !string.IsNullOrWhiteSpace(textBoxRazonSocial.Text);
 
             if (!camposCompletos) {
                 errores += "Todos los campos deben estar completos.";
             } else {
-                if (!int.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
-                if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+                if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
             }
 
             if (errores != "") { 
@@ -62,11 +68,14 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             {
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
-                empresaModificada.Cuit = Int32.Parse(textBoxCuit.Text);
-                empresaModificada.Mail = textBoxMail.Text;
-                empresaModificada.Telefono = Int32.Parse(textBoxTelefono.Text);
+                empresaModificada.Cuit = Int64.Parse(textBoxCuit.Text);
+                empresaModificada.Mail = textBoxMail.Text; 
                 //Aca hay que hacer el update en la base
 
+                String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
+                                + "', '" + empresaModificada.Cuit + "'";
+                servidor.realizarQuery("EXEC modificarEmpresa_sp '" + query);
+                this.cerrarAnteriores();
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }

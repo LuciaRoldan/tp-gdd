@@ -106,6 +106,7 @@ namespace PalcoNet
                         this.Hide();
                         break;
                     case "Canje y administracion de puntos":
+                        Console.WriteLine("SELECCIONA CON USUARIO: " + sesion.usuario.NombreUsuario);
                         new CanjePuntos(this).Show(); 
                         this.Hide();
                         break;
