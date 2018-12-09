@@ -67,9 +67,9 @@ namespace PalcoNet
                 cliente.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                 cliente.Mail = reader["mail"].ToString();
                 cliente.Apellido = reader["apellido"].ToString();
-                cliente.Ciudad = reader["ciudad"].ToString();
+                //cliente.Ciudad = reader["ciudad"].ToString();
                 cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
-                cliente.Localidad = reader["localidad"].ToString();
+                //cliente.Localidad = reader["localidad"].ToString();
                 cliente.Nombre = reader["nombre"].ToString();
                 cliente.NumeroDeDocumento = Convert.ToInt32(reader["numero_documento"]);
                 cliente.Puntos = Convert.ToInt32(reader["puntos"]);

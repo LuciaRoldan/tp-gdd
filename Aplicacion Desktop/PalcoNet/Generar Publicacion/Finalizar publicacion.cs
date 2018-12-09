@@ -34,7 +34,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
-                this.Empresa = (Empresa)Sesion.getInstance().usuario;
+                this.Empresa = Sesion.getInstance().traerEmpresa();
                 this.Publicacion = publicacion;
                 InitializeComponent();
                 textBoxDescripcion.Text = this.publicacion.Descripcion;
@@ -60,53 +60,32 @@ namespace PalcoNet.Generar_Publicacion
             //Se guarda todo lo que se tenga que guardar en la base
             //insertar la publicacion falla con un tema de datos que no se que es
 
-            string query = "'" + Sesion.sesion.usuario + "', '" + publicacion.GradoDePublicacion + "', '"
+            /*string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
                             + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                             + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
-                            + publicacion.FechaDeEvento + "', '" + publicacion.EstadoDePublicacion + "'";
+                            + publicacion.FechaDeEvento + "', '" + publicacion.EstadoDePublicacion + "'";*/
+            string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
+                    + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
+                    + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";
 
-                Console.WriteLine(query);
-
-                SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
+            SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
             
 
-                while (reader.Read())
-                {
-                    publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);
+            while (reader.Read())
+            {
+                publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);
                     
+            }
+
+            foreach (DateTime f in publicacion.Fechas) {
+                foreach (Ubicacion u in publicacion.Ubicaciones) {
+                    string query2 = "'" + publicacion.Id + "', '" + f + "', '"
+                    + publicacion.EstadoDePublicacion + "', '" + u.TipoAsiento + "', '"
+                    + u.CantidadAsientos + "', '" + (u.Numerada? u.CantidadFilas : 0) +  "', '" + u.Precio + "'";
+
+                    servidor.query("EXEC dbo.ragregarEspectaculoYUbicaciones_sp " + query);
                 }
-                string queryEspectaculo;
-                List<int>id_espectaculos = new List<int>();
-                foreach (DateTime fecha in this.publicacion.Fechas)
-                {
-
-                    SqlDataReader readerEsp = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
-
-                    while (reader.Read())
-                    {
-                        id_espectaculos.Add(Convert.ToInt32(reader["id_publicacion"]));
-
-                    }
-
-                }
- 
-                string queryUbicacion;
-                foreach (Ubicacion u in this.publicacion.Ubicaciones)
-                {
-                    if(u.Numerada){
-                        queryUbicacion = "'" + publicacion.Id + "', '" + u.TipoAsiento + "', '"
-                                         + u.CantidadAsientos + "', '" + u.CantidadFilas + "', '"
-                                         + u.Precio + "'";
-                       servidor.realizarQuery("EXEC dbo.agregarUbicacionNumerada_sp " + query);
-
-
-                    } else{
-                        queryUbicacion = "'" + publicacion.Id + "', '" + u.TipoAsiento + "', '"
-                                         + u.CantidadAsientos + "', '" + u.Precio + "'";
-                        servidor.realizarQuery("EXEC dbo.agregarUbicacionSinNumerar_sp " + query);
-                    }
-
-                }
+            }
 
             MessageBox.Show("La publicación se creó exitosamente!", "Publicación", MessageBoxButtons.OK);
             this.cerrarAnteriores(); 

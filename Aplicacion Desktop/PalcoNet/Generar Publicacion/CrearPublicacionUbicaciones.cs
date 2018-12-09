@@ -35,13 +35,13 @@ namespace PalcoNet.Generar_Publicacion
             this.Publicacion = publicacion;
             InitializeComponent();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getTipoUbicacion_sp");
+            /*SqlDataReader reader = servidor.query("EXEC dbo.getTipoUbicacion_sp");
 
             while (reader.Read())
             {
                 comboBoxTipo.Items.Add(reader["tipo_ubicacion"].ToString());
             }
-            reader.Close();
+            reader.Close();*/
             //Aca habria que buscar todos los rubros disponibles que hay que
         }
 
@@ -61,7 +61,7 @@ namespace PalcoNet.Generar_Publicacion
 
                 ubicacion.CantidadAsientos = Int32.Parse(textBoxCantidad.Text);
                 ubicacion.Precio = decimal.Parse(textBoxPrecio.Text);
-                ubicacion.TipoAsiento = comboBoxTipo.Text;
+                ubicacion.TipoAsiento = textBoxTipo.Text;
                 ubicacion.Numerada = checkBoxNumerado.Checked;
                 if (checkBoxNumerado.Checked) { ubicacion.CantidadFilas = Int32.Parse(textBoxFilas.Text); }
 
@@ -88,7 +88,7 @@ namespace PalcoNet.Generar_Publicacion
             if (checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) { errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"; }
             if(!int.TryParse(textBoxCantidad.Text, out x)) {errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n" ;}
             if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
-            if(comboBoxTipo.SelectedIndex < 0) {errores += "Se debe seleccionar un Tipo de Asiento.\n"; }
+            if(string.IsNullOrWhiteSpace(textBoxTipo.Text)) {errores += "Se debe completar con un Tipo de Asiento.\n"; }
            
             if (errores != "") { 
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
