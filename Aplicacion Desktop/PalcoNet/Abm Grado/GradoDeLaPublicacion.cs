@@ -82,7 +82,7 @@ namespace PalcoNet.Abm_Grado
             //Aca hay que hacer un update en la base de la publicacion seleccionada
             //Estaria bueno que salga un cartelito de que salio todo ok
 
-            servidor.realizarQuery("EXEC dbo.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion );
+            servidor.realizarQuery("EXEC dbo.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion + "'");
             MessageBox.Show("El grado de la publicacion se ha modificado con éxito", "Grado Publicación", MessageBoxButtons.OK);
         }
 
