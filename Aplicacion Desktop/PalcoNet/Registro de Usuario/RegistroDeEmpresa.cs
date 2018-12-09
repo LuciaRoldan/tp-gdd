@@ -32,10 +32,10 @@ namespace PalcoNet.Registro_de_Usuario
         private bool camposCompletos()
         {
             string error = "";
-            int x;
+            long x;
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
-            if (!int.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
+            if (!long.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
 
             if (error != "")
             {
@@ -61,7 +61,7 @@ namespace PalcoNet.Registro_de_Usuario
         {
             if (this.camposCompletos()){
                 Empresa.RazonSocial = textBoxRazonSocial.Text;
-                Empresa.Cuit = Int32.Parse(textBoxCUIT.Text);
+                Empresa.Cuit = Int64.Parse(textBoxCUIT.Text);
                 Empresa.FechaDeCreacion = DateTime.Now;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
 

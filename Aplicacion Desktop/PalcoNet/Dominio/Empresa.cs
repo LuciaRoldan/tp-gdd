@@ -10,7 +10,7 @@ namespace PalcoNet.Dominio
     {
         string razonSocial;
         string mail;
-        int cuit;
+        long cuit;
         DateTime fechaDeCreacion;
         int telefono;
 
@@ -32,7 +32,7 @@ namespace PalcoNet.Dominio
             set { mail = value; }
         }
 
-        public int Cuit
+        public long Cuit
         {
             get { return cuit; }
             set { cuit = value; }
