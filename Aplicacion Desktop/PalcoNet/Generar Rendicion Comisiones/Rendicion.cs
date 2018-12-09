@@ -11,7 +11,7 @@ using PalcoNet.Dominio;
 
 namespace PalcoNet.Generar_Rendicion_Comisiones
 {
-    public partial class Rendicion : Form
+    public partial class Rendicion : MiForm
     {
 
         Empresa empresaSeleccionada;
@@ -29,7 +29,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
             set { empresas = value; }
         }
 
-        public Rendicion()
+        public Rendicion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
             //Aca hay que buscar en la base de datos todas las Empresas

@@ -21,6 +21,7 @@ using PalcoNet.Canje_Puntos;
 using PalcoNet.Generar_Rendicion_Comisiones;
 using PalcoNet.Listado_Estadistico;
 using PalcoNet.Dominio;
+using PalcoNet.Abm_Rubro;
 
 namespace PalcoNet
 {
@@ -70,40 +71,51 @@ namespace PalcoNet
                         break;
                     case "Registro de usuario":
                         new RegistroDeUsuario1(this).Show();
+                        this.Hide();
                         break;
                     case "ABM de cliente":
                         new BusquedaCli(this).Show(); //ver si depende del rol 
+                        this.Hide();
                         break;
                     case "ABM de empresa de espectaculos":
                         new BusquedaEmp(this).Show();
+                        this.Hide();
                         break;
                     case "ABM de categoria":
-                        //falta pantallita de abm categorias
+                        new AbmRubro(this).Show();
+                        this.Hide();
                         break;
                     case "ABM grado de publicacion":
-                        // new GradoDeLaPublicacion(this).Show(); tiene que ser con empresa
+                        new GradoDeLaPublicacion(this).Show();
+                        this.Hide();
                         break;
                     case " Generar publicacion":
-                       // new CrearPublicacion(this).Show();
+                        new CrearPublicacion(this).Show();
+                        this.Hide();
                         break;
                     case "Editar publicacion":
-                       // new Editar_publicacion().Show();
+                        new Editar_publicacion(this).Show();
+                        this.Hide();
                         break;
                     case "Comprar":
-                        Cliente cliente = this.obtenerCliente();
                         new BuscarP(this).Show();
+                        this.Hide();
                         break;
                     case "Historial del cliente":
-                        //new Historial().Show();
+                        new Historial(this).Show();
+                        this.Hide();
                         break;
                     case "Canje y administracion de puntos":
-                        //new CanjePuntos().Show(); es para cliente
+                        new CanjePuntos(this).Show(); 
+                        this.Hide();
                         break;
                     case "Generar pago de comisiones":
-                        new Rendicion().Show();
+                        new Rendicion(this).Show();
+                        this.Hide();
                         break;
                     case "Listado estadistico":
-                        //new Listados().Show();
+                        new Listados(this).Show();
+                        this.Hide();
                         break;
                 }
             }
