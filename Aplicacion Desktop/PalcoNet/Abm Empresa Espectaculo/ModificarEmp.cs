@@ -48,7 +48,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
             }
 
-            if (errores != "") { 
+            if (errores != "") {
+                Console.WriteLine("Hay errores");
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
                 return false;
             }
@@ -66,6 +67,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             if (this.verificarCampos() && this.FueModificada) //Tambien faltaria verificar que no sean nulos los ingresados
             {
+                Console.WriteLine("Estoy en el if");
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
                 empresaModificada.Cuit = Int64.Parse(textBoxCuit.Text);
@@ -75,11 +77,25 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
                                 + "', '" + empresaModificada.Cuit + "'";
                 servidor.realizarQuery("EXEC modificarEmpresa_sp '" + query);
-                this.cerrarAnteriores();
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }
             
+        }
+
+        private void textBoxRazonSocial_TextChanged(object sender, EventArgs e)
+        {
+            this.FueModificada = true;
+        }
+
+        private void textBoxMail_TextChanged(object sender, EventArgs e)
+        {
+            this.FueModificada = true;
+        }
+
+        private void textBoxCuit_TextChanged(object sender, EventArgs e)
+        {
+            this.FueModificada = true;
         }
     }
 }

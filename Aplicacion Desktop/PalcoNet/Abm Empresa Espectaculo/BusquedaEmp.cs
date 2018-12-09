@@ -60,7 +60,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 empresa.RazonSocial = textBox4.Text;
                 List<Empresa> resultados = new List<Empresa>();
 
-                String query = (empresa.Cuit == 0 ? "0" : empresa.Cuit.ToString()) + "', '" + empresa.RazonSocial + "', '" + empresa.Mail + "'";
+                String query = (empresa.Cuit == 0 ? "" : empresa.Cuit.ToString()) + "', '" + empresa.RazonSocial + "', '" + empresa.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarEmpresaPorCriterio_sp '" + query );
                 Console.WriteLine(query);
