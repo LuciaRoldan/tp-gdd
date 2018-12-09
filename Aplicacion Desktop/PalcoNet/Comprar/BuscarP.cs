@@ -16,6 +16,8 @@ namespace PalcoNet.Comprar
     {
         Cliente cliente;
         List<string> categorias;
+        Sesion sesion = Sesion.getInstance();
+        Servidor servidor = Servidor.getInstance();
 
         public List<string> Categorias
         {
@@ -31,10 +33,9 @@ namespace PalcoNet.Comprar
 
         public BuscarP(MiForm anterior) : base(anterior)
         {
-            if (Sesion.getInstance().rol.Nombre == "Cliente") {
-                this.Cliente = (Cliente)Sesion.getInstance().usuario;
+            if (sesion.rol.Nombre == "Cliente") {
+                this.Cliente = sesion.traerCliente();
 
-                Servidor servidor = Servidor.getInstance();
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
 
                 while (reader.Read())
@@ -44,7 +45,7 @@ namespace PalcoNet.Comprar
                 reader.Close();
 
             } else {
-                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
+                MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
                     "Podrá simular el proceso de compra pero no comprar.", "Advertencia", MessageBoxButtons.OK);
             }
             InitializeComponent();
@@ -95,10 +96,30 @@ namespace PalcoNet.Comprar
                     desde = this.dateTimePickerDesde.Value;
                     hasta = this.dateTimePickerHasta.Value;
                 }
+                String categorias = "";
+                foreach (String s in categoriasSelecc)
+                {
+                    categorias = categorias + "', '" + s + "'";
+                }
+
+                String query = descripcion + "', '" + categorias + "', '" + desde + "', '" + hasta;
+
+               
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio " + query);
+                List<Publicacion> resultados = new List<Publicacion>();
+
+
+                while (reader.Read())
+                {
+                    Publicacion publicacion = new Publicacion();
+                    publicacion.Id = Convert.ToInt16(reader["id_publicacion"]);
+                    publicacion.Descripcion = reader["descripcion"].ToString();
+                    publicacion.Direccion = reader["direccion"].ToString();
+                    resultados.Add(publicacion);
+                }
+                reader.Close();
 
                 //Aca hay que hacer la query y traer los resultados ordenados de los primeron no se cuantos por pagina
-
-                List<Publicacion> resultados = new List<Publicacion>();
 
                 if (!resultados.Any()){
                     MessageBox.Show("No se encontraron resultados.", "Error", MessageBoxButtons.OK);
