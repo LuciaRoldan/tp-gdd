@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Registro_de_Usuario;
@@ -14,6 +15,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 {
     public partial class BusquedaEmp : MiForm
     {
+        Servidor servidor = Servidor.getInstance();
+        Sesion sesion = Sesion.getInstance();
+
         public BusquedaEmp(MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
@@ -21,7 +25,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         public bool verificarCampos(){
             string errores = "";
-            int cuit;
+            long cuit;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBox1.Text)
                 || !string.IsNullOrWhiteSpace(textBox2.Text)
                 || !string.IsNullOrWhiteSpace(textBox4.Text);
@@ -29,7 +33,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (!camposCompletos) {
                 errores += "Se debe completar al menos un campo para realizar la búsqueda.";
             } else {
-                if (!int.TryParse(textBox1.Text, out cuit)) { errores += "El CUIT debe ser un valor numérico"; }
+                if (!string.IsNullOrWhiteSpace(textBox1.Text) ? !long.TryParse(textBox1.Text, out cuit) : false) { errores += "El CUIT debe ser un valor numérico."; }
             }
 
             if (errores != "") { 
@@ -51,17 +55,38 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (this.verificarCampos())
             {
                 Empresa empresa = new Empresa();
-                empresa.Cuit = Int32.Parse(textBox1.Text);
+                if (!string.IsNullOrWhiteSpace(textBox1.Text)) { empresa.Cuit = Int64.Parse(textBox1.Text); }
                 empresa.Mail = textBox2.Text;
                 empresa.RazonSocial = textBox4.Text;
                 List<Empresa> resultados = new List<Empresa>();
 
-                //Aca hay que buscar en la base
-                //Verificar que la lista no este vacia
+                String query = (empresa.Cuit == 0 ? "0" : empresa.Cuit.ToString()) + "', '" + empresa.RazonSocial + "', '" + empresa.Mail + "'";
+
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarEmpresaPorCriterio_sp '" + query );
+                Console.WriteLine(query);
+                while (reader.Read())
+                {
+                    Empresa empresaEnc = new Empresa();
+                    empresaEnc.RazonSocial = reader["razon_social"].ToString();
+                    empresaEnc.Mail = reader["mail"].ToString();
+                    empresaEnc.Cuit = Convert.ToInt64(reader["cuit"]);
+                    empresaEnc.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
+                    empresaEnc.Calle = reader["calle"].ToString();
+                    empresaEnc.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
+                    empresaEnc.Piso = Convert.ToInt32(reader["piso"]);
+                    empresaEnc.Departamento = reader["depto"].ToString();
+
+                    resultados.Add(empresaEnc);
+                }
+                reader.Close();
 
                 var bindingList = new BindingList<Empresa>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
+
+                //Aca hay que buscar en la base
+                //Verificar que la lista no este vacia
+
             }
         }
 
@@ -89,6 +114,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textBox1.Text = "";
             textBox2.Text = "";
             textBox4.Text = "";
+        }
+
+        private void dataGridViewResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

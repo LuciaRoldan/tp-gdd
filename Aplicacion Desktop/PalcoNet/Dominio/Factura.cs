@@ -10,7 +10,7 @@ namespace PalcoNet.Dominio
     {
         Empresa empresa;
         DateTime fechaDeFacturacion;
-        float importeTotal;
+        decimal importeTotal;
 
         internal Empresa Empresa
         {
@@ -24,7 +24,7 @@ namespace PalcoNet.Dominio
             set { fechaDeFacturacion = value; }
         }
         
-        public float ImporteTotal
+        public decimal ImporteTotal
         {
             get { return importeTotal; }
             set { importeTotal = value; }

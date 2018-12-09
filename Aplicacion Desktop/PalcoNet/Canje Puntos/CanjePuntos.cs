@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -13,16 +14,12 @@ namespace PalcoNet.Canje_Puntos
 {
     public partial class CanjePuntos : MiForm
     {
+        Servidor servidor = Servidor.getInstance();
+        Sesion sesion = Sesion.getInstance();
         Cliente cliente;
         int puntosOriginales;
         int puntosAcumulados = 0;
         List<Premio> premios = new List<Premio>();
-
-        public Cliente Cliente
-        {
-            get { return cliente; }
-            set { cliente = value; }
-        }
 
         internal List<Premio> Premios
         {
@@ -44,29 +41,48 @@ namespace PalcoNet.Canje_Puntos
 
         public CanjePuntos(MiForm anterior) : base(anterior)
         {
-            if (Sesion.getInstance().rol.Nombre == "Cliente") {
-                this.Cliente = (Cliente) Sesion.getInstance().usuario;
-                this.PuntosOriginales = this.Cliente.Puntos;
-                this.textBoxPuntos.Text = this.Cliente.Puntos.ToString();
+            Cliente cliente = new Cliente();
+            String username = sesion.usuario.NombreUsuario;
+           
+            Console.WriteLine("LLEGA ACA CON ROL: " + sesion.rol.Nombre);
 
-                //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
+                     if (sesion.rol.Nombre == "Cliente") {
+                         
+                          SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + username + "'");
+                          Console.WriteLine("ENTONCES ENTRA ACA CON USER: " + username);
+                          while (reader.Read())
+                          {
 
-                Premio premio1 = new Premio();
-                premio1.Descripcion = "Pava electrica";
-                premio1.CantidadDePuntos = 1000;
-                Premio premio2 = new Premio();
-                premio2.Descripcion = "Set misladrillos";
-                premio2.CantidadDePuntos = 650;
-                premios.Add(premio1);
-                premios.Add(premio2);
+                              puntosAcumulados = Convert.ToInt32(reader["cantidad_puntos"]);
+                              cliente.Puntos = Convert.ToInt32(reader["cantidad_puntos"]);
+                              Console.WriteLine("SALE DEL WHILE CON PUNTOS: " + puntosAcumulados);
+                          }
+                          
+                          reader.Close();
+                         
+                          reader = servidor.query("EXEC dbo.getPremios_sp");
 
-                foreach (Premio premio in premios) {
-                    checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
-                }
-            } else {
-                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
-                button1.Enabled = false;
-            }
+                          while (reader.Read())
+                          {
+                              Console.WriteLine("LLEGA ACA TAMBIEN");
+                              Premio premio = new Premio();
+                              premio.Descripcion = reader["nombre"].ToString();
+                              premio.CantidadDePuntos = Convert.ToInt32(reader["puntos"]);
+                              checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
+                              premios.Add(premio);
+                              Console.WriteLine("LLEGA AL FINAL CON PREMIO: " + premio.Descripcion);
+                              
+                          }
+                          reader.Close();
+                          Console.WriteLine("TERMINA LOS DOS WHILE");
+
+                          //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
+
+                      } else {
+                          MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
+                        button1.Enabled = false;
+      
+                      }
             InitializeComponent();
         }
 
@@ -80,7 +96,7 @@ namespace PalcoNet.Canje_Puntos
             //Aca hay que hacer que se cambien los puntos
             //Capaz estaria bueno que salga un cartelito de que salio todo bien
             
-            this.Cliente.Puntos = this.PuntosOriginales - this.PuntosAcumulados;
+             cliente.Puntos = this.PuntosOriginales - this.PuntosAcumulados;
             List<Premio> premiosSeleccionados = new List<Premio>();
             foreach (int index in this.checkedListBoxPremios.SelectedIndices) {
                 premiosSeleccionados.Add(this.Premios[index]);

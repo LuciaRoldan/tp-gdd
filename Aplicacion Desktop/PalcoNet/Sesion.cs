@@ -75,7 +75,7 @@ namespace PalcoNet
                 cliente.Puntos = Convert.ToInt32(reader["puntos"]);
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
                 cliente.Piso = Convert.ToInt32(reader["piso"]);
-
+                Console.WriteLine("EL NOMBRE ES: " + cliente.Nombre);
             }
             return cliente;
         }

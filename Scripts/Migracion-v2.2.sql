@@ -1,5 +1,6 @@
 --USE GD2C2018
-
+--drop procedure migrarTablas_sp
+--exec migrarTablas_sp
 
 CREATE PROCEDURE migrarTablas_sp
 AS
@@ -250,14 +251,15 @@ id_cliente INT REFERENCES Clientes,
 id_espectaculo INT REFERENCES Espectaculos,
 id_medio_de_pago INT REFERENCES Medios_de_pago,
 id_factura INT REFERENCES Facturas,
+comision NUMERIC(3,3),
 fecha DATETIME,
 asiento INT,
 fila CHAR(1),
 tipo_codigo INT
 )
 
-INSERT INTO #ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, fecha, asiento, fila, tipo_codigo)
-SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, gd.Compra_Fecha, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo
+INSERT INTO #ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, comision, fecha, asiento, fila, tipo_codigo)
+SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, 0, gd.Compra_Fecha, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo
 FROM gd_esquema.Maestra gd
 JOIN Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)

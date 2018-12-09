@@ -13,21 +13,21 @@ using PalcoNet.Dominio;
 
 namespace PalcoNet.Abm_Cliente
 {
-  
     public partial class BusquedaCli : MiForm
     {
-      
-        public BusquedaCli(MiForm formAnterior) : base(formAnterior)
-           
+
+        public BusquedaCli(MiForm formAnterior)
+            : base(formAnterior)
         {
             InitializeComponent();
-            
+
         }
 
         Servidor servidor = Servidor.getInstance();
         List<Cliente> clientesEncontrados = new List<Cliente>();
 
-        public bool verificarCampos() {
+        public bool verificarCampos()
+        {
             string errores = "";
             int dni;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
@@ -35,13 +35,17 @@ namespace PalcoNet.Abm_Cliente
                 || !string.IsNullOrWhiteSpace(textBoxDni.Text)
                 || !string.IsNullOrWhiteSpace(textBoxMail.Text);
 
-            if (!camposCompletos) {
+            if (!camposCompletos)
+            {
                 errores += "Se debe completar al menos un campo para realizar la búsqueda.";
-            } else {
+            }
+            else
+            {
                 if (!string.IsNullOrWhiteSpace(textBoxDni.Text) ? !int.TryParse(textBoxDni.Text, out dni) : false) { errores += "El DNI debe ser un valor numérico."; }
             }
 
-            if (errores != "") { 
+            if (errores != "")
+            {
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
                 return false;
             }
@@ -70,13 +74,13 @@ namespace PalcoNet.Abm_Cliente
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Apellido = textBoxApellido.Text;
                 cliente.Mail = textBoxMail.Text;
-                if (!string.IsNullOrWhiteSpace(textBoxDni.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); } 
+                if (!string.IsNullOrWhiteSpace(textBoxDni.Text)) { cliente.NumeroDeDocumento = Int32.Parse(textBoxDni.Text); }
                 List<Cliente> resultados = new List<Cliente>();
 
-                String query = cliente.Nombre + "', '" + cliente.Apellido + "', " + (cliente.NumeroDeDocumento == 0 ? "''" : cliente.NumeroDeDocumento.ToString()) + 
+                String query = cliente.Nombre + "', '" + cliente.Apellido + "', " + (cliente.NumeroDeDocumento == 0 ? "''" : cliente.NumeroDeDocumento.ToString()) +
                                 ", '" + cliente.Mail + "'";
 
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarUsuarioPorCriterio_sp '" + query );
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarUsuarioPorCriterio_sp '" + query);
                 Console.WriteLine(query);
                 while (reader.Read())
                 {
@@ -96,7 +100,7 @@ namespace PalcoNet.Abm_Cliente
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);
-            
+
                 }
                 reader.Close();
 
@@ -105,8 +109,8 @@ namespace PalcoNet.Abm_Cliente
                 dataGridResultados.DataSource = source;
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
 
-                }
-          }
+            }
+        }
 
 
         private void buttonModificar_Click(object sender, EventArgs e)
