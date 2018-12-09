@@ -46,51 +46,27 @@ namespace PalcoNet.Abm_Grado
                 //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
                 //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
 
+                SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
+                List<Publicacion> publicaciones = new List<Publicacion>();
+
+                while (reader.Read())
+                {
+                    Publicacion publicacion = new Publicacion();
+                    publicacion.Id = Convert.ToInt16(reader["id_publicacion"]);
+                    publicacion.Descripcion = reader["descripcion"].ToString();
+                    publicacion.Direccion = reader["direccion"].ToString();
+                    checkedListBoxPublicaciones.Items.Add(publicacion.Descripcion);
+                    publicaciones.Add(publicacion);
+                }
+                reader.Close();
+
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 buttonAceptar.Enabled = false;
             }
 
             InitializeComponent();
-
-            SqlDataReader reader = servidor.query("EXEC dbo.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
-            List<int> idPublicaciones = new List<int>();
-
-            while (reader.Read())
-            {
-                checkedListBoxPublicaciones.Items.Add(reader["descripcion"].ToString());
-                idPublicaciones.Add(Convert.ToInt16(reader["id_empresa"]));  
-            }
-            reader.Close();
-            
-            foreach(int id in idPublicaciones){
-
-                SqlDataReader read = servidor.query("EXEC dbo.getGradoDePublicacion_sp '" + id + "'");
-
-                while (reader.Read())
-                {
-                    String grado = reader["nombre"].ToString();
-                    if (grado != "NULL")
-                    {
-                        for (int i = 0; this.checkedListBoxGrado.Items.Count > i; i++)
-                        {
-
-                         //   if (checkedListBoxGrado.i.Name == grado)
-                            {
-                            }
-                        }
-                    }
-
-                         
-                {
-
-                    //this.checkedListBox.SetItemChecked(i, false);
-                }
-                    }
-                    checkedListBoxGrado.Items.Add(reader["descripcion"].ToString());
-                    idPublicaciones.Add(Convert.ToInt16(reader["id_empresa"]));
-                }
-                reader.Close();
+             
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -104,6 +80,8 @@ namespace PalcoNet.Abm_Grado
             //Aca hay que hacer un update en la base de la publicacion seleccionada
             //Estaria bueno que salga un cartelito de que salio todo ok
 
+            servidor.realizarQuery("EXEC dbo.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion );
+            MessageBox.Show("El grado de la publicacion se ha modificado con éxito", "Grado Publicación", MessageBoxButtons.OK);
         }
 
         private void checkedListBoxPublicaciones_ItemCheck(object sender, ItemCheckEventArgs e)
