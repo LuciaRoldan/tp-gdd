@@ -28,10 +28,12 @@ namespace PalcoNet.Generar_Publicacion
             InitializeComponent();
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
+                Console.WriteLine("2");
+                
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-
+                
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
-
+                
                 while (reader.Read())
                 {
                     comboBoxRubro.Items.Add(reader["descripcion"].ToString());

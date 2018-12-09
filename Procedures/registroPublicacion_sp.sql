@@ -1,11 +1,10 @@
 CREATE PROCEDURE registrarPublicacion_sp(
-@nombre_empresa INT,
+@nombre_empresa NVARCHAR(255),
 @grado_publicacion NVARCHAR(20),
 @rubro NVARCHAR(100),
 @descripcion NVARCHAR(255),
 @estado_publicacion CHAR(15),
-@direccion NVARCHAR(80),
-@id_publicacion INT OUTPUT
+@direccion NVARCHAR(80)
 )
 AS
 BEGIN
@@ -16,5 +15,5 @@ BEGIN
 	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)
 	VALUES (@id_empresa, @id_grado_publicacion, @id_rubro, @descripcion, @direccion)
 
-	SET @id_publicacion = SCOPE_IDENTITY()
+	SELECT SCOPE_IDENTITY() AS id_publicacion
 END

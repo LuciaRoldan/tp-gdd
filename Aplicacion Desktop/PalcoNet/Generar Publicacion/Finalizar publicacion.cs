@@ -77,13 +77,15 @@ namespace PalcoNet.Generar_Publicacion
                     
             }
 
+            Console.WriteLine("Hasta acá llegué");
+
             foreach (DateTime f in publicacion.Fechas) {
                 foreach (Ubicacion u in publicacion.Ubicaciones) {
                     string query2 = "'" + publicacion.Id + "', '" + f + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + u.TipoAsiento + "', '"
                     + u.CantidadAsientos + "', '" + (u.Numerada? u.CantidadFilas : 0) +  "', '" + u.Precio + "'";
 
-                    servidor.query("EXEC dbo.ragregarEspectaculoYUbicaciones_sp " + query);
+                    servidor.query("EXEC dbo.agregarEspectaculoYUbicaciones_sp " + query2);
                 }
             }
 
