@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 using PalcoNet.Dominio;
 
 namespace PalcoNet.Registro_de_Usuario
@@ -69,7 +70,20 @@ namespace PalcoNet.Registro_de_Usuario
                 if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
                 {
                     empresa.NombreUsuario = textBoxRazonSocial.Text;
-                    empresa.Contrasenia = textBoxRazonSocial.Text;
+                   
+                    StringBuilder Sb = new StringBuilder();
+                    using (SHA256 hash = SHA256Managed.Create())
+                    {
+                        Encoding enc = Encoding.UTF8;
+                        Byte[] result = hash.ComputeHash(enc.GetBytes(textBoxRazonSocial.Text.ToString()));
+
+                        foreach (Byte b in result)
+                            Sb.Append(b.ToString("x2"));
+
+                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
+                    }
+                    empresa.Contrasenia = Sb.ToString();
+
                 }
 
                 new RegistroDomicilio(this, this.Empresa).Show();

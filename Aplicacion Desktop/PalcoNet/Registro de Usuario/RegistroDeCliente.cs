@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 using PalcoNet.Dominio;
 
 namespace PalcoNet.Registro_de_Usuario
@@ -74,7 +75,20 @@ namespace PalcoNet.Registro_de_Usuario
                 //Capaz aca hay que encriptar la contrasenia
                 if (string.IsNullOrWhiteSpace(cliente.NombreUsuario)) {
                     cliente.NombreUsuario = textBoxDocumento.Text;
-                    cliente.Contrasenia = textBoxDocumento.Text;
+                   
+                    StringBuilder Sb = new StringBuilder();
+                    using (SHA256 hash = SHA256Managed.Create())
+                    {
+                        Encoding enc = Encoding.UTF8;
+                        Byte[] result = hash.ComputeHash(enc.GetBytes(textBoxDocumento.Text.ToString()));
+
+                        foreach (Byte b in result)
+                            Sb.Append(b.ToString("x2"));
+
+                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
+                    }
+                    cliente.Contrasenia = Sb.ToString();
+                    
                 }
                 
                 new RegistroDomicilio(this, cliente).Show();
