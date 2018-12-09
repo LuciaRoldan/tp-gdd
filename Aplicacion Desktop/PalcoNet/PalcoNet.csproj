@@ -279,12 +279,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\BusquedaEmp.resx">
       <DependentUpon>BusquedaEmp.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa Espectaculo\ModificarEmp.resx">
       <DependentUpon>ModificarEmp.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Grado\GradoDeLaPublicacion.resx">
       <DependentUpon>GradoDeLaPublicacion.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\AbmRol.resx">
       <DependentUpon>AbmRol.cs</DependentUpon>
