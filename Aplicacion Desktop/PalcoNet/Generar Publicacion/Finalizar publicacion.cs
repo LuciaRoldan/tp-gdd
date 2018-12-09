@@ -68,25 +68,52 @@ namespace PalcoNet.Generar_Publicacion
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";
 
-            SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
-            
+            SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);            
 
             while (reader.Read())
             {
-                publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);
-                    
-            }
-
-            Console.WriteLine("Hasta acá llegué");
+                publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);                    
+            } 
+            
+            List<Int32> ids_espectaculos = new List<Int32>();
 
             foreach (DateTime f in publicacion.Fechas) {
-                foreach (Ubicacion u in publicacion.Ubicaciones) {
-                    string query2 = "'" + publicacion.Id + "', '" + f + "', '"
-                    + publicacion.EstadoDePublicacion + "', '" + u.TipoAsiento + "', '"
-                    + u.CantidadAsientos + "', '" + (u.Numerada? u.CantidadFilas : 0) +  "', '" + u.Precio + "'";
+                string query2 = "'" + publicacion.Id + "', '" + f + "', '" + publicacion.EstadoDePublicacion + "'";
+                SqlDataReader readerEspectaculo = servidor.query("EXEC dbo.agregarEspectaculo_sp " + query2);
+                
+                readerEspectaculo.Read();
+                Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
+                ids_espectaculos.Add(id);
+                
+            }
 
-                    servidor.query("EXEC dbo.agregarEspectaculoYUbicaciones_sp " + query2);
+
+            List<Int32> ids_ubicaciones = new List<Int32>();
+
+            foreach (Ubicacion u in publicacion.Ubicaciones)
+            {
+                string query3 = "'" + u.TipoAsiento + "', '"
+                + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
+
+                SqlDataReader readerUbicaciones = servidor.query("EXEC dbo.agregarUbicaciones_sp " + query3);
+
+                while (readerUbicaciones.Read())
+                {
+                    ids_ubicaciones.Add(Convert.ToInt32(readerUbicaciones["id_ubicacion"]));
                 }
+            }
+
+            foreach (Int32 id_u in ids_ubicaciones)
+            {
+                foreach (Int32 id_e in ids_espectaculos)
+                {
+                    Console.WriteLine(id_e);
+                    Console.WriteLine(id_u);
+                    
+                    string query4 = "'" + id_u + "', '"  + id_e + "'";
+                    servidor.query("EXEC dbo.agregarUbicacionXEspectaculo_sp " + query4);
+                }
+
             }
 
             MessageBox.Show("La publicación se creó exitosamente!", "Publicación", MessageBoxButtons.OK);

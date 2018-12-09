@@ -1,5 +1,4 @@
 CREATE PROCEDURE agregarUbicacionNumerada_sp(
-@id_espectaculo INT,
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @filas INT,
@@ -22,14 +21,14 @@ BEGIN
 			INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, tipo_ubicacion)
 			VALUES(CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, @tipo_ubicacion) --esta truchito, mati va a hacer funcion
 
-			SET @id_ubicacion = SCOPE_IDENTITY()
+			INSERT INTO #UbicacionesInsertadas
+			SELECT SCOPE_IDENTITY()
 
-			INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
-			VALUES (@id_espectaculo, @id_ubicacion, NULL)
-			
 			SET @contador_asientos += 1
 		END
 
 		SET @contador_filas +=1
 	END
+
+	SELECT * FROM #UbicacionesInsertadas
 END

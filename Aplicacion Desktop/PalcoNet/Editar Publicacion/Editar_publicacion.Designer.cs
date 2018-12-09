@@ -138,7 +138,7 @@
             this.comboBoxRubro.FormattingEnabled = true;
             this.comboBoxRubro.Items.AddRange(new object[] {
             "Borrador",
-            "Activo"});
+            "Publicada"});
             this.comboBoxRubro.Location = new System.Drawing.Point(82, 79);
             this.comboBoxRubro.Name = "comboBoxRubro";
             this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);
@@ -150,7 +150,7 @@
             this.comboBoxEstado.FormattingEnabled = true;
             this.comboBoxEstado.Items.AddRange(new object[] {
             "Borrador",
-            "Activo"});
+            "Publicada"});
             this.comboBoxEstado.Location = new System.Drawing.Point(82, 134);
             this.comboBoxEstado.Name = "comboBoxEstado";
             this.comboBoxEstado.Size = new System.Drawing.Size(268, 21);

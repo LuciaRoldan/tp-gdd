@@ -140,7 +140,7 @@
             this.comboBoxEstado.FormattingEnabled = true;
             this.comboBoxEstado.Items.AddRange(new object[] {
             "Borrador",
-            "Activo"});
+            "Publicada"});
             this.comboBoxEstado.Location = new System.Drawing.Point(128, 266);
             this.comboBoxEstado.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxEstado.Name = "comboBoxEstado";

@@ -1,5 +1,4 @@
 CREATE PROCEDURE agregarUbicacionSinNumerar_sp(
-@id_espectaculo INT,
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @precio NUMERIC(18)
@@ -15,12 +14,12 @@ BEGIN
 		INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, tipo_ubicacion)
 		VALUES(NULL, NULL, 1, @precio, @tipo_ubicacion)
 
-		SET @id_ubicacion = SCOPE_IDENTITY()
-
-		INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
-		VALUES (@id_espectaculo, @id_ubicacion, NULL)
+		INSERT INTO #UbicacionesInsertadas
+		SELECT SCOPE_IDENTITY()
 
 		SET @contador +=1
 
 	END
+
+	SELECT * FROM #UbicacionesInsertadas
 END

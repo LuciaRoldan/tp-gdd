@@ -1,4 +1,4 @@
-ALTER PROCEDURE agregarPublicacion_sp @nombre_empresa varchar(255), @grado_publicacion nvarchar(20), @rubro nvarchar(100), 
+CREATE PROCEDURE agregarPublicacion_sp @nombre_empresa varchar(255), @grado_publicacion nvarchar(20), @rubro nvarchar(100), 
 @descripcion varchar(255), @cantidad_asientos int, @direccion varchar(80), @fecha_inicio DATETIME, @fecha_evento DATETIME, 
 @estado_espectaculo char(15), @id_publicacion int OUTPUT
 AS
@@ -17,3 +17,5 @@ BEGIN
 	VALUES(1, @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo)
 
 END
+
+DROP PROCEDURE agregarPublicacion_sp
