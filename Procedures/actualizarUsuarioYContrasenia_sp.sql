@@ -5,6 +5,4 @@ end
 
 --drop procedure actualizarUsuarioYContrasenia_sp
 
---update Usuarios set username = 'chauchi', password = 'chauchi' where username = '1'
-
---select * from Usuarios where username = 'chauchi'
+--45023700
