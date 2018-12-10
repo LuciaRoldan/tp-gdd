@@ -233,9 +233,8 @@ namespace PalcoNet.Editar_Publicacion
                 Servidor servidor = Servidor.getInstance();
                 servidor.query("EXEC actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
                     "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
-                Console.WriteLine("++++++++++++++++++");
 
-                servidor.query("EXEC vaciarEspectaculosPublicacio_sp " + this.PublicacionElegida.Id);
+                servidor.query("EXEC vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
 
                 List<Int32> ids_espectaculos = new List<Int32>();
 

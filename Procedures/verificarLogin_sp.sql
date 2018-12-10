@@ -34,4 +34,3 @@ AS
 		END
 	END
 
-	DROP PROCEDURE verificarLogin_sp
