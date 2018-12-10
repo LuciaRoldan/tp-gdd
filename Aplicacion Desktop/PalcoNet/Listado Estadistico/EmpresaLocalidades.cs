@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -16,6 +17,7 @@ namespace PalcoNet.Listado_Estadistico
 
         DateTime fechaInicio;
         DateTime fechaFin;
+        Servidor servidor = Servidor.getInstance();
 
         public EmpresaLocalidades(DateTime inicio, DateTime fin, MiForm formAnterior) : base(formAnterior) 
         {
@@ -36,8 +38,23 @@ namespace PalcoNet.Listado_Estadistico
             //Ordenar por fecha y luego por visibilidad.
             //Devuelve Empresa, CUIT, CantidadLocalidadesNoVendidas
 
+            DateTime inicio = new DateTime(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox1.Text), 1);
+            DateTime fin = new DateTime(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox1.Text), 30);
+
+            SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + inicio + "', '" + fin + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();
-            
+
+            while (reader.Read())
+            {
+                CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();
+                localidad.Empresa = reader["Razon social"].ToString();
+                localidad.Cuit = Convert.ToInt32(reader["cuit"]);
+                localidad.LocalidadesNoVendidas = Convert.ToInt32(reader["Ubicaciones no vendidas"]);
+
+                localidadesEmpresa.Add(localidad);
+            }
+            reader.Close();
+
             var bindingList = new BindingList<CantidadLocalidadesEmpresa>(localidadesEmpresa);
             var source = new BindingSource(bindingList, null);
             localidadesEmpresaGrid.DataSource = source;
@@ -48,6 +65,26 @@ namespace PalcoNet.Listado_Estadistico
         {
             this.Anterior.Show();
             this.Hide(); 
+        }
+
+        private void localidadesEmpresaGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

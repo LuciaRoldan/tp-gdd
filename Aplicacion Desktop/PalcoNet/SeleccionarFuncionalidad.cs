@@ -74,7 +74,7 @@ namespace PalcoNet
                         this.Hide();
                         break;
                     case "ABM de cliente":
-                        new BusquedaCli(this).Show(); //ver si depende del rol 
+                        new BusquedaCli(this).Show();
                         this.Hide();
                         break;
                     case "ABM de empresa de espectaculos":

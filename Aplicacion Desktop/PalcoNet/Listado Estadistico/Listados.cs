@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
@@ -15,6 +16,7 @@ namespace PalcoNet.Listado_Estadistico
     {
 
         int anio;
+        Servidor servidor = Servidor.getInstance();
 
         public int Anio
         {
@@ -68,9 +70,7 @@ namespace PalcoNet.Listado_Estadistico
             //por cantidad de compras. Agrupando las publicaciones por empresa.
             //Nombre - Apellido - Usuario - Empresa - CantidadCompras
 
-            List<CompraCliente> comprasClientes = new List<CompraCliente>();
-
-            new ClientesMuchasCompras(comprasClientes, this).Show();
+            new ClientesMuchasCompras(inicio, fin, this).Show();
             this.Hide();
         }
 
@@ -100,13 +100,13 @@ namespace PalcoNet.Listado_Estadistico
 
         private void anioCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            anio = Int32.Parse(anioCombobox.SelectedValue.ToString());
+            anio = Int32.Parse(anioCombobox.Text.ToString());
         }
 
 
         private void trimestreCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            trimestre = trimestreCombobox.SelectedValue.ToString();
+            trimestre = trimestreCombobox.Text.ToString();
         }
 
         private DateTime armarFechaInicio()
