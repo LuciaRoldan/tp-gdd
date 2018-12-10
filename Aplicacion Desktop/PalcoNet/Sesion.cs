@@ -61,7 +61,8 @@ namespace PalcoNet
             {
                 cliente.Calle = reader["calle"].ToString();
                 cliente.CodigoPostal = reader["codigo_postal"].ToString();
-                cliente.Cuil = Convert.ToInt32(reader["cuil"]);
+                var cuil = reader["cuil"];
+                if (!(cuil is DBNull)) cliente.Cuil = Convert.ToInt32(cuil);
                 cliente.Departamento = reader["depto"].ToString();
                 cliente.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
                 cliente.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
@@ -71,12 +72,17 @@ namespace PalcoNet
                 cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
                 //cliente.Localidad = reader["localidad"].ToString();
                 cliente.Nombre = reader["nombre"].ToString();
-                cliente.NumeroDeDocumento = Convert.ToInt32(reader["numero_documento"]);
-                cliente.Puntos = Convert.ToInt32(reader["puntos"]);
+                cliente.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
                 cliente.Piso = Convert.ToInt32(reader["piso"]);
-                Console.WriteLine("EL NOMBRE ES: " + cliente.Nombre);
             }
+
+            SqlDataReader reader2 = servidor.query("EXEC getPuntos_sp '" + this.usuario.NombreUsuario + "'");
+            reader2.Read();
+            cliente.Puntos = Convert.ToInt32(reader2["cantidad_puntos"]);
+
+            Console.WriteLine(cliente.Puntos);
+
             return cliente;
         }
     }
