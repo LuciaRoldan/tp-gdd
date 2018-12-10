@@ -1,7 +1,9 @@
 CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
 @grado VARCHAR(20),
-@mes INT,
-@anio INT
+--@mes_publi INT,
+--@anio_publi INT,
+@fecha_inicio DATETIME,
+@fecha_fin DATETIME
 AS
 BEGIN
 	SELECT TOP 5 razon_social 'Razon social', COUNT(id_ubicacion) 'Ubicaciones no vendidas' FROM Publicaciones p
@@ -11,8 +13,7 @@ BEGIN
 	JOIN Empresas emp ON(emp.id_empresa = p.id_empresa)
 	WHERE uxe.id_compra IS NULL
 		AND gp.nombre = @grado
-		AND MONTH(e.fecha_evento) = @mes
-		AND YEAR(e.fecha_evento) = @anio
+		AND e.fecha_evento>@fecha_inicio AND e.fecha_evento<@fecha_fin
 	GROUP BY razon_social, p.id_publicacion, fecha_evento, comision
 	ORDER BY fecha_evento ASC, comision DESC --truchito para q ordene de alto a bajo
 END
