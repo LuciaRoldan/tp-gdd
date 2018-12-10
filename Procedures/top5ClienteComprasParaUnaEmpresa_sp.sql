@@ -17,3 +17,12 @@ BEGIN
 	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
 	ORDER BY COUNT(id_ubicacion) DESC
 END
+
+select * from empresas
+DROP PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
+
+
+
+DECLARE @una_fecha DATETIME = (SELECT fecha FROM Compras WHERE id_compra=1)
+DECLARE @otra_fecha DATETIME = (SELECT fecha FROM Compras WHERE id_compra=2)
+EXEC top5ClienteComprasParaUnaEmpresa_sp 'Razon Social Nº:5', @una_fecha, @otra_fecha
