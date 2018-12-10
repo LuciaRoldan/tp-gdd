@@ -78,7 +78,7 @@ namespace PalcoNet.Registro_de_Usuario
                         string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
                         + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                         + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                        + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+                        + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña;
 
                         Console.WriteLine(query);
 
@@ -101,7 +101,7 @@ namespace PalcoNet.Registro_de_Usuario
                                 + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
                                 + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
                                 + ((Cliente)this.Usuario).FechaDeNacimiento + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
-                                + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "'";
+                                + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña;
 
                         Console.WriteLine(queryCli);
 

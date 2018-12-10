@@ -57,8 +57,19 @@ namespace PalcoNet
             try
             {
 
-                servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
+                SqlDataReader r = servidor.query("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
+                while (r.Read())
+                {
+                    usuario.DebeCambiarContraseña = bool.Parse(r["debe_cambiar_pass"].ToString());
+                }
+
+                if (usuario.DebeCambiarContraseña) {
+                    CambioContrasenia c = new CambioContrasenia(usuario.NombreUsuario);
+                    c.TopMost = true;
+                    c.ShowDialog();
+                }
+
                 sesion.usuario = this.Usuario;
                 List<Rol> roles = new List<Rol>();
 
@@ -77,16 +88,18 @@ namespace PalcoNet
 
                 if (roles.Count() > 1)
                 {
-                      new SeleccionarRol().Show();
-                      this.Hide();
+                    this.Hide();
+                    new SeleccionarRol().ShowDialog();
+                    this.Close();
                 }
                 else
                 {
                     Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     sesion.rol = roles[0];
-                    new SeleccionarFuncionalidad().Show();
                     this.Hide();
+                    new SeleccionarFuncionalidad().ShowDialog();
+                    this.Close();
                 }
             }
             catch (SqlException ex)

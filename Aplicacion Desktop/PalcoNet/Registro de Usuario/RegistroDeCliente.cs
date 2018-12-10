@@ -88,7 +88,7 @@ namespace PalcoNet.Registro_de_Usuario
                         Console.WriteLine("EL HASH ES:" + Sb.ToString());
                     }
                     cliente.Contrasenia = Sb.ToString();
-                    
+                    cliente.DebeCambiarContraseña = true;
                 }
                 
                 new RegistroDomicilio(this, cliente).Show();

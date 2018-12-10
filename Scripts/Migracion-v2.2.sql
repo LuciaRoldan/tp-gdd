@@ -43,21 +43,21 @@ VALUES
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
 --usuarios del sistema
-INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos)
-VALUES('admin', LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'w23e'),2)), 1, GETDATE(), 0)
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+VALUES('admin', REPLACE(LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'w23e'),2)),' ', ''), 1, GETDATE(), 0, 0)
 
-INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos)
-VALUES('sa', LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'gestiondedatos'),2)), 1, GETDATE(), 0)
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+VALUES('sa', REPLACE(LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'gestiondedatos'),2)),' ', ''), 1, GETDATE(), 0, 0)
 
 --usuarios cliente
-INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
-SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0
+INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL;
 
 --usuarios empresa
-INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos)
-SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0
+INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra;
 
 --SELECT * FROM Usuarios
