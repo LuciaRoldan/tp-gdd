@@ -1,17 +1,16 @@
 CREATE PROCEDURE verificarLogin_sp
 @usuario VARCHAR(255),
-@encriptada VARCHAR(255),
-@contrasenia VARCHAR (255)
+@encriptada VARCHAR(255)
 AS
-	IF EXISTS(SELECT * FROM Usuarios WHERE username = @usuario AND (password = @contrasenia OR password = @encriptada) AND intentos_fallidos < 3) BEGIN
+	IF EXISTS(SELECT * FROM Usuarios WHERE username = @usuario AND  password = @encriptada AND intentos_fallidos < 3) BEGIN
 		UPDATE Usuarios
 		SET intentos_fallidos = 0
-		WHERE username = @usuario AND (password = @contrasenia OR password = @encriptada)
+		WHERE username = @usuario AND password = @encriptada
 
 		DECLARE @debe_cambiar_pass BIT
-		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM Usuarios WHERE username = @usuario AND (password = @contrasenia OR password = @encriptada))
+		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM Usuarios WHERE username = @usuario AND password = @encriptada)
 		IF @debe_cambiar_pass = 1 BEGIN
-			UPDATE Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND (password = @contrasenia OR password = @encriptada)
+			UPDATE Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
 		END
 		SELECT @debe_cambiar_pass debe_cambiar_pass
 	END
@@ -38,8 +37,4 @@ AS
 	END
 
 -- drop procedure verificarLogin_sp
-
---update Usuarios set debe_cambiar_pass = 1 where username like '3'
-
---select * from Usuarios where username like '3'
 
