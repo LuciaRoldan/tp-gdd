@@ -136,7 +136,7 @@ namespace PalcoNet.Editar_Publicacion
                 {
                     Ubicacion ubicacion = new Ubicacion();
                     ubicacion.CantidadAsientos = Int32.Parse(reader2["asientos"].ToString());
-                    ubicacion.Numerada = bool.Parse(reader2["sin_numerar"].ToString());
+                    ubicacion.Numerada = !bool.Parse(reader2["sin_numerar"].ToString());
                     if (ubicacion.Numerada) { ubicacion.CantidadFilas = Int32.Parse(reader2["filas"].ToString()); }
                     ubicacion.Precio = decimal.Parse(reader2["precio"].ToString());
                     ubicacion.TipoAsiento = reader2["tipo"].ToString();

@@ -6,9 +6,6 @@ CREATE PROCEDURE migrarTablas_sp
 AS
 BEGIN
 
-
-
-
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.----.--.--.--.--.--.----.--.--.--.--.--.--
 --.--.--.--.--.--.--A PARTIR DE ACA ESTA BIEN---.--.--.--.--
@@ -279,13 +276,14 @@ SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
 FROM #ComprasTemp
 
 INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
---Falta agregar el id_compra
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
+SELECT DISTINCT gd.Espectaculo_Cod, ut.id_ubicacion, ct.id_compra
 FROM gd_esquema.Maestra gd
-JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
-	--AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
-	AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar
-	AND gd.Ubicacion_Precio = u.precio)
+--Considerar como temporal?
+JOIN (SELECT * FROM Ubicaciones u JOIN TiposDeUbicacion t ON (u.codigo_tipo_ubicacion = t.id_tipo_ubicacion)) AS ut 
+ON (gd.Ubicacion_Tipo_Codigo = ut.codigo_tipo_ubicacion
+	AND gd.Ubicacion_Fila = ut.fila
+	AND gd.Ubicacion_Asiento = ut.asiento AND gd.Ubicacion_Sin_numerar = ut.sin_numerar
+	AND gd.Ubicacion_Precio = ut.precio)
 LEFT JOIN #ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.asiento = gd.Ubicacion_Asiento
 		AND ct.fila = gd.Ubicacion_Fila
@@ -322,9 +320,5 @@ VALUES
 --SELECT * FROM premios
 
 --select * from gd_esquema.Maestra
-
-
-
-
 
 END
