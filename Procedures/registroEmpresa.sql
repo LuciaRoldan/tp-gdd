@@ -3,7 +3,7 @@ CREATE PROCEDURE registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(25
 AS
 BEGIN
 	IF NOT EXISTS (SELECT * FROM dbo.Usuarios u JOIN dbo.Empresas e ON (u.id_usuario = e.id_usuario) 
-	WHERE username = @username OR cuit = @cuit OR mail = @mail) 
+	WHERE username = @username OR cuit = @cuit OR mail = @mail OR razon_social = @razon_social)
 	BEGIN
 		BEGIN TRANSACTION
 		INSERT INTO dbo.Usuarios(username, password, habilitado, alta_logica) VALUES (@username, @password, '1', GETDATE())
