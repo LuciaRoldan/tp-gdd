@@ -6,3 +6,5 @@ end
 --drop procedure actualizarUsuarioYContrasenia_sp
 
 --45023700
+
+select * from Usuarios

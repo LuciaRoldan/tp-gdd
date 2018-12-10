@@ -15,9 +15,9 @@ namespace PalcoNet.Dominio
             get { return empresa; }
             set { empresa = value; }
         }
-        int cuit;
+        long cuit;
 
-        public int Cuit
+        public long Cuit
         {
             get { return cuit; }
             set { cuit = value; }

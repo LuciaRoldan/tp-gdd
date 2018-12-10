@@ -15,7 +15,7 @@ namespace PalcoNet.Listado_Estadistico
     public partial class Listados : MiForm
     {
 
-        int anio;
+        int anio = -1;
         Servidor servidor = Servidor.getInstance();
 
         public int Anio
@@ -23,7 +23,7 @@ namespace PalcoNet.Listado_Estadistico
             get { return anio; }
             set { anio = value; }
         }
-        string trimestre;
+        string trimestre = "";
 
         public string Trimestre
         {
@@ -47,12 +47,14 @@ namespace PalcoNet.Listado_Estadistico
         }
 
 
-
-
-
         public Listados(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+        }
+
+        private bool verificarCampos() {
+            trimestre = trimestreCombobox.Text;
+            return anio != -1 && trimestre != "";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -62,40 +64,50 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DateTime inicio = armarFechaInicio();
-            DateTime fin = armarFechaFin();
-
-            //aca le mando a la BD una consulta con las fechas de inicio y fin y me
-            //devuelve una lista de los clientes con sus compras, de mayor a menor ordenado
-            //por cantidad de compras. Agrupando las publicaciones por empresa.
-            //Nombre - Apellido - Usuario - Empresa - CantidadCompras
-
-            new ClientesMuchasCompras(inicio, fin, this).Show();
-            this.Hide();
+            if (this.verificarCampos())
+            {
+                DateTime inicio = armarFechaInicio();
+                DateTime fin = armarFechaFin();
+                new ClientesMuchasCompras(inicio, fin, this).Show();
+                this.Hide();
+            }
+            else {
+                MessageBox.Show("Se deben seleccionar el año y el trimestre", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DateTime inicio = armarFechaInicio();
-            DateTime fin = armarFechaFin();
-
-            new EmpresaLocalidades(inicio, fin, this).Show();
-            this.Hide();
+            if (this.verificarCampos())
+            {
+                DateTime inicio = armarFechaInicio();
+                DateTime fin = armarFechaFin();
+                new EmpresaLocalidades(inicio, fin, this).Show();
+                this.Hide();
+            }
+            else {
+                MessageBox.Show("Se deben seleccionar el año y el trimestre", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (this.verificarCampos())
+            {
+                DateTime inicio = armarFechaInicio();
+                DateTime fin = armarFechaFin();
 
-            DateTime inicio = armarFechaInicio();
-            DateTime fin = armarFechaFin();
+                List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
+                //aca consulta a la BD por la lista de todos los clientes ordenados
+                //por la cantidad de puntos vencidos DESC
+                //a esa consulta le voy a pasar dos fechas: inicio y fin
 
-            List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
-            //aca consulta a la BD por la lista de todos los clientes ordenados
-            //por la cantidad de puntos vencidos DESC
-            //a esa consulta le voy a pasar dos fechas: inicio y fin
-
-            new ClientesPuntos(clientesOrdenadosPorPuntos, this).Show();
-            this.Hide();
+                new ClientesPuntos(clientesOrdenadosPorPuntos, this).Show();
+                this.Hide();
+            }
+            else {
+                MessageBox.Show("Se deben seleccionar el año y el trimestre", "Error", MessageBoxButtons.OK);
+            }
         }
 
         private void anioCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,7 +118,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void trimestreCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            trimestre = trimestreCombobox.Text.ToString();
+            trimestre = trimestreCombobox.Text;
         }
 
         private DateTime armarFechaInicio()
@@ -127,7 +139,7 @@ namespace PalcoNet.Listado_Estadistico
             {
                 case "Enero-Marzo": return new DateTime(anio, 3, 31);
                 case "Abril-Junio": return new DateTime(anio, 6, 30);
-                case "Julio-Septiembre": return new DateTime(anio, 9, 31);
+                case "Julio-Septiembre": return new DateTime(anio, 9, 30);
                 case "Octubre-Diciembre": return new DateTime(anio, 12, 31);
                 default: return new DateTime();
             }

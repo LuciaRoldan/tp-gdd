@@ -23,13 +23,6 @@ namespace PalcoNet.Dominio
             get { return apellido; }
             set { apellido = value; }
         }
-        string usuario;
-
-        public string Usuario
-        {
-            get { return usuario; }
-            set { usuario = value; }
-        }
         string empresa;
 
         public string Empresa

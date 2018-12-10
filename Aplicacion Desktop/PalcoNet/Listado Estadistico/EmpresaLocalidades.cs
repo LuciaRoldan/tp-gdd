@@ -38,17 +38,15 @@ namespace PalcoNet.Listado_Estadistico
             //Ordenar por fecha y luego por visibilidad.
             //Devuelve Empresa, CUIT, CantidadLocalidadesNoVendidas
 
-            DateTime inicio = new DateTime(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox1.Text), 1);
-            DateTime fin = new DateTime(Convert.ToInt32(textBox2.Text), Convert.ToInt32(textBox1.Text), 30);
 
-            SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + inicio + "', '" + fin + "'");
+            SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio + "', '" + this.fechaFin + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();
-
+            Console.WriteLine("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio + "', '" + this.fechaFin + "'");
             while (reader.Read())
             {
                 CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();
                 localidad.Empresa = reader["Razon social"].ToString();
-                localidad.Cuit = Convert.ToInt32(reader["cuit"]);
+                localidad.Cuit = Int64.Parse(reader["cuit"].ToString());
                 localidad.LocalidadesNoVendidas = Convert.ToInt32(reader["Ubicaciones no vendidas"]);
 
                 localidadesEmpresa.Add(localidad);
