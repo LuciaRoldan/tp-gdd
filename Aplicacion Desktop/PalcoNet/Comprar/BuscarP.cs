@@ -34,9 +34,12 @@ namespace PalcoNet.Comprar
         public BuscarP(MiForm anterior) : base(anterior)
         {
             if (sesion.rol.Nombre == "Cliente") {
+
                 this.Cliente = sesion.traerCliente();
 
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+
+                InitializeComponent();
 
                 while (reader.Read())
                 {
@@ -48,10 +51,7 @@ namespace PalcoNet.Comprar
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
                     "Podrá simular el proceso de compra pero no comprar.", "Advertencia", MessageBoxButtons.OK);
             }
-            InitializeComponent();
-            
-
-            
+                       
         }
 
         private void button1_Click(object sender, EventArgs e)

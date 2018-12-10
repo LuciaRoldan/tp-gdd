@@ -97,10 +97,35 @@ namespace PalcoNet.Listado_Estadistico
                 DateTime inicio = armarFechaInicio();
                 DateTime fin = armarFechaFin();
 
+<<<<<<< HEAD
                 List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
                 //aca consulta a la BD por la lista de todos los clientes ordenados
                 //por la cantidad de puntos vencidos DESC
                 //a esa consulta le voy a pasar dos fechas: inicio y fin
+=======
+            DateTime inicio = armarFechaInicio();
+            DateTime fin = armarFechaFin();
+
+
+            SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio + "', '" + fin + "'");
+            List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
+
+            while (reader.Read())
+            {
+                Cliente cliente = new Cliente();
+                cliente.Nombre = reader["nombre"].ToString();
+                cliente.Apellido = reader["apellido"].ToString();
+                //cliente.Puntos Vencidos
+
+                clientesOrdenadosPorPuntos.Add(cliente);
+            }
+            reader.Close();
+
+            
+            //aca consulta a la BD por la lista de todos los clientes ordenados
+            //por la cantidad de puntos vencidos DESC
+            //a esa consulta le voy a pasar dos fechas: inicio y fin
+>>>>>>> master
 
                 new ClientesPuntos(clientesOrdenadosPorPuntos, this).Show();
                 this.Hide();
