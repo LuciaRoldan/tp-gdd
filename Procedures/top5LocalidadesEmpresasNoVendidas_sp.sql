@@ -1,7 +1,5 @@
 CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
 @grado VARCHAR(20),
---@mes_publi INT,
---@anio_publi INT,
 @fecha_inicio DATETIME,
 @fecha_fin DATETIME
 AS
@@ -19,3 +17,5 @@ BEGIN
 END
 
 --EXEC top5EmpresasLocalidadesNoVendidas_sp 'Alto', 1, 2015
+ 
+

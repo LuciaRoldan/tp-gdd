@@ -18,6 +18,13 @@ namespace PalcoNet.Dominio
         DateTime fechaDeCreacion;
         DateTime fechaDeNacimiento;
         int puntos;
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
 
         public string Nombre
