@@ -69,10 +69,11 @@ namespace PalcoNet.Canje_Puntos
                 reader = servidor.query("EXEC dbo.getPremios_sp");
                 while (reader.Read())
                 {
-                    premio.Descripcion = reader["descripcion"].ToString();
-                    premio.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
-                    this.Premios.Add(premio);
-                    checkedListBoxPremios.Items.Add(premio.Descripcion + " (" + premio.CantidadDePuntos + " puntos)");
+                    Premio p = new Premio();
+                    p.Descripcion = reader["descripcion"].ToString();
+                    p.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
+                    this.Premios.Add(p);
+                    checkedListBoxPremios.Items.Add(p.Descripcion + " (" + p.CantidadDePuntos + " puntos)");
 
                 }
                 reader.Close();
@@ -134,6 +135,11 @@ namespace PalcoNet.Canje_Puntos
 
         private void checkedListBoxPremios_SelectedIndexChanged(object sender, EventArgs e)
         {
+            for (int i = 0; i < this.Premios.Count(); i++)
+            {
+                Console.WriteLine(this.Premios[i].CantidadDePuntos);
+            }
+
             if (this.checkedListBoxPremios.GetItemCheckState(this.checkedListBoxPremios.SelectedIndex) == CheckState.Checked)
             {
                  this.PuntosAcumulados = this.PuntosAcumulados + this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;
