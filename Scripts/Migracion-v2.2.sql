@@ -44,10 +44,10 @@ VALUES
 
 --usuarios del sistema
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-VALUES('admin', REPLACE(LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'w23e'),2)),' ', ''), 1, GETDATE(), 0, 0)
+VALUES('admin', 'w23e', 1, GETDATE(), 0, 0)
 
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-VALUES('sa', REPLACE(LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', 'gestiondedatos'),2)),' ', ''), 1, GETDATE(), 0, 0)
+VALUES('sa', 'gestiondedatos', 1, GETDATE(), 0, 0)
 
 --usuarios cliente
 INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
