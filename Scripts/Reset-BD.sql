@@ -21,3 +21,5 @@ DROP TABLE Medios_de_pago
 DROP TABLE Clientes
 DROP TABLE Usuarios
 END
+
+--exec eliminarTablas_sp

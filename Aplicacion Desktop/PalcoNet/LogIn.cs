@@ -57,8 +57,21 @@ namespace PalcoNet
             try
             {
 
-                servidor.realizarQuery("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
+                SqlDataReader r = servidor.query("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "' , '" + textBox2.Text.Trim() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
+                while (r.Read())
+                {
+                    usuario.DebeCambiarContraseña = bool.Parse(r["debe_cambiar_pass"].ToString());
+                }
+
+                if (usuario.DebeCambiarContraseña) {
+                    CambioContrasenia c = new CambioContrasenia(usuario.NombreUsuario);
+                    c.TopMost = true;
+                    c.ShowDialog();
+                }
+
+                Console.WriteLine(usuario.DebeCambiarContraseña + "------------------");
+
                 sesion.usuario = this.Usuario;
                 List<Rol> roles = new List<Rol>();
 

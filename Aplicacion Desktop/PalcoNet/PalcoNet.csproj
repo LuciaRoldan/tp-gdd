@@ -91,6 +91,12 @@
     <Compile Include="Abm Rubro\AbmRubro.Designer.cs">
       <DependentUpon>AbmRubro.cs</DependentUpon>
     </Compile>
+    <Compile Include="CambioContrasenia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambioContrasenia.Designer.cs">
+      <DependentUpon>CambioContrasenia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Canje Puntos\CanjePuntos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rubro\AbmRubro.resx">
       <DependentUpon>AbmRubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CambioContrasenia.resx">
+      <DependentUpon>CambioContrasenia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Canje Puntos\CanjePuntos.resx">
       <DependentUpon>CanjePuntos.cs</DependentUpon>

@@ -93,7 +93,8 @@ username VARCHAR(255) UNIQUE,
 password VARCHAR(255),
 habilitado BIT,
 alta_logica DATETIME,
-intentos_fallidos INT;
+intentos_fallidos INT,
+debe_cambiar_pass BIT;
 
 ALTER TABLE UsuarioXRol ADD
 id_usuario INT REFERENCES Usuarios,
