@@ -190,10 +190,16 @@ JOIN Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
 
 --SELECT * FROM Espectaculos
 
+--.--.--.--.--.--.--TIPOSDEUBICACIONES--.--.--.--.--.--.--
+
+INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
+SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
+FROM gd_esquema.Maestra
+
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
-INSERT INTO Ubicaciones(codigo_tipo_ubicacion, tipo_ubicacion, fila, asiento, sin_numerar, precio)
-SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Tipo_Descripcion, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+INSERT INTO Ubicaciones(codigo_tipo_ubicacion, fila, asiento, sin_numerar, precio)
+SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
 
 --select * from Ubicaciones
@@ -277,7 +283,7 @@ INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
 SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
 FROM gd_esquema.Maestra gd
 JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
-	AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
+	--AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
 	AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar
 	AND gd.Ubicacion_Precio = u.precio)
 LEFT JOIN #ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod

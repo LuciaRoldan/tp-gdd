@@ -10,6 +10,12 @@ BEGIN
 	DECLARE @asientos_por_fila INT = @cantidad / @filas
 	DECLARE @id_ubicacion INT
 
+	IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+		BEGIN
+			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
+			SELECT MAX(id_tipo_ubicacion)+1, descripcion FROM TiposDeUbicacion
+		END
+
 	WHILE(@contador_filas < @filas)
 	BEGIN
 		
@@ -18,8 +24,9 @@ BEGIN
 		WHILE(@contador_asientos < @asientos_por_fila)
 		BEGIN
 
-			INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, tipo_ubicacion)
-			VALUES(CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, @tipo_ubicacion) --esta truchito, mati va a hacer funcion
+			INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
+			SELECT CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, id_tipo_ubicacion --esta truchito, mati va a hacer funcion
+			FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
 
 			INSERT INTO #UbicacionesInsertadas
 			SELECT SCOPE_IDENTITY()

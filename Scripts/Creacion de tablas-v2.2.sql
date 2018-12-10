@@ -73,9 +73,14 @@ CREATE TABLE Grados_publicacion(
 id_grado_publicacion INT IDENTITY(1,1) PRIMARY KEY
 )
 
+CREATE TABLE TiposDeUbicacion(
+id_tipo_ubicacion INT PRIMARY KEY
+)
+
 CREATE TABLE Ubicaciones(
 id_ubicacion INT IDENTITY PRIMARY KEY
 )
+
 
 CREATE TABLE Premios(
 id_premio INT IDENTITY(1,1) PRIMARY KEY
@@ -84,7 +89,7 @@ id_premio INT IDENTITY(1,1) PRIMARY KEY
 -----ALTER TABLES-----
 
 ALTER TABLE Usuarios ADD
-username VARCHAR(255),
+username VARCHAR(255) UNIQUE,
 password VARCHAR(255),
 habilitado BIT,
 alta_logica DATETIME,
@@ -109,9 +114,9 @@ ALTER TABLE Clientes ADD
 id_usuario INT NOT NULL REFERENCES Usuarios,
 nombre NVARCHAR(255),
 apellido NVARCHAR(255),
-tipo_documento CHAR(3), --?
+tipo_documento CHAR(3),
 documento NUMERIC(18,0),
-cuil NUMERIC(18,0), --??
+cuil NUMERIC(18,0),
 mail NVARCHAR(50),
 telefono NUMERIC(15),
 fecha_creacion DATETIME,
@@ -163,7 +168,7 @@ importe INT;
 --id_grado_publicacion INT REFERENCES Grados_publicacion,
 --id_rubro INT REFERENCES Rubros,
 --descripcion NVARCHAR(255),
---estado_publicacion CHAR(15) CHECK(estado_publicacion IN ('Borrador', 'Publicada', 'Finalizada')),
+--estado_publicacion CHAR(15) CHECK(estado_publicacion IN ('Borrador', 'Publicado', 'Finalizada')),
 --fecha_inicio DATETIME,
 --fecha_evento DATETIME,
 --cantidad_asientos INT,
@@ -204,9 +209,11 @@ descripcion NVARCHAR(100);
 --sin_numerar BIT,
 --precio NUMERIC(18);
 
+ALTER TABLE TiposDeUbicacion ADD
+descripcion NVARCHAR(255)
+
 ALTER TABLE Ubicaciones ADD
-codigo_tipo_ubicacion INT,
-tipo_ubicacion NVARCHAR(20),
+codigo_tipo_ubicacion INT REFERENCES TiposDeUbicacion,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,

@@ -11,8 +11,17 @@ BEGIN
 	WHILE(@contador < @cantidad)
 	BEGIN
 
-		INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, tipo_ubicacion)
-		VALUES(NULL, NULL, 1, @precio, @tipo_ubicacion)
+		IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+		BEGIN
+			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
+			SELECT MAX(id_tipo_ubicacion)+1, descripcion FROM TiposDeUbicacion
+		END
+
+		INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
+		SELECT NULL, NULL, 1, @precio, id_tipo_ubicacion
+		FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
+
+
 
 		INSERT INTO #UbicacionesInsertadas
 		SELECT SCOPE_IDENTITY()

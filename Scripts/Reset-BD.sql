@@ -10,6 +10,7 @@ DROP TABLE Puntos
 DROP TABLE UbicacionXEspectaculo
 DROP TABLE Espectaculos
 DROP TABLE Ubicaciones
+DROP TABLE TiposDeUbicacion
 DROP TABLE Compras
 DROP TABLE Facturas
 DROP TABLE Publicaciones
