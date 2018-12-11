@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Comprar
 {
     public partial class Ubicaciones : MiForm
     {
         Compra compra;
+        Servidor servidor = Servidor.getInstance();
+        Sesion sesion = Sesion.getInstance();
 
         internal Compra Compra
         {
@@ -36,10 +39,26 @@ namespace PalcoNet.Comprar
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
 
+            SqlDataReader reader = servidor.query("EXEC dbo.buscarUbicacionessPorPublicacion_sp " + compra.Publicacion.Id);
+
+            while (reader.Read())
+            {
+                Ubicacion u = new Ubicacion();
+                u.Numerada = bool.Parse(reader["sin_numerar"].ToString());
+                u.CantidadAsientos = int.Parse(reader["asientos"].ToString());
+                if (u.Numerada) { u.CantidadFilas = int.Parse(reader["filas"].ToString()); }
+                u.Precio = decimal.Parse(reader["precio"].ToString());
+                u.TipoAsiento = reader["descripcion"].ToString();
+                comboBoxUbicaciones.Items.Add(u.TipoAsiento + ", $" + u.Precio.ToString());
+                this.UbicacionesDisponibles.Add(u);
+            }
+            reader.Close();
+
             foreach (Ubicacion u in this.UbicacionesDisponibles)
             {
                 comboBoxUbicaciones.Items.Add(u.TipoAsiento);
             }
+            this.Compra.Ubicaciones = new List<Ubicacion>();
 
         }
 
@@ -99,7 +118,10 @@ namespace PalcoNet.Comprar
 
          private void numericUpDownCantidad_ValueChanged(object sender, EventArgs e)
          {
-
+             if (this.comboBoxUbicaciones.SelectedIndex > -1)
+             {
+                 if (numericUpDownCantidad.Value > this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos) { numericUpDownCantidad.Value--; }
+             }
          }
 
          private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

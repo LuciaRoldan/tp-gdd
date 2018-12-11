@@ -109,6 +109,12 @@
     <Compile Include="Comprar\BuscarP.Designer.cs">
       <DependentUpon>BuscarP.cs</DependentUpon>
     </Compile>
+    <Compile Include="Comprar\Espectaculo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar\Espectaculo.Designer.cs">
+      <DependentUpon>Espectaculo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comprar\FinalizarCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\BuscarP.resx">
       <DependentUpon>BuscarP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar\Espectaculo.resx">
+      <DependentUpon>Espectaculo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\FinalizarCompra.resx">
       <DependentUpon>FinalizarCompra.cs</DependentUpon>

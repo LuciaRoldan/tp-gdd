@@ -16,6 +16,3 @@ BEGIN
 	ORDER BY fecha_evento ASC, comision DESC --truchito para q ordene de alto a bajo
 END
 
---EXEC top5EmpresasLocalidadesNoVendidas_sp 'Alto', 1, 2015
- 
-

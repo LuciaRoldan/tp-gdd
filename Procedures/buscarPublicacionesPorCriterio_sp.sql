@@ -4,7 +4,7 @@ go
 create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde date, @hasta date, @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
-	'select * from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
+	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
 	join Rubros r on r.id_rubro = p.id_rubro
 	where e.estado_espectaculo = ''Publicada'''
 
@@ -22,5 +22,3 @@ end
 
 --drop procedure buscarPublicacionesPorCriterio_sp
 
-
-select * from Grados_publicacion
