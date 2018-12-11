@@ -1,21 +1,6 @@
 En la pantallita de ABM Rubros, me inserta el ID de la publicacion cada vez que pongo buscar al lado del id ya insertado.
 
-No se que pasa en el ABM Rubros pero no creo que este andando
+No se que pasa en el ABM Rubros pero no creo que este andando 
 
-Registrar cliente Puse un cuil valido y me dijo que es muy grande. Pongo un cuil invalido chiquito y lo acepta.
-
-Registrar cliente dice "No se pudo registrar el cliente" pero no me dice por que y creo q puse las cosas bien
-
-Faltaba modifcarCliente_sp? Lo agregue
-
-DebeCambiarContraseña aparece como un cuadradito en la lista de clientes?
-
-No aparece el id del Cliente en la lista de clientes. Puse que el sp lo retorne pero deberia guardarlo el vs?
-
-No se puede editar la dire etc del cliente
-
-Cuando ponemos en Comprar "Podra simular el  proceso de compra pero no comprar" pero no se completan las cosas como para que pueda simularlo
-
-
-
+No se que esta flashando el loco cuando queres generar una publicacion, error de pk
 
