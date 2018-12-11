@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Comprar
 {
@@ -47,10 +48,18 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
+            string query = Sesion.getInstance().traerCliente().Id + ", " + 1 + ", " + this.Compra.Importe; //arreglar id medio de pago
+            SqlDataReader reader = Servidor.getInstance().query("exec registrarCompra_sp " + query);
+            while (reader.Read())
+            {
+                this.Compra.Id = int.Parse(reader["id_compra"].ToString());
+            }
+            reader.Close();
+
             foreach (Ubicacion u in this.Compra.Ubicaciones)
             {
-                //string query = Sesion.getInstance().traerCliente().Id + ", " + "medio de pago" + ", " +;
-                Servidor.getInstance().query("exec registrarCompra_sp ");
+                string q = this.Compra.Id + ", " + u.Id + ", " + this.Compra.Espectaculo.Id;
+                Servidor.getInstance().query("exec registrarCompraExU_sp " + q);
             }
             
 

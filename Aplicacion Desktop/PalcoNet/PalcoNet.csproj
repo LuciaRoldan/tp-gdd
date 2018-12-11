@@ -153,6 +153,7 @@
     <Compile Include="Dominio\Compras.cs" />
     <Compile Include="Dominio\ElementoHitorialCliente.cs" />
     <Compile Include="Dominio\Empresa.cs" />
+    <Compile Include="Dominio\Espectaculo.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\Sesion.cs" />

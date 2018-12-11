@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Espectaculo
+    public class Espectaculo
     {
         DateTime fecha;
         int id;
