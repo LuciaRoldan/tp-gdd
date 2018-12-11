@@ -227,6 +227,7 @@
             this.checkedListBoxCategorias.Name = "checkedListBoxCategorias";
             this.checkedListBoxCategorias.Size = new System.Drawing.Size(198, 79);
             this.checkedListBoxCategorias.TabIndex = 108;
+            this.checkedListBoxCategorias.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxCategorias_SelectedIndexChanged);
             // 
             // label2
             // 

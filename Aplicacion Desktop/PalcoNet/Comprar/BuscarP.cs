@@ -45,9 +45,17 @@ namespace PalcoNet.Comprar
             set { cliente = value; }
         }
 
+        public int Offset
+        {
+            get { return offset; }
+            set { offset = value; }
+        }
+
+
         public BuscarP(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+
             if (sesion.rol.Nombre == "Cliente") {
 
                 dateTimePickerDesde.Enabled = false;
@@ -65,6 +73,8 @@ namespace PalcoNet.Comprar
                 reader.Close();
 
                 dataGridViewResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
 
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 

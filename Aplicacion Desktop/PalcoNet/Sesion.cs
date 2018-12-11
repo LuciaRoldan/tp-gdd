@@ -64,23 +64,27 @@ namespace PalcoNet
                 var cuil = reader["cuil"];
                 if (!(cuil is DBNull)) cliente.Cuil = Convert.ToInt32(cuil);
                 cliente.Departamento = reader["depto"].ToString();
-                cliente.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
+                //cliente.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
                 cliente.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                 cliente.Mail = reader["mail"].ToString();
                 cliente.Apellido = reader["apellido"].ToString();
-                //cliente.Ciudad = reader["ciudad"].ToString();
-                cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
-                //cliente.Localidad = reader["localidad"].ToString();
+                //cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
                 cliente.Nombre = reader["nombre"].ToString();
                 cliente.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
                 cliente.Piso = Convert.ToInt32(reader["piso"]);
                 cliente.Id = int.Parse(reader["id_cliente"].ToString());
+                Console.WriteLine("converti cosas");
             }
 
             SqlDataReader reader2 = servidor.query("EXEC getPuntos_sp '" + this.usuario.NombreUsuario + "'");
+
+            Console.WriteLine("traje puntos");
+
             reader2.Read();
             cliente.Puntos = Convert.ToInt32(reader2["cantidad_puntos"]);
+
+            Console.WriteLine("mmms");
 
             Console.WriteLine(cliente.Puntos);
 

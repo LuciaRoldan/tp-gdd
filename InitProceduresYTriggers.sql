@@ -85,7 +85,8 @@ CREATE PROCEDURE buscarUsuarioPorCriterio_sp
 @email NVARCHAR(50)
 AS
 BEGIN
-	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento, fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle
+	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle
 	FROM Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
@@ -97,6 +98,85 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 
-select * from Clientes
------
+DROP PROCEDURE buscarUsuarioPorCriterio_sp
+
+
+-----modificarCliente-----
+CREATE PROCEDURE modificarCliente_sp
+@id_cliente INT,
+@nombre nvarchar(255),
+@apellido nvarchar(255),
+@mail NVARCHAR(50),
+@documento NUMERIC(18,0),
+@cuil NUMERIC(18,0),
+@telefono NUMERIC(15),
+@fecha_nacimiento DATETIME
+AS
+BEGIN 
+	IF EXISTS (SELECT * FROM dbo.Clientes WHERE id_cliente = @id_cliente) 
+		BEGIN
+		BEGIN TRANSACTION
+		UPDATE dbo.Clientes
+		SET nombre = @nombre, apellido = @apellido, mail = @mail, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_creacion = @fecha_nacimiento
+		COMMIT TRANSACTION
+		END
+	ELSE
+	RAISERROR('El cliente no existe', 20, 1) WITH LOG
+END
+
+
+
+
+
+
+
+-----buscarClientePorUsername-----
+CREATE PROCEDURE buscarClientePorUsername_sp
+@username VARCHAR(255)
+AS
+BEGIN
+	SELECT * FROM Usuarios u JOIN Clientes c ON (u.id_usuario = c.id_usuario)
+	WHERE username LIKE @username
+END
+
+
+-----getPuntos-----
+CREATE PROCEDURE getPuntos_sp
+@username varchar(30)
+AS
+BEGIN
+	SELECT COALESCE(SUM(cantidad_puntos), 0) 'cantidad_puntos' FROM Usuarios u JOIN Clientes c ON (u.id_usuario = c.id_usuario)
+								  JOIN Puntos p ON (p.id_cliente = c.id_cliente)
+	WHERE username = @username
+
+END
+
+
+-----getRubros-----
+CREATE PROCEDURE getRubros_sp
+AS
+BEGIN
+	SELECT descripcion FROM Rubros WHERE descripcion <> ''
+END
+
+
+-----buscarPublicacionesPorCriterio-----
+create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde date, @hasta date, @offset INT) as begin
+	declare @query nvarchar(2000)
+	set @query = 
+	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
+	join Rubros r on r.id_rubro = p.id_rubro
+	where e.estado_espectaculo = ''Publicada'''
+
+	if ( @desde is not null and @hasta is not null) begin set @query = 
+		@query + ' and e.fecha_evento between ''' + (select convert(varchar, @desde, 22)) + ''' and ''' +  (select convert(varchar, @hasta, 22)) + ''' ' end
+
+	print @query
+	if ( @descripcion is not null) begin set @query = @query + 'and p.descripcion like ' + (@descripcion) + ' ' end
+	if ( @categorias is not null) begin set @query = @query + 'and r.descripcion in [' + (@categorias) + '] ' end
+
+	set @query = @query + 'order by p.id_grado_publicacion ASC offset ' + @offset + ' rows fetch next 10 rows only'
+
+	exec sp_executesql @query
+end
 
