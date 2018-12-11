@@ -99,14 +99,14 @@ namespace PalcoNet.Listado_Estadistico
                 DateTime fin = armarFechaFin();
 
                 SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
-                List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
+                List<ClientePuntosListado> clientesOrdenadosPorPuntos = new List<ClientePuntosListado>();
 
                 while (reader.Read())
                 {
-                    Cliente cliente = new Cliente();
+                    ClientePuntosListado cliente = new ClientePuntosListado();
                     cliente.Nombre = reader["nombre"].ToString();
                     cliente.Apellido = reader["apellido"].ToString();
-                    //cliente.Puntos Vencidos
+                    cliente.Puntos = int.Parse(reader["Puntos Vencidos"].ToString());
 
                     clientesOrdenadosPorPuntos.Add(cliente);
                 }

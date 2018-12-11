@@ -13,10 +13,10 @@ namespace PalcoNet.Listado_Estadistico
 {
     public partial class ClientesPuntos : MiForm
     {
-        public ClientesPuntos(List<Cliente> resultados, MiForm formAnterior) : base(formAnterior)
+        public ClientesPuntos(List<ClientePuntosListado> resultados, MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
-            var bindingList = new BindingList<Cliente>(resultados);
+            var bindingList = new BindingList<ClientePuntosListado>(resultados);
             var source = new BindingSource(bindingList, null);
             puntosClientesGrid.DataSource = source;
         }
