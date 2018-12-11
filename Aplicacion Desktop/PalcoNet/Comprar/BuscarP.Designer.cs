@@ -45,6 +45,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.checkedListBoxCategorias = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.gradoDePublicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rubro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoDePublicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaDeInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaDeEvento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidadAsientos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResultados)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +85,16 @@
             this.dataGridViewResultados.AllowUserToAddRows = false;
             this.dataGridViewResultados.AllowUserToDeleteRows = false;
             this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gradoDePublicacion,
+            this.rubro,
+            this.descripcion,
+            this.estadoDePublicacion,
+            this.fechaDeInicio,
+            this.fechaDeEvento,
+            this.cantidadAsientos,
+            this.id,
+            this.direccion});
             this.dataGridViewResultados.Location = new System.Drawing.Point(16, 172);
             this.dataGridViewResultados.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewResultados.Name = "dataGridViewResultados";
@@ -218,11 +238,93 @@
             this.label2.TabIndex = 107;
             this.label2.Text = "Buscar publicaciones";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(428, 66);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(99, 17);
+            this.checkBox1.TabIndex = 124;
+            this.checkBox1.Text = "Filtrar por fecha";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // gradoDePublicacion
+            // 
+            this.gradoDePublicacion.DataPropertyName = "gradoDePublicacion";
+            this.gradoDePublicacion.HeaderText = "Grado";
+            this.gradoDePublicacion.Name = "gradoDePublicacion";
+            this.gradoDePublicacion.ReadOnly = true;
+            this.gradoDePublicacion.Visible = false;
+            // 
+            // rubro
+            // 
+            this.rubro.DataPropertyName = "rubro";
+            this.rubro.HeaderText = "Rubro";
+            this.rubro.Name = "rubro";
+            this.rubro.ReadOnly = true;
+            // 
+            // descripcion
+            // 
+            this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descripcion.DataPropertyName = "descripcion";
+            this.descripcion.HeaderText = "Descripción";
+            this.descripcion.Name = "descripcion";
+            this.descripcion.ReadOnly = true;
+            // 
+            // estadoDePublicacion
+            // 
+            this.estadoDePublicacion.DataPropertyName = "estadoDePublicacion";
+            this.estadoDePublicacion.HeaderText = "Estado";
+            this.estadoDePublicacion.Name = "estadoDePublicacion";
+            this.estadoDePublicacion.ReadOnly = true;
+            this.estadoDePublicacion.Visible = false;
+            // 
+            // fechaDeInicio
+            // 
+            this.fechaDeInicio.DataPropertyName = "fechaDeInicio";
+            this.fechaDeInicio.HeaderText = "Fecha inicio";
+            this.fechaDeInicio.Name = "fechaDeInicio";
+            this.fechaDeInicio.ReadOnly = true;
+            this.fechaDeInicio.Visible = false;
+            // 
+            // fechaDeEvento
+            // 
+            this.fechaDeEvento.DataPropertyName = "fechaDeEvento";
+            this.fechaDeEvento.HeaderText = "Fecha Evento";
+            this.fechaDeEvento.Name = "fechaDeEvento";
+            this.fechaDeEvento.ReadOnly = true;
+            this.fechaDeEvento.Visible = false;
+            // 
+            // cantidadAsientos
+            // 
+            this.cantidadAsientos.DataPropertyName = "cantidadDeAsientos";
+            this.cantidadAsientos.HeaderText = "Cantidad Asientos";
+            this.cantidadAsientos.Name = "cantidadAsientos";
+            this.cantidadAsientos.ReadOnly = true;
+            this.cantidadAsientos.Visible = false;
+            // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // direccion
+            // 
+            this.direccion.DataPropertyName = "direccion";
+            this.direccion.HeaderText = "Dirección";
+            this.direccion.Name = "direccion";
+            this.direccion.ReadOnly = true;
+            // 
             // BuscarP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 353);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.dataGridViewResultados);
@@ -267,5 +369,15 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gradoDePublicacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rubro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estadoDePublicacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaDeInicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaDeEvento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadAsientos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
     }
 }

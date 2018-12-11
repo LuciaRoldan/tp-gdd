@@ -15,9 +15,23 @@ namespace PalcoNet.Comprar
     public partial class BuscarP : MiForm
     {
         Cliente cliente;
-        List<string> categorias;
+        List<string> categorias = new List<string>();
         Sesion sesion = Sesion.getInstance();
         Servidor servidor = Servidor.getInstance();
+        int offset = -1;
+        List<Publicacion> publicaciones = new List<Publicacion>();
+
+        public List<Publicacion> Publicaciones
+        {
+          get { return publicaciones; }
+          set { publicaciones = value; }
+        }
+
+        public int Offset
+        {
+            get { return offset; }
+            set { offset = value; }
+        }
 
         public List<string> Categorias
         {
@@ -36,6 +50,9 @@ namespace PalcoNet.Comprar
             InitializeComponent();
             if (sesion.rol.Nombre == "Cliente") {
 
+                dateTimePickerDesde.Enabled = false;
+                dateTimePickerHasta.Enabled = false;
+
                 this.Cliente = sesion.traerCliente();
 
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
@@ -43,6 +60,7 @@ namespace PalcoNet.Comprar
                 while (reader.Read())
                 {
                     checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
+                    this.Categorias.Add(reader["descripcion"].ToString());
                 }
                 reader.Close();
 
@@ -62,14 +80,18 @@ namespace PalcoNet.Comprar
 
         public bool verificarCampos() {
             string error = "";
-            bool camposCompletos = !string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text) 
+            bool camposCompletos = !string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text)
                 || this.checkedListBoxCategorias.SelectedIndices.Count > 0
-                || ((this.dateTimePickerDesde.Value != null) && (this.dateTimePickerHasta.Value != null));
+                // || ((this.dateTimePickerDesde.Value != null) && (this.dateTimePickerHasta.Value != null));
+                || this.checkBox1.Checked;
 
             if (!camposCompletos) {
                 error += "Se debe completar al menos un campo para realizar la búsqueda.";
             } else {
-                if (Sesion.getInstance().fecha > dateTimePickerDesde.Value || dateTimePickerDesde.Value > dateTimePickerHasta.Value) { error += "Las fechas no son correctas."; }
+                if (this.checkBox1.Checked)
+                {
+                    if (Sesion.getInstance().fecha > dateTimePickerDesde.Value || dateTimePickerDesde.Value > dateTimePickerHasta.Value) { error += "Las fechas no son correctas."; }
+                }
             }
 
             if (error != "")
@@ -81,34 +103,40 @@ namespace PalcoNet.Comprar
             return true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void leer(bool paraAdelante)
         {
-            //Hay que hacer la query aca y obtener la lista para pasarla abajo
-            if (this.verificarCampos()) {
-                string descripcion = ""; 
+
+            if (paraAdelante) { this.Offset++; } else { this.Offset--; }
+
+            if (this.Offset >= 0)
+            {
+                string descripcion = "";
                 List<string> categoriasSelecc = new List<string>();
                 DateTime? desde = null;
                 DateTime? hasta = null;
                 if (!string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text)) { descripcion = this.textBoxDescripcion.Text; }
-                if (this.checkedListBoxCategorias.SelectedIndices.Count > 0) {
+                if (this.checkedListBoxCategorias.SelectedIndices.Count > 0)
+                {
                     for (int i = 0; i < checkedListBoxCategorias.Items.Count; i++)
                     {
+                        Console.WriteLine(this.Categorias[i]);
                         if (checkedListBoxCategorias.GetItemCheckState(i) == CheckState.Checked) { categoriasSelecc.Add(this.Categorias[i]); }
                     }
                 }
-                if (this.dateTimePickerDesde.Value != null && this.dateTimePickerHasta.Value != null) {
+                if (this.checkBox1.Checked)
+                {
                     desde = this.dateTimePickerDesde.Value;
                     hasta = this.dateTimePickerHasta.Value;
                 }
                 String categorias = "";
                 foreach (String s in categoriasSelecc)
                 {
-                    categorias = categorias + "', '" + s + "'";
+                    if (categorias == "") { categorias = categorias + "''" + s + "''"; }
+                    else { categorias = categorias + ", ''" + s + "''"; }
                 }
 
-                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + ", '" + desde + "', '" + hasta + "'";
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked? (", '" + desde + "', '" + hasta + "', ") : ", null, null, ") + this.Offset;
 
-               
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();
 
@@ -121,32 +149,37 @@ namespace PalcoNet.Comprar
                     publicacion.Direccion = reader["direccion"].ToString();
                     publicacion.Rubro = reader["rubro"].ToString();
                     resultados.Add(publicacion);
+                    this.Publicaciones.Add(publicacion);
                 }
                 reader.Close();
+            }
+            if (this.Publicaciones.Count() == 0)
+            {
+                if (paraAdelante) { this.Offset--; } else { this.Offset++; }
+                MessageBox.Show("No existen más resultados para " + (paraAdelante ? "adelante." : "atrás."), "Advertencia", MessageBoxButtons.OK);
+            }
+            else
+            {
+                var bindingList = new BindingList<Publicacion> (this.Publicaciones);
+                var source = new BindingSource(bindingList, null);
+                dataGridViewResultados.DataSource = source;
 
-                //Aca hay que hacer la query y traer los resultados ordenados de los primeron no se cuantos por pagina
+                /*dataGridViewResultados.Columns[0].HeaderText = "Descripcion";
+                dataGridViewResultados.Columns[0].DataPropertyName = "Descripcion";
+                dataGridViewResultados.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridViewResultados.Columns[1].HeaderText = "Rubro";
+                dataGridViewResultados.Columns[1].DataPropertyName = "Rubro";
+                dataGridViewResultados.Columns[2].HeaderText = "Direccion";
+                dataGridViewResultados.Columns[2].DataPropertyName = "Direccion";
+                for (int i = 3; i < dataGridViewResultados.Columns.Count; i++) { dataGridViewResultados.Columns[i].Visible = false; }*/
+            }
+        }
 
-                if (!resultados.Any()){
-                    MessageBox.Show("No se encontraron resultados.", "Error", MessageBoxButtons.OK);
-                } else {
-                    //Mantener numero de pagina, no se como sera mejor manejarlo
-                    
-
-                    //dataGridViewResultados.AutoGenerateColumns = false;
-                    
-                    var bindingList = new BindingList<Publicacion>(resultados);
-                    var source = new BindingSource(bindingList, null);
-                    dataGridViewResultados.DataSource = source;
-
-                    dataGridViewResultados.Columns[0].HeaderText = "Descripcion";
-                    dataGridViewResultados.Columns[0].DataPropertyName = "Descripcion";
-                    dataGridViewResultados.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridViewResultados.Columns[1].HeaderText = "Rubro";
-                    dataGridViewResultados.Columns[1].DataPropertyName = "Rubro";
-                    dataGridViewResultados.Columns[2].HeaderText = "Direccion";
-                    dataGridViewResultados.Columns[2].DataPropertyName = "Direccion";
-                    for (int i = 3; i < dataGridViewResultados.Columns.Count; i++) { dataGridViewResultados.Columns[i].Visible = false; }
-                }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Hay que hacer la query aca y obtener la lista para pasarla abajo
+            if (this.verificarCampos()) {
+                this.leer(true); 
             }
         }
 
@@ -158,11 +191,13 @@ namespace PalcoNet.Comprar
         private void button3_Click(object sender, EventArgs e)
         {
             //Aca hay que buscar los anteriores elementos en la base y reemplazar el contenido de la lista a la que esta bindeada la tabla
+            this.leer(false);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             //Aca hay que buscar los siguientes elementos en la base y reemplazar el contenido de la lista a la que esta bindeada la tabla
+            this.leer(true);
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -189,6 +224,20 @@ namespace PalcoNet.Comprar
             textBoxDescripcion.Text = "";
             dateTimePickerDesde.Value = DateTimePicker.MinimumDateTime;
             dateTimePickerHasta.Value = DateTimePicker.MinimumDateTime;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                dateTimePickerDesde.Enabled = true;
+                dateTimePickerHasta.Enabled = true;
+            }
+            else
+            {
+                dateTimePickerDesde.Enabled = false;
+                dateTimePickerHasta.Enabled = false;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ CREATE PROCEDURE buscarUsuarioPorCriterio_sp
 @email NVARCHAR(50)
 AS
 BEGIN
-	SELECT nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento, fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle FROM Clientes
+	SELECT nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento, fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, id_cliente, depto FROM Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
 		AND documento = CAST(@dni AS INT)
@@ -15,6 +15,4 @@ BEGIN
 		AND @dni LIKE ''
 		AND mail LIKE '%' + @email + '%')
 END
-
-
 
