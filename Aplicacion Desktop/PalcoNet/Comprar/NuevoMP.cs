@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Comprar
 {
@@ -21,8 +22,17 @@ namespace PalcoNet.Comprar
             set { tarjeta = value; }
         }
 
-        public NuevoMP()
+        MedioPago anterior;
+
+        public MedioPago Anterior
         {
+            get { return anterior; }
+            set { anterior = value; }
+        }
+
+        public NuevoMP(MedioPago anterior)
+        {
+            this.Anterior = anterior;
             InitializeComponent();
         }
         public bool verificarCampos() {
@@ -33,7 +43,7 @@ namespace PalcoNet.Comprar
 
             if (!camposCompletos)
             {
-                errores += "Se debe completar al menos un campo para realizar la búsqueda.";
+                errores += "Se debe completar ambos campos.";
             }
             else
             {
@@ -62,7 +72,21 @@ namespace PalcoNet.Comprar
                 this.Tarjeta.Titular = this.textBoxTitular.Text;
                 //Agregar el medio de pago a la base registrarMedioDePago_sp
 
-                MessageBox.Show("El nuevo medio de pago se ha ingresado al sistema exitosamente.", "Medio de Pago", MessageBoxButtons.OK);
+                try
+                {
+                    Servidor servidor = Servidor.getInstance();
+                    SqlDataReader reader = servidor.query("exec registrarMedioDePago_sp " + Sesion.getInstance().traerCliente().Id + " ," + this.Tarjeta.NumeroDeTarjeta + ", '" + this.Tarjeta.Titular + "'");
+
+                    this.Anterior.actualizar(this.Tarjeta);
+
+                    Console.WriteLine("+++++++++++++++++++++++++++++++++++++");
+                    MessageBox.Show("El nuevo medio de pago se ha ingresado al sistema exitosamente.", "Medio de Pago", MessageBoxButtons.OK);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                }
             }
         }
     }

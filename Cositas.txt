@@ -4,3 +4,6 @@ No se que pasa en el ABM Rubros pero no creo que este andando
 
 No se que esta flashando el loco cuando queres generar una publicacion, error de pk
 
+No se estan trayendo bien los medios de pago
+
+Hay que hacer algo para que no puedan agregar al carrito mucha veces lo mismo, ejemplo: hay un solo asiento y pueden seleccionar cantidad = 1 pero agregarlo muchas veces

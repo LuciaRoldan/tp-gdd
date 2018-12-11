@@ -55,7 +55,7 @@ namespace PalcoNet.Comprar
                     }
                 }
                 else {
-                    NuevoMP nuevo = new NuevoMP();
+                    NuevoMP nuevo = new NuevoMP(this);
                     nuevo.Show();
                     if (nuevo.Tarjeta != null)
                     {
@@ -71,6 +71,12 @@ namespace PalcoNet.Comprar
                 new FinalizarCompra(this, this.Compra).Show();
                 this.Hide();
             }
+        }
+
+        public void actualizar(Tarjeta tarjeta) {
+            Console.WriteLine("*********************************");
+            this.comboBoxTarjeta.Items.Add("*******" + (tarjeta.NumeroDeTarjeta % 10000));
+            this.Tarjetas.Add(tarjeta);
         }
 
         public bool verificarCampos() {
@@ -122,12 +128,8 @@ namespace PalcoNet.Comprar
 
         private void button3_Click(object sender, EventArgs e)
         {
-            NuevoMP nuevo = new NuevoMP();
+            NuevoMP nuevo = new NuevoMP(this);
             nuevo.Show();
-            if (nuevo.Tarjeta != null) {
-                this.comboBoxTarjeta.Items.Add(nuevo.Tarjeta);
-                nuevo.Close();
-            }
         }
 
         private void textBoxCodigo_TextChanged(object sender, EventArgs e)

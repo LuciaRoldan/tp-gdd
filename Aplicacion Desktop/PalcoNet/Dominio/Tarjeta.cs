@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PalcoNet.Dominio
 {
-    class Tarjeta
+    public class Tarjeta
     {
         int numeroDeTarjeta;
         string titular;

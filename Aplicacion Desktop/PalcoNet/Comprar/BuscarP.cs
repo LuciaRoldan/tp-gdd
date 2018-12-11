@@ -114,6 +114,7 @@ namespace PalcoNet.Comprar
 
             if (this.Offset >= 0)
             {
+                this.Publicaciones.Clear();
                 string descripcion = "";
                 List<string> categoriasSelecc = new List<string>();
                 DateTime? desde = null;
@@ -139,7 +140,7 @@ namespace PalcoNet.Comprar
                     else { categorias = categorias + ", ''" + s + "''"; }
                 }
 
-                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked? (", '" + desde + "', '" + hasta + "', ") : ", null, null, ") + this.Offset;
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked? (", '" + desde + "', '" + hasta + "', ") : ", null, null, ") + this.Offset * 10;
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();

@@ -90,6 +90,7 @@ namespace PalcoNet.Comprar
                 ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
                 ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
                 ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
+                ubicacion.CantidadAsientos = (int) this.numericUpDownCantidad.Value;
                 if (ubicacion.Numerada)
                 {
                     List<Asiento> asientos = new List<Asiento>();
