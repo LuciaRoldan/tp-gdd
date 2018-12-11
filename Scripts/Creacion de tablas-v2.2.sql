@@ -137,7 +137,7 @@ titular NVARCHAR(50)
 ALTER TABLE Puntos ADD
 id_cliente INT REFERENCES Clientes,
 cantidad_puntos BIGINT,
-fecha_vencimiento DATE;
+fecha_vencimiento DATETIME;
 
 ALTER TABLE Empresas ADD
 id_usuario INT REFERENCES Usuarios,

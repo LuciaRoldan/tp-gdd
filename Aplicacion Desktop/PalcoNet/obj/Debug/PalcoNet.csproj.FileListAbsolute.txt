@@ -214,3 +214,4 @@ C:\Users\ABM\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\Palco
 C:\Users\ABM\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.CambioContrasenia.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.CambioContrasenia.resources
+C:\Users\ABM\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.CambioContrasenia.resources

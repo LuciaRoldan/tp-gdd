@@ -46,10 +46,6 @@ namespace PalcoNet.Listado_Estadistico
             set { fechaFin = value; }
         }
 
-
-
-
-
         public Listados(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
@@ -86,11 +82,15 @@ namespace PalcoNet.Listado_Estadistico
         private void button4_Click(object sender, EventArgs e)
         {
 
+            Console.WriteLine(this.armarFechaInicio().ToString());
+            Console.WriteLine(this.armarFechaFin().ToString());
+
+            trimestre = trimestreCombobox.Text.ToString();
+
             DateTime inicio = armarFechaInicio();
             DateTime fin = armarFechaFin();
 
-
-            SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio + "', '" + fin + "'");
+            SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
             List<Cliente> clientesOrdenadosPorPuntos = new List<Cliente>();
 
             while (reader.Read())

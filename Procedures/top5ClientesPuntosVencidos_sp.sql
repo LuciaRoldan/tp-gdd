@@ -1,24 +1,52 @@
 CREATE PROCEDURE top5ClientesPuntosVencidos_sp(
-@fecha_inicio DATETIME,
-@fecha_fin DATETIME
+@fecha_inicio VARCHAR,
+@fecha_fin VARCHAR
 )
 AS
 BEGIN
+	
 	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM Clientes c
 	JOIN Puntos p ON(p.id_cliente = c.id_cliente)
-	WHERE CONVERT(DATETIME, CONVERT(VARCHAR(8), fecha_vencimiento, 112)) < CONVERT(DATETIME,CONVERT(VARCHAR(8),GETDATE(),112))
-	AND CONVERT(DATETIME, CONVERT(VARCHAR(8), fecha_vencimiento, 112)) > CONVERT(DATETIME, CONVERT(VARCHAR(8), @fecha_inicio, 112))
-	AND CONVERT(DATETIME, CONVERT(VARCHAR(8), fecha_vencimiento, 112)) < CONVERT(DATETIME, CONVERT(VARCHAR(8), @fecha_fin, 112))
-	--WHERE fecha_vencimiento < GETDATE() AND fecha_vencimiento > @fecha_inicio AND fecha_vencimiento < @fecha_fin
+	WHERE fecha_vencimiento < GETDATE() AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
 	GROUP BY nombre, apellido
 	ORDER BY SUM(cantidad_puntos) DESC
 END
 
 drop procedure top5ClientesPuntosVencidos_sp
 
+/*
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(100, '2015-07-05 00:00:00.000', 100);
 
-DECLARE @una_fecha DATETIME = (SELECT fecha FROM Compras WHERE id_compra=1)
-DECLARE @otra_fecha DATETIME = (SELECT fecha FROM Compras WHERE id_compra=2)
-EXEC top5ClientesPuntosVencidos_sp @una_fecha, @otra_fecha
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(500, '2019-07-05 00:00:00.000', 100);
 
---INSERT INTO Puntos(id_cliente, cantidad_puntos, fecha_vencimiento) VALUES(1, 250, GETDATE())
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(300, '2016-07-05 00:00:00.000', 200);
+
+DECLARE @una_fecha2 DATETIME = '2014-07-05 00:00:00.000'
+DECLARE @otra_fecha2 DATETIME = '2016-07-05 00:00:00.000'
+EXEC top5ClientesPuntosVencidos_sp @una_fecha2, @otra_fecha2
+*/
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(500, '2018-01-05 00:00:00.000', 100);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(600, '2018-02-05 00:00:00.000', 200);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(300, '2017-07-05 00:00:00.000', 200);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(500, '2018-01-05 00:00:00.000', 300);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(600, '2018-02-05 00:00:00.000', 400);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(300, '2018-07-05 00:00:00.000', 500);
+
+INSERT INTO Puntos(cantidad_puntos, fecha_vencimiento, id_cliente)
+VALUES(300, '2018-02-20 00:00:00.000', 600);
+
