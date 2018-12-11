@@ -15,6 +15,13 @@ namespace PalcoNet.Dominio
         int cantidadEntradas;
         int id;
         decimal comision;
+        Espectaculo espectaculo;
+
+        internal Espectaculo Espectaculo
+        {
+            get { return espectaculo; }
+            set { espectaculo = value; }
+        }
 
         public decimal Comision
         {

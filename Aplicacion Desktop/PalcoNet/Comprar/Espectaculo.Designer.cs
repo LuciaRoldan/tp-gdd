@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Comprar
 {
-    partial class Espectaculo
+    partial class Espectaculos
     {
         /// <summary>
         /// Required designer variable.

@@ -14,6 +14,13 @@ namespace PalcoNet.Dominio
         List<Asiento> asientos = new List<Asiento>();
         int cantidadAsientos;
         int cantidadFilas;
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public int CantidadFilas
         {

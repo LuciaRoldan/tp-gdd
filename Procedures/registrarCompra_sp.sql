@@ -1,6 +1,5 @@
 CREATE PROCEDURE registrarCompra_sp
 @id_cliente INT,
-@id_espectaculo INT,
 @id_medio_de_pago INT,
 @importe BIGINT,
 @id_ubicacion_espectaculo INT
@@ -16,3 +15,4 @@ BEGIN
 	WHERE id_ubicacion_espectaculo = @id_ubicacion_espectaculo
 
 END
+

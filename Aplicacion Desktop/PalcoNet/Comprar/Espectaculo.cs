@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
 using System.Data.SqlClient;
+using PalcoNet.Dominio;
 
 namespace PalcoNet.Comprar
 {
-    public partial class Espectaculo : MiForm
+    public partial class Espectaculos : MiForm
     {
         Compra compra;
-        List<DateTime> fechas = new List<DateTime>();
+        List<Espectaculo> fechas = new List<Espectaculo>();
 
-        public List<DateTime> Fechas
+        public List<Espectaculo> Fechas
         {
             get { return fechas; }
             set { fechas = value; }
@@ -29,7 +30,7 @@ namespace PalcoNet.Comprar
             set { compra = value; }
         }
 
-        public Espectaculo(MiForm anterior, Compra compra)
+        public Espectaculos(MiForm anterior, Compra compra)
         {
             InitializeComponent();
             this.Compra = compra;
@@ -37,9 +38,11 @@ namespace PalcoNet.Comprar
             Servidor servidor = Servidor.getInstance();
             SqlDataReader reader = servidor.query("exec buscarEspectaculosPorPublicacion_sp " + compra.Publicacion.Id);
             while (reader.Read()) {
-                DateTime fecha = (DateTime)reader["fecha_evento"];
-                comboBoxFechas.Items.Add(fecha);
-                this.fechas.Add(fecha);
+                Espectaculo e = new Espectaculo();
+                e.Fecha = (DateTime)reader["fecha_evento"];
+                e.Id = int.Parse(reader["id_espectaculo"].ToString());
+                comboBoxFechas.Items.Add(e.Fecha);
+                this.fechas.Add(e);
             }
         }
 
@@ -47,7 +50,7 @@ namespace PalcoNet.Comprar
         {
             if (comboBoxFechas.SelectedIndex > -1)
             {
-                this.Compra.Fecha = this.fechas[comboBoxFechas.SelectedIndex];
+                this.Compra.Espectaculo = this.fechas[comboBoxFechas.SelectedIndex];
                 new Ubicaciones(compra, this).Show();
                 this.Hide();
             }

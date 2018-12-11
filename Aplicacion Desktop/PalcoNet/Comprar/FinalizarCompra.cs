@@ -47,7 +47,12 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //hay que guardar las cosas en la base
+            foreach (Ubicacion u in this.Compra.Ubicaciones)
+            {
+                //string query = Sesion.getInstance().traerCliente().Id + ", " + "medio de pago" + ", " +;
+                Servidor.getInstance().query("exec registrarCompra_sp ");
+            }
+            
 
             MessageBox.Show("La compra se realizó exitosamente!", "Compra", MessageBoxButtons.OK);
             this.cerrarAnteriores();

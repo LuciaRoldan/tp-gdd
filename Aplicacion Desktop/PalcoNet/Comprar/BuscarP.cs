@@ -217,7 +217,7 @@ namespace PalcoNet.Comprar
                 Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
                 Compra compra = new Compra();
                 compra.Publicacion = publicacionSeleccionada;
-                new Espectaculo(this, compra).Show();
+                new Espectaculos(this, compra).Show();
                 this.Hide();
             }
         }

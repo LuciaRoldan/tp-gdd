@@ -48,6 +48,7 @@ namespace PalcoNet.Comprar
                 u.CantidadAsientos = int.Parse(reader["asientos"].ToString());
                 if (u.Numerada) { u.CantidadFilas = int.Parse(reader["filas"].ToString()); }
                 u.Precio = decimal.Parse(reader["precio"].ToString());
+                u.Id = int.Parse(reader["id_ubicacion"].ToString());
                 u.TipoAsiento = reader["descripcion"].ToString();
                 comboBoxUbicaciones.Items.Add(u.TipoAsiento + ", $" + u.Precio.ToString());
                 this.UbicacionesDisponibles.Add(u);
@@ -90,6 +91,7 @@ namespace PalcoNet.Comprar
                 ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
                 ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
                 ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
+                ubicacion.Id = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Id;
                 ubicacion.CantidadAsientos = (int) this.numericUpDownCantidad.Value;
                 if (ubicacion.Numerada)
                 {
