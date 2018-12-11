@@ -45,12 +45,6 @@ namespace PalcoNet.Comprar
             set { cliente = value; }
         }
 
-        public int Offset
-        {
-            get { return offset; }
-            set { offset = value; }
-        }
-
 
         public BuscarP(MiForm anterior) : base(anterior)
         {
