@@ -22,9 +22,9 @@ namespace PalcoNet.Dominio
             get { return fecha; }
             set { fecha = value; }
         }
-        double importe;
+        decimal importe;
 
-        public double Importe
+        public decimal Importe
         {
             get { return importe; }
             set { importe = value; }
@@ -36,5 +36,13 @@ namespace PalcoNet.Dominio
             get { return cantidadAsientos; }
             set { cantidadAsientos = value; }
         }
+        int numeroTarjeta;
+
+        public int NumeroTarjeta
+        {
+            get { return numeroTarjeta; }
+            set { numeroTarjeta = value; }
+        }
+
     }
 }

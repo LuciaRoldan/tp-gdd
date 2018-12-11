@@ -23,14 +23,14 @@ namespace PalcoNet.Listado_Estadistico
             InitializeComponent();
             empieza = inicio;
             termina = fin;
-            
-            SqlDataReader reader = servidor.query("SELECT DISTINCT razon_social FROM Empresas");
+
+            SqlDataReader reader = servidor.query("exec traerTodasRazonesSociales_sp");
 
             while (reader.Read())
             {
                 Empresa empresa = new Empresa();
                 empresa.RazonSocial = reader["razon_social"].ToString();
-                comboBox1.Items.Add(reader["razon_social"].ToString());
+                comboBox1.Items.Add(empresa.RazonSocial);
 
             }
             reader.Close();
@@ -72,7 +72,6 @@ namespace PalcoNet.Listado_Estadistico
                 compra.Apellido = reader["apellido"].ToString();
                 compra.Empresa = reader["razon_social"].ToString();
                 compra.CantidadCompras = Convert.ToInt32(reader["Cantidad de compras"]);
-                compra.Usuario = Sesion.sesion.usuario.NombreUsuario;
 
                 comprasClientes.Add(compra);
 
@@ -82,6 +81,11 @@ namespace PalcoNet.Listado_Estadistico
             var bindingList = new BindingList<CompraCliente>(comprasClientes);
             var source = new BindingSource(bindingList, null);
             clientesComprasGrid.DataSource = source;
+        }
+
+        private void ClientesMuchasCompras_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

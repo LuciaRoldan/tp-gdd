@@ -30,7 +30,6 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.puntosClientesGrid = new System.Windows.Forms.DataGridView();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +48,7 @@
             this.CUIL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.puntosClientesGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,18 +72,10 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(297, 24);
-            this.label2.TabIndex = 123;
-            this.label2.Text = "Clientes con más puntos vencidos";
-            // 
             // puntosClientesGrid
             // 
+            this.puntosClientesGrid.AllowUserToAddRows = false;
+            this.puntosClientesGrid.AllowUserToDeleteRows = false;
             this.puntosClientesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.puntosClientesGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Nombre,
@@ -105,6 +97,7 @@
             this.Telefono});
             this.puntosClientesGrid.Location = new System.Drawing.Point(12, 35);
             this.puntosClientesGrid.Name = "puntosClientesGrid";
+            this.puntosClientesGrid.ReadOnly = true;
             this.puntosClientesGrid.Size = new System.Drawing.Size(443, 150);
             this.puntosClientesGrid.TabIndex = 124;
             this.puntosClientesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.puntosClientesGrid_CellContentClick);
@@ -113,99 +106,126 @@
             // 
             this.Nombre.HeaderText = "Nombre";
             this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
             // 
             // Apellido
             // 
             this.Apellido.HeaderText = "Apellido";
             this.Apellido.Name = "Apellido";
+            this.Apellido.ReadOnly = true;
             // 
             // Usuario
             // 
             this.Usuario.HeaderText = "Usuario";
             this.Usuario.Name = "Usuario";
+            this.Usuario.ReadOnly = true;
             // 
             // Puntos
             // 
             this.Puntos.HeaderText = "Puntos";
             this.Puntos.Name = "Puntos";
+            this.Puntos.ReadOnly = true;
             // 
             // Localidad
             // 
             this.Localidad.HeaderText = "Localidad";
             this.Localidad.Name = "Localidad";
+            this.Localidad.ReadOnly = true;
             this.Localidad.Visible = false;
             // 
             // FechaNacimiento
             // 
             this.FechaNacimiento.HeaderText = "FechaNacimiento";
             this.FechaNacimiento.Name = "FechaNacimiento";
+            this.FechaNacimiento.ReadOnly = true;
             this.FechaNacimiento.Visible = false;
             // 
             // FechaCreacion
             // 
             this.FechaCreacion.HeaderText = "FechaCreacion";
             this.FechaCreacion.Name = "FechaCreacion";
+            this.FechaCreacion.ReadOnly = true;
             this.FechaCreacion.Visible = false;
             // 
             // Calle
             // 
             this.Calle.HeaderText = "Calle";
             this.Calle.Name = "Calle";
+            this.Calle.ReadOnly = true;
             this.Calle.Visible = false;
             // 
             // Piso
             // 
             this.Piso.HeaderText = "Piso";
             this.Piso.Name = "Piso";
+            this.Piso.ReadOnly = true;
             this.Piso.Visible = false;
             // 
             // Contraseña
             // 
             this.Contraseña.HeaderText = "Contraseña";
             this.Contraseña.Name = "Contraseña";
+            this.Contraseña.ReadOnly = true;
             this.Contraseña.Visible = false;
             // 
             // NroCalle
             // 
             this.NroCalle.HeaderText = "NroCalle";
             this.NroCalle.Name = "NroCalle";
+            this.NroCalle.ReadOnly = true;
             this.NroCalle.Visible = false;
             // 
             // Ciudad
             // 
             this.Ciudad.HeaderText = "Ciudad";
             this.Ciudad.Name = "Ciudad";
+            this.Ciudad.ReadOnly = true;
             this.Ciudad.Visible = false;
             // 
             // NroDocumento
             // 
             this.NroDocumento.HeaderText = "NroDocumento";
             this.NroDocumento.Name = "NroDocumento";
+            this.NroDocumento.ReadOnly = true;
             this.NroDocumento.Visible = false;
             // 
             // TipoDocumento
             // 
             this.TipoDocumento.HeaderText = "TipoDocumento";
             this.TipoDocumento.Name = "TipoDocumento";
+            this.TipoDocumento.ReadOnly = true;
             this.TipoDocumento.Visible = false;
             // 
             // CUIL
             // 
             this.CUIL.HeaderText = "CUIL";
             this.CUIL.Name = "CUIL";
+            this.CUIL.ReadOnly = true;
             this.CUIL.Visible = false;
             // 
             // eMail
             // 
             this.eMail.HeaderText = "eMail";
             this.eMail.Name = "eMail";
+            this.eMail.ReadOnly = true;
             this.eMail.Visible = false;
             // 
             // Telefono
             // 
             this.Telefono.HeaderText = "Telefono";
             this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
             this.Telefono.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(8, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(297, 24);
+            this.label2.TabIndex = 123;
+            this.label2.Text = "Clientes con más puntos vencidos";
             // 
             // ClientesPuntos
             // 

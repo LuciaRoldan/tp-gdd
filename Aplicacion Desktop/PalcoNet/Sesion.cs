@@ -75,6 +75,7 @@ namespace PalcoNet
                 cliente.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
                 cliente.Piso = Convert.ToInt32(reader["piso"]);
+                cliente.Id = int.Parse(reader["id_cliente"].ToString());
             }
 
             SqlDataReader reader2 = servidor.query("EXEC getPuntos_sp '" + this.usuario.NombreUsuario + "'");

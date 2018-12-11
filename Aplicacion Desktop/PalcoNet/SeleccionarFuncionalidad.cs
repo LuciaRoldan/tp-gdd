@@ -68,6 +68,7 @@ namespace PalcoNet
                 {
                     case "ABM de rol":
                         new AbmRol(this).Show();
+                        this.Hide();
                         break;
                     case "Registro de usuario":
                         new RegistroDeUsuario1(this).Show();
@@ -115,8 +116,8 @@ namespace PalcoNet
                         this.Hide();
                         break;
                     case "Listado estadistico":
-                        new Listados(this).Show();
                         this.Hide();
+                        new Listados(this).Show();
                         break;
                 }
             }

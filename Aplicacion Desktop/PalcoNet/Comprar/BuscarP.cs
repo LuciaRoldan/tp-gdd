@@ -90,7 +90,10 @@ namespace PalcoNet.Comprar
                 DateTime? hasta = null;
                 if (!string.IsNullOrWhiteSpace(this.textBoxDescripcion.Text)) { descripcion = this.textBoxDescripcion.Text; }
                 if (this.checkedListBoxCategorias.SelectedIndices.Count > 0) {
-                    foreach (int index in checkedListBoxCategorias.SelectedIndices) { categoriasSelecc.Add(this.Categorias[index]); }
+                    for (int i = 0; i < checkedListBoxCategorias.Items.Count; i++)
+                    {
+                        if (checkedListBoxCategorias.GetItemCheckState(i) == CheckState.Checked) { categoriasSelecc.Add(this.Categorias[i]); }
+                    }
                 }
                 if (this.dateTimePickerDesde.Value != null && this.dateTimePickerHasta.Value != null) {
                     desde = this.dateTimePickerDesde.Value;
@@ -102,10 +105,10 @@ namespace PalcoNet.Comprar
                     categorias = categorias + "', '" + s + "'";
                 }
 
-                String query = descripcion + "', '" + categorias + "', '" + desde + "', '" + hasta;
+                String query = descripcion + "', '" + categorias + "', '" + desde + "', '" + hasta + "'";
 
                
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio " + query);
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp '" + query);
                 List<Publicacion> resultados = new List<Publicacion>();
 
 

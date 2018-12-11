@@ -98,8 +98,8 @@ namespace PalcoNet
                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     sesion.rol = roles[0];
                     this.Hide();
-                    new SeleccionarFuncionalidad().ShowDialog();
-                    this.Close();
+                    new SeleccionarFuncionalidad().Show();
+                    //this.Close();
                 }
             }
             catch (SqlException ex)
