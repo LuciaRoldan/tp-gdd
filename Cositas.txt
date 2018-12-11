@@ -1,5 +1,6 @@
 En la pantallita de ABM Rubros, me inserta el ID de la publicacion cada vez que pongo buscar al lado del id ya insertado.
 
-No se que pasa en el ABM Rubros pero no creo que este andando
+No se que pasa en el ABM Rubros pero no creo que este andando 
 
+No se que esta flashando el loco cuando queres generar una publicacion, error de pk
 

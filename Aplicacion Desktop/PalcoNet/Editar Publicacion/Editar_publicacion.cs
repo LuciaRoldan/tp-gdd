@@ -62,11 +62,11 @@ namespace PalcoNet.Editar_Publicacion
             else 
             {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
-                button2.Enabled = false;
-                button3.Enabled = false;
                 button4.Enabled = false;
-                button5.Enabled = false;
             }
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button5.Enabled = false;
         }
 
         public bool VerificarCamposUbicacion()
@@ -143,6 +143,9 @@ namespace PalcoNet.Editar_Publicacion
                     this.PublicacionElegida.Ubicaciones.Add(ubicacion);
                 }
                 this.actualizarUbicaciones();
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button5.Enabled = true;
             } else {
                 MessageBox.Show("Se debe sleccionar alguna publicación", "Error", MessageBoxButtons.OK);
             } 
@@ -278,7 +281,7 @@ namespace PalcoNet.Editar_Publicacion
 
                 }
 
-
+                MessageBox.Show("Los cambios se registraron exitosamente!", "Editar publicación", MessageBoxButtons.OK);
                 //Hay que actualizar en la base los cambios en la publicacion elegida, inclyendo en sus fechas y sus ubicaciones
                 //3 SP uno de lo basico de publicacion, uno de las fechas y uno de las ubicaciones, en ese orden.
             }

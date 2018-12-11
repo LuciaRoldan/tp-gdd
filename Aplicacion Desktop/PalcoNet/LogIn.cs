@@ -14,7 +14,7 @@ using PalcoNet.Registro_de_Usuario;
 
 namespace PalcoNet
 {
-    public partial class LogIn : Form
+    public partial class LogIn : MiForm
     {
         
         Sesion sesion = Sesion.getInstance();
@@ -118,10 +118,10 @@ namespace PalcoNet
             if (comboBoxUsuario.SelectedIndex > -1){
                 switch (comboBoxUsuario.Text) { 
                     case "Cliente":
-                        new RegistroDeCliente(new Cliente(), null).Show();
+                        new RegistroDeCliente(new Cliente(), this).Show();
                         break;
                     case "Empresa":
-                        new RegistroDeEmpresa(new Empresa(), null).Show();
+                        new RegistroDeEmpresa(new Empresa(), this).Show();
                         break;
                 }
                 this.Hide();
