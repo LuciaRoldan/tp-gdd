@@ -319,6 +319,17 @@ WHERE r.nombre = 'Empresa';
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'admin'), 4)
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'sa'), 1)
 
+
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+VALUES('ro', 'lol', 1, GETDATE(), 0, 0)
+INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'ro'), 3)
+DECLARE @id INT = SCOPE_IDENTITY()
+INSERT INTO Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, fecha_creacion, fecha_nacimiento, calle, numero_calle, piso, depto, codigo_postal)
+VALUES(@id, 'Ro', 'Chi', 'DNI', 40747111, 40747134, 'ro@chi.com', NULL, NULL, 'Gurru', 2215, 4, 'B', 1422)
+
+delete from UsuarioXRol where id_usuario = 788
+DELETE FROM Usuarios where id_usuario = 788
+delete from clientes where id_usuario = 788
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 
 INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)

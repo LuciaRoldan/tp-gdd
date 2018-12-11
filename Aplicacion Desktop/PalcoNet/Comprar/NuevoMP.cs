@@ -60,7 +60,7 @@ namespace PalcoNet.Comprar
                 this.Tarjeta = new Tarjeta();
                 this.Tarjeta.NumeroDeTarjeta = Int32.Parse(this.textBoxNumero.Text);
                 this.Tarjeta.Titular = this.textBoxTitular.Text;
-                //Agregar el medio de pago a la base
+                //Agregar el medio de pago a la base registrarMedioDePago_sp
 
                 MessageBox.Show("El nuevo medio de pago se ha ingresado al sistema exitosamente.", "Medio de Pago", MessageBoxButtons.OK);
             }

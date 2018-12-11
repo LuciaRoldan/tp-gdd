@@ -15,9 +15,10 @@ namespace PalcoNet.Comprar
     public partial class BuscarP : MiForm
     {
         Cliente cliente;
-        List<string> categorias;
+        List<string> categorias = new List<string>();
         Sesion sesion = Sesion.getInstance();
         Servidor servidor = Servidor.getInstance();
+        int offset = -1;
 
         public List<string> Categorias
         {
@@ -31,9 +32,17 @@ namespace PalcoNet.Comprar
             set { cliente = value; }
         }
 
+        public int Offset
+        {
+            get { return offset; }
+            set { offset = value; }
+        }
+
+
         public BuscarP(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+
             if (sesion.rol.Nombre == "Cliente") {
 
                 this.Cliente = sesion.traerCliente();
@@ -43,10 +52,13 @@ namespace PalcoNet.Comprar
                 while (reader.Read())
                 {
                     checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
+                    this.Categorias.Add(reader["descripcion"].ToString());
                 }
                 reader.Close();
 
                 dataGridViewResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
 
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
@@ -103,10 +115,10 @@ namespace PalcoNet.Comprar
                 String categorias = "";
                 foreach (String s in categoriasSelecc)
                 {
-                    categorias = categorias + "', '" + s + "'";
+                    categorias = categorias + "', " + s + "'";
                 }
 
-                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + ", '" + desde + "', '" + hasta + "'";
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + (categorias == "" ? ", " + "null" + "": "'" + categorias + "' ") + ", '" + desde + "', '" + hasta + "', '" + ;
 
                
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
@@ -189,6 +201,11 @@ namespace PalcoNet.Comprar
             textBoxDescripcion.Text = "";
             dateTimePickerDesde.Value = DateTimePicker.MinimumDateTime;
             dateTimePickerHasta.Value = DateTimePicker.MinimumDateTime;
+        }
+
+        private void checkedListBoxCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

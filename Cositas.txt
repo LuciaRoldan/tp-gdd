@@ -12,6 +12,10 @@ DebeCambiarContraseña aparece como un cuadradito en la lista de clientes?
 
 No aparece el id del Cliente en la lista de clientes. Puse que el sp lo retorne pero deberia guardarlo el vs?
 
+No se puede editar la dire etc del cliente
+
+Cuando ponemos en Comprar "Podra simular el  proceso de compra pero no comprar" pero no se completan las cosas como para que pueda simularlo
+
 
 
 
