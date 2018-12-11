@@ -67,9 +67,9 @@ namespace PalcoNet.Registro_de_Usuario
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Mail = textBoxMail.Text;
                 cliente.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-                cliente.Cuil = Int32.Parse(textBoxCuil.Text);
+                cliente.Cuil = long.Parse(textBoxCuil.Text);
                 cliente.TipoDocumento = comboBoxDocumento.SelectedText;
-                if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = Int32.Parse(textBoxTelefono.Text); }
+                if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = long.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
 
                 //Capaz aca hay que encriptar la contrasenia

@@ -88,15 +88,18 @@ namespace PalcoNet.Abm_Cliente
                     clienteEnc.Nombre = reader["nombre"].ToString();
                     clienteEnc.Apellido = reader["apellido"].ToString();
                     Console.WriteLine(reader["nombre"]);
-                    clienteEnc.Cuil = Convert.ToInt32(reader["cuil"]);
+                    clienteEnc.Cuil = long.Parse(reader["cuil"].ToString());
                     clienteEnc.Mail = reader["mail"].ToString();
-                    clienteEnc.Telefono = Convert.ToInt32(reader["telefono"]);
+                    clienteEnc.Telefono = long.Parse(reader["telefono"].ToString());
                     clienteEnc.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
                     clienteEnc.TipoDocumento = reader["tipo_documento"].ToString();
                     clienteEnc.Calle = reader["calle"].ToString();
                     clienteEnc.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                     clienteEnc.FechaDeNacimiento = (DateTime)reader["fecha_nacimiento"];
                     clienteEnc.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
+                    clienteEnc.CodigoPostal = reader["codigo_postal"].ToString();
+                    clienteEnc.Id = int.Parse(reader["id_cliente"].ToString());
+                    clienteEnc.Departamento = reader["depto"].ToString();
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);

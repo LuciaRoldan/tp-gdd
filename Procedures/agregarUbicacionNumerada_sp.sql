@@ -13,7 +13,7 @@ BEGIN
 	IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
 			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
-			SELECT MAX(id_tipo_ubicacion)+1, descripcion FROM TiposDeUbicacion
+			SELECT MAX(id_tipo_ubicacion)+1, descripcion FROM TiposDeUbicacion group by descripcion
 		END
 
 	WHILE(@contador_filas < @filas)
@@ -25,7 +25,7 @@ BEGIN
 		BEGIN
 
 			INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
-			SELECT CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, id_tipo_ubicacion --esta truchito, mati va a hacer funcion
+			SELECT CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, id_tipo_ubicacion 
 			FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
 
 			INSERT INTO #UbicacionesInsertadas
@@ -39,3 +39,6 @@ BEGIN
 
 	SELECT * FROM #UbicacionesInsertadas
 END
+
+
+

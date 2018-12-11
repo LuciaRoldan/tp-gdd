@@ -41,7 +41,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridViewResultados = new System.Windows.Forms.DataGridView();
+            this.buttonModificar = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.razonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.debeCambiarContraseña = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,8 +57,6 @@
             this.ciudad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.localidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonModificar = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResultados)).BeginInit();
             this.SuspendLayout();
@@ -178,6 +179,7 @@
             this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.razonSocial,
+            this.debeCambiarContraseña,
             this.mail,
             this.Cuit,
             this.fechaC,
@@ -194,94 +196,11 @@
             this.dataGridViewResultados.Location = new System.Drawing.Point(16, 212);
             this.dataGridViewResultados.MultiSelect = false;
             this.dataGridViewResultados.Name = "dataGridViewResultados";
+            this.dataGridViewResultados.ReadOnly = true;
             this.dataGridViewResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewResultados.Size = new System.Drawing.Size(551, 201);
             this.dataGridViewResultados.TabIndex = 35;
             this.dataGridViewResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResultados_CellContentClick);
-            // 
-            // razonSocial
-            // 
-            this.razonSocial.DataPropertyName = "razonSocial";
-            this.razonSocial.HeaderText = "Razón Social";
-            this.razonSocial.Name = "razonSocial";
-            // 
-            // mail
-            // 
-            this.mail.DataPropertyName = "mail";
-            this.mail.HeaderText = "Mail";
-            this.mail.Name = "mail";
-            // 
-            // Cuit
-            // 
-            this.Cuit.DataPropertyName = "cuit";
-            this.Cuit.HeaderText = "CUIT";
-            this.Cuit.Name = "Cuit";
-            // 
-            // fechaC
-            // 
-            this.fechaC.DataPropertyName = "fechaDeCreacion";
-            this.fechaC.HeaderText = "Fecha De Creación";
-            this.fechaC.Name = "fechaC";
-            this.fechaC.Visible = false;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "telefono";
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.Visible = false;
-            // 
-            // CodigoPostal
-            // 
-            this.CodigoPostal.HeaderText = "Codigo Postal";
-            this.CodigoPostal.Name = "CodigoPostal";
-            this.CodigoPostal.Visible = false;
-            // 
-            // nombreusuario
-            // 
-            this.nombreusuario.DataPropertyName = "nombreUsuario";
-            this.nombreusuario.HeaderText = "Nombre de usuario";
-            this.nombreusuario.Name = "nombreusuario";
-            this.nombreusuario.Visible = false;
-            // 
-            // contrasenia
-            // 
-            this.contrasenia.DataPropertyName = "contrasenia";
-            this.contrasenia.HeaderText = "Contrasenia";
-            this.contrasenia.Name = "contrasenia";
-            this.contrasenia.Visible = false;
-            // 
-            // calle
-            // 
-            this.calle.DataPropertyName = "calle";
-            this.calle.HeaderText = "Calle";
-            this.calle.Name = "calle";
-            // 
-            // NroCalle
-            // 
-            this.NroCalle.DataPropertyName = "numeroDeCalle";
-            this.NroCalle.HeaderText = "Nro. de calle";
-            this.NroCalle.Name = "NroCalle";
-            // 
-            // ciudad
-            // 
-            this.ciudad.DataPropertyName = "ciudad";
-            this.ciudad.HeaderText = "Ciudad";
-            this.ciudad.Name = "ciudad";
-            this.ciudad.Visible = false;
-            // 
-            // localidad
-            // 
-            this.localidad.DataPropertyName = "localidad";
-            this.localidad.HeaderText = "Localidad";
-            this.localidad.Name = "localidad";
-            this.localidad.Visible = false;
-            // 
-            // piso
-            // 
-            this.piso.DataPropertyName = "piso";
-            this.piso.HeaderText = "Piso";
-            this.piso.Name = "piso";
             // 
             // buttonModificar
             // 
@@ -302,6 +221,111 @@
             this.button4.Text = "Nueva Búsqueda";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // razonSocial
+            // 
+            this.razonSocial.DataPropertyName = "razonSocial";
+            this.razonSocial.HeaderText = "Razón Social";
+            this.razonSocial.Name = "razonSocial";
+            this.razonSocial.ReadOnly = true;
+            // 
+            // debeCambiarContraseña
+            // 
+            this.debeCambiarContraseña.DataPropertyName = "debeCambiarContraseña";
+            this.debeCambiarContraseña.HeaderText = "debeCambiarContraseña";
+            this.debeCambiarContraseña.Name = "debeCambiarContraseña";
+            this.debeCambiarContraseña.ReadOnly = true;
+            this.debeCambiarContraseña.Visible = false;
+            // 
+            // mail
+            // 
+            this.mail.DataPropertyName = "mail";
+            this.mail.HeaderText = "Mail";
+            this.mail.Name = "mail";
+            this.mail.ReadOnly = true;
+            // 
+            // Cuit
+            // 
+            this.Cuit.DataPropertyName = "cuit";
+            this.Cuit.HeaderText = "CUIT";
+            this.Cuit.Name = "Cuit";
+            this.Cuit.ReadOnly = true;
+            // 
+            // fechaC
+            // 
+            this.fechaC.DataPropertyName = "fechaDeCreacion";
+            this.fechaC.HeaderText = "Fecha De Creación";
+            this.fechaC.Name = "fechaC";
+            this.fechaC.ReadOnly = true;
+            this.fechaC.Visible = false;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            this.Telefono.Visible = false;
+            // 
+            // CodigoPostal
+            // 
+            this.CodigoPostal.HeaderText = "Codigo Postal";
+            this.CodigoPostal.Name = "CodigoPostal";
+            this.CodigoPostal.ReadOnly = true;
+            this.CodigoPostal.Visible = false;
+            // 
+            // nombreusuario
+            // 
+            this.nombreusuario.DataPropertyName = "nombreUsuario";
+            this.nombreusuario.HeaderText = "Nombre de usuario";
+            this.nombreusuario.Name = "nombreusuario";
+            this.nombreusuario.ReadOnly = true;
+            this.nombreusuario.Visible = false;
+            // 
+            // contrasenia
+            // 
+            this.contrasenia.DataPropertyName = "contrasenia";
+            this.contrasenia.HeaderText = "Contrasenia";
+            this.contrasenia.Name = "contrasenia";
+            this.contrasenia.ReadOnly = true;
+            this.contrasenia.Visible = false;
+            // 
+            // calle
+            // 
+            this.calle.DataPropertyName = "calle";
+            this.calle.HeaderText = "Calle";
+            this.calle.Name = "calle";
+            this.calle.ReadOnly = true;
+            // 
+            // NroCalle
+            // 
+            this.NroCalle.DataPropertyName = "numeroDeCalle";
+            this.NroCalle.HeaderText = "Nro. de calle";
+            this.NroCalle.Name = "NroCalle";
+            this.NroCalle.ReadOnly = true;
+            // 
+            // ciudad
+            // 
+            this.ciudad.DataPropertyName = "ciudad";
+            this.ciudad.HeaderText = "Ciudad";
+            this.ciudad.Name = "ciudad";
+            this.ciudad.ReadOnly = true;
+            this.ciudad.Visible = false;
+            // 
+            // localidad
+            // 
+            this.localidad.DataPropertyName = "localidad";
+            this.localidad.HeaderText = "Localidad";
+            this.localidad.Name = "localidad";
+            this.localidad.ReadOnly = true;
+            this.localidad.Visible = false;
+            // 
+            // piso
+            // 
+            this.piso.DataPropertyName = "piso";
+            this.piso.HeaderText = "Piso";
+            this.piso.Name = "piso";
+            this.piso.ReadOnly = true;
             // 
             // BusquedaEmp
             // 
@@ -347,6 +371,7 @@
         private System.Windows.Forms.Button buttonModificar;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn razonSocial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn debeCambiarContraseña;
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cuit;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaC;

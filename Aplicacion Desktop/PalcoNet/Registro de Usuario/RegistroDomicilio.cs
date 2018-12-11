@@ -34,7 +34,6 @@ namespace PalcoNet.Registro_de_Usuario
             if (string.IsNullOrWhiteSpace(textBoxCalle.Text)) { error += "El campo 'Calle' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxNro.Text)) { error += "El campo 'Número de Calle' no puede estar vacío\n"; }
             if (!int.TryParse(textBoxNro.Text, out x)) { error += "El campo 'Número de Calle' debe ser numerico\n"; }
-            if (string.IsNullOrWhiteSpace(textBoxDepto.Text)) { error += "El campo 'Depto.' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { error += "El campo 'Código Postal' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCiudad.Text)) { error += "El campo 'Ciudad' no puede estar vacío\n"; }
 
@@ -85,7 +84,7 @@ namespace PalcoNet.Registro_de_Usuario
                         try
                         {
                             servidor.realizarQuery("EXEC dbo.registroEmpresa_sp " + query);
-                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
+                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
                         }
                         catch (Exception ee) {
                             error = true;
@@ -108,7 +107,7 @@ namespace PalcoNet.Registro_de_Usuario
                         try
                         {
                             servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
-                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
+                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
                         }
                         catch (Exception eee) {
                             error = true;
