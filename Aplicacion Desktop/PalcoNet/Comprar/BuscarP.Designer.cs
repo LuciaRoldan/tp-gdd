@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.dataGridViewResultados = new System.Windows.Forms.DataGridView();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -40,13 +45,66 @@
             this.label4 = new System.Windows.Forms.Label();
             this.checkedListBoxCategorias = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridViewResultados = new System.Windows.Forms.DataGridView();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResultados)).BeginInit();
             this.SuspendLayout();
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(510, 144);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 123;
+            this.button4.Text = "Seleccionar publicacioón";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(16, 320);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 122;
+            this.button3.Text = "Atrás";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // dataGridViewResultados
+            // 
+            this.dataGridViewResultados.AllowUserToAddRows = false;
+            this.dataGridViewResultados.AllowUserToDeleteRows = false;
+            this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewResultados.Location = new System.Drawing.Point(16, 172);
+            this.dataGridViewResultados.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewResultados.Name = "dataGridViewResultados";
+            this.dataGridViewResultados.ReadOnly = true;
+            this.dataGridViewResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewResultados.Size = new System.Drawing.Size(651, 143);
+            this.dataGridViewResultados.TabIndex = 121;
+            this.dataGridViewResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResultados_CellContentClick);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(592, 319);
+            this.button5.Margin = new System.Windows.Forms.Padding(2);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 120;
+            this.button5.Text = "Siguiente";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(428, 144);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 119;
+            this.button6.Text = "Limpiar";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label6
             // 
@@ -60,7 +118,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(592, 144);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 117;
@@ -71,7 +129,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(298, 320);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 116;
@@ -82,7 +140,7 @@
             // dateTimePickerHasta
             // 
             this.dateTimePickerHasta.Location = new System.Drawing.Point(467, 113);
-            this.dateTimePickerHasta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePickerHasta.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerHasta.Name = "dateTimePickerHasta";
             this.dateTimePickerHasta.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerHasta.TabIndex = 115;
@@ -100,7 +158,7 @@
             // dateTimePickerDesde
             // 
             this.dateTimePickerDesde.Location = new System.Drawing.Point(467, 88);
-            this.dateTimePickerDesde.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePickerDesde.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerDesde.Name = "dateTimePickerDesde";
             this.dateTimePickerDesde.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDesde.TabIndex = 113;
@@ -159,61 +217,6 @@
             this.label2.Size = new System.Drawing.Size(190, 24);
             this.label2.TabIndex = 107;
             this.label2.Text = "Buscar publicaciones";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(510, 144);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 123;
-            this.button4.Text = "Seleccionar publicacioón";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // dataGridViewResultados
-            // 
-            this.dataGridViewResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewResultados.Location = new System.Drawing.Point(16, 172);
-            this.dataGridViewResultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dataGridViewResultados.Name = "dataGridViewResultados";
-            this.dataGridViewResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewResultados.Size = new System.Drawing.Size(651, 143);
-            this.dataGridViewResultados.TabIndex = 121;
-            this.dataGridViewResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResultados_CellContentClick);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(592, 319);
-            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 120;
-            this.button5.Text = "Siguiente";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(428, 144);
-            this.button6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 119;
-            this.button6.Text = "Limpiar";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(16, 320);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 122;
-            this.button3.Text = "Atrás";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // BuscarP
             // 

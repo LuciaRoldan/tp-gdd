@@ -23,8 +23,9 @@ namespace PalcoNet.Comprar
 
         public FinalizarCompra(MiForm anterior, Compra compra) : base(anterior)
         {
+            InitializeComponent();
             if (Sesion.getInstance().rol.Nombre == "Cliente"){
-                Cliente cliente = (Cliente)Sesion.getInstance().usuario;
+                Cliente cliente = Sesion.getInstance().traerCliente();
                 this.Compra = compra;
                 
 
@@ -37,7 +38,6 @@ namespace PalcoNet.Comprar
             } else{
                 button2.Enabled = false;
             }
-            InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)

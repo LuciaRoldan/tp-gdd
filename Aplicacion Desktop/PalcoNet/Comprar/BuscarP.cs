@@ -33,19 +33,20 @@ namespace PalcoNet.Comprar
 
         public BuscarP(MiForm anterior) : base(anterior)
         {
+            InitializeComponent();
             if (sesion.rol.Nombre == "Cliente") {
 
                 this.Cliente = sesion.traerCliente();
 
                 SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
 
-                InitializeComponent();
-
                 while (reader.Read())
                 {
                     checkedListBoxCategorias.Items.Add(reader["descripcion"].ToString());
                 }
                 reader.Close();
+
+                dataGridViewResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
@@ -84,7 +85,7 @@ namespace PalcoNet.Comprar
         {
             //Hay que hacer la query aca y obtener la lista para pasarla abajo
             if (this.verificarCampos()) {
-                string descripcion = null; 
+                string descripcion = ""; 
                 List<string> categoriasSelecc = new List<string>();
                 DateTime? desde = null;
                 DateTime? hasta = null;
@@ -105,19 +106,20 @@ namespace PalcoNet.Comprar
                     categorias = categorias + "', '" + s + "'";
                 }
 
-                String query = descripcion + "', '" + categorias + "', '" + desde + "', '" + hasta + "'";
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + ", '" + desde + "', '" + hasta + "'";
 
                
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp '" + query);
+                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();
 
 
                 while (reader.Read())
                 {
                     Publicacion publicacion = new Publicacion();
-                    publicacion.Id = Convert.ToInt16(reader["id_publicacion"]);
+                    publicacion.Id = Convert.ToInt16(reader["id"]);
                     publicacion.Descripcion = reader["descripcion"].ToString();
                     publicacion.Direccion = reader["direccion"].ToString();
+                    publicacion.Rubro = reader["rubro"].ToString();
                     resultados.Add(publicacion);
                 }
                 reader.Close();
@@ -128,10 +130,22 @@ namespace PalcoNet.Comprar
                     MessageBox.Show("No se encontraron resultados.", "Error", MessageBoxButtons.OK);
                 } else {
                     //Mantener numero de pagina, no se como sera mejor manejarlo
+                    
 
+                    //dataGridViewResultados.AutoGenerateColumns = false;
+                    
                     var bindingList = new BindingList<Publicacion>(resultados);
                     var source = new BindingSource(bindingList, null);
                     dataGridViewResultados.DataSource = source;
+
+                    dataGridViewResultados.Columns[0].HeaderText = "Descripcion";
+                    dataGridViewResultados.Columns[0].DataPropertyName = "Descripcion";
+                    dataGridViewResultados.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewResultados.Columns[1].HeaderText = "Rubro";
+                    dataGridViewResultados.Columns[1].DataPropertyName = "Rubro";
+                    dataGridViewResultados.Columns[2].HeaderText = "Direccion";
+                    dataGridViewResultados.Columns[2].DataPropertyName = "Direccion";
+                    for (int i = 3; i < dataGridViewResultados.Columns.Count; i++) { dataGridViewResultados.Columns[i].Visible = false; }
                 }
             }
         }
@@ -158,11 +172,14 @@ namespace PalcoNet.Comprar
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
-            Compra compra = new Compra();
-            compra.Publicacion = publicacionSeleccionada;
-            new Ubicaciones(compra, this).Show();
-            this.Hide();
+            if (dataGridViewResultados.SelectedRows.Count > 0)
+            {
+                Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
+                Compra compra = new Compra();
+                compra.Publicacion = publicacionSeleccionada;
+                new Espectaculo(this, compra).Show();
+                this.Hide();
+            }
         }
 
         private void button6_Click(object sender, EventArgs e)

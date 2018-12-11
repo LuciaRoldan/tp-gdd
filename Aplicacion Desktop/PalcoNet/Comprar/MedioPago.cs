@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Comprar
 {
@@ -31,14 +32,44 @@ namespace PalcoNet.Comprar
 
         public MedioPago(MiForm anterior, Compra compra) : base(anterior)
         {
-            Cliente cliente = (Cliente)Sesion.getInstance().usuario;
-            this.Compra = compra;
-            InitializeComponent();
+            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            {
+                Cliente cliente = Sesion.getInstance().traerCliente();
+                this.Compra = compra;
+                InitializeComponent();
 
-            //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
-
-            foreach (Tarjeta t in tarjetas) {
-                this.comboBoxTarjeta.Items.Add(t.NumeroDeTarjeta);
+                //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
+                Servidor servidor = Servidor.getInstance();
+                SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + compra.Publicacion.Id);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Tarjeta tarjeta = new Tarjeta();
+                        tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
+                        if (tarjeta.NumeroDeTarjeta != 0)
+                        {
+                            comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
+                            this.tarjetas.Add(tarjeta);
+                        }
+                    }
+                }
+                else {
+                    NuevoMP nuevo = new NuevoMP();
+                    nuevo.Show();
+                    if (nuevo.Tarjeta != null)
+                    {
+                        this.comboBoxTarjeta.Items.Add(nuevo.Tarjeta);
+                        nuevo.Close();
+                    }
+                }
+            }
+            else {
+                Tarjeta tarjeta = new Tarjeta();
+                tarjeta.NumeroDeTarjeta = 0;
+                this.Compra.MedioDePago = tarjeta;
+                new FinalizarCompra(this, this.Compra).Show();
+                this.Hide();
             }
         }
 
