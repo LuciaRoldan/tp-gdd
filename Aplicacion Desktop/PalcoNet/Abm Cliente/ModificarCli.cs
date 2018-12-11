@@ -33,7 +33,7 @@ namespace PalcoNet.Abm_Cliente
             textBoxTelefono.Text += cliente.Telefono;
             textBoxDocumento.Text += cliente.NumeroDeDocumento;
             textBoxCuil.Text += cliente.Cuil;
-            comboBoxDocumento.SelectedIndex = comboBoxDocumento.FindStringExact(cliente.TipoDocumento);
+            comboBoxDocumento.Text = cliente.TipoDocumento;
             dateTimePickerNacimiento.Value = cliente.FechaDeNacimiento;
             clienteViejo = cliente;
         }
@@ -41,6 +41,7 @@ namespace PalcoNet.Abm_Cliente
         public bool verificarCampos() {
             string errores = "";
             int numero;
+            long num;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
                 && !string.IsNullOrWhiteSpace(textBoxApellido.Text)
                 && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
@@ -57,8 +58,8 @@ namespace PalcoNet.Abm_Cliente
             else
             {
                 if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
-                if (!int.TryParse(textBoxCuil.Text, out numero)) { errores += "El CUIL debe ser un valor numérico. \n"; }
-                if (!int.TryParse(textBoxTelefono.Text, out numero)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+                if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; }
+                if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; }
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
             }
 
@@ -83,19 +84,19 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.Apellido = textBoxApellido.Text;
                 clienteModificado.Nombre = textBoxNombre.Text;
                 clienteModificado.Mail = textBoxMail.Text;
-                clienteModificado.Telefono = Int32.Parse(textBoxTelefono.Text);
+                clienteModificado.Telefono = long.Parse(textBoxTelefono.Text);
                 clienteModificado.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-                clienteModificado.Cuil = Int32.Parse(textBoxCuil.Text);
-                clienteModificado.TipoDocumento = comboBoxDocumento.SelectedText;
+                clienteModificado.Cuil = long.Parse(textBoxCuil.Text);
+                clienteModificado.TipoDocumento = comboBoxDocumento.Text;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
                 //sp que le paso el cuil (validar que el nuevo cuil no exista)del cliente que es unico para que busque el viejo y todos los datos nuevos
 
-                String query = clienteViejo.Cuil + "', '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
-                                + "', '" + clienteModificado.Mail + "', '" + clienteModificado.Telefono + "', '" + clienteModificado.Cuil
-                                + "', '" + clienteModificado.TipoDocumento + "', '" + clienteModificado.NumeroDeDocumento + "', '" + clienteModificado.FechaDeNacimiento + "'";
+                String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
+                                + "', '" + clienteModificado.Mail + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
+                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "', '" + clienteModificado.TipoDocumento + "'";
 
-                servidor.realizarQuery("EXEC modificarCliente_sp '" + query);
+                servidor.realizarQuery("EXEC modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }

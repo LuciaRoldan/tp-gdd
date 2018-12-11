@@ -16,5 +16,5 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 
-DROP PROCEDURE buscarUsuarioPorCriterio_sp
+
 
