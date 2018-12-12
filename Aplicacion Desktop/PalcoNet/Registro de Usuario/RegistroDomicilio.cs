@@ -61,6 +61,7 @@ namespace PalcoNet.Registro_de_Usuario
         {
             Servidor servidor = Servidor.getInstance();
             bool error = false;
+            string mensajeError = " ";
             if (this.camposCompletos())
             {
                     string cambioContraseña = "";
@@ -88,6 +89,7 @@ namespace PalcoNet.Registro_de_Usuario
                         }
                         catch (Exception ee) {
                             error = true;
+                            mensajeError += ee.Message;
                         }
                         
                         //atrapar error y mostrar mensaje si la empresa ya existe
@@ -107,10 +109,11 @@ namespace PalcoNet.Registro_de_Usuario
                         try
                         {
                             servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
-                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su Razón Social como nombre de usuario y contraseña la primera vez que ingrese."; }
+                            if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
                         }
                         catch (Exception eee) {
                             error = true;
+                            mensajeError += eee.Message;
                         }
                             
                             //atrapar error y mostrar mensaje si el cliente ya existe
@@ -121,7 +124,7 @@ namespace PalcoNet.Registro_de_Usuario
                         MessageBox.Show("El usuario se creó exitosamente.\n" + cambioContraseña, "Creación completa", MessageBoxButtons.OK);
                     }
                     else {
-                        MessageBox.Show("No se pudo crear el usuario.\n", "Error", MessageBoxButtons.OK);
+                        MessageBox.Show("No se pudo crear el usuario.\n" + mensajeError, "Error", MessageBoxButtons.OK);
                     }
 
                 

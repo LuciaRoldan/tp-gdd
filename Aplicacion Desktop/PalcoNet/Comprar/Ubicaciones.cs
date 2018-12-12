@@ -55,12 +55,6 @@ namespace PalcoNet.Comprar
             }
             reader.Close();
 
-            foreach (Ubicacion u in this.UbicacionesDisponibles)
-            {
-                comboBoxUbicaciones.Items.Add(u.TipoAsiento);
-            }
-            this.Compra.Ubicaciones = new List<Ubicacion>();
-
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -101,13 +95,22 @@ namespace PalcoNet.Comprar
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
                     {
                         SeleccionAsiento seleccion = new SeleccionAsiento(ubicacion, compra);
-                        seleccion.Show();
+                        seleccion.ShowDialog();
                         asientos.Add(seleccion.Asiento);
                         seleccion.Close();
                     }
                     ubicacion.Asientos = asientos;
                 }
                 this.Compra.Ubicaciones.Add(ubicacion);
+                MessageBox.Show("Los asientos se agregaron al carrito!", "Seleccionar Asientos", MessageBoxButtons.OK);
+                if (this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos == ubicacion.CantidadAsientos)
+                {
+                    this.comboBoxUbicaciones.Items.RemoveAt(this.comboBoxUbicaciones.SelectedIndex);
+                }
+                else
+                {
+                    this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos -= ubicacion.CantidadAsientos;
+                }
             }
 
         }

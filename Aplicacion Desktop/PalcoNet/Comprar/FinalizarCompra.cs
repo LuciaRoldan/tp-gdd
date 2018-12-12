@@ -35,7 +35,7 @@ namespace PalcoNet.Comprar
                 this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
                 this.textBoxCantidad.Text = this.Compra.calcularCantidadAsientos().ToString();
                 this.textBoxTotal.Text = this.Compra.calcularImporte().ToString();
-                this.textBoxFecha.Text = this.Compra.Fecha.ToString();
+                this.textBoxFecha.Text = this.Compra.Espectaculo.Fecha.ToString();
             } else{
                 button2.Enabled = false;
             }

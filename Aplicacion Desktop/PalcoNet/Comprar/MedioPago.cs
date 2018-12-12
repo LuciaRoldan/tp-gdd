@@ -40,31 +40,24 @@ namespace PalcoNet.Comprar
 
                 //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
                 Servidor servidor = Servidor.getInstance();
-                SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + compra.Publicacion.Id);
-                if (reader.HasRows)
+                SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
+                Console.WriteLine("exec getMediosDePago_sp " + compra.Publicacion.Id);
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    Tarjeta tarjeta = new Tarjeta();
+                    tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
+                    tarjeta.NumeroDeTarjeta = int.Parse(reader["id_medio_de_pago"].ToString());
+                    if (tarjeta.NumeroDeTarjeta != 0)
                     {
-                        Tarjeta tarjeta = new Tarjeta();
-                        tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
-                        if (tarjeta.NumeroDeTarjeta != 0)
-                        {
-                            comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
-                            this.tarjetas.Add(tarjeta);
-                        }
+                        comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
+                        this.tarjetas.Add(tarjeta);
                     }
                 }
-                else {
-                    NuevoMP nuevo = new NuevoMP(this);
-                    nuevo.Show();
-                    if (nuevo.Tarjeta != null)
-                    {
-                        this.comboBoxTarjeta.Items.Add(nuevo.Tarjeta);
-                        nuevo.Close();
-                    }
-                }
+              
             }
-            else {
+            else 
+            {
                 Tarjeta tarjeta = new Tarjeta();
                 tarjeta.NumeroDeTarjeta = 0;
                 this.Compra.MedioDePago = tarjeta;
