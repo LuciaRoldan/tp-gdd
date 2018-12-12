@@ -38,7 +38,8 @@ namespace PalcoNet
             string errores = "";
             if (string.IsNullOrWhiteSpace(textBoxUser.Text)) { errores += "Se debe completar el usuario. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxPass.Text)) { errores += "Se debe completar la contraseña.\n"; }
-
+            //Se encripta la nueva contraseña y se actualiza el nombre y contraseña del usuario en la base, 
+            //indicando también que ya no será necesario modificarla.
             if (errores == "")
             {
                 StringBuilder Sb = new StringBuilder();
