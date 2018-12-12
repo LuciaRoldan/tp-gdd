@@ -7,7 +7,7 @@ namespace PalcoNet.Dominio
 {
     public class Tarjeta
     {
-        int numeroDeTarjeta;
+        long numeroDeTarjeta;
         string titular;
         int id;
 
@@ -17,7 +17,7 @@ namespace PalcoNet.Dominio
             set { id = value; }
         }
 
-        public int NumeroDeTarjeta
+        public long NumeroDeTarjeta
         {
             get { return numeroDeTarjeta; }
             set { numeroDeTarjeta = value; }

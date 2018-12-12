@@ -37,7 +37,7 @@ namespace PalcoNet.Comprar
         }
         public bool verificarCampos() {
             string errores = "";
-            int dni;
+            long dni;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNumero.Text)
                 && !string.IsNullOrWhiteSpace(textBoxTitular.Text);
 
@@ -47,7 +47,7 @@ namespace PalcoNet.Comprar
             }
             else
             {
-                if (!int.TryParse(textBoxNumero.Text, out dni)) { errores += "El Número de Tarjeta debe ser un valor numérico."; }
+                if (!long.TryParse(textBoxNumero.Text, out dni)) { errores += "El Número de Tarjeta debe ser un valor numérico."; }
             }
 
             if (errores != "")
@@ -69,7 +69,7 @@ namespace PalcoNet.Comprar
         {
             if (this.verificarCampos()){
                 this.Tarjeta = new Tarjeta();
-                this.Tarjeta.NumeroDeTarjeta = Int32.Parse(this.textBoxNumero.Text);
+                this.Tarjeta.NumeroDeTarjeta = long.Parse(this.textBoxNumero.Text);
                 this.Tarjeta.Titular = this.textBoxTitular.Text;
                 //Agregar el medio de pago a la base registrarMedioDePago_sp
 
@@ -77,7 +77,9 @@ namespace PalcoNet.Comprar
                 {
                     Servidor servidor = Servidor.getInstance();
                     SqlDataReader reader = servidor.query("exec registrarMedioDePago_sp " + Sesion.getInstance().traerCliente().Id + " ," + this.Tarjeta.NumeroDeTarjeta + ", '" + this.Tarjeta.Titular + "'");
-
+                    while (reader.Read()) {
+                        tarjeta.Id = int.Parse(reader["id_mp"].ToString());
+                    }
                     this.Anterior.actualizar(this.Tarjeta);
 
                     Console.WriteLine("+++++++++++++++++++++++++++++++++++++");

@@ -1,6 +1,6 @@
 CREATE PROCEDURE registrarMedioDePago_sp
 @id_cliente INT,
-@numero_tarjeta INT,
+@numero_tarjeta numeric,
 @titular varchar
 AS
 BEGIN
@@ -13,4 +13,8 @@ BEGIN
 		BEGIN
 		RAISERROR('Tarjeta ya registrada', 16, 1)
 		END
+
+	SELECT SCOPE_IDENTITY() AS id_mp
 END
+
+--drop procedure registrarMedioDePago_sp

@@ -87,7 +87,7 @@ namespace PalcoNet.Comprar
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos()) {
-                int NumeroDeTarjeta = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex].NumeroDeTarjeta;
+                long NumeroDeTarjeta = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex].NumeroDeTarjeta;
                 string codigoSeguridad = this.textBoxCodigo.Text;
 
                 //Aca hay que verificar que la tarjeta exista en la base y que los datos coincidan
