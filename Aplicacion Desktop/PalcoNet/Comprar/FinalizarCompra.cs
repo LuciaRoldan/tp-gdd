@@ -52,7 +52,7 @@ namespace PalcoNet.Comprar
             SqlDataReader reader = Servidor.getInstance().query("exec registrarCompra_sp " + query);
             while (reader.Read())
             {
-                this.Compra.Id = int.Parse(reader["id_compra"].ToString());
+                this.Compra.Id = int.Parse(reader["id"].ToString());
             }
             reader.Close();
 

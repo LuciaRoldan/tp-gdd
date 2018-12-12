@@ -30,7 +30,7 @@ namespace PalcoNet.Comprar
             set { compra = value; }
         }
 
-        public Espectaculos(MiForm anterior, Compra compra)
+        public Espectaculos(MiForm anterior, Compra compra) : base(anterior)
         {
             InitializeComponent();
             this.Compra = compra;
