@@ -282,7 +282,6 @@
     </Compile>
     <Compile Include="Servidor.cs" />
     <Compile Include="Sesion.cs" />
-    <Compile Include="Validacion.cs" />
     <EmbeddedResource Include="Abm Cliente\BusquedaCli.resx">
       <DependentUpon>BusquedaCli.cs</DependentUpon>
       <SubType>Designer</SubType>

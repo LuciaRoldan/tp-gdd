@@ -406,7 +406,7 @@ AS
 BEGIN
 	SELECT COALESCE(SUM(cantidad_puntos), 0) 'cantidad_puntos' FROM Usuarios u JOIN Clientes c ON (u.id_usuario = c.id_usuario)
 								  JOIN Puntos p ON (p.id_cliente = c.id_cliente)
-	WHERE username = @username AND fecha_vencimiento IS NOT NULL AND fecha_vencimiento > CONVERT(DATETIME, @fecha, 120)
+	WHERE username = @username AND fecha_vencimiento IS NOT NULL AND fecha_vencimiento > CONVERT(DATETIME, @fecha, 121)
 
 END
 GO
