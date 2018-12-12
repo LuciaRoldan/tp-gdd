@@ -58,8 +58,11 @@ namespace PalcoNet.Comprar
 
             foreach (Ubicacion u in this.Compra.Ubicaciones)
             {
-                string q = this.Compra.Id + ", " + u.Id + ", " + this.Compra.Espectaculo.Id;
-                Servidor.getInstance().query("exec registrarCompraExU_sp " + q);
+                for (int i = 0; i < u.CantidadAsientos; i++)
+                {
+                    string q = this.Compra.Id + ", " + (u.Id + 0) + ", " + this.Compra.Espectaculo.Id;
+                    Servidor.getInstance().query("exec registrarCompraExU_sp " + q);
+                }
             }
             
 
