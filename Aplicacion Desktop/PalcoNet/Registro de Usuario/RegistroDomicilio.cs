@@ -73,8 +73,9 @@ namespace PalcoNet.Registro_de_Usuario
                     if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { this.Usuario.Localidad = textBoxLocalidad.Text; }
                     if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
                     this.Usuario.Departamento = textBoxDepto.Text;
-                    //this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
-
+                    this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
+                
+                //se pasan los parametros al stored procedure y persiste ya sea empresa o cliente
                     if (this.Usuario is Empresa)
                     {
                         string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
@@ -108,7 +109,7 @@ namespace PalcoNet.Registro_de_Usuario
                                 + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
 
                         Console.WriteLine(queryCli);
-
+                       
                         try
                         {
                             servidor.realizarQuery("EXEC dbo.registroCliente_sp " + queryCli);
@@ -119,7 +120,6 @@ namespace PalcoNet.Registro_de_Usuario
                             mensajeError += eee.Message;
                         }
                             
-                            //atrapar error y mostrar mensaje si el cliente ya existe
                     }
 
                     if (!error)
