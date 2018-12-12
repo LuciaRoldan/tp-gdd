@@ -26,7 +26,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.Usuario = usuario;
             InitializeComponent();
         }
-
+        //verifica campos completos
         private bool camposCompletos()
         {
             string error = "";
@@ -62,6 +62,8 @@ namespace PalcoNet.Registro_de_Usuario
             Servidor servidor = Servidor.getInstance();
             bool error = false;
             string mensajeError = " ";
+
+            //como los datos del domicilio son los mismo para ambos tipos se guardan en usuario tambien
             if (this.camposCompletos())
             {
                     string cambioContraseña = "";

@@ -19,7 +19,7 @@ namespace PalcoNet.Registro_de_Usuario
             InitializeComponent();
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-
+        //Se verifica que esten todos los campos completos
         private bool camposCompletos() {
             string errores = "";
             
@@ -43,7 +43,8 @@ namespace PalcoNet.Registro_de_Usuario
         {
 
         }
-
+//completa los campos comunes a empresa y cliente y los guarda en usuario y luego se divide dependiendo el tipo 
+//para los datos particulares de cada uno
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.camposCompletos())
