@@ -35,6 +35,7 @@ namespace PalcoNet.Comprar
         public Ubicaciones(Compra compra, MiForm anterior) : base(anterior)
         {
             this.Compra = compra;
+            this.Compra.Ubicaciones = new List<Ubicacion>();
             InitializeComponent();
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
@@ -46,6 +47,8 @@ namespace PalcoNet.Comprar
                 Ubicacion u = new Ubicacion();
                 u.Numerada = ! bool.Parse(reader["sin_numerar"].ToString());
                 u.CantidadAsientos = int.Parse(reader["asientos"].ToString());
+                Console.WriteLine("*******");
+                Console.WriteLine(u.CantidadAsientos = int.Parse(reader["asientos"].ToString()));
                 if (u.Numerada) { u.CantidadFilas = int.Parse(reader["filas"].ToString()); }
                 u.Precio = decimal.Parse(reader["precio"].ToString());
                 u.Id = int.Parse(reader["id_ubicacion"].ToString());
@@ -128,6 +131,8 @@ namespace PalcoNet.Comprar
          {
              if (this.comboBoxUbicaciones.SelectedIndex > -1)
              {
+                 Console.WriteLine(this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos);
+                 Console.WriteLine(numericUpDownCantidad.Value);
                  if (numericUpDownCantidad.Value > this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos) { numericUpDownCantidad.Value--; }
              }
          }

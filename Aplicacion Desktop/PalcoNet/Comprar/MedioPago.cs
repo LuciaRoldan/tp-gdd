@@ -39,21 +39,7 @@ namespace PalcoNet.Comprar
                 InitializeComponent();
 
                 //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
-                Servidor servidor = Servidor.getInstance();
-                SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
-                Console.WriteLine("exec getMediosDePago_sp " + compra.Publicacion.Id);
-
-                while (reader.Read())
-                {
-                    Tarjeta tarjeta = new Tarjeta();
-                    tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
-                    tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
-                    if (tarjeta.NumeroDeTarjeta != 0)
-                    {
-                        comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
-                        this.tarjetas.Add(tarjeta);
-                    }
-                }
+                this.updateMP();
               
             }
             else 
@@ -133,6 +119,27 @@ namespace PalcoNet.Comprar
         private void comboBoxTarjeta_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        internal void updateMP()
+        {
+            tarjetas.Clear();
+            
+            Servidor servidor = Servidor.getInstance();
+            SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
+            Console.WriteLine("exec getMediosDePago_sp " + compra.Publicacion.Id);
+
+            while (reader.Read())
+            {
+                Tarjeta tarjeta = new Tarjeta();
+                tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
+                tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
+                if (tarjeta.NumeroDeTarjeta != 0)
+                {
+                    comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
+                    this.tarjetas.Add(tarjeta);
+                }
+            }
         }
     }
 }

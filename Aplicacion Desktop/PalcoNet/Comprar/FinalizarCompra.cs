@@ -28,13 +28,14 @@ namespace PalcoNet.Comprar
             if (Sesion.getInstance().rol.Nombre == "Cliente"){
                 Cliente cliente = Sesion.getInstance().traerCliente();
                 this.Compra = compra;
-                
 
+                this.Compra.Importe = this.Compra.calcularImporte();
+                
                 //Estaria bueno hacer alguna magia para que en la compra aparezca el total calculado y la cantidad de entradas calculada
 
                 this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
                 this.textBoxCantidad.Text = this.Compra.calcularCantidadAsientos().ToString();
-                this.textBoxTotal.Text = this.Compra.calcularImporte().ToString();
+                this.textBoxTotal.Text = this.Compra.Importe.ToString();
                 this.textBoxFecha.Text = this.Compra.Espectaculo.Fecha.ToString();
             } else{
                 button2.Enabled = false;

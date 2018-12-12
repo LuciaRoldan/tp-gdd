@@ -217,3 +217,4 @@ C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\
 C:\Users\ABM\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.CambioContrasenia.resources
 C:\Users\Luli\Desktop\UTN\2018\GDD\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Espectaculos.resources
 C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Espectaculos.resources
+C:\Users\ABM\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.Espectaculos.resources

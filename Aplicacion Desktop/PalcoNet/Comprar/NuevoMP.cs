@@ -61,6 +61,7 @@ namespace PalcoNet.Comprar
 
         private void button1_Click(object sender, EventArgs e)
         {
+            anterior.updateMP();
             this.Close();
         }
 
