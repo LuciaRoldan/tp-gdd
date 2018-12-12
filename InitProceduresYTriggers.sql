@@ -16,14 +16,44 @@ DROP PROCEDURE getPremios_sp
 DROP PROCEDURE borrarPuntos_sp
 DROP PROCEDURE historialClienteConOffset_sp
 DROP PROCEDURE registrarCompra_sp
-DROP PROCEDURE registrar
+DROP PROCEDURE registrarCompraExU_sp
 DROP PROCEDURE getPublicacionesDeUsuario_sp
-DROP PROCEDURE registarPublicacion_sp
+DROP PROCEDURE registrarPublicacion_sp
 DROP PROCEDURE agregarEspectaculo_sp
 DROP PROCEDURE agregarUbicaciones_sp
 DROP PROCEDURE agregarUbicacionSinNumerar_sp
 DROP PROCEDURE agregarUbicacionNumerada_sp
 DROP PROCEDURE actualizarGradoPublicacion_sp
+DROP PROCEDURE buscarEspectaculosPorPublicacion_sp
+DROP PROCEDURE getMediosDePago_sp
+DROP PROCEDURE registrarMedioDePago_sp
+DROP PROCEDURE buscarUbicacionessPorPublicacion_sp
+DROP PROCEDURE buscarEmpresaPorCriterio_sp
+DROP PROCEDURE modificarEmpresa_sp
+DROP PROCEDURE agregarRol_sp
+DROP PROCEDURE getFuncionalidadesDeRol_sp
+DROP PROCEDURE eliminarFuncionalidadesRol_sp
+DROP PROCEDURE agregarFuncionalidadARol_sp
+DROP PROCEDURE modificarNombreRol_sp
+DROP PROCEDURE modificarRol_sp
+DROP PROCEDURE top5ClientesPuntosVencidos_sp
+DROP PROCEDURE traerTodasRazonesSociales_sp
+DROP PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
+DROP PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
+DROP PROCEDURE buscarComprasNoFacturadas_sp
+DROP PROCEDURE actualizarCompraFactura_sp
+DROP PROCEDURE agregarFactura_sp
+
+
+DROP TRIGGER insertarNuevoEspectaculo
+DROP TRIGGER insertarNuevaFactura
+DROP TRIGGER rollInhabilitado_tr
+DROP TRIGGER insertarNuevaCompra
+DROP TRIGGER finalizarEspectaculoAgotado_tg
+
+
+DROP FUNCTION getCantidadEntradasPublicacion
+DROP FUNCTION getCantidadEntradasVendidas
 
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
@@ -162,6 +192,61 @@ END
 GO
 
 
+-----eliminarFuncionalidadDeRol-----
+CREATE PROCEDURE eliminarFuncionalidadesRol_sp
+@rol_nombre VARCHAR(50)
+AS
+BEGIN
+	DECLARE @id_rol INT = (SELECT id_rol FROM Roles WHERE nombre = @rol_nombre)
+
+	DELETE FROM FuncionalidadXRol
+	WHERE id_rol = @id_rol
+
+END
+GO
+
+
+-----modificarRol-----
+CREATE PROCEDURE modificarRol_sp(
+@nombre VARCHAR(50),
+@habilitado BIT)
+AS
+BEGIN
+	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre)
+	BEGIN
+		UPDATE Roles
+		SET habilitado = @habilitado
+		WHERE nombre = @nombre
+	END
+	ELSE
+	BEGIN
+		RAISERROR('Rol inexistente', 16, 1)
+	END
+END
+GO
+
+
+-----modificarNombreRol-----
+CREATE PROCEDURE modificarNombreRol_sp
+@nombre_viejo VARCHAR(50),
+@nombre_nuevo VARCHAR(50)
+AS
+BEGIN
+	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_viejo)
+	BEGIN
+		UPDATE Roles
+		SET nombre = @nombre_nuevo
+		WHERE nombre = @nombre_viejo
+	END
+	ELSE
+	BEGIN
+		RAISERROR('Rol inexistente', 16, 1)
+	END
+END
+GO
+
+
+
 -----getRubrosDePublicacion-----
 CREATE PROCEDURE getRubrosDePublicacion_sp 
 @id_publicacion NUMERIC
@@ -173,6 +258,41 @@ END
 GO
 
 
+
+
+
+-----agregarFuncionalidadARol-----
+CREATE PROCEDURE AgregarFuncionalidadARol_sp
+@nombre_rol VARCHAR(50),
+@nombre_funcionalidad VARCHAR(50)
+AS
+BEGIN
+	DECLARE @id_rol INT, @id_funcionalidad INT
+	SET @id_rol = (SELECT id_rol FROM Roles WHERE nombre = @nombre_rol)
+	SET @id_funcionalidad = (SELECT id_funcionalidad FROM Funcionalidades WHERE nombre = @nombre_funcionalidad)
+
+	IF NOT EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_rol)
+		BEGIN
+		RAISERROR('Rol inexistente', 20, 1) WITH LOG
+		END
+
+	IF NOT EXISTS (SELECT nombre FROM Funcionalidades WHERE nombre = @nombre_funcionalidad)
+		BEGIN
+		RAISERROR('Funcionalidad inexistente', 20, 1) WITH LOG
+		END
+
+	IF NOT EXISTS (SELECT id_rol, id_funcionalidad FROM FuncionalidadXRol
+					WHERE id_rol = @id_rol AND id_funcionalidad = @id_funcionalidad)
+		BEGIN
+			INSERT INTO FuncionalidadXRol(id_funcionalidad, id_rol)
+			VALUES (@id_funcionalidad, @id_rol)
+		END
+	
+	--RAISERROR('Funcionalidad ya existente para ese rol', 16, 1) --no es grave lol podria tb no hacer nada
+END
+
+
+
 -----buscarUsuarioPorCriterio-----
 CREATE PROCEDURE buscarUsuarioPorCriterio_sp
 @nombre VARCHAR(255),
@@ -182,7 +302,7 @@ CREATE PROCEDURE buscarUsuarioPorCriterio_sp
 AS
 BEGIN
 	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
-		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso
 	FROM Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
@@ -194,6 +314,7 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 GO
+
 
 
 -----modificarCliente-----
@@ -344,7 +465,6 @@ create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @
 end
 GO
 
-
 -----historialClienteConOffset-----
 create procedure historialClienteConOffset_sp (@id_cliente int, @offset int) as begin
 	select p.descripcion, e.fecha_evento, coalesce(c.importe, 0) importe, COUNT(uxe.id_ubicacion_espectaculo) 'cantidad_asientos', coalesce(RIGHT(mp.nro_tarjeta, 4),0) nro
@@ -374,12 +494,6 @@ END
 go
 
 
-select fecha FROM Compras
-EXEC registrarCompra_sp 768, 1, 300, '2019-02-13 00:00:00'
-
-select * from clientes order by id_usuario desc
-
-
 -----registrarCompraEXU-----
 CREATE PROCEDURE registrarCompraExU_sp (@id_compra INT, @id_ubicacion INT, @id_espectaculo BIGINT)
 AS
@@ -407,8 +521,98 @@ END
 GO
 
 
+-----buscarEmpresaPorCriterio-----
+CREATE PROCEDURE buscarEmpresaPorCriterio_sp
+@cuit VARCHAR(20),
+@razon_social VARCHAR(20),
+@email VARCHAR(20)
+AS
+BEGIN
+	SELECT razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM Empresas
+	WHERE (razon_social LIKE '%' + @razon_social + '%'
+		AND mail LIKE '%' + @email + '%'
+		AND cuit = @cuit)
+		OR (razon_social LIKE '%' + @razon_social + '%'
+		AND mail LIKE '%' + @email + '%'
+		AND @cuit LIKE '')
+END
+GO
+
+
+-----modificarEmpresa-----
+CREATE PROCEDURE modificarEmpresa_sp
+@cuit_viejo varchar(20),
+@razon_social varchar(20),
+@mail varchar(20),
+@cuit varchar(20)
+AS
+BEGIN
+	IF EXISTS (SELECT cuit FROM Empresas WHERE cuit = @cuit_viejo)
+	BEGIN
+		IF(@cuit = @cuit_viejo)
+			BEGIN
+			UPDATE Empresas
+				SET razon_social = @razon_social,
+					mail = @mail,
+					cuit = @cuit
+				WHERE cuit like @cuit_viejo
+			END
+			ELSE
+				IF NOT EXISTS (SELECT cuit FROM Empresas where cuit like @cuit)
+				BEGIN
+					UPDATE Empresas
+						SET razon_social = @razon_social,
+						mail = @mail,
+						cuit = @cuit
+					WHERE cuit like @cuit_viejo
+				END
+				ELSE
+				BEGIN
+					RAISERROR('Su cuit ya existe', 16, 1)
+				END
+			END
+		ELSE
+		BEGIN
+			RAISERROR('El cuit es invalido o no existe, pruebe nuevamente', 16, 1)
+		END
+END
+GO
+
+
+-----agregarRol-----
+CREATE PROCEDURE agregarRol_sp 
+@nombre_rol VARCHAR(50)
+AS
+BEGIN
+	IF NOT EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_rol)
+		BEGIN
+		INSERT INTO Roles(nombre, habilitado)
+		VALUES(@nombre_rol, 1)		
+		END
+	ELSE
+		BEGIN
+		RAISERROR('Este Rol ya existe', 16, 1)
+		END
+END
+GO
+
+
+-----getFuncionalidadesDeRol-----
+CREATE PROCEDURE getFuncionalidadesDeRol_sp
+@nombre_rol VARCHAR(50)
+AS
+BEGIN
+	SELECT DISTINCT f.nombre FROM Funcionalidades f
+	JOIN Roles r ON (r.nombre = @nombre_rol)
+	JOIN FuncionalidadXRol fxr ON(fxr.id_rol= r.id_rol AND fxr.id_funcionalidad = f.id_funcionalidad)
+END
+GO
+
+
+
 -----registrarPublicacion-----
-CREATE PROCEDURE registrarPublicacion_sp(
+CREATE PROCEDURE registrarPublicacion_sp
+(
 @nombre_empresa NVARCHAR(255),
 @grado_publicacion NVARCHAR(20),
 @rubro NVARCHAR(100),
@@ -424,9 +628,18 @@ BEGIN
 	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)
 	VALUES (@id_empresa, @id_grado_publicacion, @id_rubro, @descripcion, @direccion)
 
-	SELECT SCOPE_IDENTITY() AS id_publicacion
+	SELECT SCOPE_IDENTITY() AS 'id_publicacion'
 END
 GO
+
+
+-----buscarEspectaculosPorPublicacion-----
+create procedure buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
+	select fecha_evento, id_espectaculo from Espectaculos where id_publicacion = @id_publicacion
+end
+GO
+
+
 
 
 -----agregarEspectaculo-----
@@ -584,3 +797,291 @@ BEGIN
 		RAISERROR('Publicacion inexistente', 16, 1)
 	END
 END
+GO
+
+
+-----getMediosDePago-----
+CREATE PROCEDURE getMediosDePago_sp
+@id_cliente INT
+AS
+BEGIN
+	SELECT id_medio_de_pago, coalesce(RIGHT(nro_tarjeta, 4),0) digitos FROM Medios_de_pago WHERE id_cliente =  @id_cliente
+END
+
+
+
+-----registrarMedioDePago-----
+CREATE PROCEDURE registrarMedioDePago_sp
+@id_cliente INT,
+@numero_tarjeta INT,
+@titular varchar
+AS
+BEGIN
+	IF NOT EXISTS (SELECT * FROM Medios_de_pago mp WHERE nro_tarjeta = @numero_tarjeta AND id_cliente = @id_cliente)
+		BEGIN
+		INSERT INTO Medios_de_pago(id_cliente, descripcion, nro_tarjeta, titular)
+		VALUES(@id_cliente, 'Tarjeta', @numero_tarjeta, @titular)
+		END
+		ELSE
+		BEGIN
+		RAISERROR('Tarjeta ya registrada', 16, 1)
+		END
+END
+GO
+
+
+-----buscarUbicacionesPorPublicacion-----
+create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as begin
+	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, u.id_ubicacion
+	from Ubicaciones u 
+	join UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
+	join TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
+	join Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
+	join Publicaciones p on p.id_publicacion = ee.id_publicacion
+	where p.id_publicacion = @id_publicacion and e.id_compra is null
+	group by t.descripcion, sin_numerar, precio, u.id_ubicacion
+end
+GO
+
+
+-----traerTodasRazonesSociales-----
+create procedure traerTodasRazonesSociales_sp as begin
+	select distinct razon_social from Empresas
+end
+GO
+
+
+-----top5ClientesPuntosVencidos-----
+CREATE PROCEDURE top5ClientesPuntosVencidos_sp(
+@fecha_inicio VARCHAR(30),
+@fecha_fin VARCHAR(30),
+@fecha_actual VARCHAR(30)
+)
+AS
+BEGIN
+	
+	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM Clientes c
+	JOIN Puntos p ON(p.id_cliente = c.id_cliente)
+	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 127) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
+	GROUP BY nombre, apellido
+	ORDER BY SUM(cantidad_puntos) DESC
+END
+GO
+
+
+-----top5ClientesComprasParaUnaEmpresa----
+CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
+(@razon_social NVARCHAR(50),
+@fecha_inicio VARCHAR(30),
+@fecha_fin VARCHAR(30)
+)
+AS
+BEGIN
+	SELECT TOP 5 nombre, apellido, documento, COUNT(id_ubicacion) 'Cantidad de compras', razon_social
+	FROM Clientes cc
+	JOIN Compras ON(compras.id_cliente = cc.id_cliente)
+	JOIN UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
+	JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
+	JOIN Publicaciones p ON (p.id_publicacion = e.id_publicacion)
+	JOIN Empresas ee ON(p.id_empresa = ee.id_empresa)
+
+	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 127) AND fecha < CONVERT(DATETIME, @fecha_fin, 127)  AND ee.razon_social = @razon_social
+	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
+	ORDER BY COUNT(id_ubicacion) DESC
+END
+GO
+
+
+-----top5LocalidadesNoVendidasEmpresa-----
+CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
+@grado VARCHAR(20),
+@fecha_inicio VARCHAR(30),
+@fecha_fin VARCHAR(30)
+AS
+BEGIN
+	SELECT TOP 5 razon_social 'Razon social', cuit, COUNT(id_ubicacion) 'Ubicaciones no vendidas' FROM Publicaciones p
+	JOIN Espectaculos e ON (e.id_publicacion = p.id_publicacion)
+	JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
+	JOIN Grados_publicacion gp ON(gp.id_grado_publicacion = p.id_grado_publicacion)
+	JOIN Empresas emp ON(emp.id_empresa = p.id_empresa)
+	WHERE uxe.id_compra IS NULL
+		AND gp.nombre = @grado
+		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 127) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 127)
+	GROUP BY razon_social, cuit, p.id_publicacion, fecha_evento, comision
+	ORDER BY fecha_evento ASC, comision DESC
+END
+GO
+
+-----agregarFactura-----
+create procedure agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
+	declare @id_empresa int
+	set @id_empresa = (select id_empresa from Empresas where razon_social = @razonSocial)
+	insert into Facturas (id_empresa, fecha_facturacion, importe_total) values (@id_empresa, getdate(), @total)
+
+	select top 1 id_factura from Facturas where id_empresa = @id_empresa and importe_total = @total order by fecha_facturacion desc
+end
+GO
+
+
+-----actualizarCompraFactura-----
+create procedure actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
+	update Compras set id_factura = @id_factura where id_compra = @id_compra
+end
+GO
+
+
+-----buscarComprasNoFacturadas-----
+create procedure buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
+	select c.id_compra, descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe from Compras c 
+	join UbicacionXEspectaculo u on c.id_compra = u.id_compra
+	join Espectaculos es on es.id_espectaculo = u.id_espectaculo
+	join Publicaciones p on p.id_publicacion = es.id_publicacion
+	join Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
+	where id_factura is null 
+end
+GO
+
+
+
+
+
+----------TRIGGERS----------
+
+-----insertarNuevoEspectaculo-----
+CREATE TRIGGER insertarNuevoEspectaculo ON Espectaculos
+INSTEAD OF INSERT
+AS
+BEGIN
+DECLARE @id_publicacion INT, @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo CHAR(15) 
+DECLARE cur CURSOR FOR 
+SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM inserted
+DECLARE @last_id INT
+SET @last_id = (SELECT MAX(id_espectaculo) FROM Espectaculos) + 1
+OPEN cur
+FETCH NEXT FROM cur INTO @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo
+WHILE @@FETCH_STATUS = 0
+BEGIN
+INSERT INTO Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
+VALUES (@last_id, @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo)
+SET @last_id += 1
+FETCH NEXT FROM cur INTO @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo
+END
+CLOSE cur
+DEALLOCATE cur
+END
+GO
+
+
+-----insertarNuevaFactura-----
+CREATE TRIGGER insertarNuevaFactura ON Facturas
+INSTEAD OF INSERT
+AS
+BEGIN
+DECLARE @fecha_facturacion DATETIME, @importe_total NUMERIC(18,2), @id_empresa INT 
+DECLARE cur CURSOR FOR 
+SELECT fecha_facturacion, importe_total, id_empresa FROM inserted
+DECLARE @last_id INT
+SET @last_id = (SELECT MAX(id_factura) FROM Facturas) + 1
+OPEN cur
+FETCH NEXT FROM cur INTO @fecha_facturacion, @importe_total, @id_empresa
+WHILE @@FETCH_STATUS = 0
+BEGIN
+INSERT INTO Facturas(id_factura, fecha_facturacion, importe_total, id_empresa)
+VALUES (@last_id, @fecha_facturacion, @importe_total, @id_empresa)
+SET @last_id += 1
+FETCH NEXT FROM cur INTO @fecha_facturacion, @importe_total, @id_empresa
+END
+CLOSE cur
+DEALLOCATE cur
+END
+GO
+
+
+-----rollInhabilitado-----
+CREATE TRIGGER rolInhabilitado_tr
+ON Roles
+AFTER UPDATE
+AS
+BEGIN	
+	IF((SELECT habilitado FROM DELETED) <> (SELECT habilitado FROM INSERTED))
+	BEGIN
+		DECLARE @id_rol_modificado INT
+		SET @id_rol_modificado = (SELECT id_rol FROM DELETED)
+
+		DELETE FROM UsuarioXRol
+		WHERE id_rol = @id_rol_modificado
+
+	END
+END
+GO
+
+
+-----insertarNuevaCompra-----
+CREATE TRIGGER insertarNuevaCompra ON Compras
+INSTEAD OF INSERT
+AS
+BEGIN
+	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT
+	DECLARE cur CURSOR FOR 
+	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM inserted
+	DECLARE @last_id INT
+	SET @last_id = (SELECT MAX(id_compra) FROM Compras) + 1
+	OPEN cur
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+		INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe, id_compra)
+		VALUES (@id_cliente, @id_medio_de_pago, NULL, @fecha, @importe, @last_id)
+		SET @last_id += 1
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
+		END
+	CLOSE cur
+	DEALLOCATE cur
+	select @last_id-1 id
+END
+GO
+
+
+-----finalizarEspectaculo-----
+CREATE TRIGGER finalizarEspectaculoAgotado_tg
+ON Compras
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM Espectaculos e
+								JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
+								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
+	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	IF (dbo.getCantidadEntradasPublicacion(@id_publicacion) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
+	BEGIN
+		UPDATE Espectaculos
+		SET estado_espectaculo = 'Finalizado'
+	END
+END
+GO
+
+
+----------FUNCIONES----------
+
+-----getCantidadEntradasPublicacion-----
+CREATE FUNCTION getCantidadEntradasPublicacion(@id_publicacion INT)
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
+			JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
+			WHERE e.id_publicacion = @id_publicacion)
+END
+GO
+
+
+-----getCantidadEntradasVendidas-----
+CREATE FUNCTION getCantidadEntradasVendidas(@id_espectaculo INT)
+RETURNS INT
+AS
+BEGIN
+	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
+			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
+END
+GO
+
