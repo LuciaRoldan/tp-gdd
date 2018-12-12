@@ -45,6 +45,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.checkBoxNumerado = new System.Windows.Forms.CheckBox();
             this.textBoxTipo = new System.Windows.Forms.TextBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,6 +94,8 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id});
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView.Location = new System.Drawing.Point(18, 143);
             this.dataGridView.MultiSelect = false;
@@ -203,6 +206,13 @@
             this.textBoxTipo.Size = new System.Drawing.Size(141, 20);
             this.textBoxTipo.TabIndex = 102;
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
             // CrearPublicacionUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,5 +262,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxNumerado;
         private System.Windows.Forms.TextBox textBoxTipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
     }
 }

@@ -48,7 +48,7 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string query = Sesion.getInstance().traerCliente().Id + ", " + 1 + ", " + this.Compra.Importe; //arreglar id medio de pago
+            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id() + ", " + this.Compra.Importe; //arreglar id medio de pago
             SqlDataReader reader = Servidor.getInstance().query("exec registrarCompra_sp " + query);
             while (reader.Read())
             {

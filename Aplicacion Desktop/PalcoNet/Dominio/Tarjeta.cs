@@ -9,6 +9,13 @@ namespace PalcoNet.Dominio
     {
         int numeroDeTarjeta;
         string titular;
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public int NumeroDeTarjeta
         {

@@ -47,7 +47,7 @@ namespace PalcoNet.Comprar
                 {
                     Tarjeta tarjeta = new Tarjeta();
                     tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
-                    tarjeta.NumeroDeTarjeta = int.Parse(reader["id_medio_de_pago"].ToString());
+                    tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
                     if (tarjeta.NumeroDeTarjeta != 0)
                     {
                         comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
