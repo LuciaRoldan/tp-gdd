@@ -28,7 +28,7 @@ namespace PalcoNet.Registro_de_Usuario
             InitializeComponent();
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
         }
-
+        //Verificamos que todos los campos esten completos
         public bool VerificarCampos(){
             string error = "";
             long x;
@@ -62,6 +62,7 @@ namespace PalcoNet.Registro_de_Usuario
         {
             if (this.VerificarCampos())
             {
+                //Creamos el objeto cliete con todos los datos que ingreso el usuario
                 cliente.FechaDeCreacion = DateTime.Now;
                 cliente.Apellido = textBoxApellido.Text;
                 cliente.Nombre = textBoxNombre.Text;
@@ -72,7 +73,7 @@ namespace PalcoNet.Registro_de_Usuario
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = long.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
 
-                //Capaz aca hay que encriptar la contrasenia
+                //Encriptamos la contraseña
                 if (string.IsNullOrWhiteSpace(cliente.NombreUsuario)) {
                     cliente.NombreUsuario = textBoxDocumento.Text;
                    

@@ -26,7 +26,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.Usuario = usuario;
             InitializeComponent();
         }
-
+        //verifica campos completos
         private bool camposCompletos()
         {
             string error = "";
@@ -62,6 +62,8 @@ namespace PalcoNet.Registro_de_Usuario
             Servidor servidor = Servidor.getInstance();
             bool error = false;
             string mensajeError = " ";
+
+            //como los datos del domicilio son los mismo para ambos tipos se guardan en usuario tambien
             if (this.camposCompletos())
             {
                     string cambioContraseña = "";
@@ -71,14 +73,14 @@ namespace PalcoNet.Registro_de_Usuario
                     if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { this.Usuario.Localidad = textBoxLocalidad.Text; }
                     if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
                     this.Usuario.Departamento = textBoxDepto.Text;
-                    this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
+                    //this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
 
                     if (this.Usuario is Empresa)
                     {
                         string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
                         + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                         + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                        + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña;
+                        + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
 
                         Console.WriteLine(query);
 
@@ -101,8 +103,9 @@ namespace PalcoNet.Registro_de_Usuario
                                 + ((Cliente)this.Usuario).Nombre + "', '" + ((Cliente)this.Usuario).Apellido + "', '"
                                 + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
                                 + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
-                                + ((Cliente)this.Usuario).FechaDeNacimiento + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
-                                + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña;
+                                + ((Cliente)this.Usuario).FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
+                                + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
+                                + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
 
                         Console.WriteLine(queryCli);
 
