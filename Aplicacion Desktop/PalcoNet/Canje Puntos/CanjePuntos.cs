@@ -49,13 +49,15 @@ namespace PalcoNet.Canje_Puntos
         public CanjePuntos(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+
+            //Se verifica que el usuario actual se un cliente
             if (Sesion.getInstance().rol.Nombre == "Cliente")
             {
                 this.Cliente.NombreUsuario = sesion.usuario.NombreUsuario;
-              //  this.PuntosOriginales = this.Cliente.Puntos;
-              //  this.textBoxPuntos.Text = this.Cliente.Puntos.ToString();
 
-                //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
+                //Aca traemos los puntos que tiene el usuario actual y los mostramos en el textBox
+                //Y  traemos una lista de todos los premios de la base, los guardamos en la lista premios y 
+                //los mostramos en el checkedListBox
 
                 SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha + "' ");
                 while (reader.Read())
@@ -93,8 +95,8 @@ namespace PalcoNet.Canje_Puntos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Aca hay que hacer que se cambien los puntos
-            //Capaz estaria bueno que salga un cartelito de que salio todo bien
+            //Aca hacemos que se actualicen los puntos
+
             if (this.puntosOriginales >= this.PuntosAcumulados)
             {
                 servidor.realizarQuery("EXEC borrarPuntos_sp '" + this.PuntosAcumulados + "', '" + sesion.usuario.NombreUsuario + "'");
@@ -122,10 +124,9 @@ namespace PalcoNet.Canje_Puntos
             
 
             //Aca hay que actualizar los puntos del cliente y persistir los nuevos premios adquiridos
-            //Como los puntos tienen un vencimiento hay que usar primero los puntos mas viejos y despues los mas nuevos
+            //Como los puntos tienen un vencimiento usamos primero los puntos mas viejos y despues los mas nuevos
 
 
-            //Cambiar los puntos en el objeto cliente de la sesion
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -133,6 +134,7 @@ namespace PalcoNet.Canje_Puntos
 
         }
 
+        //Con esto actualizamos los puntos acumulados actuales
         private void checkedListBoxPremios_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < this.Premios.Count(); i++)
