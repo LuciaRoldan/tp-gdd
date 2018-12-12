@@ -1,7 +1,7 @@
 --drop procedure buscarUbicacionessPorPublicacion_sp
 
 create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as begin
-	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, min(u.id_ubicacion)
+	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, min(u.id_ubicacion) id_ubicacion
 	from Ubicaciones u 
 	join UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
 	join TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
@@ -11,4 +11,6 @@ create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as be
 	group by t.descripcion, sin_numerar, precio
 end
 
+
+select * from Usuarios
 
