@@ -160,7 +160,7 @@ namespace PalcoNet.Abm_Rol
                      this.checkedListBoxFun2.SetItemChecked(i, false);
                 }
                 textBoxNomb.ResetText();
-                comboBoxRoles.ResetText();
+                comboBoxRoles.SelectedIndex = -1;
 
                 MessageBox.Show("Se actualizó el rol de forma exitosa.", "Rol editado", MessageBoxButtons.OK);
 
@@ -207,7 +207,7 @@ namespace PalcoNet.Abm_Rol
         {
             servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 0);
 
-            MessageBox.Show("El Rol ha sido inhabilitado.", "Rol inhabilitado", MessageBoxButtons.OK);
+            MessageBox.Show("El Rol está inhabilitado.", "Rol inhabilitado", MessageBoxButtons.OK);
 
             for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
             {
@@ -223,7 +223,7 @@ namespace PalcoNet.Abm_Rol
             if (/*aca faltaria verificar si esta deshabilitado*/ true){
                     servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
 
-                    MessageBox.Show("El Rol ha sido habilitado.", "Rol habilitado", MessageBoxButtons.OK);
+                    MessageBox.Show("El Rol está habilitado.", "Rol habilitado", MessageBoxButtons.OK);
 
                     for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
                     {
