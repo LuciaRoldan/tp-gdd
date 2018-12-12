@@ -17,6 +17,7 @@ namespace PalcoNet
         Servidor servidor = Servidor.getInstance();
         public SeleccionarRol()
         {
+            //Se traen los roles que tiene el usuario y se le da a elegir cual quiere utilizar
             InitializeComponent();
             
             SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
@@ -41,9 +42,9 @@ namespace PalcoNet
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //Cuando se selecciona un rol se lo guarda en la sesion y se abre la siguiente pantalla
             sesion.rol.Nombre = comboBox1.Text.ToString();
             new SeleccionarFuncionalidad().Show();
-            //Falta asignar el rol a la sesion y pasar a la siguiente pantalla
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

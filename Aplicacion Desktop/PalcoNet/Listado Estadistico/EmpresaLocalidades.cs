@@ -24,6 +24,7 @@ namespace PalcoNet.Listado_Estadistico
             InitializeComponent();
             fechaInicio = inicio;
             fechaFin = fin;
+            comboBox1.Text = "Bajo";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -33,11 +34,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Hace que aparezcan los datos abajo
-            //Le pasa una consulta a la BD con la fecha inicio, fecha fin, grado de visibilidad, mes, anio.
-            //Ordenar por fecha y luego por visibilidad.
-            //Devuelve Empresa, CUIT, CantidadLocalidadesNoVendidas
-
+            //Busca las empresas segun el grado que se seleccione y las mustra en la tabla
 
             SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio + "', '" + this.fechaFin + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();

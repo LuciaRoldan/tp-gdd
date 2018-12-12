@@ -17,6 +17,7 @@ namespace PalcoNet
 
         public static Sesion sesion { get; set; }
 
+        //Trae una instancia de la sesion
         public static Sesion getInstance()
         {
             if (sesion == null)
@@ -27,6 +28,7 @@ namespace PalcoNet
             return sesion;
         }
 
+        //Trae los datos de empresa de la base relacionados con el usuario
         public Empresa traerEmpresa() {
             Empresa empresa = new Empresa();
             
@@ -50,6 +52,7 @@ namespace PalcoNet
             return empresa;
         }
 
+        //Trae los datos de cliente de la base relacionados con el usuario
         public Cliente traerCliente()
         {
             Cliente cliente = new Cliente();
@@ -79,14 +82,8 @@ namespace PalcoNet
 
             SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha + "' ");
 
-            Console.WriteLine("traje puntos");
-
             reader2.Read();
             cliente.Puntos = Convert.ToInt32(reader2["cantidad_puntos"]);
-
-            Console.WriteLine("mmms");
-
-            Console.WriteLine(cliente.Puntos);
 
             return cliente;
         }

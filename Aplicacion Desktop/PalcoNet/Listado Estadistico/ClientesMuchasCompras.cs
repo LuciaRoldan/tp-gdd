@@ -24,6 +24,7 @@ namespace PalcoNet.Listado_Estadistico
             empieza = inicio;
             termina = fin;
 
+            //Se traen todas las razones sociales de las empresas existentes y se las agrega al combobox
             SqlDataReader reader = servidor.query("exec traerTodasRazonesSociales_sp");
 
             while (reader.Read())
@@ -60,27 +61,30 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-            SqlDataReader reader = servidor.query("EXEC dbo.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza + "', '" + termina + "'");
-            List<CompraCliente> comprasClientes = new List<CompraCliente>();
-
-            while (reader.Read())
+            //Se busca en la base los clientes y se los muestra en la tabla
+            if (comboBox1.SelectedIndex > -1)
             {
-                Console.WriteLine("LLEGA HASTA ACA");
-                CompraCliente compra = new CompraCliente();
-                compra.Nombre = reader["nombre"].ToString();
-                compra.Apellido = reader["apellido"].ToString();
-                compra.Empresa = reader["razon_social"].ToString();
-                compra.CantidadCompras = Convert.ToInt32(reader["Cantidad de compras"]);
+                SqlDataReader reader = servidor.query("EXEC dbo.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza + "', '" + termina + "'");
+                List<CompraCliente> comprasClientes = new List<CompraCliente>();
 
-                comprasClientes.Add(compra);
+                while (reader.Read())
+                {
+                    Console.WriteLine("LLEGA HASTA ACA");
+                    CompraCliente compra = new CompraCliente();
+                    compra.Nombre = reader["nombre"].ToString();
+                    compra.Apellido = reader["apellido"].ToString();
+                    compra.Empresa = reader["razon_social"].ToString();
+                    compra.CantidadCompras = Convert.ToInt32(reader["Cantidad de compras"]);
 
+                    comprasClientes.Add(compra);
+
+                }
+                reader.Close();
+
+                var bindingList = new BindingList<CompraCliente>(comprasClientes);
+                var source = new BindingSource(bindingList, null);
+                clientesComprasGrid.DataSource = source;
             }
-            reader.Close();
-            
-            var bindingList = new BindingList<CompraCliente>(comprasClientes);
-            var source = new BindingSource(bindingList, null);
-            clientesComprasGrid.DataSource = source;
         }
 
         private void ClientesMuchasCompras_Load(object sender, EventArgs e)

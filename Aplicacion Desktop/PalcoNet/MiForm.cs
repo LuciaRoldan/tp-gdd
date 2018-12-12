@@ -30,21 +30,12 @@ namespace PalcoNet
 
         public void cerrarAnteriores()
         {
+            //Cierra todas las pantallas anteriores hasta llegar al home (SeleccionarFuncionalidad) y si no encuentra nada abre el login
             this.Hide();
             if ((this.anterior is SeleccionarFuncionalidad)) { anterior.ShowDialog(); }            
             else if (this.anterior == null) { new LogIn().Show(); }
             else { anterior.cerrarAnteriores(); }
             this.Close();
         }
-
-        /*private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
-            if (string.Equals((sender as Button).Name, @"CloseButton"))
-            {
-                this.cerrarAnteriores();
-            }
-            else {
-                this.cerrarAnteriores();
-            }
-        }*/  //Para que ce cierren las escondidas cuando se toca X
     }
 }

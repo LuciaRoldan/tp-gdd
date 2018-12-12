@@ -32,6 +32,8 @@ namespace PalcoNet
               
         public SeleccionarFuncionalidad()
         {
+            //Trae las funcionalidades disponibles segun el rol con el que se loggeo y las carga para verlas en el combobox
+
             InitializeComponent();
             
             SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
@@ -55,13 +57,14 @@ namespace PalcoNet
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //Para cerrar la sesion se abre el login nuevamente
             new LogIn().Show();
             this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {           
-
+            //Segun la funcionalidad que se seleccione se elige que pantalla abrir
             try
             {
                 switch (comboBox1.Text.ToString())
@@ -107,7 +110,6 @@ namespace PalcoNet
                         this.Hide();
                         break;
                     case "Canje y administracion de puntos":
-                        Console.WriteLine("SELECCIONA CON USUARIO: " + sesion.usuario.NombreUsuario);
                         new CanjePuntos(this).Show(); 
                         this.Hide();
                         break;
@@ -125,32 +127,6 @@ namespace PalcoNet
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private Cliente obtenerCliente()
-        {
-            Cliente cliente = new Cliente();
-            SqlDataReader reader = servidor.query("EXEC dbo.buscarClientePorUsername_sp '" + Sesion.sesion.usuario + "'");
-
-            while (reader.Read())
-            {
-                cliente.Nombre = (reader["nombre"].ToString());
-                cliente.Apellido = (reader["apellido"].ToString());
-                cliente.TipoDocumento = (reader["tipo_documento"].ToString());
-                cliente.NumeroDeDocumento = (Convert.ToInt32(reader["documento"]));
-                cliente.Cuil = (Convert.ToInt32(reader["cuil"].ToString()));
-                cliente.Mail = (reader["mail"].ToString());
-                cliente.Telefono = (Convert.ToInt32(reader["telefono"].ToString()));
-                cliente.FechaDeNacimiento = (Convert.ToDateTime(reader["fecha_creacion"].ToString()));
-                cliente.Calle = (reader["calle"].ToString());
-                cliente.NumeroDeCalle = (Convert.ToInt16(reader["numero_calle"].ToString()));
-                cliente.Piso = (Convert.ToInt16(reader["piso"].ToString()));
-                cliente.Departamento = (reader["depto"].ToString());
-                cliente.CodigoPostal = (reader["codigo_postal"].ToString());
-            }
-            reader.Close();
-
-            return cliente;
         }
     }
 }

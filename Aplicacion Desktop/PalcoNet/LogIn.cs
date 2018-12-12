@@ -64,6 +64,7 @@ namespace PalcoNet
                 {
                     usuario.DebeCambiarContraseña = bool.Parse(r["debe_cambiar_pass"].ToString());
                 }
+
                 //en el caso de que el usurio haya sido registrado por un administrador o en el login en el primer
                 //ingreso deberá cambiar su contraseña obligatoriamente
 

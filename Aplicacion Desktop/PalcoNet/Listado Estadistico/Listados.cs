@@ -14,7 +14,7 @@ namespace PalcoNet.Listado_Estadistico
 {
     public partial class Listados : MiForm
     {
-
+        //Se inicializa en -1 para traer la primera pagina con un offset de 0
         int anio = -1;
         Servidor servidor = Servidor.getInstance();
 
@@ -51,6 +51,7 @@ namespace PalcoNet.Listado_Estadistico
             InitializeComponent();
         }
 
+        //Verifica que los campos esten completos
         private bool verificarCampos() {
             trimestre = trimestreCombobox.Text;
             return anio != -1 && trimestre != "";
@@ -63,6 +64,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Si los campos estan completos abre el listado de clientes con mayor cantidad de compras, si no advierte al usuario con un error
             if (this.verificarCampos())
             {
                 DateTime inicio = armarFechaInicio();
@@ -77,6 +79,8 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //Si los campos estan completos abre el listado de empresas con mayor cantidad de localidades no vendidas, 
+            //si no advierte al usuario con un error
             if (this.verificarCampos())
             {
                 DateTime inicio = armarFechaInicio();
@@ -91,13 +95,14 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button4_Click(object sender, EventArgs e)
         {
-            trimestre = trimestreCombobox.Text.ToString();
-
+            //Si los campos estan completos abre el listado de clientes con mayor cantidad de puntos vencidos, 
+            //si no advierte al usuario con un error
             if (this.verificarCampos())
             {
                 DateTime inicio = armarFechaInicio();
                 DateTime fin = armarFechaFin();
 
+                //Para este caso como no se requiere informacion adicional se realiza la busqueda en la base y se le pasa la lista de resultados a la pantalla
                 SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
                 List<ClientePuntosListado> clientesOrdenadosPorPuntos = new List<ClientePuntosListado>();
 
@@ -112,11 +117,6 @@ namespace PalcoNet.Listado_Estadistico
                 }
                 reader.Close();
 
-            
-                //aca consulta a la BD por la lista de todos los clientes ordenados
-                //por la cantidad de puntos vencidos DESC
-                //a esa consulta le voy a pasar dos fechas: inicio y fin
-
                 new ClientesPuntos(clientesOrdenadosPorPuntos, this).Show();
                 this.Hide();
             }
@@ -127,17 +127,20 @@ namespace PalcoNet.Listado_Estadistico
 
         private void anioCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Se actualiza el valor del año seleccionado
             anio = Int32.Parse(anioCombobox.Text.ToString());
         }
 
 
         private void trimestreCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Se actualiza el valor del trimestre seleccionado
             trimestre = trimestreCombobox.Text;
         }
 
         private DateTime armarFechaInicio()
         {
+            //Se devuelve la fecha de inicio segun el trimestre seleccionado
             switch (trimestre)
             {
                 case "Enero-Marzo": return new DateTime(anio, 1, 1);
@@ -150,6 +153,7 @@ namespace PalcoNet.Listado_Estadistico
 
         private DateTime armarFechaFin()
         {
+            //Se devuelve la fecha de fin segun el trimestre seleccionado
             switch (trimestre)
             {
                 case "Enero-Marzo": return new DateTime(anio, 3, 31);

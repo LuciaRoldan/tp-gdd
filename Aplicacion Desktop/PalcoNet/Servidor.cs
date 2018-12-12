@@ -22,7 +22,7 @@ namespace PalcoNet
         private SqlConnection connection;
         private SqlDataReader reader;
 
-        /// <summary>Get the instance for the server</summary>
+        //Trae una instancia del servidor
         public static Servidor getInstance()
         {
             if (server == null)
@@ -33,9 +33,7 @@ namespace PalcoNet
             return server;
         }
 
-        /// <summary>Execute a query with a return value (functions or selects)</summary>
-        /// <param name="query">Query to be executed</param>
-        /// <returns>Returns the reader with the results of the query</returns>
+        //Ejecuta una query y devuelve un reader
         public SqlDataReader query(string query)
         {
             SqlCommand command = new SqlCommand(query, this.connection);
@@ -43,20 +41,20 @@ namespace PalcoNet
             return this.reader;
         }
 
-        /// <summary>Close the reader opened with the previous method (if the reader is not closed it will fail in the next execution)</summary>
+        //Cierra el reader
         public void closeReader()
         {
             this.reader.Close();
         }
 
-        /// <summary>Execute a query without a return value (procedures, updates, drops, etc)</summary>
+        //Ejecuta una query que no retorna nada
         public void realizarQuery(string query)
         {
             this.query(query);
             this.closeReader();
         }
 
-        /// <summary>Connects to the database</summary>
+        //Conecta con la base de datos
         private void conectar()
         {
             try

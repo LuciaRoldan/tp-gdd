@@ -35,11 +35,12 @@ namespace PalcoNet
 
         private void Aceptar_Click(object sender, EventArgs e)
         {
+            //Se revisa que los campos esten completos, een caso de no estarlos se agrega informacion a la cadena de errores.
             string errores = "";
             if (string.IsNullOrWhiteSpace(textBoxUser.Text)) { errores += "Se debe completar el usuario. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxPass.Text)) { errores += "Se debe completar la contraseña.\n"; }
-            //Se encripta la nueva contraseña y se actualiza el nombre y contraseña del usuario en la base, 
-            //indicando también que ya no será necesario modificarla.
+            
+            //Si no hay errores se encripta la contraseña y se actualizan los datos de la base
             if (errores == "")
             {
                 StringBuilder Sb = new StringBuilder();
@@ -61,6 +62,8 @@ namespace PalcoNet
                 MessageBox.Show("El nombre de usuario y constraseña se acualizaron exitosamente!", "Cambiar Contraseña", MessageBoxButtons.OK);
                 this.Close();
             }
+
+            //En caso de haber errores simplemente se muestra un mensaje de error
             else 
             {
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
