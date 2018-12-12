@@ -131,7 +131,7 @@ namespace PalcoNet.Editar_Publicacion
                 }
                 this.actualizarFechas();
 
-                SqlDataReader reader2 = servidor.query("EXEC dbo.buscarUbicacionessPorPublicacion_sp " + this.PublicacionElegida.Id);
+                SqlDataReader reader2 = servidor.query("EXEC dbo.buscarUbicacionesPorPublicacion_sp " + this.PublicacionElegida.Id);
 
                 while (reader2.Read())
                 {
@@ -274,9 +274,6 @@ namespace PalcoNet.Editar_Publicacion
                 {
                     foreach (Int32 id_e in ids_espectaculos)
                     {
-                        Console.WriteLine(id_e);
-                        Console.WriteLine(id_u);
-
                         string query4 = "'" + id_u + "', '" + id_e + "'";
                         servidor.query("EXEC dbo.agregarUbicacionXEspectaculo_sp " + query4);
                     }

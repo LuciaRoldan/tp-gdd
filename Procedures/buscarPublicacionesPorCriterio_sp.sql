@@ -1,6 +1,3 @@
---EXEC dbo.buscarPublicacionesPorCriterio_sp null, null, '12/10/2018 7:27:52 PM', '2/9/2019 7:27:52 PM'
-
-go
 create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
@@ -17,7 +14,6 @@ create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @
 
 	set @query = @query + 'order by p.id_grado_publicacion ASC offset ' + (select convert(varchar, @offset)) + ' rows fetch next 10 rows only'
 
-	print @query
 	exec sp_executesql @query
 end
 

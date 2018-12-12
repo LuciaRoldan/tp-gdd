@@ -77,10 +77,9 @@ namespace PalcoNet
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
                 cliente.Piso = Convert.ToInt32(reader["piso"]);
                 cliente.Id = int.Parse(reader["id_cliente"].ToString());
-                Console.WriteLine("converti cosas");
             }
 
-            SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha + "' ");
+            SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "' ");
 
             reader2.Read();
             cliente.Puntos = Convert.ToInt32(reader2["cantidad_puntos"]);

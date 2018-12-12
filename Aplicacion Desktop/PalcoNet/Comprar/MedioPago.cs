@@ -127,8 +127,7 @@ namespace PalcoNet.Comprar
             
             Servidor servidor = Servidor.getInstance();
             SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
-            Console.WriteLine("exec getMediosDePago_sp " + compra.Publicacion.Id);
-
+            
             while (reader.Read())
             {
                 Tarjeta tarjeta = new Tarjeta();

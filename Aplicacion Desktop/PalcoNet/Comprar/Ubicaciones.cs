@@ -41,7 +41,7 @@ namespace PalcoNet.Comprar
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
 
-            SqlDataReader reader = servidor.query("EXEC dbo.buscarUbicacionessPorPublicacion_sp " + compra.Publicacion.Id);
+            SqlDataReader reader = servidor.query("EXEC dbo.buscarUbicacionesPorPublicacion_sp " + compra.Publicacion.Id);
 
             while (reader.Read())
             {
