@@ -12,8 +12,8 @@ BEGIN
 
 	IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
-			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
-			SELECT MAX(id_tipo_ubicacion)+1, descripcion FROM TiposDeUbicacion group by descripcion
+			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion) values (
+			(SELECT MAX(id_tipo_ubicacion)+1 FROM TiposDeUbicacion), @tipo_ubicacion)
 		END
 
 	WHILE(@contador_filas < @filas)
