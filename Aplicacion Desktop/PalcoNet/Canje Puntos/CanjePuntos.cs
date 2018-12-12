@@ -57,7 +57,7 @@ namespace PalcoNet.Canje_Puntos
 
                 //Aca hay que traer una lista de todos los premios de la base y guardarlos en la lista premios
 
-                SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "'");
+                SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ");
                 while (reader.Read())
                 {
                     puntosOriginales = Convert.ToInt32(reader["cantidad_puntos"]);
