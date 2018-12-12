@@ -66,16 +66,16 @@ namespace PalcoNet.Registro_de_Usuario
                 Empresa.FechaDeCreacion = DateTime.Now;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
 
-                //Capaz aca hay que encriptar la contrasenia
+                
                 if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
                 {
-                    empresa.NombreUsuario = textBoxRazonSocial.Text;
+                    empresa.NombreUsuario = textBoxCUIT.Text;
                    
                     StringBuilder Sb = new StringBuilder();
                     using (SHA256 hash = SHA256Managed.Create())
                     {
                         Encoding enc = Encoding.UTF8;
-                        Byte[] result = hash.ComputeHash(enc.GetBytes(textBoxRazonSocial.Text.ToString()));
+                        Byte[] result = hash.ComputeHash(enc.GetBytes(textBoxCUIT.Text.ToString()));
 
                         foreach (Byte b in result)
                             Sb.Append(b.ToString("x2"));

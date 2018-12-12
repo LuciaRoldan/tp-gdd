@@ -40,8 +40,10 @@ namespace PalcoNet
         {
         }
 
+       
         private void button1_Click(object sender, EventArgs e)
         {
+            //encripta la contraseña que ingresa la persona para compararla con la encriptada que se encuentra en la base
             Servidor servidor = Servidor.getInstance();
             StringBuilder Sb = new StringBuilder();
             using (SHA256 hash = SHA256Managed.Create())
@@ -56,13 +58,14 @@ namespace PalcoNet
             }
             try
             {
-
                 SqlDataReader r = servidor.query("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
                 while (r.Read())
                 {
                     usuario.DebeCambiarContraseña = bool.Parse(r["debe_cambiar_pass"].ToString());
                 }
+                //en el caso de que el usurio haya sido registrado por un administrador o en el login en el primer
+                //ingreso deberá cambiar su contraseña obligatoriamente
 
                 if (usuario.DebeCambiarContraseña) {
                     CambioContrasenia c = new CambioContrasenia(usuario.NombreUsuario);

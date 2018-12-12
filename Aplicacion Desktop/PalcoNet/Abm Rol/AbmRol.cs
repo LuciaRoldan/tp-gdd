@@ -53,6 +53,8 @@ namespace PalcoNet.Abm_Rol
                 }
                 reader.Close();
 
+                //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
+
                 reader = servidor.query("SELECT DISTINCT nombre FROM Roles");
 
                 while (reader.Read())
@@ -60,8 +62,11 @@ namespace PalcoNet.Abm_Rol
                     comboBoxRoles.Items.Add(reader["nombre"].ToString());
                 }
                 reader.Close();
+
+                this.button5.Enabled = false;
+                this.button6.Enabled = false;
             
-            //Aca hay que traer todos los roles de la base y guardarlos en la lista roles
+            //Aca traemos todos los roles de la basey los mostramos en el comboBox
 
         }
 
@@ -102,7 +107,6 @@ namespace PalcoNet.Abm_Rol
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Capaz estaria bueno que salga un cartelito de que salio todo bien
             if (!string.IsNullOrWhiteSpace(textBoxNombre.Text) && checkedListBoxFuncionalidades.CheckedIndices.Count > 0)
             {
                 string nombre = textBoxNombre.Text;
@@ -115,7 +119,7 @@ namespace PalcoNet.Abm_Rol
                     servidor.realizarQuery("EXEC dbo.AgregarFuncionalidadARol_sp '" + nombre + "', '" + fun + "'");
                 }
 
-                //Aca hay que guardar una nueva funcionalidad en la base con el nombre del rol y las funcionalidades
+                //Aca creamos el ROL, lo guardamos en la base y lo asociamos a las funcionalidades elegidas
 
                 for (int i = 0; this.checkedListBoxFuncionalidades.Items.Count > i; i++)
                 {
@@ -129,8 +133,6 @@ namespace PalcoNet.Abm_Rol
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Aca hay que hacer que se guarden los cambios en las tablas
-            //Capaz estaria bueno que salga un cartelito de que salio todo bien
 
             if (!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) && checkedListBoxFun2.SelectedItems.Count > 0)
             {
@@ -140,7 +142,11 @@ namespace PalcoNet.Abm_Rol
                 Console.WriteLine(rolSeleccionado.Nombre);
 
                 servidor.realizarQuery("EXEC dbo.eliminarFuncionalidadesRol_sp '" + rolSeleccionado.Nombre + "'");
-                               
+
+                //eliminamos todas las funcionalidades  y recuperamos las que habian sido seleccionadas para mostrarlas 
+                //como elegidas. La persona marca o desmarca las que quiera, las relacionamos con el rol, tambien podemos
+                // modificar el nombre, obtenemos el nuevo texto y actualizamos todo
+
                 foreach (String f in checkedListBoxFun2.CheckedItems)
                 {
                     funcionalidadesSeleccionadas.Add(f);
@@ -152,8 +158,6 @@ namespace PalcoNet.Abm_Rol
 
                 servidor.realizarQuery("EXEC dbo.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
                 rolSeleccionado = rolModificado;
-               
-                //Aca hay que actualizar los datos en la base
 
                 for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
                 {
@@ -169,13 +173,14 @@ namespace PalcoNet.Abm_Rol
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //mientras no haya rol seleccionado no estarán habilitados los demás campos
             rolSeleccionado.Nombre = comboBoxRoles.SelectedItem.ToString();
             this.checkedListBoxFun2.Enabled = true;
             this.button5.Enabled = true;
             this.button6.Enabled = true;
 
             SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeRol_sp '" + rolSeleccionado.Nombre + "'");
-
+            //selecciona en el checkedList las funcionalidades que tenia el rol originalmente 
 
             while (reader.Read())
             {
@@ -203,7 +208,7 @@ namespace PalcoNet.Abm_Rol
 
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+        private void button5_Click_1(object sender, EventArgs e) //inhabilita el rol pasando el bit habilitado a 0
         {
             servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 0);
 
@@ -218,9 +223,8 @@ namespace PalcoNet.Abm_Rol
 
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) //inhabilita el rol pasando el bit habilitado a 1
         {
-            if (/*aca faltaria verificar si esta deshabilitado*/ true){
                     servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
 
                     MessageBox.Show("El Rol está habilitado.", "Rol habilitado", MessageBoxButtons.OK);
@@ -231,7 +235,6 @@ namespace PalcoNet.Abm_Rol
                     }
                     textBoxNomb.ResetText();
                     comboBoxRoles.ResetText();
-            }
-        }
+          }
     }
 }
