@@ -44,7 +44,7 @@ namespace PalcoNet.Comprar
             while (reader.Read())
             {
                 Ubicacion u = new Ubicacion();
-                u.Numerada = bool.Parse(reader["sin_numerar"].ToString());
+                u.Numerada = ! bool.Parse(reader["sin_numerar"].ToString());
                 u.CantidadAsientos = int.Parse(reader["asientos"].ToString());
                 if (u.Numerada) { u.CantidadFilas = int.Parse(reader["filas"].ToString()); }
                 u.Precio = decimal.Parse(reader["precio"].ToString());
