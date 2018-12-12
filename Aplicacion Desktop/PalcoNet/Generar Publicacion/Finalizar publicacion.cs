@@ -57,23 +57,18 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se guarda todo lo que se tenga que guardar en la base
-            //insertar la publicacion falla con un tema de datos que no se que es
-
-            /*string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
-                            + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
-                            + publicacion.CantidadDeAsientos + "', '" + publicacion.Direccion + "','" + publicacion.FechaDeInicio + "', '"
-                            + publicacion.FechaDeEvento + "', '" + publicacion.EstadoDePublicacion + "'";*/
+            //Se guarda todos los datos de la publicación en la base
             
             string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";
 
             SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
-            Console.WriteLine(Convert.ToInt32(reader["id_publicacion"]));
 
             while (reader.Read())
             {
+                Console.WriteLine(Convert.ToInt32(reader["id_publicacion"]));
+
                 publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);                    
             } 
             
@@ -89,7 +84,7 @@ namespace PalcoNet.Generar_Publicacion
                 
             }
 
-
+            //Se agregan las relaciones de las ubicaciones con la publicación
             List<Int32> ids_ubicaciones = new List<Int32>();
 
             foreach (Ubicacion u in publicacion.Ubicaciones)

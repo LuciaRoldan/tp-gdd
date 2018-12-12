@@ -34,15 +34,6 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.Publicacion = publicacion;
             InitializeComponent();
-
-            /*SqlDataReader reader = servidor.query("EXEC dbo.getTipoUbicacion_sp");
-
-            while (reader.Read())
-            {
-                comboBoxTipo.Items.Add(reader["tipo_ubicacion"].ToString());
-            }
-            reader.Close();*/
-            //Aca habria que buscar todos los rubros disponibles que hay que
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,7 +44,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Se agrega a la lista de abajo
+            //Se agrega a la lista de abajo cada ubicación
             //verificar campos
             if (this.VerificarCampos())
             {
@@ -97,7 +88,7 @@ namespace PalcoNet.Generar_Publicacion
             return true;
         }
 
-
+        //Agregamos todas las ubicaciones a la publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.Ubicaciones.Count() > 0) {
