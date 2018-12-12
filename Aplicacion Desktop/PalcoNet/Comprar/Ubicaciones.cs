@@ -37,6 +37,7 @@ namespace PalcoNet.Comprar
             this.Compra = compra;
             this.Compra.Ubicaciones = new List<Ubicacion>();
             InitializeComponent();
+            numericUpDownCantidad.Enabled = false;
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
 
@@ -139,7 +140,7 @@ namespace PalcoNet.Comprar
 
          private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
          {
-
+             numericUpDownCantidad.Enabled = true;
          }
             
     }
