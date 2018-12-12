@@ -32,7 +32,7 @@ namespace PalcoNet
         {
             this.Hide();
             if ((this.anterior is SeleccionarFuncionalidad)) { anterior.ShowDialog(); }            
-            //else if (this.anterior == null) { new LogIn().Show(); }
+            else if (this.anterior == null) { new LogIn().Show(); }
             else { anterior.cerrarAnteriores(); }
             this.Close();
         }

@@ -30,7 +30,7 @@ namespace PalcoNet.Generar_Publicacion
             set { empresa = value; }
         }
 
-        public Finalizar_publicacion(MiForm anterior, Publicacion publicacion)
+        public Finalizar_publicacion(MiForm anterior, Publicacion publicacion) : base(anterior)
         {
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
