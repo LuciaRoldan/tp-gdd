@@ -43,8 +43,8 @@ namespace PalcoNet.Editar_Publicacion
             if (Sesion.getInstance().rol.Nombre == "Empresa")
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-                //Aca hay que buscar en la base todas las publicaciones de la empresa y guardarlas en las lista de arriba
                 Servidor servidor = Servidor.getInstance();
+                //Aca buscamos en la base todas las publicaciones de la empresa y las guardamos en la lista de arriba
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
 
@@ -59,7 +59,7 @@ namespace PalcoNet.Editar_Publicacion
                     comboBoxPublicaciones.Items.Add(publicacion.Descripcion);
                 }
             }
-            else 
+            else //En el caso de que no sea Empresa no podrá llevar a cabo esta funcionalidad
             {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 button4.Enabled = false;
@@ -69,6 +69,7 @@ namespace PalcoNet.Editar_Publicacion
             button5.Enabled = false;
         }
 
+        //Verifica que tenga todos los campos completos
         public bool VerificarCamposUbicacion()
         {
             string errores = "";
@@ -113,7 +114,7 @@ namespace PalcoNet.Editar_Publicacion
         {
             this.HayCambios = false;
 
-            //Hace que se completen los campos de abajo con la informacion de la publicacion seleccionada
+            //Hace se completan los campos con la informacion de la publicacion seleccionada
             if (comboBoxPublicaciones.SelectedIndex > -1) {
                 this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
                 textBoxDescripcion.Text = publicacionElegida.Descripcion;
@@ -165,7 +166,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Agrega una publicacion a la lista de abajo
+            //Agrega una ubicacion a la lista de abajo
 
             this.HayCambios = true;
 
@@ -187,8 +188,8 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button5_Click(object sender, EventArgs e)
         {
-            //Agrega una fecha a la lista de abajo
-            //Habria que verificar que la fecha sea valida
+            //Agrega una fecha a la lista de abajo y validamos que la fecha sea posterior al dia de hoy
+
 
             this.HayCambios = true;
 
@@ -206,7 +207,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Hace los cambios que haya que hacer en la base
+            //Hace los cambios correspondientes en la base
             //Podria salir un cartelito que diga que los cambios se guardaron correctamente
 
             if (this.VerificarCampos() && this.hayCambios)
@@ -237,6 +238,7 @@ namespace PalcoNet.Editar_Publicacion
                 servidor.query("EXEC actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
                     "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
 
+                //Limpia los espectaculos existente y agrega los seleccionados a la publicacion
                 servidor.query("EXEC vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
 
                 List<Int32> ids_espectaculos = new List<Int32>();
@@ -252,7 +254,7 @@ namespace PalcoNet.Editar_Publicacion
 
                 }
 
-
+                //Agrega las ubicaciones y la relacion de ellas con la publicacion a la base
                 List<Int32> ids_ubicaciones = new List<Int32>();
 
                 foreach (Ubicacion u in this.PublicacionElegida.Ubicaciones)
@@ -282,8 +284,7 @@ namespace PalcoNet.Editar_Publicacion
                 }
 
                 MessageBox.Show("Los cambios se registraron exitosamente!", "Editar publicación", MessageBoxButtons.OK);
-                //Hay que actualizar en la base los cambios en la publicacion elegida, inclyendo en sus fechas y sus ubicaciones
-                //3 SP uno de lo basico de publicacion, uno de las fechas y uno de las ubicaciones, en ese orden.
+
             }
             else
             {
