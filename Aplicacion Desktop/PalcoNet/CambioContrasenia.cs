@@ -57,6 +57,7 @@ namespace PalcoNet
                 Servidor servidor = Servidor.getInstance();
                 SqlDataReader reader = servidor.query("exec actualizarUsuarioYContrasenia_sp '" + query);
 
+                Sesion.getInstance().usuario.NombreUsuario = textBoxUser.Text;
                 MessageBox.Show("El nombre de usuario y constraseña se acualizaron exitosamente!", "Cambiar Contraseña", MessageBoxButtons.OK);
                 this.Close();
             }
