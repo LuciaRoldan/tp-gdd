@@ -103,7 +103,8 @@ namespace PalcoNet.Listado_Estadistico
                 DateTime fin = armarFechaFin();
 
                 //Para este caso como no se requiere informacion adicional se realiza la busqueda en la base y se le pasa la lista de resultados a la pantalla
-                SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+                SqlDataReader reader = servidor.query("EXEC dbo.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '"
+                    + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "'");
                 List<ClientePuntosListado> clientesOrdenadosPorPuntos = new List<ClientePuntosListado>();
 
                 while (reader.Read())
