@@ -26,6 +26,7 @@ namespace PalcoNet.Abm_Cliente
         Servidor servidor = Servidor.getInstance();
         List<Cliente> clientesEncontrados = new List<Cliente>();
 
+        //verificamos que la persona complete al menos un campo
         public bool verificarCampos()
         {
             string errores = "";
@@ -67,7 +68,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Aca hay que agarrar los valores, buscar y pasarle los resultados a la ventana
+            //Aca hay que agarrar los valores y se los pasamos al stored procedure que los buscará en la base
             if (this.verificarCampos())
             {
                 Cliente cliente = new Cliente();
@@ -111,11 +112,12 @@ namespace PalcoNet.Abm_Cliente
                 var source = new BindingSource(bindingList, null);
                 dataGridResultados.DataSource = source;
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
+                //y los mostramos por pantalla los resultados de la busqueda
 
             }
         }
 
-
+    //si se quiere modificar el cliente encontrado se accede por este botón 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
             Cliente cliente = (Cliente)dataGridResultados.CurrentRow.DataBoundItem;
