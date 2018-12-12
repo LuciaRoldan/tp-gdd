@@ -23,6 +23,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             InitializeComponent();
         }
 
+        //verificamos que la persona complete al menos un campo
         public bool verificarCampos(){
             string errores = "";
             long cuit;
@@ -51,7 +52,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Aca hay que hacer que con los datos se busquen las empresas y se pase una lista abajo
+            //Aca agarramos los valores insertados por el usuario y se los pasamos al stored procedure que los buscará en la base
             if (this.verificarCampos())
             {
                 Empresa empresa = new Empresa();
@@ -84,12 +85,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
 
-                //Aca hay que buscar en la base
-                //Verificar que la lista no este vacia
+                //Aca hay que buscar en la base y obtener una lista de empresas que cumplan con los criterios de busqueda
+                //y mostramos por pantalla los resultados de la busqueda
 
             }
         }
 
+        //Este botón es para que el usuario pueda registrar una nueva empresa
         private void button1_Click(object sender, EventArgs e)
         { 
             Empresa cliente = new Empresa();
@@ -102,6 +104,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         }
 
+        //Si se quiere modificar la empresa encontrada se selecciona y se accede por este botón 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
             Empresa empresa = (Empresa)dataGridViewResultados.CurrentRow.DataBoundItem;

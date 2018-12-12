@@ -59,6 +59,7 @@ namespace PalcoNet.Abm_Cliente
             this.cerrarAnteriores();
         }
 
+        //Este botón es para que el usuario pueda registrar un nuevo cliente
         private void button1_Click(object sender, EventArgs e)
         {
             Cliente cliente = new Cliente();
@@ -68,7 +69,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Aca hay que agarrar los valores y se los pasamos al stored procedure que los buscará en la base
+            //Aca agarramos los valores insertados por el usuario y se los pasamos al stored procedure que los buscará en la base
             if (this.verificarCampos())
             {
                 Cliente cliente = new Cliente();
@@ -112,12 +113,12 @@ namespace PalcoNet.Abm_Cliente
                 var source = new BindingSource(bindingList, null);
                 dataGridResultados.DataSource = source;
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
-                //y los mostramos por pantalla los resultados de la busqueda
+                //y mostramos por pantalla los resultados de la busqueda
 
             }
         }
 
-    //si se quiere modificar el cliente encontrado se accede por este botón 
+    //Si se quiere modificar el cliente encontrado se selecciona y se accede por este botón 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
             Cliente cliente = (Cliente)dataGridResultados.CurrentRow.DataBoundItem;
