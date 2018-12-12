@@ -60,7 +60,7 @@ namespace PalcoNet.Comprar
             {
                 for (int i = 0; i < u.CantidadAsientos; i++)
                 {
-                    string q = this.Compra.Id + ", " + (u.Id + 0) + ", " + this.Compra.Espectaculo.Id;
+                    string q = this.Compra.Id + ", " + (u.Id + i) + ", " + this.Compra.Espectaculo.Id;
                     Servidor.getInstance().query("exec registrarCompraExU_sp " + q);
                 }
             }
