@@ -44,17 +44,15 @@ DROP PROCEDURE buscarComprasNoFacturadas_sp
 DROP PROCEDURE actualizarCompraFactura_sp
 DROP PROCEDURE agregarFactura_sp
 
-
 DROP TRIGGER insertarNuevoEspectaculo
 DROP TRIGGER insertarNuevaFactura
-DROP TRIGGER rollInhabilitado_tr
+DROP TRIGGER rolInhabilitado_tr
 DROP TRIGGER insertarNuevaCompra
 DROP TRIGGER finalizarEspectaculoAgotado_tg
 
-
 DROP FUNCTION getCantidadEntradasPublicacion
 DROP FUNCTION getCantidadEntradasVendidas
-
+GO
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
 CREATE PROCEDURE verificarLogin_sp
@@ -100,7 +98,6 @@ BEGIN
 END
 GO
 
-
 -----getPremios-----
 CREATE PROCEDURE getPremios_sp
 AS
@@ -108,7 +105,6 @@ BEGIN
 	SELECT descripcion, puntos FROM Premios
 END
 GO
-
 
 -----borrarPuntos-----
 CREATE PROCEDURE borrarPuntos_sp
@@ -162,11 +158,6 @@ BEGIN
 END
 GO
 
-drop procedure borrarPuntos_sp
-
-EXEC borrarPuntos_sp 300, 'ro'
-
-
 -----getRolesDeUsuario-----
 CREATE PROCEDURE getRolesDeUsuario_sp
 @usuario VARCHAR(50)
@@ -177,7 +168,6 @@ BEGIN
 	JOIN UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
 END
 GO
-
 
 -----getFuncionalidadesDeUsuario-----
 CREATE PROCEDURE getFuncionalidadesDeUsuario_sp
@@ -205,7 +195,6 @@ BEGIN
 END
 GO
 
-
 -----modificarRol-----
 CREATE PROCEDURE modificarRol_sp(
 @nombre VARCHAR(50),
@@ -224,7 +213,6 @@ BEGIN
 	END
 END
 GO
-
 
 -----modificarNombreRol-----
 CREATE PROCEDURE modificarNombreRol_sp
@@ -245,8 +233,6 @@ BEGIN
 END
 GO
 
-
-
 -----getRubrosDePublicacion-----
 CREATE PROCEDURE getRubrosDePublicacion_sp 
 @id_publicacion NUMERIC
@@ -256,10 +242,6 @@ BEGIN
 	WHERE id_publicacion = @id_publicacion
 END
 GO
-
-
-
-
 
 -----agregarFuncionalidadARol-----
 CREATE PROCEDURE AgregarFuncionalidadARol_sp
@@ -288,10 +270,9 @@ BEGIN
 			VALUES (@id_funcionalidad, @id_rol)
 		END
 	
-	--RAISERROR('Funcionalidad ya existente para ese rol', 16, 1) --no es grave lol podria tb no hacer nada
+	RAISERROR('Funcionalidad ya existente para ese rol', 16, 1) --no es grave lol podria tb no hacer nada
 END
-
-
+GO
 
 -----buscarUsuarioPorCriterio-----
 CREATE PROCEDURE buscarUsuarioPorCriterio_sp
@@ -314,8 +295,6 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 GO
-
-
 
 -----modificarCliente-----
 CREATE PROCEDURE modificarCliente_sp
@@ -379,7 +358,6 @@ BEGIN
 END
 GO
 
-
 -----registroEmpresa-----
 CREATE PROCEDURE registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
  @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30))
@@ -404,12 +382,6 @@ BEGIN
 END
 GO
 
-
-
-
-
-
-
 -----buscarClientePorUsername-----
 CREATE PROCEDURE buscarClientePorUsername_sp
 @username VARCHAR(255)
@@ -419,7 +391,6 @@ BEGIN
 	WHERE username LIKE @username
 END
 GO
-
 
 -----getPuntos-----
 CREATE PROCEDURE getPuntos_sp
@@ -434,7 +405,6 @@ BEGIN
 END
 GO
 
-
 -----getRubros-----
 CREATE PROCEDURE getRubros_sp
 AS
@@ -442,7 +412,6 @@ BEGIN
 	SELECT descripcion FROM Rubros WHERE descripcion <> ''
 END
 GO
-
 
 -----buscarPublicacionesPorCriterio-----
 create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde date, @hasta date, @offset INT) as begin
@@ -479,7 +448,6 @@ create procedure historialClienteConOffset_sp (@id_cliente int, @offset int) as 
 end
 GO
 
-
 -----registrarCompra-----
 CREATE PROCEDURE registrarCompra_sp
 @id_cliente INT,
@@ -492,7 +460,6 @@ BEGIN
 	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 120), @importe)
 END
 go
-
 
 -----registrarCompraEXU-----
 CREATE PROCEDURE registrarCompraExU_sp (@id_compra INT, @id_ubicacion INT, @id_espectaculo BIGINT)
@@ -507,7 +474,6 @@ BEGIN
 END
 GO
 
-
 -----getPublicacionesDeUsuario-----
 CREATE PROCEDURE getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
@@ -519,7 +485,6 @@ BEGIN
 	WHERE username = @usuario
 END
 GO
-
 
 -----buscarEmpresaPorCriterio-----
 CREATE PROCEDURE buscarEmpresaPorCriterio_sp
@@ -537,7 +502,6 @@ BEGIN
 		AND @cuit LIKE '')
 END
 GO
-
 
 -----modificarEmpresa-----
 CREATE PROCEDURE modificarEmpresa_sp
@@ -578,7 +542,6 @@ BEGIN
 END
 GO
 
-
 -----agregarRol-----
 CREATE PROCEDURE agregarRol_sp 
 @nombre_rol VARCHAR(50)
@@ -596,7 +559,6 @@ BEGIN
 END
 GO
 
-
 -----getFuncionalidadesDeRol-----
 CREATE PROCEDURE getFuncionalidadesDeRol_sp
 @nombre_rol VARCHAR(50)
@@ -607,8 +569,6 @@ BEGIN
 	JOIN FuncionalidadXRol fxr ON(fxr.id_rol= r.id_rol AND fxr.id_funcionalidad = f.id_funcionalidad)
 END
 GO
-
-
 
 -----registrarPublicacion-----
 CREATE PROCEDURE registrarPublicacion_sp
@@ -632,15 +592,11 @@ BEGIN
 END
 GO
 
-
 -----buscarEspectaculosPorPublicacion-----
 create procedure buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
 	select fecha_evento, id_espectaculo from Espectaculos where id_publicacion = @id_publicacion
 end
 GO
-
-
-
 
 -----agregarEspectaculo-----
 CREATE PROCEDURE agregarEspectaculo_sp(
@@ -668,7 +624,6 @@ BEGIN
 END
 GO
 
-
 -----agregarUbicaciones-----
 CREATE PROCEDURE agregarUbicaciones_sp(
 @tipo_ubicacion NVARCHAR(20),
@@ -692,8 +647,6 @@ BEGIN
  	DROP TABLE #UbicacionesInsertadas
 END
 GO
-
-
 
 -----agregarUbicacionNumerada-----
 CREATE PROCEDURE agregarUbicacionNumerada_sp(
@@ -739,7 +692,6 @@ BEGIN
 END
 GO
 
-
 -----agregarUbicacionSinNumerar-----
 CREATE PROCEDURE agregarUbicacionSinNumerar_sp(
 @tipo_ubicacion NVARCHAR(20),
@@ -764,8 +716,6 @@ BEGIN
 		SELECT NULL, NULL, 1, @precio, id_tipo_ubicacion
 		FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
 
-
-
 		INSERT INTO #UbicacionesInsertadas
 		SELECT SCOPE_IDENTITY()
 
@@ -776,9 +726,6 @@ BEGIN
 	SELECT * FROM #UbicacionesInsertadas
 END
 GO
-
-
-
 
 -----actualizarGradoPublicacion-----
 CREATE PROCEDURE actualizarGradoPublicacion_sp
@@ -799,7 +746,6 @@ BEGIN
 END
 GO
 
-
 -----getMediosDePago-----
 CREATE PROCEDURE getMediosDePago_sp
 @id_cliente INT
@@ -807,8 +753,7 @@ AS
 BEGIN
 	SELECT id_medio_de_pago, coalesce(RIGHT(nro_tarjeta, 4),0) digitos FROM Medios_de_pago WHERE id_cliente =  @id_cliente
 END
-
-
+GO
 
 -----registrarMedioDePago-----
 CREATE PROCEDURE registrarMedioDePago_sp
@@ -829,7 +774,6 @@ BEGIN
 END
 GO
 
-
 -----buscarUbicacionesPorPublicacion-----
 create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as begin
 	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, u.id_ubicacion
@@ -843,13 +787,11 @@ create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as be
 end
 GO
 
-
 -----traerTodasRazonesSociales-----
 create procedure traerTodasRazonesSociales_sp as begin
 	select distinct razon_social from Empresas
 end
 GO
-
 
 -----top5ClientesPuntosVencidos-----
 CREATE PROCEDURE top5ClientesPuntosVencidos_sp(
@@ -868,7 +810,6 @@ BEGIN
 END
 GO
 
-
 -----top5ClientesComprasParaUnaEmpresa----
 CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
 (@razon_social NVARCHAR(50),
@@ -879,7 +820,7 @@ AS
 BEGIN
 	SELECT TOP 5 nombre, apellido, documento, COUNT(id_ubicacion) 'Cantidad de compras', razon_social
 	FROM Clientes cc
-	JOIN Compras ON(compras.id_cliente = cc.id_cliente)
+	JOIN Compras c ON(c.id_cliente = cc.id_cliente)
 	JOIN UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
 	JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
 	JOIN Publicaciones p ON (p.id_publicacion = e.id_publicacion)
@@ -890,7 +831,6 @@ BEGIN
 	ORDER BY COUNT(id_ubicacion) DESC
 END
 GO
-
 
 -----top5LocalidadesNoVendidasEmpresa-----
 CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
@@ -922,13 +862,11 @@ create procedure agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(1
 end
 GO
 
-
 -----actualizarCompraFactura-----
 create procedure actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
 	update Compras set id_factura = @id_factura where id_compra = @id_compra
 end
 GO
-
 
 -----buscarComprasNoFacturadas-----
 create procedure buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
@@ -940,10 +878,6 @@ create procedure buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as beg
 	where id_factura is null 
 end
 GO
-
-
-
-
 
 ----------TRIGGERS----------
 
@@ -971,7 +905,6 @@ DEALLOCATE cur
 END
 GO
 
-
 -----insertarNuevaFactura-----
 CREATE TRIGGER insertarNuevaFactura ON Facturas
 INSTEAD OF INSERT
@@ -996,7 +929,6 @@ DEALLOCATE cur
 END
 GO
 
-
 -----rollInhabilitado-----
 CREATE TRIGGER rolInhabilitado_tr
 ON Roles
@@ -1014,7 +946,6 @@ BEGIN
 	END
 END
 GO
-
 
 -----insertarNuevaCompra-----
 CREATE TRIGGER insertarNuevaCompra ON Compras
@@ -1041,7 +972,6 @@ BEGIN
 END
 GO
 
-
 -----finalizarEspectaculo-----
 CREATE TRIGGER finalizarEspectaculoAgotado_tg
 ON Compras
@@ -1060,7 +990,6 @@ BEGIN
 END
 GO
 
-
 ----------FUNCIONES----------
 
 -----getCantidadEntradasPublicacion-----
@@ -1074,7 +1003,6 @@ BEGIN
 END
 GO
 
-
 -----getCantidadEntradasVendidas-----
 CREATE FUNCTION getCantidadEntradasVendidas(@id_espectaculo INT)
 RETURNS INT
@@ -1084,4 +1012,3 @@ BEGIN
 			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
 END
 GO
-
