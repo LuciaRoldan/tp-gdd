@@ -7,6 +7,7 @@ DROP TABLE Puntos
 DROP TABLE UbicacionXEspectaculo
 DROP TABLE Espectaculos
 DROP TABLE Ubicaciones
+DROP TABLE TiposDeUbicacion
 DROP TABLE Compras
 DROP TABLE Facturas
 DROP TABLE Publicaciones
@@ -60,7 +61,7 @@ id_factura INT PRIMARY KEY
 )
 
 CREATE TABLE Compras(
-id_compra INT PRIMARY KEY
+id_compra INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Publicaciones(
@@ -81,6 +82,10 @@ id_rubro INT IDENTITY(1,1) PRIMARY KEY
 
 CREATE TABLE Grados_publicacion(
 id_grado_publicacion INT IDENTITY(1,1) PRIMARY KEY
+)
+
+CREATE TABLE TiposDeUbicacion(
+id_tipo_ubicacion INT IDENTITY PRIMARY KEY
 )
 
 CREATE TABLE Ubicaciones(
@@ -215,6 +220,9 @@ descripcion NVARCHAR(100);
 --sin_numerar BIT,
 --precio NUMERIC(18);
 
+ALTER TABLE TiposDeUbicacion ADD
+descripcion NVARCHAR(255)
+
 ALTER TABLE Ubicaciones ADD
 codigo_tipo_ubicacion INT,
 tipo_ubicacion NVARCHAR(20),
@@ -243,7 +251,7 @@ VALUES
 ('Registro de usuario'),
 ('ABM de cliente'),
 ('ABM de empresa de espectaculos'),
-('ABM de categoria'),
+('ABM de rubro'),
 ('ABM grado de publicacion'),
 ('Generar publicacion'),
 ('Editar publicacion'),
@@ -325,11 +333,25 @@ VALUES('ro', 'lol', 1, GETDATE(), 0, 0)
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'ro'), 3)
 DECLARE @id INT = SCOPE_IDENTITY()
 INSERT INTO Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, fecha_creacion, fecha_nacimiento, calle, numero_calle, piso, depto, codigo_postal)
-VALUES(@id, 'Ro', 'Chi', 'DNI', 40747111, 40747134, 'ro@chi.com', NULL, NULL, 'Gurru', 2215, 4, 'B', 1422)
+VALUES(@id, 'Ro', 'Chi', 'DNI', 40747111, 40747134, 'ro@chi.com', GETDATE(), GETDATE(), 'Gurru', 2215, 4, 'B', 1422)
 
-delete from UsuarioXRol where id_usuario = 788
-DELETE FROM Usuarios where id_usuario = 788
-delete from clientes where id_usuario = 788
+--delete from UsuarioXRol where id_usuario = 785
+--DELETE FROM Usuarios where id_usuario = 785
+--delete from clientes where id_usuario = 785
+
+--SELECT *  FROM clientes where nombre = 'ro'
+
+INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
+VALUES('roco', 'lol', 1, GETDATE(), 0, 0)
+INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'roco'), 2)
+DECLARE @id2 INT = SCOPE_IDENTITY()
+INSERT INTO Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
+VALUES(@id2, 'Ro Co.', 'ro@co.com', 58555661, GETDATE(), 'Gur', 52, 1, 'B', 523)
+
+--select * from usuarios where username = 'roco'
+--delete from UsuarioXRol where id_usuario = 791
+--delete from empresas where id_usuario = 791
+--delete from usuarios where id_usuario = 791
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 
 INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
@@ -413,10 +435,18 @@ JOIN Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
 
 --SELECT * FROM Espectaculos
 
+--.--.--.--.--.--.--TIPOSDEUBICACIONES--.--.--.--.--.--.--
+
+SET IDENTITY_INSERT TiposDeUbicacion ON
+INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
+SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
+FROM gd_esquema.Maestra
+SET IDENTITY_INSERT TiposDeUbicaciones OFF
+
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
-INSERT INTO Ubicaciones(codigo_tipo_ubicacion, tipo_ubicacion, fila, asiento, sin_numerar, precio)
-SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Tipo_Descripcion, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
+INSERT INTO Ubicaciones(codigo_tipo_ubicacion, fila, asiento, sin_numerar, precio)
+SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
 
 --select * from Ubicaciones
@@ -490,9 +520,11 @@ WHERE gd.Forma_Pago_Desc IS NOT NULL
 
 --.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
 
+SET IDENTITY_INSERT Compras ON
 INSERT INTO Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha)
 SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
 FROM #ComprasTemp
+SET IDENTITY_INSERT Compras OFF
 
 INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
 --Falta agregar el id_compra
@@ -534,3 +566,9 @@ VALUES
 ('SEGA', 2000),
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
+
+
+--.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
+BEGIN TRANSACTION
+update Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
+COMMIT
