@@ -38,7 +38,7 @@ namespace PalcoNet.Listado_Estadistico
 
             SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio + "', '" + this.fechaFin + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();
-            Console.WriteLine("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio + "', '" + this.fechaFin + "'");
+            Console.WriteLine("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss") + "'");
             while (reader.Read())
             {
                 CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();
