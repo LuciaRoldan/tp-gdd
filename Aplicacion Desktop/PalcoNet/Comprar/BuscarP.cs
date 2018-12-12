@@ -140,7 +140,7 @@ namespace PalcoNet.Comprar
                     else { categorias = categorias + ", ''" + s + "''"; }
                 }
 
-                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked? (", '" + desde + "', '" + hasta + "', ") : ", null, null, ") + this.Offset * 10;
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
 
                 SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();
@@ -161,6 +161,7 @@ namespace PalcoNet.Comprar
             if (this.Publicaciones.Count() == 0)
             {
                 if (paraAdelante) { this.Offset--; } else { this.Offset++; }
+                dataGridViewResultados.DataSource = new BindingSource(new BindingList<Publicacion>(), null);
                 MessageBox.Show("No existen más resultados para " + (paraAdelante ? "adelante." : "atrás."), "Advertencia", MessageBoxButtons.OK);
             }
             else
@@ -184,6 +185,7 @@ namespace PalcoNet.Comprar
         {
             //Hay que hacer la query aca y obtener la lista para pasarla abajo
             if (this.verificarCampos()) {
+                this.Offset = -1;
                 this.leer(true); 
             }
         }

@@ -77,7 +77,7 @@ namespace PalcoNet
                 Console.WriteLine("converti cosas");
             }
 
-            SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ");
+            SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha + "' ");
 
             Console.WriteLine("traje puntos");
 
