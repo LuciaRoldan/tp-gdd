@@ -54,7 +54,6 @@ namespace PalcoNet
                 foreach (Byte b in result)
                     Sb.Append(b.ToString("x2"));
 
-                Console.WriteLine("EL HASH ES:" + Sb);
             }
             try
             {

@@ -56,7 +56,6 @@ namespace PalcoNet.Historial_Cliente
                 SqlDataReader reader = servidor.query("exec historialClienteConOffset_sp " + this.Cliente.Id + " ," + this.Offset * 10);
                 while (reader.Read())
                 {
-                    Console.WriteLine("+++++++++++++++++");
                     ElementoHistorialCliente e = new ElementoHistorialCliente();
                     e.CantidadAsientos = int.Parse(reader["cantidad_asientos"].ToString());
                     e.Descripcion = reader["descripcion"].ToString();

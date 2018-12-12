@@ -9,7 +9,7 @@ DROP PROCEDURE modificarCliente_sp
 DROP PROCEDURE buscarClientePorUsername_sp
 DROP PROCEDURE getPuntos_sp
 DROP PROCEDURE getRubros_sp
-DROP procedure buscarPublicacionesPorCriterio_sp
+DROP PROCEDURE buscarPublicacionesPorCriterio_sp
 DROP PROCEDURE registroCliente_sp
 DROP PROCEDURE registroEmpresa_sp
 DROP PROCEDURE getPremios_sp
@@ -27,7 +27,7 @@ DROP PROCEDURE actualizarGradoPublicacion_sp
 DROP PROCEDURE buscarEspectaculosPorPublicacion_sp
 DROP PROCEDURE getMediosDePago_sp
 DROP PROCEDURE registrarMedioDePago_sp
-DROP PROCEDURE buscarUbicacionessPorPublicacion_sp
+DROP PROCEDURE buscarUbicacionesPorPublicacion_sp
 DROP PROCEDURE buscarEmpresaPorCriterio_sp
 DROP PROCEDURE modificarEmpresa_sp
 DROP PROCEDURE agregarRol_sp
@@ -43,6 +43,12 @@ DROP PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
 DROP PROCEDURE buscarComprasNoFacturadas_sp
 DROP PROCEDURE actualizarCompraFactura_sp
 DROP PROCEDURE agregarFactura_sp
+DROP PROCEDURE actualizarPublicacion_sp
+DROP PROCEDURE actualizarUsuarioYContrasenia_sp
+DROP PROCEDURE agregarUbicacionXEspectaculo_sp
+DROP PROCEDURE buscarEmpresaPorUsername_sp
+DROP PROCEDURE buscarPublicacionesPorEmpresa_sp
+DROP PROCEDURE vaciarEspectaculosPublicacion_sp
 
 DROP TRIGGER insertarNuevoEspectaculo
 DROP TRIGGER insertarNuevaFactura
@@ -413,24 +419,15 @@ BEGIN
 END
 GO
 
------buscarPublicacionesPorCriterio-----
-create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde date, @hasta date, @offset INT) as begin
-	declare @query nvarchar(2000)
-	set @query = 
-	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
+-----buscarPublicacionesPorEmpresa-----
+create procedure buscarPublicacionesPorEmpresa_sp (@razon_social nvarchar(255)) as begin
+	select g.nombre grado, r.descripcion rubro, p.descripcion, direccion, p.id_publicacion id, es.estado_espectaculo estado from Publicaciones p 
+	join Empresas e on e.id_empresa = p.id_empresa 
+	join Grados_publicacion g on p.id_grado_publicacion = g.id_grado_publicacion
 	join Rubros r on r.id_rubro = p.id_rubro
-	where e.estado_espectaculo = ''Publicada'''
-
-	if ( @desde is not null and @hasta is not null) begin set @query = 
-		@query + ' and e.fecha_evento between ''' + (select convert(varchar, @desde, 22)) + ''' and ''' +  (select convert(varchar, @hasta, 22)) + ''' ' end
-
-	print @query
-	if ( @descripcion is not null) begin set @query = @query + 'and p.descripcion like ' + (@descripcion) + ' ' end
-	if ( @categorias is not null) begin set @query = @query + 'and r.descripcion in [' + (@categorias) + '] ' end
-
-	set @query = @query + 'order by p.id_grado_publicacion ASC offset ' + @offset + ' rows fetch next 10 rows only'
-
-	exec sp_executesql @query
+	join Espectaculos es on es.id_publicacion = p.id_publicacion
+	where razon_social = @razon_social and estado_espectaculo = 'Borrador'
+	group by p.id_publicacion, p.descripcion, direccion, g.nombre, r.descripcion, es.estado_espectaculo
 end
 GO
 
@@ -500,6 +497,16 @@ BEGIN
 		OR (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND @cuit LIKE '')
+END
+GO
+
+-----buscarEmpresaPorUsername-----
+CREATE PROCEDURE buscarEmpresaPorUsername_sp
+@username VARCHAR(255)
+AS
+BEGIN
+	SELECT * FROM Usuarios u JOIN Empresas e ON (u.id_usuario = e.id_usuario)
+	WHERE username LIKE @username
 END
 GO
 
@@ -595,6 +602,27 @@ GO
 -----buscarEspectaculosPorPublicacion-----
 create procedure buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
 	select fecha_evento, id_espectaculo from Espectaculos where id_publicacion = @id_publicacion
+end
+GO
+
+-----buscarPublicacionesPorCriterio_sp-----
+create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
+	declare @query nvarchar(2000)
+	set @query = 
+	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
+	join Rubros r on r.id_rubro = p.id_rubro
+	where e.estado_espectaculo = ''Publicada'''
+
+	if ( @desde is not null and @hasta is not null) begin set @query = 
+		@query + ' and e.fecha_evento between ' + 
+		'CONVERT(DATETIME, ''' + (select convert(varchar, @desde, 25)) + ''', 121)' + ' and ' +  
+		'CONVERT(DATETIME, ''' + (select convert(varchar, @hasta, 25)) + ''', 121)' + ' ' end
+	if ( @descripcion is not null) begin set @query = @query + 'and p.descripcion like ''%' + @descripcion + '%''' end
+	if ( @categorias is not null) begin set @query = @query + 'and r.descripcion in (' + (@categorias) + ') ' end
+
+	set @query = @query + 'order by p.id_grado_publicacion ASC offset ' + (select convert(varchar, @offset)) + ' rows fetch next 10 rows only'
+
+	exec sp_executesql @query
 end
 GO
 
@@ -727,6 +755,18 @@ BEGIN
 END
 GO
 
+-----agregarUbicacionXEspectaculo_sp-----
+CREATE PROCEDURE agregarUbicacionXEspectaculo_sp(
+@id_ubicacion INT,
+@id_espectaculo INT
+)
+AS
+BEGIN
+	INSERT INTO UbicacionXEspectaculo(id_ubicacion, id_espectaculo)
+	VALUES(@id_ubicacion, @id_espectaculo)
+END
+GO
+
 -----actualizarGradoPublicacion-----
 CREATE PROCEDURE actualizarGradoPublicacion_sp
 @id_publicacion INT,
@@ -744,6 +784,18 @@ BEGIN
 		RAISERROR('Publicacion inexistente', 16, 1)
 	END
 END
+GO
+-----actualizarPublicacion-----
+create procedure actualizarPublicacion_sp (@id int, @descripcion nvarchar(255), @direccion nvarchar(80), @estado char(15), @rubro nvarchar(100)) as begin
+	update Publicaciones set descripcion = @descripcion, direccion = @direccion, id_rubro = (select id_rubro from Rubros where descripcion = @rubro) where id_publicacion = @id
+	update Espectaculos set estado_espectaculo = @estado where id_publicacion = @id
+end
+GO
+
+-----actualizarUsuarioYContrasenia-----
+create procedure actualizarUsuarioYContrasenia_sp (@usernameV nvarchar(255), @usernameN nvarchar(255), @encriptada nvarchar(255)) as begin
+	update Usuarios set username = @usernameN, password = @encriptada where username = @usernameV
+end
 GO
 
 -----getMediosDePago-----
@@ -775,7 +827,7 @@ END
 GO
 
 -----buscarUbicacionesPorPublicacion-----
-create procedure buscarUbicacionessPorPublicacion_sp (@id_publicacion int) as begin
+create procedure buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
 	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, u.id_ubicacion
 	from Ubicaciones u 
 	join UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
@@ -1010,5 +1062,37 @@ AS
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
 			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
+END
+GO
+
+-----vaciarEspectaculosPublicacion-----
+CREATE PROCEDURE vaciarEspectaculosPublicacion_sp(
+@id_publicacion INT)
+AS
+BEGIN
+
+CREATE TABLE #UbicacionesDeUnaPublicacion(
+id_espectaculo INT,
+id_ubicacion INT,
+id_ubicacion_espectaculo INT
+)
+
+INSERT INTO #UbicacionesDeUnaPublicacion(id_espectaculo, id_ubicacion, id_ubicacion_espectaculo)
+SELECT e.id_espectaculo, u.id_ubicacion, uxe.id_ubicacion_espectaculo FROM Espectaculos e
+JOIN UbicacionXEspectaculo uxe ON (e.id_espectaculo = uxe.id_espectaculo)
+JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+WHERE e.id_publicacion = @id_publicacion
+
+DELETE UbicacionXEspectaculo
+WHERE id_ubicacion_espectaculo IN (SELECT id_ubicacion_espectaculo FROM #UbicacionesDeUnaPublicacion) OR id_ubicacion IN (SELECT id_ubicacion FROM #UbicacionesDeUnaPublicacion) OR id_espectaculo IN (SELECT id_espectaculo FROM #UbicacionesDeUnaPublicacion)
+
+DELETE Ubicaciones 
+WHERE id_ubicacion IN (SELECT id_ubicacion FROM #UbicacionesDeUnaPublicacion)
+
+DELETE Espectaculos 
+WHERE id_espectaculo IN (SELECT id_espectaculo FROM #UbicacionesDeUnaPublicacion)
+
+DROP TABLE #UbicacionesDeUnaPublicacion
+
 END
 GO
