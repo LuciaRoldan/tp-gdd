@@ -45,7 +45,7 @@ namespace PalcoNet.Generar_Publicacion
         {
             //Hace que se guarde la fecha en la lista de abajo
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
-            //Hay que verificar que las fechas no sean anteriore a hoy
+            //Verificamos que la fecha no sea anterior a hoy
             if (fecha > Sesion.getInstance().fecha){
                 this.Fechas.Add(fecha);
                 this.Publicacion.Fechas.Add(fecha);

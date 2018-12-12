@@ -23,6 +23,8 @@ namespace PalcoNet.Abm_Cliente
             set { fueModificado = value; }
         }
 
+        //con los datos que obtuvimos de la busqueda completamos todos los campos para que la persona 
+        //pueda modificar el que desea
         public ModificarCli(Cliente cliente, MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace PalcoNet.Abm_Cliente
             dateTimePickerNacimiento.Value = cliente.FechaDeNacimiento;
             clienteViejo = cliente;
         }
-
+        //verificamos que ninguno quede vacio
         public bool verificarCampos() {
             string errores = "";
             int numero;
@@ -90,7 +92,8 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.TipoDocumento = comboBoxDocumento.Text;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
-                //sp que le paso el cuil (validar que el nuevo cuil no exista)del cliente que es unico para que busque el viejo y todos los datos nuevos
+                //sp que le paso el cuil (validamos que el nuevo cuil no exista)del cliente que es unico 
+                //para que busque el viejo y todos los datos nuevos para ser actualizados
 
                 String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
                                 + "', '" + clienteModificado.Mail + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil

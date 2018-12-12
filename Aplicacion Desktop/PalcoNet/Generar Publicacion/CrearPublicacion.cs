@@ -37,14 +37,14 @@ namespace PalcoNet.Generar_Publicacion
                     comboBoxRubro.Items.Add(reader["descripcion"].ToString());
                 }
                 reader.Close();
-                //Aca habria que cargar los rubros existentes de la base y ponerlos en el combo box
+                //Cargamos los rubros existentes de la base y los ponemos en el combo box
             }
             else {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
                 "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
             }
         }
-
+        //verificamos que esten todos los campos necesarios completos
         public bool verificarCampos() {
             string errores = "";
             if(string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) {errores += "El campo Descripción no puede estar vacío.\n"; }
@@ -69,7 +69,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se tiene que comenzar a crear el objeto de la publicacion con los datos
+            //Se tiene que comenzar a crear el objeto de la publicacion con los datos cargados
             if (this.verificarCampos())
             {
                 Publicacion publicacion = new Publicacion();

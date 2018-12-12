@@ -162,7 +162,7 @@ namespace PalcoNet.Comprar
             {
                 if (paraAdelante) { this.Offset--; } else { this.Offset++; }
                 dataGridViewResultados.DataSource = new BindingSource(new BindingList<Publicacion>(), null);
-                MessageBox.Show("No existen más resultados para " + (paraAdelante ? "adelante." : "atrás."), "Advertencia", MessageBoxButtons.OK);
+                MessageBox.Show("No existen más resultados", "Advertencia", MessageBoxButtons.OK);
             }
             else
             {
