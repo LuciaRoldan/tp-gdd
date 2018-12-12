@@ -17,6 +17,7 @@ DROP TABLE Empresas
 DROP TABLE Medios_de_pago
 DROP TABLE Clientes
 DROP TABLE Usuarios
+GO
 
 ---------------CREACION DE TABLAS---------------
 
@@ -125,9 +126,9 @@ ALTER TABLE Clientes ADD
 id_usuario INT NOT NULL REFERENCES Usuarios,
 nombre NVARCHAR(255),
 apellido NVARCHAR(255),
-tipo_documento CHAR(3), --?
+tipo_documento CHAR(3),
 documento NUMERIC(18,0),
-cuil NUMERIC(18,0), --??
+cuil NUMERIC(18,0),
 mail NVARCHAR(50),
 telefono NUMERIC(15),
 fecha_creacion DATETIME,
@@ -142,7 +143,7 @@ ALTER TABLE Medios_de_pago ADD
 id_cliente INT REFERENCES Clientes,
 descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
 nro_tarjeta NUMERIC(30),
-titular NVARCHAR(50)
+titular NVARCHAR(50);
 
 ALTER TABLE Puntos ADD
 id_cliente INT REFERENCES Clientes,
@@ -174,17 +175,6 @@ comision NUMERIC(3,3),
 fecha DATETIME,
 importe INT;
 
---ALTER TABLE Publicaciones ADD
---id_empresa INT REFERENCES Empresas,
---id_grado_publicacion INT REFERENCES Grados_publicacion,
---id_rubro INT REFERENCES Rubros,
---descripcion NVARCHAR(255),
---estado_publicacion CHAR(15) CHECK(estado_publicacion IN ('Borrador', 'Publicada', 'Finalizada')),
---fecha_inicio DATETIME,
---fecha_evento DATETIME,
---cantidad_asientos INT,
---direccion VARCHAR(80);
-
 ALTER TABLE Publicaciones ADD
 id_empresa INT REFERENCES Empresas,
 id_grado_publicacion INT REFERENCES Grados_publicacion,
@@ -210,18 +200,8 @@ nombre NVARCHAR(20);
 ALTER TABLE Rubros ADD
 descripcion NVARCHAR(100);
 
---ALTER TABLE Ubicaciones ADD
---id_publicacion INT REFERENCES Publicaciones,
---codigo_tipo_ubicacion INT,
---tipo_ubicacion NVARCHAR(20),
---id_compra INT REFERENCES Compras,
---fila VARCHAR(3),
---asiento NUMERIC(18),
---sin_numerar BIT,
---precio NUMERIC(18);
-
 ALTER TABLE TiposDeUbicacion ADD
-descripcion NVARCHAR(255)
+descripcion NVARCHAR(255);
 
 ALTER TABLE Ubicaciones ADD
 codigo_tipo_ubicacion INT,
@@ -236,14 +216,12 @@ descripcion VARCHAR(110),
 puntos BIGINT;
 
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
---tabla roles
+
 INSERT INTO Roles(nombre, habilitado)
 VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1);
 
---SELECT * FROM Roles
-
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
---tabla funcionalidades
+
 INSERT INTO Funcionalidades
 VALUES
 ('Login y seguridad'),
@@ -261,41 +239,30 @@ VALUES
 ('Generar pago de comisiones'),
 ('Listado estadistico');
 
---SELECT * FROM Funcionalidades
-
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
---usuarios del sistema
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('admin', 'w23e', 1, GETDATE(), 0, 0)
 
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('sa', 'gestiondedatos', 1, GETDATE(), 0, 0)
 
---usuarios cliente
 INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL;
 
---usuarios empresa
 INSERT INTO Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra;
 
---SELECT * FROM Usuarios
-
 --.--.--.--.--.--.--CLIENTES--.--.--.--.--.--.--
 
---Falta el CUIL, por ahora en NULL
---No se si va GETDATE o que en fecha_creacion
 INSERT INTO Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, fecha_creacion, fecha_nacimiento, calle, numero_calle, piso, depto, codigo_postal)
 SELECT DISTINCT u.id_usuario, Cli_Nombre, Cli_Apeliido, 'DNI' as Tipo_DNI, Cli_Dni, NULL, Cli_Mail, GETDATE() AS fecha_creacion, Cli_Fecha_Nac, Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal
 FROM gd_esquema.Maestra gd
 JOIN Usuarios u ON(u.username = CAST(gd.Cli_Dni as varchar))
 WHERE Cli_Dni IS NOT NULL;
-
---SELECT * FROM Clientes
 
 --.--.--.--.--.--.--EMPRESAS--.--.--.--.--.--.--
 
@@ -307,11 +274,8 @@ FROM gd_esquema.Maestra gd
 JOIN Usuarios u ON(u.username = gd.Espec_Empresa_Cuit)
 WHERE Espec_Empresa_Cuit IS NOT NULL;
 
---SELECT * FROM Empresas
-
 --.--.--.--.--.--.--ROLXUSUARIO--.--.--.--.--.--.--
 
---truchito
 INSERT INTO UsuarioXRol(id_usuario, id_rol)
 SELECT c.id_usuario, r.id_rol
 FROM Clientes c, Roles r
@@ -322,11 +286,8 @@ SELECT e.id_usuario, r.id_rol
 FROM Empresas e, Roles r
 WHERE r.nombre = 'Empresa';
 
---SELECT * FROM UsuarioXRol
-
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'admin'), 4)
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'sa'), 1)
-
 
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('ro', 'lol', 1, GETDATE(), 0, 0)
@@ -335,12 +296,6 @@ DECLARE @id INT = SCOPE_IDENTITY()
 INSERT INTO Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, fecha_creacion, fecha_nacimiento, calle, numero_calle, piso, depto, codigo_postal)
 VALUES(@id, 'Ro', 'Chi', 'DNI', 40747111, 40747134, 'ro@chi.com', GETDATE(), GETDATE(), 'Gurru', 2215, 4, 'B', 1422)
 
---delete from UsuarioXRol where id_usuario = 785
---DELETE FROM Usuarios where id_usuario = 785
---delete from clientes where id_usuario = 785
-
---SELECT *  FROM clientes where nombre = 'ro'
-
 INSERT INTO Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('roco', 'lol', 1, GETDATE(), 0, 0)
 INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like 'roco'), 2)
@@ -348,10 +303,6 @@ DECLARE @id2 INT = SCOPE_IDENTITY()
 INSERT INTO Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
 VALUES(@id2, 'Ro Co.', 'ro@co.com', 58555661, GETDATE(), 'Gur', 52, 1, 'B', 523)
 
---select * from usuarios where username = 'roco'
---delete from UsuarioXRol where id_usuario = 791
---delete from empresas where id_usuario = 791
---delete from usuarios where id_usuario = 791
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 
 INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
@@ -373,8 +324,6 @@ INSERT INTO dbo.FuncionalidadXRol(id_rol, id_funcionalidad)
 SELECT 4, id_funcionalidad
 FROM Funcionalidades
 
---SELECT * FROM FuncionalidadXRol
-
 --.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
 INSERT INTO Rubros
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
@@ -388,9 +337,6 @@ VALUES
 ('Stand-up'),
 ('Familiar')
 
-
---SELECT * FROM Rubros
-
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
 INSERT INTO Grados_publicacion(comision, nombre)
 VALUES
@@ -398,24 +344,7 @@ VALUES
 (0.35, 'Medio'),
 (0.2, 'Bajo');
 
---select * from Grados_publicacion
-
 --.--.--.--.--.--.--PUBLICACION--.--.--.--.--.--.--
-/*INSERT INTO Publicaciones(id_publicacion, id_empresa, id_grado_publicacion, id_rubro, descripcion, estado_publicacion,
-			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
-SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
-		Espectaculo_Fecha_Venc, NULL, NULL
-FROM gd_esquema.Maestra gd
-JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
-JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);*/
-
-/*INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
-			fecha_inicio, fecha_evento, cantidad_asientos, direccion)
-SELECT DISTINCT Espectaculo_Cod, e.id_empresa, NULL, ru.id_rubro, Espectaculo_Descripcion, Espectaculo_Estado, Espectaculo_Fecha,
-		Espectaculo_Fecha_Venc, NULL, NULL
-FROM gd_esquema.Maestra gd
-JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
-JOIN rubros ru ON(gd.Espectaculo_Rubro_Descripcion = ru.descripcion);*/
 
 INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
 			direccion)
@@ -423,25 +352,20 @@ SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 
---select * from gd_esquema.Maestra order by Espectaculo_Cod
-
---select * from Publicaciones
-
 --.--.--.--.--.--.--ESPECTÁCULOS--.--.--.--.--.--.--
 INSERT INTO Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
 SELECT DISTINCT gd.Espectaculo_Cod, p.id_publicacion, Espectaculo_Fecha, Espectaculo_Fecha_Venc, Espectaculo_Estado
 FROM gd_esquema.Maestra gd
 JOIN Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
 
---SELECT * FROM Espectaculos
-
---.--.--.--.--.--.--TIPOSDEUBICACIONES--.--.--.--.--.--.--
+--.--.--.--.--.--.--TIPOSDEUBICACION--.--.--.--.--.--.--
 
 SET IDENTITY_INSERT TiposDeUbicacion ON
 INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion)
 SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
 FROM gd_esquema.Maestra
-SET IDENTITY_INSERT TiposDeUbicaciones OFF
+SET IDENTITY_INSERT TiposDeUbicacion OFF
+GO
 
 --.--.--.--.--.--.--UBICACIONES--.--.--.--.--.--.--
 
@@ -458,45 +382,14 @@ FROM gd_esquema.Maestra gd
 JOIN Empresas e ON(e.razon_social = gd.Espec_Empresa_Razon_Social)
 WHERE Factura_Nro IS NOT NULL
 
---select * from Facturas
-
 --.--.--.--.--.--.--MEDIODEPAGO--.--.--.--.--.--.--
 INSERT INTO Medios_de_pago(c.id_cliente, descripcion, nro_tarjeta, titular)
 SELECT DISTINCT c.id_cliente, Forma_Pago_Desc, NULL, NULL
 FROM gd_esquema.Maestra gd
-JOIN Clientes c ON(c.documento = gd.Cli_Dni) --truchito porue en el titular dice 'Efectivo'
+JOIN Clientes c ON(c.documento = gd.Cli_Dni)
 WHERE gd.Item_Factura_Monto IS NOT NULL
 
---SELECT * FROM Medios_de_pago
-
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
---NO migro la descripcion de las facturas que lit dice "Rendicion de comisiones" porque es eso.
-
-/*CREATE TABLE #ComprasTemp(
-id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
-id_cliente INT REFERENCES Clientes,
-id_medio_de_pago INT REFERENCES Medios_de_pago,
-id_factura INT REFERENCES Facturas,
-fecha DATETIME,
-)*/
-
-/*--INSERT INTO #ComprasTemp(id_cliente, id_medio_de_pago, id_factura, fecha)
-INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha)
-SELECT c.id_cliente, mp.id_medio_de_pago, f.id_factura, Compra_Fecha
-FROM gd_esquema.Maestra gd
-JOIN Clientes c ON(gd.Cli_Dni = c.documento)
-JOIN Facturas f ON(f.id_factura = gd.Factura_Nro)
-JOIN Medios_de_pago mp ON (c.id_cliente = mp.id_cliente)
-WHERE gd.Forma_Pago_Desc IS NOT NULL*/
-
---Acá ver lo del @@SCOPE_IDENTITY
---INSERT INTO Compras(id_compra, id_cliente, id_medio_de_pago, id_factura, fecha)
---SELECT id_compra, id_cliente, id_medio_de_pago, id_factura, fecha
---FROM #ComprasTemp
-
---select * from #ComprasTemp
---SELECT * FROM Medios_de_pago
---select * from Compras
 
 CREATE TABLE #ComprasTemp(
 id_compra NUMERIC IDENTITY(1,1) PRIMARY KEY,
@@ -525,13 +418,13 @@ INSERT INTO Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha)
 SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
 FROM #ComprasTemp
 SET IDENTITY_INSERT Compras OFF
+GO
 
 INSERT INTO UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
---Falta agregar el id_compra
 SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
 FROM gd_esquema.Maestra gd
 JOIN Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
-	AND gd.Ubicacion_Tipo_Descripcion = u.tipo_ubicacion AND gd.Ubicacion_Fila = u.fila
+	AND gd.Ubicacion_Fila = u.fila
 	AND gd.Ubicacion_Asiento = u.asiento AND gd.Ubicacion_Sin_numerar = u.sin_numerar
 	AND gd.Ubicacion_Precio = u.precio)
 LEFT JOIN #ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
@@ -540,15 +433,6 @@ LEFT JOIN #ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 
 DROP TABLE #ComprasTemp
-
---Select * from UbicacionXEspectaculo
---select * from UbicacionXEspectaculo ORDER BY id_compra
-
---select * from gd_esquema.Maestra
---INSERT INTO UbicacionXEspectaculo(id_compra)
---Compra de 18 ubicaciones con este Espectaculo_Cod pero me está tirando menos? => Me devuelve las 8 que no fueron compradas, tienen Cli_Dni en NULL
---ME ESTÁ RETORNANDO LAS QUE TIENEN Cli_Dni en NULL realmente
---SELECT * FROM gd_esquema.Maestra WHERE Espectaculo_Cod = 12353 OR Espectaculo_Cod = 12355
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 
@@ -566,7 +450,6 @@ VALUES
 ('SEGA', 2000),
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
-
 
 --.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
 BEGIN TRANSACTION
