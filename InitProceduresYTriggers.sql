@@ -58,8 +58,9 @@ DROP TRIGGER MATE_LAVADO.rolInhabilitado_tr
 DROP TRIGGER MATE_LAVADO.insertarNuevaCompra
 DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 
-DROP FUNCTION MATE_LAVADO.getCantidadEntradasPublicacion
+DROP FUNCTION MATE_LAVADO.getCantidadEntradasEspectaculo
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasVendidas
+
 GO
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
@@ -188,7 +189,6 @@ BEGIN
 	JOIN MATE_LAVADO.Usuarios u ON(u.id_usuario = uxr.id_usuario AND u.username = @usuario)
 END
 GO
-
 
 -----eliminarFuncionalidadDeRol-----
 CREATE PROCEDURE MATE_LAVADO.eliminarFuncionalidadesRol_sp
@@ -449,13 +449,16 @@ GO
 
 -----registrarCompra-----
 CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
+@id_cliente INT,
 @id_medio_de_pago INT,
 @importe BIGINT,
 @fecha VARCHAR(30)
 AS
 BEGIN
-	INSERT INTO MATE_LAVADO.Compras(id_medio_de_pago, id_factura, fecha, importe)
-	VALUES(@id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT MATE_LAVADO.Compras ON
+	INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
+	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
 go
 
@@ -667,11 +670,11 @@ BEGIN
 	id_ubicacion INT)
  	IF(@filas > 0) -- Caso numerado
 	BEGIN
-		EXEC agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
+		EXEC MATE_LAVADO.agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
 	END
 	ELSE
 	BEGIN
-		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
+		EXEC MATE_LAVADO.agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
 	END
  	DROP TABLE MATE_LAVADO.#UbicacionesInsertadas
 END
@@ -854,14 +857,14 @@ CREATE PROCEDURE MATE_LAVADO.top5ClientesPuntosVencidos_sp(
 )
 AS
 BEGIN
-	
 	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM MATE_LAVADO.Clientes c
 	JOIN MATE_LAVADO.Puntos p ON(p.id_cliente = c.id_cliente)
-	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 127) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
+	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 121) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 121) AND CONVERT(DATETIME, @fecha_fin, 121))
 	GROUP BY nombre, apellido
 	ORDER BY SUM(cantidad_puntos) DESC
 END
 GO
+
 
 -----top5ClientesComprasParaUnaEmpresa----
 CREATE PROCEDURE MATE_LAVADO.top5ClienteComprasParaUnaEmpresa_sp
@@ -879,11 +882,12 @@ BEGIN
 	JOIN MATE_LAVADO.Publicaciones p ON (p.id_publicacion = e.id_publicacion)
 	JOIN MATE_LAVADO.Empresas ee ON(p.id_empresa = ee.id_empresa)
 
-	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 127) AND fecha < CONVERT(DATETIME, @fecha_fin, 127)  AND ee.razon_social = @razon_social
+	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 121) AND fecha < CONVERT(DATETIME, @fecha_fin, 121)  AND ee.razon_social = @razon_social
 	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
 	ORDER BY COUNT(id_ubicacion) DESC
 END
 GO
+
 
 -----top5LocalidadesNoVendidasEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
@@ -899,11 +903,13 @@ BEGIN
 	JOIN MATE_LAVADO.Empresas emp ON(emp.id_empresa = p.id_empresa)
 	WHERE uxe.id_compra IS NULL
 		AND gp.nombre = @grado
-		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 127) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 127)
+		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 121) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 121)
 	GROUP BY razon_social, cuit, p.id_publicacion, fecha_evento, comision
 	ORDER BY fecha_evento ASC, comision DESC
 END
 GO
+
+
 
 -----agregarFactura-----
 create PROCEDURE MATE_LAVADO.agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
@@ -1025,6 +1031,7 @@ BEGIN
 END
 GO
 
+
 -----finalizarEspectaculo-----
 CREATE TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 ON MATE_LAVADO.Compras
@@ -1033,20 +1040,22 @@ AS
 BEGIN
 	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM MATE_LAVADO.Espectaculos e
 								JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
-								WHERE uxe.id_compra = (SELECT id_compra FROM MATE_LAVADO.INSERTED))
-	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM MATE_LAVADO.Espectaculos WHERE id_espectaculo = @id_espectaculo)
-	IF (dbo.getCantidadEntradasPublicacion(@id_publicacion) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
+								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
+	--DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	IF (MATE_LAVADO.getCantidadEntradasEspectaculo(@id_espectaculo) = MATE_LAVADO.getCantidadEntradasVendidas(@id_espectaculo))
 	BEGIN
 		UPDATE MATE_LAVADO.Espectaculos
-		SET estado_espectaculo = 'Finalizado'
+		SET estado_espectaculo = 'Finalizada'
+		WHERE id_espectaculo = @id_espectaculo
 	END
 END
 GO
 
+
 ----------FUNCIONES----------
 
 -----getCantidadEntradasPublicacion-----
-CREATE FUNCTION MATE_LAVADO.getCantidadEntradasPublicacion(@id_publicacion INT)
+CREATE FUNCTION MATE_LAVADO.getCantidadEntradasEspectaculo(@id_publicacion INT)
 RETURNS INT
 AS
 BEGIN
@@ -1123,3 +1132,4 @@ BEGIN
 	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
 	GROUP BY asiento
 END
+GO
