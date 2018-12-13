@@ -9,78 +9,97 @@ GO
 CREATE TABLE MATE_LAVADO.Usuarios(
 id_usuario INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.UsuarioXRol(
 id_usuarioXrol INT IDENTITY(1,1) PRIMARY KEY,
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Roles(
 id_rol INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.FuncionalidadXRol(
 id_funcionalidadXrol INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Funcionalidades(
 id_funcionalidad INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Clientes(
 id_cliente INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Medios_de_pago(
 id_medio_de_pago INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Puntos(
 id_punto INT IDENTITY(1,1) PRIMARY KEY,
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Empresas(
 id_empresa INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Facturas(
 id_factura INT PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Compras(
 id_compra INT IDENTITY PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Publicaciones(
 id_publicacion INT IDENTITY PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Espectaculos(
 id_espectaculo INT PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.UbicacionXEspectaculo(
 id_ubicacion_espectaculo INT IDENTITY PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Rubros(
 id_rubro INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Grados_publicacion(
 id_grado_publicacion INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.TiposDeUbicacion(
 id_tipo_ubicacion INT IDENTITY PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Ubicaciones(
 id_ubicacion INT IDENTITY PRIMARY KEY
 )
+GO
 
 CREATE TABLE MATE_LAVADO.Premios(
 id_premio INT IDENTITY(1,1) PRIMARY KEY
 )
+GO
 
 -----ALTER TABLES-----
 
@@ -90,22 +109,27 @@ password VARCHAR(255),
 habilitado BIT,
 alta_logica DATETIME,
 intentos_fallidos INT,
-debe_cambiar_pass BIT;
+debe_cambiar_pass BIT
+GO
 
 ALTER TABLE MATE_LAVADO.UsuarioXRol ADD
 id_usuario INT REFERENCES MATE_LAVADO.Usuarios,
-id_rol INT REFERENCES MATE_LAVADO.Roles;
+id_rol INT REFERENCES MATE_LAVADO.Roles
+GO
 
 ALTER TABLE MATE_LAVADO.Roles ADD
 nombre CHAR(40),
-habilitado BIT;
+habilitado BIT
+GO
 
 ALTER TABLE MATE_LAVADO.FuncionalidadXRol ADD
 id_funcionalidad INT REFERENCES MATE_LAVADO.Funcionalidades,
-id_rol INT REFERENCES MATE_LAVADO.Roles;
+id_rol INT REFERENCES MATE_LAVADO.Roles
+GO
 
 ALTER TABLE MATE_LAVADO.Funcionalidades ADD
-nombre VARCHAR(100);
+nombre VARCHAR(100)
+GO
 
 ALTER TABLE MATE_LAVADO.Clientes ADD
 id_usuario INT NOT NULL REFERENCES MATE_LAVADO.Usuarios,
@@ -122,18 +146,21 @@ calle NVARCHAR(255),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(255),
-codigo_postal NVARCHAR(50);
+codigo_postal NVARCHAR(50)
+GO
 
 ALTER TABLE MATE_LAVADO.Medios_de_pago ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
 descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
 nro_tarjeta NUMERIC(30),
-titular NVARCHAR(50);
+titular NVARCHAR(50)
+GO
 
 ALTER TABLE MATE_LAVADO.Puntos ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
 cantidad_puntos BIGINT,
-fecha_vencimiento DATE;
+fecha_vencimiento DATE
+GO
 
 ALTER TABLE MATE_LAVADO.Empresas ADD
 id_usuario INT REFERENCES MATE_LAVADO.Usuarios,
@@ -145,12 +172,14 @@ calle NVARCHAR(50),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(50),
-codigo_postal NVARCHAR(50);
+codigo_postal NVARCHAR(50)
+GO
 
 ALTER TABLE MATE_LAVADO.Facturas ADD
 id_empresa INT REFERENCES MATE_LAVADO.Empresas,
 fecha_facturacion DATETIME,
-importe_total NUMERIC(18,2);
+importe_total NUMERIC(18,2)
+GO
 
 ALTER TABLE MATE_LAVADO.Compras ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
@@ -158,35 +187,42 @@ id_medio_de_pago INT REFERENCES MATE_LAVADO.Medios_de_pago,
 id_factura INT REFERENCES MATE_LAVADO.Facturas,
 comision NUMERIC(3,3),
 fecha DATETIME,
-importe INT;
+importe INT
+Go
 
 ALTER TABLE MATE_LAVADO.Publicaciones ADD
 id_empresa INT REFERENCES MATE_LAVADO.Empresas,
 id_grado_publicacion INT REFERENCES MATE_LAVADO.Grados_publicacion,
 id_rubro INT REFERENCES MATE_LAVADO.Rubros,
 descripcion NVARCHAR(255),
-direccion VARCHAR(80);
+direccion VARCHAR(80)
+GO
 
 ALTER TABLE MATE_LAVADO.Espectaculos ADD
 id_publicacion INT REFERENCES MATE_LAVADO.Publicaciones,
 fecha_inicio DATETIME,
 fecha_evento DATETIME,
 estado_espectaculo CHAR(15) CHECK(estado_espectaculo IN ('Borrador', 'Publicada', 'Finalizada'))
+GO
 
 ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
 id_compra INT REFERENCES MATE_LAVADO.Compras
+GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
 comision NUMERIC(3,3),
-nombre NVARCHAR(20);
+nombre NVARCHAR(20)
+GO
 
 ALTER TABLE MATE_LAVADO.Rubros ADD
-descripcion NVARCHAR(100);
+descripcion NVARCHAR(100)
+GO
 
 ALTER TABLE MATE_LAVADO.TiposDeUbicacion ADD
-descripcion NVARCHAR(255);
+descripcion NVARCHAR(255)
+GO
 
 ALTER TABLE MATE_LAVADO.Ubicaciones ADD
 codigo_tipo_ubicacion INT,
@@ -194,16 +230,19 @@ tipo_ubicacion NVARCHAR(20),
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
-precio NUMERIC(18);
+precio NUMERIC(18)
+GO
 
 ALTER TABLE MATE_LAVADO.Premios ADD
 descripcion VARCHAR(110),
-puntos BIGINT;
+puntos BIGINT
+GO
 
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
-VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1);
+VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1)
+GO
 
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
 
@@ -222,24 +261,29 @@ VALUES
 ('Historial del cliente'),
 ('Canje y administracion de puntos'),
 ('Generar pago de comisiones'),
-('Listado estadistico');
+('Listado estadistico')
+GO
 
 --.--.--.--.--.--.--USUARIOS--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('admin', 'w23e', 1, GETDATE(), 0, 0)
+GO
 
 INSERT INTO MATE_LAVADO.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 VALUES('sa', 'gestiondedatos', 1, GETDATE(), 0, 0)
+GO
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
-WHERE Cli_Dni IS NOT NULL;
+WHERE Cli_Dni IS NOT NULL
+GO
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
-FROM gd_esquema.Maestra;
+FROM gd_esquema.Maestra
+GO
 
 --.--.--.--.--.--.--CLIENTES--.--.--.--.--.--.--
 
@@ -247,7 +291,8 @@ INSERT INTO MATE_LAVADO.Clientes(id_usuario, nombre, apellido, tipo_documento, d
 SELECT DISTINCT u.id_usuario, Cli_Nombre, Cli_Apeliido, 'DNI' as Tipo_DNI, Cli_Dni, NULL, Cli_Mail, GETDATE() AS fecha_creacion, Cli_Fecha_Nac, Cli_Dom_Calle, Cli_Nro_Calle, Cli_Piso, Cli_Depto, Cli_Cod_Postal
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Usuarios u ON(u.username = CAST(gd.Cli_Dni as varchar))
-WHERE Cli_Dni IS NOT NULL;
+WHERE Cli_Dni IS NOT NULL
+GO
 
 --.--.--.--.--.--.--EMPRESAS--.--.--.--.--.--.--
 
@@ -257,22 +302,26 @@ SELECT DISTINCT u.id_usuario, Espec_Empresa_Razon_Social ,Espec_Empresa_Mail, RE
 				Espec_Empresa_Cod_Postal
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Usuarios u ON(u.username = gd.Espec_Empresa_Cuit)
-WHERE Espec_Empresa_Cuit IS NOT NULL;
+WHERE Espec_Empresa_Cuit IS NOT NULL
+GO
 
 --.--.--.--.--.--.--ROLXUSUARIO--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol)
 SELECT c.id_usuario, r.id_rol
 FROM MATE_LAVADO.Clientes c, MATE_LAVADO.Roles r
-WHERE r.nombre = 'Cliente';
+WHERE r.nombre = 'Cliente'
+GO
 
 INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol)
 SELECT e.id_usuario, r.id_rol
 FROM MATE_LAVADO.Empresas e, MATE_LAVADO.Roles r
-WHERE r.nombre = 'Empresa';
+WHERE r.nombre = 'Empresa'
+GO
 
 INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like 'admin'), 4)
 INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like 'sa'), 1)
+GO
 
 --.--.--.--.--.--.--FUNCIONALIDADXROL--.--.--.--.--.--.--
 
@@ -280,25 +329,30 @@ INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_rol, id_funcionalidad)
 SELECT 1, id_funcionalidad
 FROM MATE_LAVADO.Funcionalidades
 WHERE nombre IN('ABM de cliente', 'ABM de empresa de espectaculos', 'Generar pago de comisiones', 'Listado estadistico', 'Registro de usuario')
+GO
 
 INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_rol, id_funcionalidad)
 SELECT 2, id_funcionalidad
 FROM MATE_LAVADO.Funcionalidades
 WHERE nombre IN('ABM de categoria', 'ABM grado de publicacion', 'Editar publicacion', 'Generar publicacion')
+GO
 
 INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_rol, id_funcionalidad)
 SELECT 3, id_funcionalidad
 FROM MATE_LAVADO.Funcionalidades
 WHERE nombre IN('Canje y administracion de puntos', 'Comprar', 'Historial del cliente')
+GO
 
 INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_rol, id_funcionalidad)
 SELECT 4, id_funcionalidad
 FROM MATE_LAVADO.Funcionalidades
+GO
 
 --.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Rubros
 SELECT DISTINCT Espectaculo_Rubro_Descripcion
-FROM gd_esquema.Maestra;
+FROM gd_esquema.Maestra
+GO
 
 INSERT INTO MATE_LAVADO.Rubros
 VALUES
@@ -307,13 +361,15 @@ VALUES
 ('Musical'),
 ('Stand-up'),
 ('Familiar')
+GO
 
 --.--.--.--.--.--.--GRADOS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Grados_publicacion(comision, nombre)
 VALUES
 (0.5, 'Alto'),
 (0.35, 'Medio'),
-(0.2, 'Bajo');
+(0.2, 'Bajo')
+GO
 
 --.--.--.--.--.--.--PUBLICACION--.--.--.--.--.--.--
 
@@ -322,12 +378,14 @@ INSERT INTO MATE_LAVADO.Publicaciones(id_empresa, id_grado_publicacion, id_rubro
 SELECT DISTINCT e.id_empresa, 3, 1, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
+GO
 
 --.--.--.--.--.--.--ESPECTÁCULOS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
 SELECT DISTINCT gd.Espectaculo_Cod, p.id_publicacion, Espectaculo_Fecha, Espectaculo_Fecha_Venc, Espectaculo_Estado
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Publicaciones p ON (p.descripcion = gd.Espectaculo_Descripcion)
+GO
 
 --.--.--.--.--.--.--TIPOSDEUBICACION--.--.--.--.--.--.--
 
@@ -343,6 +401,7 @@ GO
 INSERT INTO MATE_LAVADO.Ubicaciones(codigo_tipo_ubicacion, fila, asiento, sin_numerar, precio)
 SELECT DISTINCT gd.Ubicacion_Tipo_Codigo, gd.Ubicacion_Fila, gd.Ubicacion_Asiento, Ubicacion_Sin_numerar, Ubicacion_Precio
 FROM gd_esquema.Maestra gd
+GO
 
 --.--.--.--.--.--.--FACTURAS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Facturas(id_factura, id_empresa, fecha_facturacion, importe_total)
@@ -350,6 +409,7 @@ SELECT DISTINCT Factura_Nro, e.id_empresa, Factura_Fecha, Factura_Total
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Empresas e ON(e.razon_social = gd.Espec_Empresa_Razon_Social)
 WHERE Factura_Nro IS NOT NULL
+GO
 
 --.--.--.--.--.--.--MEDIODEPAGO--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Medios_de_pago(c.id_cliente, descripcion, nro_tarjeta, titular)
@@ -357,6 +417,7 @@ SELECT DISTINCT c.id_cliente, Forma_Pago_Desc, NULL, NULL
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Clientes c ON(c.documento = gd.Cli_Dni)
 WHERE gd.Item_Factura_Monto IS NOT NULL
+GO
 
 --.--.--.--.--.--.--COMPRA--.--.--.--.--.--.--
 
@@ -371,6 +432,7 @@ asiento INT,
 fila CHAR(1),
 tipo_codigo INT
 )
+GO
 
 INSERT INTO MATE_LAVADO.#ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, fecha, asiento, fila, tipo_codigo)
 SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, gd.Compra_Fecha, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo
@@ -379,6 +441,7 @@ JOIN MATE_LAVADO.Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN MATE_LAVADO.Facturas f ON(f.id_factura = gd.Factura_Nro)
 JOIN MATE_LAVADO.Medios_de_pago mp ON(c.id_cliente = mp.id_cliente)
 WHERE gd.Forma_Pago_Desc IS NOT NULL
+GO
 
 --.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
 
@@ -400,14 +463,17 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.asiento = gd.Ubicacion_Asiento
 		AND ct.fila = gd.Ubicacion_Fila
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
+GO
 
 DROP TABLE MATE_LAVADO.#ComprasTemp
+GO
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
 SELECT DISTINCT id_cliente, 0, NULL
 FROM MATE_LAVADO.Clientes
+GO
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 
@@ -419,6 +485,7 @@ VALUES
 ('SEGA', 2000),
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
+GO
 
 --.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
 BEGIN TRANSACTION
@@ -1020,28 +1087,6 @@ BEGIN
 END
 GO
 
------agregarUbicaciones----- 
-CREATE PROCEDURE MATE_LAVADO.agregarUbicaciones_sp(
-@tipo_ubicacion NVARCHAR(20),
-@cantidad INT,
-@filas INT,
-@precio NUMERIC(18)
-) 
-AS
-BEGIN
-	CREATE TABLE #UbicacionesInsertadas(
-	id_ubicacion INT)
- 	IF(@filas > 0) -- Caso numerado
-	BEGIN
-		EXEC MATE_LAVADO.agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
-	END
-	ELSE
-	BEGIN
-		EXEC MATE_LAVADO.agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
-	END
- 	DROP TABLE MATE_LAVADO.#UbicacionesInsertadas
-END
-GO
 
 -----agregarUbicacionNumerada-----
 CREATE PROCEDURE MATE_LAVADO.agregarUbicacionNumerada_sp(
@@ -1120,6 +1165,29 @@ BEGIN
 END
 GO
 
+-----agregarUbicaciones----- 
+CREATE PROCEDURE MATE_LAVADO.agregarUbicaciones_sp(
+@tipo_ubicacion NVARCHAR(20),
+@cantidad INT,
+@filas INT,
+@precio NUMERIC(18)
+) 
+AS
+BEGIN
+	CREATE TABLE #UbicacionesInsertadas(
+	id_ubicacion INT)
+ 	IF(@filas > 0) -- Caso numerado
+	BEGIN
+		EXEC MATE_LAVADO.agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
+	END
+	ELSE
+	BEGIN
+		EXEC MATE_LAVADO.agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
+	END
+ 	DROP TABLE MATE_LAVADO.#UbicacionesInsertadas
+END
+GO
+
 -----agregarUbicacionXEspectaculo_sp-----
 CREATE PROCEDURE MATE_LAVADO.agregarUbicacionXEspectaculo_sp(
 @id_ubicacion INT,
@@ -1183,6 +1251,7 @@ BEGIN
 		BEGIN
 		INSERT INTO MATE_LAVADO.Medios_de_pago(id_cliente, descripcion, nro_tarjeta, titular)
 		VALUES(@id_cliente, 'Tarjeta', @numero_tarjeta, @titular)
+		SELECT SCOPE_IDENTITY() AS 'id_medio_de_pago'
 		END
 		ELSE
 		BEGIN
