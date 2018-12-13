@@ -1,95 +1,95 @@
 --.--.--.--.--.--.--.--PROCEDURES--.--.--.--.--.--.--.--
 -----DROP PROCEDURES-----
-DROP PROCEDURE verificarLogin_sp
-DROP PROCEDURE getRolesDeUsuario_sp
-DROP PROCEDURE getFuncionalidadesDeUsuario_sp
-DROP PROCEDURE getRubrosDePublicacion_sp 
-DROP PROCEDURE buscarUsuarioPorCriterio_sp
-DROP PROCEDURE modificarCliente_sp
-DROP PROCEDURE buscarClientePorUsername_sp
-DROP PROCEDURE getPuntos_sp
-DROP PROCEDURE getRubros_sp
-DROP PROCEDURE buscarPublicacionesPorCriterio_sp
-DROP PROCEDURE registroCliente_sp
-DROP PROCEDURE registroEmpresa_sp
-DROP PROCEDURE getPremios_sp
-DROP PROCEDURE borrarPuntos_sp
-DROP PROCEDURE historialClienteConOffset_sp
-DROP PROCEDURE registrarCompra_sp
-DROP PROCEDURE registrarCompraExU_sp
-DROP PROCEDURE getPublicacionesDeUsuario_sp
-DROP PROCEDURE registrarPublicacion_sp
-DROP PROCEDURE agregarEspectaculo_sp
-DROP PROCEDURE agregarUbicaciones_sp
-DROP PROCEDURE agregarUbicacionSinNumerar_sp
-DROP PROCEDURE agregarUbicacionNumerada_sp
-DROP PROCEDURE actualizarGradoPublicacion_sp
-DROP PROCEDURE buscarEspectaculosPorPublicacion_sp
-DROP PROCEDURE getMediosDePago_sp
-DROP PROCEDURE registrarMedioDePago_sp
-DROP PROCEDURE buscarUbicacionesPorPublicacion_sp
-DROP PROCEDURE buscarEmpresaPorCriterio_sp
-DROP PROCEDURE modificarEmpresa_sp
-DROP PROCEDURE agregarRol_sp
-DROP PROCEDURE getFuncionalidadesDeRol_sp
-DROP PROCEDURE eliminarFuncionalidadesRol_sp
-DROP PROCEDURE agregarFuncionalidadARol_sp
-DROP PROCEDURE modificarNombreRol_sp
-DROP PROCEDURE modificarRol_sp
-DROP PROCEDURE top5ClientesPuntosVencidos_sp
-DROP PROCEDURE traerTodasRazonesSociales_sp
-DROP PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
-DROP PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
-DROP PROCEDURE buscarComprasNoFacturadas_sp
-DROP PROCEDURE actualizarCompraFactura_sp
-DROP PROCEDURE agregarFactura_sp
-DROP PROCEDURE actualizarPublicacion_sp
-DROP PROCEDURE actualizarUsuarioYContrasenia_sp
-DROP PROCEDURE agregarUbicacionXEspectaculo_sp
-DROP PROCEDURE buscarEmpresaPorUsername_sp
-DROP PROCEDURE buscarPublicacionesPorEmpresa_sp
-DROP PROCEDURE vaciarEspectaculosPublicacion_sp
-DROP PROCEDURE filasDisponiblesSegunEspectaculo_sp
-DROP PROCEDURE asientosDisponiblesSegunEspectaculoYFila_sp
+DROP PROCEDURE MATE_LAVADO.verificarLogin_sp
+DROP PROCEDURE MATE_LAVADO.getRolesDeUsuario_sp
+DROP PROCEDURE MATE_LAVADO.getFuncionalidadesDeUsuario_sp
+DROP PROCEDURE MATE_LAVADO.getRubrosDePublicacion_sp 
+DROP PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
+DROP PROCEDURE MATE_LAVADO.modificarCliente_sp
+DROP PROCEDURE MATE_LAVADO.buscarClientePorUsername_sp
+DROP PROCEDURE MATE_LAVADO.getPuntos_sp
+DROP PROCEDURE MATE_LAVADO.getRubros_sp
+DROP PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp
+DROP PROCEDURE MATE_LAVADO.registroCliente_sp
+DROP PROCEDURE MATE_LAVADO.registroEmpresa_sp
+DROP PROCEDURE MATE_LAVADO.getPremios_sp
+DROP PROCEDURE MATE_LAVADO.borrarPuntos_sp
+DROP PROCEDURE MATE_LAVADO.historialClienteConOffset_sp
+DROP PROCEDURE MATE_LAVADO.registrarCompra_sp
+DROP PROCEDURE MATE_LAVADO.registrarCompraExU_sp
+DROP PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
+DROP PROCEDURE MATE_LAVADO.registrarPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.agregarEspectaculo_sp
+DROP PROCEDURE MATE_LAVADO.agregarUbicaciones_sp
+DROP PROCEDURE MATE_LAVADO.agregarUbicacionSinNumerar_sp
+DROP PROCEDURE MATE_LAVADO.agregarUbicacionNumerada_sp
+DROP PROCEDURE MATE_LAVADO.actualizarGradoPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.buscarEspectaculosPorPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.getMediosDePago_sp
+DROP PROCEDURE MATE_LAVADO.registrarMedioDePago_sp
+DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
+DROP PROCEDURE MATE_LAVADO.modificarEmpresa_sp
+DROP PROCEDURE MATE_LAVADO.agregarRol_sp
+DROP PROCEDURE MATE_LAVADO.getFuncionalidadesDeRol_sp
+DROP PROCEDURE MATE_LAVADO.eliminarFuncionalidadesRol_sp
+DROP PROCEDURE MATE_LAVADO.agregarFuncionalidadARol_sp
+DROP PROCEDURE MATE_LAVADO.modificarNombreRol_sp
+DROP PROCEDURE MATE_LAVADO.modificarRol_sp
+DROP PROCEDURE MATE_LAVADO.top5ClientesPuntosVencidos_sp
+DROP PROCEDURE MATE_LAVADO.traerTodasRazonesSociales_sp
+DROP PROCEDURE MATE_LAVADO.top5ClienteComprasParaUnaEmpresa_sp
+DROP PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
+DROP PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp
+DROP PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp
+DROP PROCEDURE MATE_LAVADO.agregarFactura_sp
+DROP PROCEDURE MATE_LAVADO.actualizarPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.actualizarUsuarioYContrasenia_sp
+DROP PROCEDURE MATE_LAVADO.agregarUbicacionXEspectaculo_sp
+DROP PROCEDURE MATE_LAVADO.buscarEmpresaPorUsername_sp
+DROP PROCEDURE MATE_LAVADO.buscarPublicacionesPorEmpresa_sp
+DROP PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
+DROP PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
 
-DROP TRIGGER insertarNuevoEspectaculo
-DROP TRIGGER insertarNuevaFactura
-DROP TRIGGER rolInhabilitado_tr
-DROP TRIGGER insertarNuevaCompra
-DROP TRIGGER finalizarEspectaculoAgotado_tg
+DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
+DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
+DROP TRIGGER MATE_LAVADO.rolInhabilitado_tr
+DROP TRIGGER MATE_LAVADO.insertarNuevaCompra
+DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 
-DROP FUNCTION getCantidadEntradasPublicacion
-DROP FUNCTION getCantidadEntradasVendidas
+DROP FUNCTION MATE_LAVADO.getCantidadEntradasPublicacion
+DROP FUNCTION MATE_LAVADO.getCantidadEntradasVendidas
 GO
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
-CREATE PROCEDURE verificarLogin_sp
+CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
 @usuario VARCHAR(255),
 @encriptada VARCHAR(255)
 AS
 BEGIN
-	IF EXISTS(SELECT * FROM Usuarios WHERE username = @usuario AND  password = @encriptada AND intentos_fallidos < 3)
+	IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND  password = @encriptada AND intentos_fallidos < 3)
 		BEGIN
-		UPDATE Usuarios
+		UPDATE MATE_LAVADO.Usuarios
 		SET intentos_fallidos = 0
 		WHERE username = @usuario AND password = @encriptada
 
 		DECLARE @debe_cambiar_pass BIT
-		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM Usuarios WHERE username = @usuario AND password = @encriptada)
+		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada)
 		IF @debe_cambiar_pass = 1
 			BEGIN
-			UPDATE Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
+			UPDATE MATE_LAVADO.Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
 			END
 		SELECT @debe_cambiar_pass debe_cambiar_pass
 	END
 	ELSE --existe el usuario pero la contrasenia es otra
 	BEGIN
-		IF EXISTS(SELECT * FROM Usuarios WHERE username = @usuario)
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
 		BEGIN
-		IF((SELECT intentos_fallidos FROM Usuarios WHERE username = @usuario) < 3)
+		IF((SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) < 3)
 			BEGIN
-			UPDATE Usuarios
-			SET intentos_fallidos = (SELECT intentos_fallidos FROM Usuarios WHERE username = @usuario) + 1
+			UPDATE MATE_LAVADO.Usuarios
+			SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
 			WHERE username = @usuario;
 			RAISERROR('Contraseña invalida', 16, 1)
 		END
@@ -107,15 +107,15 @@ END
 GO
 
 -----getPremios-----
-CREATE PROCEDURE getPremios_sp
+CREATE PROCEDURE MATE_LAVADO.getPremios_sp
 AS
 BEGIN
-	SELECT descripcion, puntos FROM Premios
+	SELECT descripcion, puntos FROM MATE_LAVADO.Premios
 END
 GO
 
 -----borrarPuntos-----
-CREATE PROCEDURE borrarPuntos_sp
+CREATE PROCEDURE MATE_LAVADO.borrarPuntos_sp
 @cantidad int,
 @username varchar(30)
 AS
@@ -123,12 +123,12 @@ BEGIN
 	DECLARE @puntos INT
 	DECLARE @fecha_vencimiento DATETIME
 	DECLARE @id_punto INT
-	DECLARE @id_cliente int = (SELECT id_cliente FROM Clientes c JOIN Usuarios u ON (u.id_usuario = c.id_usuario)
+	DECLARE @id_cliente int = (SELECT id_cliente FROM MATE_LAVADO.Clientes c JOIN MATE_LAVADO.Usuarios u ON (u.id_usuario = c.id_usuario)
 											 WHERE username = @username)
 	
 
 	DECLARE administradorPuntos CURSOR FOR 
-	SELECT id_punto, cantidad_puntos, fecha_vencimiento FROM Puntos p
+	SELECT id_punto, cantidad_puntos, fecha_vencimiento FROM MATE_LAVADO.Puntos p
 												WHERE p.id_cliente = @id_cliente
 												GROUP BY id_punto, cantidad_puntos, fecha_vencimiento
 												ORDER BY fecha_vencimiento
@@ -145,12 +145,12 @@ BEGIN
 			BEGIN
 				SET @cantidad = @cantidad - @puntos
 				DELETE  
-				FROM Puntos
+				FROM MATE_LAVADO.Puntos
 				WHERE id_punto = @id_punto
 			END
 			ELSE 
 			BEGIN
-				UPDATE Puntos 
+				UPDATE MATE_LAVADO.Puntos 
 				SET cantidad_puntos = cantidad_puntos - @cantidad
 				WHERE id_punto = @id_punto
 				SET @cantidad = 0
@@ -167,51 +167,51 @@ END
 GO
 
 -----getRolesDeUsuario-----
-CREATE PROCEDURE getRolesDeUsuario_sp
+CREATE PROCEDURE MATE_LAVADO.getRolesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT DISTINCT nombre FROM Roles r
-	JOIN Usuarios u ON(u.username = @usuario)
-	JOIN UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
+	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles r
+	JOIN MATE_LAVADO.Usuarios u ON(u.username = @usuario)
+	JOIN MATE_LAVADO.UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
 END
 GO
 
 -----getFuncionalidadesDeUsuario-----
-CREATE PROCEDURE getFuncionalidadesDeUsuario_sp
+CREATE PROCEDURE MATE_LAVADO.getFuncionalidadesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT DISTINCT nombre FROM Funcionalidades f
-	JOIN FuncionalidadXRol fxr ON(f.id_funcionalidad = fxr.id_funcionalidad)
-	JOIN UsuarioXRol uxr ON(uxr.id_rol = fxr.id_rol)
-	JOIN Usuarios u ON(u.id_usuario = uxr.id_usuario AND u.username = @usuario)
+	SELECT DISTINCT nombre FROM MATE_LAVADO.Funcionalidades f
+	JOIN MATE_LAVADO.FuncionalidadXRol fxr ON(f.id_funcionalidad = fxr.id_funcionalidad)
+	JOIN MATE_LAVADO.UsuarioXRol uxr ON(uxr.id_rol = fxr.id_rol)
+	JOIN MATE_LAVADO.Usuarios u ON(u.id_usuario = uxr.id_usuario AND u.username = @usuario)
 END
 GO
 
 
 -----eliminarFuncionalidadDeRol-----
-CREATE PROCEDURE eliminarFuncionalidadesRol_sp
+CREATE PROCEDURE MATE_LAVADO.eliminarFuncionalidadesRol_sp
 @rol_nombre VARCHAR(50)
 AS
 BEGIN
-	DECLARE @id_rol INT = (SELECT id_rol FROM Roles WHERE nombre = @rol_nombre)
+	DECLARE @id_rol INT = (SELECT id_rol FROM MATE_LAVADO.Roles WHERE nombre = @rol_nombre)
 
-	DELETE FROM FuncionalidadXRol
+	DELETE FROM MATE_LAVADO.FuncionalidadXRol
 	WHERE id_rol = @id_rol
 
 END
 GO
 
 -----modificarRol-----
-CREATE PROCEDURE modificarRol_sp(
+CREATE PROCEDURE MATE_LAVADO.modificarRol_sp(
 @nombre VARCHAR(50),
 @habilitado BIT)
 AS
 BEGIN
-	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre)
+	IF EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre)
 	BEGIN
-		UPDATE Roles
+		UPDATE MATE_LAVADO.Roles
 		SET habilitado = @habilitado
 		WHERE nombre = @nombre
 	END
@@ -223,14 +223,14 @@ END
 GO
 
 -----modificarNombreRol-----
-CREATE PROCEDURE modificarNombreRol_sp
+CREATE PROCEDURE MATE_LAVADO.modificarNombreRol_sp
 @nombre_viejo VARCHAR(50),
 @nombre_nuevo VARCHAR(50)
 AS
 BEGIN
-	IF EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_viejo)
+	IF EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre_viejo)
 	BEGIN
-		UPDATE Roles
+		UPDATE MATE_LAVADO.Roles
 		SET nombre = @nombre_nuevo
 		WHERE nombre = @nombre_viejo
 	END
@@ -242,39 +242,39 @@ END
 GO
 
 -----getRubrosDePublicacion-----
-CREATE PROCEDURE getRubrosDePublicacion_sp 
+CREATE PROCEDURE MATE_LAVADO.getRubrosDePublicacion_sp 
 @id_publicacion NUMERIC
 AS
 BEGIN
-	SELECT r.id_rubro, r.descripcion FROM Rubros r JOIN Publicaciones p ON (r.id_rubro = p.id_rubro)
+	SELECT r.id_rubro, r.descripcion FROM MATE_LAVADO.Rubros r JOIN MATE_LAVADO.Publicaciones p ON (r.id_rubro = p.id_rubro)
 	WHERE id_publicacion = @id_publicacion
 END
 GO
 
 -----agregarFuncionalidadARol-----
-CREATE PROCEDURE AgregarFuncionalidadARol_sp
+CREATE PROCEDURE MATE_LAVADO.AgregarFuncionalidadARol_sp
 @nombre_rol VARCHAR(50),
 @nombre_funcionalidad VARCHAR(50)
 AS
 BEGIN
 	DECLARE @id_rol INT, @id_funcionalidad INT
-	SET @id_rol = (SELECT id_rol FROM Roles WHERE nombre = @nombre_rol)
-	SET @id_funcionalidad = (SELECT id_funcionalidad FROM Funcionalidades WHERE nombre = @nombre_funcionalidad)
+	SET @id_rol = (SELECT id_rol FROM MATE_LAVADO.Roles WHERE nombre = @nombre_rol)
+	SET @id_funcionalidad = (SELECT id_funcionalidad FROM MATE_LAVADO.Funcionalidades WHERE nombre = @nombre_funcionalidad)
 
-	IF NOT EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_rol)
+	IF NOT EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre_rol)
 		BEGIN
 		RAISERROR('Rol inexistente', 20, 1) WITH LOG
 		END
 
-	IF NOT EXISTS (SELECT nombre FROM Funcionalidades WHERE nombre = @nombre_funcionalidad)
+	IF NOT EXISTS (SELECT nombre FROM MATE_LAVADO.Funcionalidades WHERE nombre = @nombre_funcionalidad)
 		BEGIN
 		RAISERROR('Funcionalidad inexistente', 20, 1) WITH LOG
 		END
 
-	IF NOT EXISTS (SELECT id_rol, id_funcionalidad FROM FuncionalidadXRol
+	IF NOT EXISTS (SELECT id_rol, id_funcionalidad FROM MATE_LAVADO.FuncionalidadXRol
 					WHERE id_rol = @id_rol AND id_funcionalidad = @id_funcionalidad)
 		BEGIN
-			INSERT INTO FuncionalidadXRol(id_funcionalidad, id_rol)
+			INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_funcionalidad, id_rol)
 			VALUES (@id_funcionalidad, @id_rol)
 		END
 	
@@ -283,7 +283,7 @@ END
 GO
 
 -----buscarUsuarioPorCriterio-----
-CREATE PROCEDURE buscarUsuarioPorCriterio_sp
+CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 @nombre VARCHAR(255),
 @apellido VARCHAR(255),
 @dni VARCHAR(18),
@@ -292,7 +292,7 @@ AS
 BEGIN
 	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
 		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso
-	FROM Clientes
+	FROM MATE_LAVADO.Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
 		AND documento = CAST(@dni AS INT)
@@ -305,7 +305,7 @@ END
 GO
 
 -----modificarCliente-----
-CREATE PROCEDURE modificarCliente_sp
+CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @id_cliente INT,
 @nombre nvarchar(255),
 @apellido nvarchar(255),
@@ -316,10 +316,10 @@ CREATE PROCEDURE modificarCliente_sp
 @fecha_nacimiento DATETIME
 AS
 BEGIN 
-	IF EXISTS (SELECT * FROM dbo.Clientes WHERE id_cliente = @id_cliente) 
+	IF EXISTS (SELECT * FROM MATE_LAVADO.dbo.Clientes WHERE id_cliente = @id_cliente) 
 		BEGIN
 		BEGIN TRANSACTION
-		UPDATE dbo.Clientes
+		UPDATE MATE_LAVADO.dbo.Clientes
 		SET nombre = @nombre, apellido = @apellido, mail = @mail, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_creacion = @fecha_nacimiento
 		COMMIT TRANSACTION
 		END
@@ -329,7 +329,7 @@ END
 GO
 
 -----registroCliente-----
-CREATE PROCEDURE registroCliente_sp
+CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
 (@username VARCHAR(25),
 @password VARCHAR(255), 
 @nombre nvarchar(255),
@@ -349,16 +349,16 @@ CREATE PROCEDURE registroCliente_sp
 @fecha_creacion VARCHAR(30))
 AS
 BEGIN 
-	IF NOT EXISTS (SELECT * FROM dbo.Usuarios u JOIN dbo.Clientes c ON (u.id_usuario = c.id_usuario)
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.dbo.Usuarios u JOIN MATE_LAVADO.dbo.Clientes c ON (u.id_usuario = c.id_usuario)
 					WHERE username = @username OR cuil = @cuil OR documento = @documento OR mail = @mail) 
 		BEGIN
 		BEGIN TRANSACTION
-		INSERT INTO dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1', CONVERT(DATETIME, @fecha_creacion, 120), 0, @cambio_pass)
-		INSERT INTO dbo.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
+		INSERT INTO MATE_LAVADO.dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1', CONVERT(DATETIME, @fecha_creacion, 120), 0, @cambio_pass)
+		INSERT INTO MATE_LAVADO.dbo.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
 			calle, numero_calle, piso, depto, codigo_postal)
-		VALUES ((SELECT id_usuario FROM dbo.Usuarios WHERE username like @username), @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
+		VALUES ((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
 			@telefono, CONVERT(DATETIME, @fecha_creacion, 120), CONVERT(DATETIME, @fecha_nacimiento, 120), @calle, @numero_calle, @piso, @depto, @codigo_postal)
-		INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like @username), 3)
+		INSERT INTO MATE_LAVADO.dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), 3)
 		COMMIT TRANSACTION
 		END
 	ELSE
@@ -367,22 +367,22 @@ END
 GO
 
 -----registroEmpresa-----
-CREATE PROCEDURE registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
+CREATE PROCEDURE MATE_LAVADO.registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
  @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30))
 AS
 BEGIN
-	IF NOT EXISTS (SELECT * FROM dbo.Usuarios u JOIN dbo.Empresas e ON (u.id_usuario = e.id_usuario) 
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.dbo.Usuarios u JOIN MATE_LAVADO.dbo.Empresas e ON (u.id_usuario = e.id_usuario) 
 	WHERE username = @username OR cuit = @cuit OR mail = @mail OR razon_social = @razon_social)
 	BEGIN
 		BEGIN TRANSACTION
-		INSERT INTO dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1',
+		INSERT INTO MATE_LAVADO.dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1',
 			CONVERT(DATETIME, @fecha_creacion, 120)
 			--CAST(@fecha_creacion AS DATETIME)
 			, 0, @cambio_pass)
-		INSERT INTO dbo.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
-		VALUES ((SELECT id_usuario FROM dbo.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
+		INSERT INTO MATE_LAVADO.dbo.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
+		VALUES ((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
 			@calle, @numero_calle, @piso, @depto, @codigo_postal)
-		INSERT INTO dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM dbo.Usuarios WHERE username like @username), 2)
+		INSERT INTO MATE_LAVADO.dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), 2)
 		COMMIT TRANSACTION
 	END
 	ELSE
@@ -391,56 +391,56 @@ END
 GO
 
 -----buscarClientePorUsername-----
-CREATE PROCEDURE buscarClientePorUsername_sp
+CREATE PROCEDURE MATE_LAVADO.buscarClientePorUsername_sp
 @username VARCHAR(255)
 AS
 BEGIN
-	SELECT * FROM Usuarios u JOIN Clientes c ON (u.id_usuario = c.id_usuario)
+	SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
 	WHERE username LIKE @username
 END
 GO
 
 -----getPuntos-----
-CREATE PROCEDURE getPuntos_sp
+CREATE PROCEDURE MATE_LAVADO.getPuntos_sp
 @username varchar(30),
 @fecha VARCHAR(30)
 AS
 BEGIN
-	SELECT COALESCE(SUM(cantidad_puntos), 0) 'cantidad_puntos' FROM Usuarios u JOIN Clientes c ON (u.id_usuario = c.id_usuario)
-								  JOIN Puntos p ON (p.id_cliente = c.id_cliente)
+	SELECT COALESCE(SUM(cantidad_puntos), 0) 'cantidad_puntos' FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
+								  JOIN MATE_LAVADO.Puntos p ON (p.id_cliente = c.id_cliente)
 	WHERE username = @username AND fecha_vencimiento IS NOT NULL AND fecha_vencimiento > CONVERT(DATETIME, @fecha, 121)
 
 END
 GO
 
 -----getRubros-----
-CREATE PROCEDURE getRubros_sp
+CREATE PROCEDURE MATE_LAVADO.getRubros_sp
 AS
 BEGIN
-	SELECT descripcion FROM Rubros WHERE descripcion <> ''
+	SELECT descripcion FROM MATE_LAVADO.Rubros WHERE descripcion <> ''
 END
 GO
 
 -----buscarPublicacionesPorEmpresa-----
-create procedure buscarPublicacionesPorEmpresa_sp (@razon_social nvarchar(255)) as begin
-	select g.nombre grado, r.descripcion rubro, p.descripcion, direccion, p.id_publicacion id, es.estado_espectaculo estado from Publicaciones p 
-	join Empresas e on e.id_empresa = p.id_empresa 
-	join Grados_publicacion g on p.id_grado_publicacion = g.id_grado_publicacion
-	join Rubros r on r.id_rubro = p.id_rubro
-	join Espectaculos es on es.id_publicacion = p.id_publicacion
+create PROCEDURE MATE_LAVADO.buscarPublicacionesPorEmpresa_sp (@razon_social nvarchar(255)) as begin
+	select g.nombre grado, r.descripcion rubro, p.descripcion, direccion, p.id_publicacion id, es.estado_espectaculo estado FROM MATE_LAVADO.Publicaciones p 
+	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa 
+	JOIN MATE_LAVADO.Grados_publicacion g on p.id_grado_publicacion = g.id_grado_publicacion
+	JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
+	JOIN MATE_LAVADO.Espectaculos es on es.id_publicacion = p.id_publicacion
 	where razon_social = @razon_social and estado_espectaculo = 'Borrador'
 	group by p.id_publicacion, p.descripcion, direccion, g.nombre, r.descripcion, es.estado_espectaculo
 end
 GO
 
 -----historialClienteConOffset-----
-create procedure historialClienteConOffset_sp (@id_cliente int, @offset int) as begin
+create PROCEDURE MATE_LAVADO.historialClienteConOffset_sp (@id_cliente int, @offset int) as begin
 	select p.descripcion, e.fecha_evento, coalesce(c.importe, 0) importe, COUNT(uxe.id_ubicacion_espectaculo) 'cantidad_asientos', coalesce(RIGHT(mp.nro_tarjeta, 4),0) nro
-	from  Compras c
-	join UbicacionXEspectaculo uxe on uxe.id_compra = c.id_compra
-	join Espectaculos e on e.id_espectaculo = uxe.id_espectaculo
-	join Publicaciones p on p.id_publicacion = e.id_publicacion
-	join Medios_de_pago mp on mp.id_medio_de_pago = c.id_medio_de_pago
+	FROM MATE_LAVADO. Compras c
+	JOIN MATE_LAVADO.UbicacionXEspectaculo uxe on uxe.id_compra = c.id_compra
+	JOIN MATE_LAVADO.Espectaculos e on e.id_espectaculo = uxe.id_espectaculo
+	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = e.id_publicacion
+	JOIN MATE_LAVADO.Medios_de_pago mp on mp.id_medio_de_pago = c.id_medio_de_pago
 	where c.id_cliente = 768
 	group by c.id_compra, p.descripcion, e.fecha_evento, c.importe, mp.descripcion, mp.nro_tarjeta
 	order by e.fecha_evento offset @offset rows fetch next 10 rows only
@@ -448,50 +448,50 @@ end
 GO
 
 -----registrarCompra-----
-CREATE PROCEDURE registrarCompra_sp
+CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 @id_medio_de_pago INT,
 @importe BIGINT,
 @fecha VARCHAR(30)
 AS
 BEGIN
-	INSERT INTO Compras(id_medio_de_pago, id_factura, fecha, importe)
+	INSERT INTO MATE_LAVADO.Compras(id_medio_de_pago, id_factura, fecha, importe)
 	VALUES(@id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
 END
 go
 
 -----registrarCompraEXU-----
-CREATE PROCEDURE registrarCompraExU_sp (@id_compra INT, @id_ubicacion INT, @id_espectaculo BIGINT)
+CREATE PROCEDURE MATE_LAVADO.registrarCompraExU_sp (@id_compra INT, @id_ubicacion INT, @id_espectaculo BIGINT)
 AS
 BEGIN
 	declare @id_ubicacion_espectaculo int
-	set @id_ubicacion_espectaculo = (select id_ubicacion_espectaculo from UbicacionXEspectaculo where id_ubicacion = @id_ubicacion and id_espectaculo = @id_espectaculo)
+	set @id_ubicacion_espectaculo = (select id_ubicacion_espectaculo FROM MATE_LAVADO.UbicacionXEspectaculo where id_ubicacion = @id_ubicacion and id_espectaculo = @id_espectaculo)
 	
-	UPDATE UbicacionXEspectaculo
+	UPDATE MATE_LAVADO.UbicacionXEspectaculo
 	SET id_compra = @id_compra
 	WHERE id_ubicacion_espectaculo = @id_ubicacion_espectaculo
 END
 GO
 
 -----getPublicacionesDeUsuario-----
-CREATE PROCEDURE getPublicacionesDeUsuario_sp
+CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT id_publicacion, descripcion, direccion FROM Publicaciones p
-	JOIN Empresas e ON(e.id_empresa = p.id_empresa)
-	JOIN Usuarios u ON (e.id_usuario = u.id_usuario)
+	SELECT id_publicacion, descripcion, direccion FROM MATE_LAVADO.Publicaciones p
+	JOIN MATE_LAVADO.Empresas e ON(e.id_empresa = p.id_empresa)
+	JOIN MATE_LAVADO.Usuarios u ON (e.id_usuario = u.id_usuario)
 	WHERE username = @usuario
 END
 GO
 
 -----buscarEmpresaPorCriterio-----
-CREATE PROCEDURE buscarEmpresaPorCriterio_sp
+CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @cuit VARCHAR(20),
 @razon_social VARCHAR(20),
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM Empresas
+	SELECT razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM MATE_LAVADO.Empresas
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -502,37 +502,37 @@ END
 GO
 
 -----buscarEmpresaPorUsername-----
-CREATE PROCEDURE buscarEmpresaPorUsername_sp
+CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorUsername_sp
 @username VARCHAR(255)
 AS
 BEGIN
-	SELECT * FROM Usuarios u JOIN Empresas e ON (u.id_usuario = e.id_usuario)
+	SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Empresas e ON (u.id_usuario = e.id_usuario)
 	WHERE username LIKE @username
 END
 GO
 
 -----modificarEmpresa-----
-CREATE PROCEDURE modificarEmpresa_sp
+CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 @cuit_viejo varchar(20),
 @razon_social varchar(20),
 @mail varchar(20),
 @cuit varchar(20)
 AS
 BEGIN
-	IF EXISTS (SELECT cuit FROM Empresas WHERE cuit = @cuit_viejo)
+	IF EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas WHERE cuit = @cuit_viejo)
 	BEGIN
 		IF(@cuit = @cuit_viejo)
 			BEGIN
-			UPDATE Empresas
+			UPDATE MATE_LAVADO.Empresas
 				SET razon_social = @razon_social,
 					mail = @mail,
 					cuit = @cuit
 				WHERE cuit like @cuit_viejo
 			END
 			ELSE
-				IF NOT EXISTS (SELECT cuit FROM Empresas where cuit like @cuit)
+				IF NOT EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas where cuit like @cuit)
 				BEGIN
-					UPDATE Empresas
+					UPDATE MATE_LAVADO.Empresas
 						SET razon_social = @razon_social,
 						mail = @mail,
 						cuit = @cuit
@@ -551,13 +551,13 @@ END
 GO
 
 -----agregarRol-----
-CREATE PROCEDURE agregarRol_sp 
+CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
 AS
 BEGIN
-	IF NOT EXISTS (SELECT nombre FROM Roles WHERE nombre = @nombre_rol)
+	IF NOT EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre_rol)
 		BEGIN
-		INSERT INTO Roles(nombre, habilitado)
+		INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
 		VALUES(@nombre_rol, 1)		
 		END
 	ELSE
@@ -568,18 +568,18 @@ END
 GO
 
 -----getFuncionalidadesDeRol-----
-CREATE PROCEDURE getFuncionalidadesDeRol_sp
+CREATE PROCEDURE MATE_LAVADO.getFuncionalidadesDeRol_sp
 @nombre_rol VARCHAR(50)
 AS
 BEGIN
-	SELECT DISTINCT f.nombre FROM Funcionalidades f
-	JOIN Roles r ON (r.nombre = @nombre_rol)
-	JOIN FuncionalidadXRol fxr ON(fxr.id_rol= r.id_rol AND fxr.id_funcionalidad = f.id_funcionalidad)
+	SELECT DISTINCT f.nombre FROM MATE_LAVADO.Funcionalidades f
+	JOIN MATE_LAVADO.Roles r ON (r.nombre = @nombre_rol)
+	JOIN MATE_LAVADO.FuncionalidadXRol fxr ON(fxr.id_rol= r.id_rol AND fxr.id_funcionalidad = f.id_funcionalidad)
 END
 GO
 
 -----registrarPublicacion-----
-CREATE PROCEDURE registrarPublicacion_sp
+CREATE PROCEDURE MATE_LAVADO.registrarPublicacion_sp
 (
 @nombre_empresa NVARCHAR(255),
 @grado_publicacion NVARCHAR(20),
@@ -590,10 +590,10 @@ CREATE PROCEDURE registrarPublicacion_sp
 )
 AS
 BEGIN
-	DECLARE @id_empresa INT = (SELECT id_empresa FROM Empresas e WHERE @nombre_empresa = razon_social)
-	DECLARE @id_grado_publicacion INT = (SELECT id_grado_publicacion FROM Grados_publicacion WHERE nombre = @grado_publicacion)
-	DECLARE @id_rubro INT =  (SELECT id_rubro FROM Rubros WHERE descripcion = @rubro)
-	INSERT INTO Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)
+	DECLARE @id_empresa INT = (SELECT id_empresa FROM MATE_LAVADO.Empresas e WHERE @nombre_empresa = razon_social)
+	DECLARE @id_grado_publicacion INT = (SELECT id_grado_publicacion FROM MATE_LAVADO.Grados_publicacion WHERE nombre = @grado_publicacion)
+	DECLARE @id_rubro INT =  (SELECT id_rubro FROM MATE_LAVADO.Rubros WHERE descripcion = @rubro)
+	INSERT INTO MATE_LAVADO.Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion, direccion)
 	VALUES (@id_empresa, @id_grado_publicacion, @id_rubro, @descripcion, @direccion)
 
 	SELECT SCOPE_IDENTITY() AS 'id_publicacion'
@@ -601,17 +601,17 @@ END
 GO
 
 -----buscarEspectaculosPorPublicacion-----
-create procedure buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
-	select fecha_evento, id_espectaculo from Espectaculos where id_publicacion = @id_publicacion
+create PROCEDURE MATE_LAVADO.buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
+	select fecha_evento, id_espectaculo FROM MATE_LAVADO.Espectaculos where id_publicacion = @id_publicacion
 end
 GO
 
 -----buscarPublicacionesPorCriterio_sp-----
-create procedure buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
+create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
-	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id from Publicaciones p join Espectaculos e on p.id_publicacion = e.id_publicacion 
-	join Rubros r on r.id_rubro = p.id_rubro
+	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
+	JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
 	where e.estado_espectaculo = ''Publicada'''
 
 	if ( @desde is not null and @hasta is not null) begin set @query = 
@@ -628,7 +628,7 @@ end
 GO
 
 -----agregarEspectaculo-----
-CREATE PROCEDURE agregarEspectaculo_sp(
+CREATE PROCEDURE MATE_LAVADO.agregarEspectaculo_sp(
 @id_publicacion INT,
 @fecha VARCHAR(30),
 @estado_publicacion CHAR(20),
@@ -641,20 +641,20 @@ BEGIN
 		RAISERROR('La fecha del evento no puede ser anterior a la fecha actual', 16, 1)
 		END
 
-	IF EXISTS (SELECT * FROM Espectaculos WHERE fecha_evento =  CONVERT(DATETIME, @fecha, 120) AND @id_publicacion = id_publicacion)
+	IF EXISTS (SELECT * FROM MATE_LAVADO.Espectaculos WHERE fecha_evento =  CONVERT(DATETIME, @fecha, 120) AND @id_publicacion = id_publicacion)
 		BEGIN
 		RAISERROR('No pueden existir dos funciones para una publicacion con la misma fecha', 16, 1)
 		END
 
-	INSERT INTO Espectaculos(id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
+	INSERT INTO MATE_LAVADO.Espectaculos(id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
 	VALUES(@id_publicacion,  CONVERT(DATETIME, @fecha_creacion, 120),  CONVERT(DATETIME, @fecha, 120), @estado_publicacion)
 
-	SELECT MAX(id_espectaculo) AS id_espectaculo FROM Espectaculos
+	SELECT MAX(id_espectaculo) AS id_espectaculo FROM MATE_LAVADO.Espectaculos
 END
 GO
 
 -----agregarUbicaciones-----
-CREATE PROCEDURE agregarUbicaciones_sp(
+CREATE PROCEDURE MATE_LAVADO.agregarUbicaciones_sp(
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @filas INT,
@@ -673,12 +673,12 @@ BEGIN
 	BEGIN
 		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
 	END
- 	DROP TABLE #UbicacionesInsertadas
+ 	DROP TABLE MATE_LAVADO.#UbicacionesInsertadas
 END
 GO
 
 -----agregarUbicacionNumerada-----
-CREATE PROCEDURE agregarUbicacionNumerada_sp(
+CREATE PROCEDURE MATE_LAVADO.agregarUbicacionNumerada_sp(
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @filas INT,
@@ -690,10 +690,10 @@ BEGIN
 	DECLARE @asientos_por_fila INT = @cantidad / @filas
 	DECLARE @id_ubicacion INT
 
-	IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
-			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion) values (
-			(SELECT MAX(id_tipo_ubicacion)+1 FROM TiposDeUbicacion), @tipo_ubicacion)
+			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values (
+			(SELECT MAX(id_tipo_ubicacion)+1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
 		END
 
 	WHILE(@contador_filas < @filas)
@@ -704,11 +704,11 @@ BEGIN
 		WHILE(@contador_asientos < @asientos_por_fila)
 		BEGIN
 
-			INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
+			INSERT INTO MATE_LAVADO.Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
 			SELECT CHAR(ASCII('A')+@contador_filas), @contador_asientos, 0, @precio, id_tipo_ubicacion 
-			FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
+			FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
 
-			INSERT INTO #UbicacionesInsertadas
+			INSERT INTO MATE_LAVADO.#UbicacionesInsertadas
 			SELECT SCOPE_IDENTITY()
 
 			SET @contador_asientos += 1
@@ -717,12 +717,12 @@ BEGIN
 		SET @contador_filas +=1
 	END
 
-	SELECT * FROM #UbicacionesInsertadas
+	SELECT * FROM MATE_LAVADO.#UbicacionesInsertadas
 END
 GO
 
 -----agregarUbicacionSinNumerar-----
-CREATE PROCEDURE agregarUbicacionSinNumerar_sp(
+CREATE PROCEDURE MATE_LAVADO.agregarUbicacionSinNumerar_sp(
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @precio NUMERIC(18)
@@ -735,49 +735,49 @@ BEGIN
 	WHILE(@contador < @cantidad)
 	BEGIN
 
-		IF NOT EXISTS (SELECT * FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+		IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
-			INSERT INTO TiposDeUbicacion(id_tipo_ubicacion, descripcion) values(
-			(SELECT MAX(id_tipo_ubicacion) + 1 FROM TiposDeUbicacion), @tipo_ubicacion)
+			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values(
+			(SELECT MAX(id_tipo_ubicacion) + 1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
 		END
 
-		INSERT INTO Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
+		INSERT INTO MATE_LAVADO.Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
 		SELECT NULL, NULL, 1, @precio, id_tipo_ubicacion
-		FROM TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
+		FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion
 
-		INSERT INTO #UbicacionesInsertadas
+		INSERT INTO MATE_LAVADO.#UbicacionesInsertadas
 		SELECT SCOPE_IDENTITY()
 
 		SET @contador +=1
 
 	END
 
-	SELECT * FROM #UbicacionesInsertadas
+	SELECT * FROM MATE_LAVADO.#UbicacionesInsertadas
 END
 GO
 
 -----agregarUbicacionXEspectaculo_sp-----
-CREATE PROCEDURE agregarUbicacionXEspectaculo_sp(
+CREATE PROCEDURE MATE_LAVADO.agregarUbicacionXEspectaculo_sp(
 @id_ubicacion INT,
 @id_espectaculo INT
 )
 AS
 BEGIN
-	INSERT INTO UbicacionXEspectaculo(id_ubicacion, id_espectaculo)
+	INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_ubicacion, id_espectaculo)
 	VALUES(@id_ubicacion, @id_espectaculo)
 END
 GO
 
 -----actualizarGradoPublicacion-----
-CREATE PROCEDURE actualizarGradoPublicacion_sp
+CREATE PROCEDURE MATE_LAVADO.actualizarGradoPublicacion_sp
 @id_publicacion INT,
 @grado VARCHAR(10)
 AS
 BEGIN
-	IF EXISTS (SELECT descripcion FROM Publicaciones WHERE id_publicacion = @id_publicacion)
+	IF EXISTS (SELECT descripcion FROM MATE_LAVADO.Publicaciones WHERE id_publicacion = @id_publicacion)
 	BEGIN
-		UPDATE Publicaciones 
-		SET id_grado_publicacion = (SELECT id_grado_publicacion FROM Grados_publicacion WHERE nombre like @grado)
+		UPDATE MATE_LAVADO.Publicaciones 
+		SET id_grado_publicacion = (SELECT id_grado_publicacion FROM MATE_LAVADO.Grados_publicacion WHERE nombre like @grado)
 		WHERE id_publicacion like @id_publicacion
 	END
 	ELSE
@@ -787,37 +787,37 @@ BEGIN
 END
 GO
 -----actualizarPublicacion-----
-create procedure actualizarPublicacion_sp (@id int, @descripcion nvarchar(255), @direccion nvarchar(80), @estado char(15), @rubro nvarchar(100)) as begin
-	update Publicaciones set descripcion = @descripcion, direccion = @direccion, id_rubro = (select id_rubro from Rubros where descripcion = @rubro) where id_publicacion = @id
-	update Espectaculos set estado_espectaculo = @estado where id_publicacion = @id
+create PROCEDURE MATE_LAVADO.actualizarPublicacion_sp (@id int, @descripcion nvarchar(255), @direccion nvarchar(80), @estado char(15), @rubro nvarchar(100)) as begin
+	UPDATE MATE_LAVADO.Publicaciones set descripcion = @descripcion, direccion = @direccion, id_rubro = (select id_rubro FROM MATE_LAVADO.Rubros where descripcion = @rubro) where id_publicacion = @id
+	UPDATE MATE_LAVADO.Espectaculos set estado_espectaculo = @estado where id_publicacion = @id
 end
 GO
 
 -----actualizarUsuarioYContrasenia-----
-create procedure actualizarUsuarioYContrasenia_sp (@usernameV nvarchar(255), @usernameN nvarchar(255), @encriptada nvarchar(255)) as begin
-	update Usuarios set username = @usernameN, password = @encriptada where username = @usernameV
+create PROCEDURE MATE_LAVADO.actualizarUsuarioYContrasenia_sp (@usernameV nvarchar(255), @usernameN nvarchar(255), @encriptada nvarchar(255)) as begin
+	UPDATE MATE_LAVADO.Usuarios set username = @usernameN, password = @encriptada where username = @usernameV
 end
 GO
 
 -----getMediosDePago-----
-CREATE PROCEDURE getMediosDePago_sp
+CREATE PROCEDURE MATE_LAVADO.getMediosDePago_sp
 @id_cliente INT
 AS
 BEGIN
-	SELECT id_medio_de_pago, coalesce(RIGHT(nro_tarjeta, 4),0) digitos FROM Medios_de_pago WHERE id_cliente =  @id_cliente
+	SELECT id_medio_de_pago, coalesce(RIGHT(nro_tarjeta, 4),0) digitos FROM MATE_LAVADO.Medios_de_pago WHERE id_cliente =  @id_cliente
 END
 GO
 
 -----registrarMedioDePago-----
-CREATE PROCEDURE registrarMedioDePago_sp
+CREATE PROCEDURE MATE_LAVADO.registrarMedioDePago_sp
 @id_cliente INT,
 @numero_tarjeta INT,
 @titular varchar
 AS
 BEGIN
-	IF NOT EXISTS (SELECT * FROM Medios_de_pago mp WHERE nro_tarjeta = @numero_tarjeta AND id_cliente = @id_cliente)
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Medios_de_pago mp WHERE nro_tarjeta = @numero_tarjeta AND id_cliente = @id_cliente)
 		BEGIN
-		INSERT INTO Medios_de_pago(id_cliente, descripcion, nro_tarjeta, titular)
+		INSERT INTO MATE_LAVADO.Medios_de_pago(id_cliente, descripcion, nro_tarjeta, titular)
 		VALUES(@id_cliente, 'Tarjeta', @numero_tarjeta, @titular)
 		END
 		ELSE
@@ -828,26 +828,26 @@ END
 GO
 
 -----buscarUbicacionesPorPublicacion-----
-create procedure buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
+create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
 	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, u.id_ubicacion
-	from Ubicaciones u 
-	join UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
-	join TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
-	join Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
-	join Publicaciones p on p.id_publicacion = ee.id_publicacion
+	FROM MATE_LAVADO.Ubicaciones u 
+	JOIN MATE_LAVADO.UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
+	JOIN MATE_LAVADO.TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
+	JOIN MATE_LAVADO.Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
+	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
 	where p.id_publicacion = 1 and e.id_compra is null
 	group by t.descripcion, sin_numerar, precio, u.id_ubicacion
 end
 GO
 
 -----traerTodasRazonesSociales-----
-create procedure traerTodasRazonesSociales_sp as begin
-	select distinct razon_social from Empresas
+create PROCEDURE MATE_LAVADO.traerTodasRazonesSociales_sp as begin
+	select distinct razon_social FROM MATE_LAVADO.Empresas
 end
 GO
 
 -----top5ClientesPuntosVencidos-----
-CREATE PROCEDURE top5ClientesPuntosVencidos_sp(
+CREATE PROCEDURE MATE_LAVADO.top5ClientesPuntosVencidos_sp(
 @fecha_inicio VARCHAR(30),
 @fecha_fin VARCHAR(30),
 @fecha_actual VARCHAR(30)
@@ -855,8 +855,8 @@ CREATE PROCEDURE top5ClientesPuntosVencidos_sp(
 AS
 BEGIN
 	
-	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM Clientes c
-	JOIN Puntos p ON(p.id_cliente = c.id_cliente)
+	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM MATE_LAVADO.Clientes c
+	JOIN MATE_LAVADO.Puntos p ON(p.id_cliente = c.id_cliente)
 	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 127) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
 	GROUP BY nombre, apellido
 	ORDER BY SUM(cantidad_puntos) DESC
@@ -864,7 +864,7 @@ END
 GO
 
 -----top5ClientesComprasParaUnaEmpresa----
-CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
+CREATE PROCEDURE MATE_LAVADO.top5ClienteComprasParaUnaEmpresa_sp
 (@razon_social NVARCHAR(50),
 @fecha_inicio VARCHAR(30),
 @fecha_fin VARCHAR(30)
@@ -872,12 +872,12 @@ CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
 AS
 BEGIN
 	SELECT TOP 5 nombre, apellido, documento, COUNT(id_ubicacion) 'Cantidad de compras', razon_social
-	FROM Clientes cc
-	JOIN Compras c ON(c.id_cliente = cc.id_cliente)
-	JOIN UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
-	JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
-	JOIN Publicaciones p ON (p.id_publicacion = e.id_publicacion)
-	JOIN Empresas ee ON(p.id_empresa = ee.id_empresa)
+	FROM MATE_LAVADO.Clientes cc
+	JOIN MATE_LAVADO.Compras c ON(c.id_cliente = cc.id_cliente)
+	JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
+	JOIN MATE_LAVADO.Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
+	JOIN MATE_LAVADO.Publicaciones p ON (p.id_publicacion = e.id_publicacion)
+	JOIN MATE_LAVADO.Empresas ee ON(p.id_empresa = ee.id_empresa)
 
 	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 127) AND fecha < CONVERT(DATETIME, @fecha_fin, 127)  AND ee.razon_social = @razon_social
 	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
@@ -886,17 +886,17 @@ END
 GO
 
 -----top5LocalidadesNoVendidasEmpresa-----
-CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
+CREATE PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
 @grado VARCHAR(20),
 @fecha_inicio VARCHAR(30),
 @fecha_fin VARCHAR(30)
 AS
 BEGIN
-	SELECT TOP 5 razon_social 'Razon social', cuit, COUNT(id_ubicacion) 'Ubicaciones no vendidas' FROM Publicaciones p
-	JOIN Espectaculos e ON (e.id_publicacion = p.id_publicacion)
-	JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
-	JOIN Grados_publicacion gp ON(gp.id_grado_publicacion = p.id_grado_publicacion)
-	JOIN Empresas emp ON(emp.id_empresa = p.id_empresa)
+	SELECT TOP 5 razon_social 'Razon social', cuit, COUNT(id_ubicacion) 'Ubicaciones no vendidas' FROM MATE_LAVADO.Publicaciones p
+	JOIN MATE_LAVADO.Espectaculos e ON (e.id_publicacion = p.id_publicacion)
+	JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
+	JOIN MATE_LAVADO.Grados_publicacion gp ON(gp.id_grado_publicacion = p.id_grado_publicacion)
+	JOIN MATE_LAVADO.Empresas emp ON(emp.id_empresa = p.id_empresa)
 	WHERE uxe.id_compra IS NULL
 		AND gp.nombre = @grado
 		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 127) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 127)
@@ -906,28 +906,28 @@ END
 GO
 
 -----agregarFactura-----
-create procedure agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
+create PROCEDURE MATE_LAVADO.agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
 	declare @id_empresa int
-	set @id_empresa = (select id_empresa from Empresas where razon_social = @razonSocial)
-	insert into Facturas (id_empresa, fecha_facturacion, importe_total) values (@id_empresa, getdate(), @total)
+	set @id_empresa = (select id_empresa FROM MATE_LAVADO.Empresas where razon_social = @razonSocial)
+	INSERT INTO MATE_LAVADO.Facturas (id_empresa, fecha_facturacion, importe_total) values (@id_empresa, getdate(), @total)
 
-	select top 1 id_factura from Facturas where id_empresa = @id_empresa and importe_total = @total order by fecha_facturacion desc
+	select top 1 id_factura FROM MATE_LAVADO.Facturas where id_empresa = @id_empresa and importe_total = @total order by fecha_facturacion desc
 end
 GO
 
 -----actualizarCompraFactura-----
-create procedure actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
-	update Compras set id_factura = @id_factura where id_compra = @id_compra
+create PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
+	UPDATE MATE_LAVADO.Compras set id_factura = @id_factura where id_compra = @id_compra
 end
 GO
 
 -----buscarComprasNoFacturadas-----
-create procedure buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
-	select c.id_compra, descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe from Compras c 
-	join UbicacionXEspectaculo u on c.id_compra = u.id_compra
-	join Espectaculos es on es.id_espectaculo = u.id_espectaculo
-	join Publicaciones p on p.id_publicacion = es.id_publicacion
-	join Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
+create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
+	select c.id_compra, descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe FROM MATE_LAVADO.Compras c 
+	JOIN MATE_LAVADO.UbicacionXEspectaculo u on c.id_compra = u.id_compra
+	JOIN MATE_LAVADO.Espectaculos es on es.id_espectaculo = u.id_espectaculo
+	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = es.id_publicacion
+	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
 	where id_factura is null 
 end
 GO
@@ -935,20 +935,20 @@ GO
 ----------TRIGGERS----------
 
 -----insertarNuevoEspectaculo-----
-CREATE TRIGGER insertarNuevoEspectaculo ON Espectaculos
+CREATE TRIGGER MATE_LAVADO.insertarNuevoEspectaculo ON MATE_LAVADO.Espectaculos
 INSTEAD OF INSERT
 AS
 BEGIN
 DECLARE @id_publicacion INT, @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo CHAR(15) 
 DECLARE cur CURSOR FOR 
-SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM inserted
+SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM MATE_LAVADO.inserted
 DECLARE @last_id INT
-SET @last_id = (SELECT MAX(id_espectaculo) FROM Espectaculos) + 1
+SET @last_id = (SELECT MAX(id_espectaculo) FROM MATE_LAVADO.Espectaculos) + 1
 OPEN cur
 FETCH NEXT FROM cur INTO @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo
 WHILE @@FETCH_STATUS = 0
 BEGIN
-INSERT INTO Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
+INSERT INTO MATE_LAVADO.Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
 VALUES (@last_id, @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo)
 SET @last_id += 1
 FETCH NEXT FROM cur INTO @id_publicacion, @fecha_inicio, @fecha_evento, @estado_espectaculo
@@ -959,20 +959,20 @@ END
 GO
 
 -----insertarNuevaFactura-----
-CREATE TRIGGER insertarNuevaFactura ON Facturas
+CREATE TRIGGER MATE_LAVADO.insertarNuevaFactura ON MATE_LAVADO.Facturas
 INSTEAD OF INSERT
 AS
 BEGIN
 DECLARE @fecha_facturacion DATETIME, @importe_total NUMERIC(18,2), @id_empresa INT 
 DECLARE cur CURSOR FOR 
-SELECT fecha_facturacion, importe_total, id_empresa FROM inserted
+SELECT fecha_facturacion, importe_total, id_empresa FROM MATE_LAVADO.inserted
 DECLARE @last_id INT
-SET @last_id = (SELECT MAX(id_factura) FROM Facturas) + 1
+SET @last_id = (SELECT MAX(id_factura) FROM MATE_LAVADO.Facturas) + 1
 OPEN cur
 FETCH NEXT FROM cur INTO @fecha_facturacion, @importe_total, @id_empresa
 WHILE @@FETCH_STATUS = 0
 BEGIN
-INSERT INTO Facturas(id_factura, fecha_facturacion, importe_total, id_empresa)
+INSERT INTO MATE_LAVADO.Facturas(id_factura, fecha_facturacion, importe_total, id_empresa)
 VALUES (@last_id, @fecha_facturacion, @importe_total, @id_empresa)
 SET @last_id += 1
 FETCH NEXT FROM cur INTO @fecha_facturacion, @importe_total, @id_empresa
@@ -983,17 +983,17 @@ END
 GO
 
 -----rollInhabilitado-----
-CREATE TRIGGER rolInhabilitado_tr
-ON Roles
+CREATE TRIGGER MATE_LAVADO.rolInhabilitado_tr
+ON MATE_LAVADO.Roles
 AFTER UPDATE
 AS
 BEGIN	
-	IF((SELECT habilitado FROM DELETED) <> (SELECT habilitado FROM INSERTED))
+	IF((SELECT habilitado FROM MATE_LAVADO.DELETED) <> (SELECT habilitado FROM MATE_LAVADO.INSERTED))
 	BEGIN
 		DECLARE @id_rol_modificado INT
-		SET @id_rol_modificado = (SELECT id_rol FROM DELETED)
+		SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.DELETED)
 
-		DELETE FROM UsuarioXRol
+		DELETE FROM MATE_LAVADO.UsuarioXRol
 		WHERE id_rol = @id_rol_modificado
 
 	END
@@ -1001,20 +1001,20 @@ END
 GO
 
 -----insertarNuevaCompra-----
-CREATE TRIGGER insertarNuevaCompra ON Compras
+CREATE TRIGGER MATE_LAVADO.insertarNuevaCompra ON MATE_LAVADO.Compras
 INSTEAD OF INSERT
 AS
 BEGIN
 	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT
 	DECLARE cur CURSOR FOR 
-	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM inserted
+	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM MATE_LAVADO.inserted
 	DECLARE @last_id INT
-	SET @last_id = (SELECT MAX(id_compra) FROM Compras) + 1
+	SET @last_id = (SELECT MAX(id_compra) FROM MATE_LAVADO.Compras) + 1
 	OPEN cur
 		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-		INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe, id_compra)
+		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe, id_compra)
 		VALUES (@id_cliente, @id_medio_de_pago, NULL, @fecha, @importe, @last_id)
 		SET @last_id += 1
 		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
@@ -1026,18 +1026,18 @@ END
 GO
 
 -----finalizarEspectaculo-----
-CREATE TRIGGER finalizarEspectaculoAgotado_tg
-ON Compras
+CREATE TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
+ON MATE_LAVADO.Compras
 AFTER INSERT
 AS
 BEGIN
-	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM Espectaculos e
-								JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
-								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
-	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM MATE_LAVADO.Espectaculos e
+								JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
+								WHERE uxe.id_compra = (SELECT id_compra FROM MATE_LAVADO.INSERTED))
+	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM MATE_LAVADO.Espectaculos WHERE id_espectaculo = @id_espectaculo)
 	IF (dbo.getCantidadEntradasPublicacion(@id_publicacion) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
 	BEGIN
-		UPDATE Espectaculos
+		UPDATE MATE_LAVADO.Espectaculos
 		SET estado_espectaculo = 'Finalizado'
 	END
 END
@@ -1046,28 +1046,28 @@ GO
 ----------FUNCIONES----------
 
 -----getCantidadEntradasPublicacion-----
-CREATE FUNCTION getCantidadEntradasPublicacion(@id_publicacion INT)
+CREATE FUNCTION MATE_LAVADO.getCantidadEntradasPublicacion(@id_publicacion INT)
 RETURNS INT
 AS
 BEGIN
-	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
-			JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
+	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+			JOIN MATE_LAVADO.Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
 			WHERE e.id_publicacion = @id_publicacion)
 END
 GO
 
 -----getCantidadEntradasVendidas-----
-CREATE FUNCTION getCantidadEntradasVendidas(@id_espectaculo INT)
+CREATE FUNCTION MATE_LAVADO.getCantidadEntradasVendidas(@id_espectaculo INT)
 RETURNS INT
 AS
 BEGIN
-	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
+	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
 END
 GO
 
 -----vaciarEspectaculosPublicacion-----
-CREATE PROCEDURE vaciarEspectaculosPublicacion_sp(
+CREATE PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp(
 @id_publicacion INT)
 AS
 BEGIN
@@ -1078,48 +1078,48 @@ id_ubicacion INT,
 id_ubicacion_espectaculo INT
 )
 
-INSERT INTO #UbicacionesDeUnaPublicacion(id_espectaculo, id_ubicacion, id_ubicacion_espectaculo)
-SELECT e.id_espectaculo, u.id_ubicacion, uxe.id_ubicacion_espectaculo FROM Espectaculos e
-JOIN UbicacionXEspectaculo uxe ON (e.id_espectaculo = uxe.id_espectaculo)
-JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+INSERT INTO MATE_LAVADO.#UbicacionesDeUnaPublicacion(id_espectaculo, id_ubicacion, id_ubicacion_espectaculo)
+SELECT e.id_espectaculo, u.id_ubicacion, uxe.id_ubicacion_espectaculo FROM MATE_LAVADO.Espectaculos e
+JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON (e.id_espectaculo = uxe.id_espectaculo)
+JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
 WHERE e.id_publicacion = @id_publicacion
 
 DELETE UbicacionXEspectaculo
-WHERE id_ubicacion_espectaculo IN (SELECT id_ubicacion_espectaculo FROM #UbicacionesDeUnaPublicacion) OR id_ubicacion IN (SELECT id_ubicacion FROM #UbicacionesDeUnaPublicacion) OR id_espectaculo IN (SELECT id_espectaculo FROM #UbicacionesDeUnaPublicacion)
+WHERE id_ubicacion_espectaculo IN (SELECT id_ubicacion_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
 
 DELETE Ubicaciones 
-WHERE id_ubicacion IN (SELECT id_ubicacion FROM #UbicacionesDeUnaPublicacion)
+WHERE id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
 
 DELETE Espectaculos 
-WHERE id_espectaculo IN (SELECT id_espectaculo FROM #UbicacionesDeUnaPublicacion)
+WHERE id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
 
-DROP TABLE #UbicacionesDeUnaPublicacion
+DROP TABLE MATE_LAVADO.#UbicacionesDeUnaPublicacion
 
 END
 GO
 
-CREATE PROCEDURE filasDisponiblesSegunEspectaculo_sp
+CREATE PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
 @id_espectaculo INT,
 @precio INT
 AS
 BEGIN
 	SELECT fila
-	FROM UbicacionXEspectaculo uxe
-	JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND @precio = precio
 	GROUP BY fila
 END
 GO
 
-CREATE PROCEDURE asientosDisponiblesSegunEspectaculoYFila_sp
+CREATE PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
 @id_espectaculo INT,
 @fila CHAR,
 @precio INT
 AS
 BEGIN
 	SELECT asiento
-	FROM UbicacionXEspectaculo uxe
-	JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
 	GROUP BY asiento
 END
