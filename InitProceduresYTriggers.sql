@@ -49,6 +49,8 @@ DROP PROCEDURE agregarUbicacionXEspectaculo_sp
 DROP PROCEDURE buscarEmpresaPorUsername_sp
 DROP PROCEDURE buscarPublicacionesPorEmpresa_sp
 DROP PROCEDURE vaciarEspectaculosPublicacion_sp
+DROP PROCEDURE filasDisponiblesSegunEspectaculo_sp
+DROP PROCEDURE asientosDisponiblesSegunEspectaculoYFila_sp
 
 DROP TRIGGER insertarNuevoEspectaculo
 DROP TRIGGER insertarNuevaFactura
@@ -447,14 +449,13 @@ GO
 
 -----registrarCompra-----
 CREATE PROCEDURE registrarCompra_sp
-@id_cliente INT,
 @id_medio_de_pago INT,
 @importe BIGINT,
 @fecha VARCHAR(30)
 AS
 BEGIN
-	INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
-	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 120), @importe)
+	INSERT INTO Compras(id_medio_de_pago, id_factura, fecha, importe)
+	VALUES(@id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
 END
 go
 
@@ -834,7 +835,7 @@ create procedure buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as beg
 	join TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
 	join Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
 	join Publicaciones p on p.id_publicacion = ee.id_publicacion
-	where p.id_publicacion = @id_publicacion and e.id_compra is null
+	where p.id_publicacion = 1 and e.id_compra is null
 	group by t.descripcion, sin_numerar, precio, u.id_ubicacion
 end
 GO
@@ -1096,3 +1097,29 @@ DROP TABLE #UbicacionesDeUnaPublicacion
 
 END
 GO
+
+CREATE PROCEDURE filasDisponiblesSegunEspectaculo_sp
+@id_espectaculo INT,
+@precio INT
+AS
+BEGIN
+	SELECT fila
+	FROM UbicacionXEspectaculo uxe
+	JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND @precio = precio
+	GROUP BY fila
+END
+GO
+
+CREATE PROCEDURE asientosDisponiblesSegunEspectaculoYFila_sp
+@id_espectaculo INT,
+@fila CHAR,
+@precio INT
+AS
+BEGIN
+	SELECT asiento
+	FROM UbicacionXEspectaculo uxe
+	JOIN Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
+	GROUP BY asiento
+END
