@@ -1030,7 +1030,6 @@ BEGIN
 END
 GO
 
-drop trigger insertarNuevaCompra
 
 -----finalizarEspectaculo-----
 CREATE TRIGGER finalizarEspectaculoAgotado_tg
