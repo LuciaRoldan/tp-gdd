@@ -78,7 +78,7 @@ namespace PalcoNet.Comprar
                     Servidor servidor = Servidor.getInstance();
                     SqlDataReader reader = servidor.query("exec MATE_LAVADO.registrarMedioDePago_sp " + Sesion.getInstance().traerCliente().Id + " ," + this.Tarjeta.NumeroDeTarjeta + ", '" + this.Tarjeta.Titular + "'");
                     while (reader.Read()) {
-                        tarjeta.Id = int.Parse(reader["id_mp"].ToString());
+                        tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
                     }
                     this.Anterior.actualizar(this.Tarjeta);
 

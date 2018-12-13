@@ -43,7 +43,8 @@ namespace PalcoNet.Listado_Estadistico
             {
                 CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();
                 localidad.Empresa = reader["Razon social"].ToString();
-                localidad.Cuit = Int64.Parse(reader["cuit"].ToString());
+                //localidad.Cuit = Int64.Parse(reader["cuit"].ToString());
+                localidad.Cuit = Convert.ToInt64(reader["cuit"]);
                 localidad.LocalidadesNoVendidas = Convert.ToInt32(reader["Ubicaciones no vendidas"]);
 
                 localidadesEmpresa.Add(localidad);

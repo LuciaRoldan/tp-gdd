@@ -822,6 +822,7 @@ BEGIN
 		BEGIN
 		INSERT INTO MATE_LAVADO.Medios_de_pago(id_cliente, descripcion, nro_tarjeta, titular)
 		VALUES(@id_cliente, 'Tarjeta', @numero_tarjeta, @titular)
+		SELECT SCOPE_IDENTITY() AS 'id_medio_de_pago'
 		END
 		ELSE
 		BEGIN
