@@ -642,8 +642,6 @@ BEGIN
 			INSERT INTO MATE_LAVADO.FuncionalidadXRol(id_funcionalidad, id_rol)
 			VALUES (@id_funcionalidad, @id_rol)
 		END
-	
-	RAISERROR('Funcionalidad ya existente para ese rol', 16, 1) --no es grave lol podria tb no hacer nada
 END
 GO
 
