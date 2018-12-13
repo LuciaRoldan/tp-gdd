@@ -95,7 +95,7 @@ namespace PalcoNet.Canje_Puntos
 
             if (this.puntosOriginales >= this.PuntosAcumulados)
             {
-                servidor.realizarQuery("EXEC borrarPuntos_sp '" + this.PuntosAcumulados + "', '" + Sesion.getInstance().usuario.NombreUsuario + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.borrarPuntos_sp '" + this.PuntosAcumulados + "', '" + Sesion.getInstance().usuario.NombreUsuario + "'");
                 this.Cliente.Puntos = this.PuntosOriginales - this.PuntosAcumulados;
                 List<Premio> premiosSeleccionados = new List<Premio>();
                 foreach (int index in this.checkedListBoxPremios.SelectedIndices)

@@ -50,7 +50,7 @@ namespace PalcoNet.Comprar
         private void button2_Click(object sender, EventArgs e)
         {
             string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "'";
-            SqlDataReader reader = Servidor.getInstance().query("exec registrarCompra_sp " + query);
+            SqlDataReader reader = Servidor.getInstance().query("exec MATE_LAVADO.registrarCompra_sp " + query);
             while (reader.Read())
             {
                 this.Compra.Id = int.Parse(reader["id"].ToString());
@@ -62,7 +62,7 @@ namespace PalcoNet.Comprar
                 for (int i = 0; i < u.CantidadAsientos; i++)
                 {
                     string q = this.Compra.Id + ", " + (u.Id + i) + ", " + this.Compra.Espectaculo.Id;
-                    Servidor.getInstance().query("exec registrarCompraExU_sp " + q);
+                    Servidor.getInstance().query("exec MATE_LAVADO.registrarCompraExU_sp " + q);
                 }
             }
             

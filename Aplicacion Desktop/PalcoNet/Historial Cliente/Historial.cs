@@ -54,7 +54,7 @@ namespace PalcoNet.Historial_Cliente
             if (this.Offset >= 0)
             {
                 Servidor servidor = Servidor.getInstance();
-                SqlDataReader reader = servidor.query("exec historialClienteConOffset_sp " + this.Cliente.Id + " ," + this.Offset * 10);
+                SqlDataReader reader = servidor.query("exec MATE_LAVADO.historialClienteConOffset_sp " + this.Cliente.Id + " ," + this.Offset * 10);
                 while (reader.Read())
                 {
                     ElementoHistorialCliente e = new ElementoHistorialCliente();

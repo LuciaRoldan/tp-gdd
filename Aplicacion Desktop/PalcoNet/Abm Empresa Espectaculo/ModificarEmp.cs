@@ -76,7 +76,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
                 String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
                                 + "', '" + empresaModificada.Cuit + "'";
-                servidor.realizarQuery("EXEC modificarEmpresa_sp '" + query);
+                servidor.realizarQuery("EXEC MATE_LAVADO.modificarEmpresa_sp '" + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }
