@@ -85,7 +85,7 @@ namespace PalcoNet
                         new BusquedaEmp(this).Show();
                         this.Hide();
                         break;
-                    case "ABM de categoria":
+                    case "ABM de rubro":
                         new AbmRubro(this).Show();
                         this.Hide();
                         break;

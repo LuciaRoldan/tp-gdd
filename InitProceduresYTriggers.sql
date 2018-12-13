@@ -316,11 +316,12 @@ CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @fecha_nacimiento DATETIME
 AS
 BEGIN 
-	IF EXISTS (SELECT * FROM MATE_LAVADO.dbo.Clientes WHERE id_cliente = @id_cliente) 
+	IF EXISTS (SELECT * FROM MATE_LAVADO.Clientes WHERE id_cliente = @id_cliente) 
 		BEGIN
 		BEGIN TRANSACTION
-		UPDATE MATE_LAVADO.dbo.Clientes
+		UPDATE MATE_LAVADO.Clientes
 		SET nombre = @nombre, apellido = @apellido, mail = @mail, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_creacion = @fecha_nacimiento
+		WHERE id_cliente = @id_cliente
 		COMMIT TRANSACTION
 		END
 	ELSE
@@ -349,16 +350,16 @@ CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
 @fecha_creacion VARCHAR(30))
 AS
 BEGIN 
-	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.dbo.Usuarios u JOIN MATE_LAVADO.dbo.Clientes c ON (u.id_usuario = c.id_usuario)
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
 					WHERE username = @username OR cuil = @cuil OR documento = @documento OR mail = @mail) 
 		BEGIN
 		BEGIN TRANSACTION
-		INSERT INTO MATE_LAVADO.dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1', CONVERT(DATETIME, @fecha_creacion, 120), 0, @cambio_pass)
-		INSERT INTO MATE_LAVADO.dbo.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
+		INSERT INTO MATE_LAVADO.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1', CONVERT(DATETIME, @fecha_creacion, 120), 0, @cambio_pass)
+		INSERT INTO MATE_LAVADO.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
 			calle, numero_calle, piso, depto, codigo_postal)
-		VALUES ((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
-			@telefono, CONVERT(DATETIME, @fecha_creacion, 120), CONVERT(DATETIME, @fecha_nacimiento, 120), @calle, @numero_calle, @piso, @depto, @codigo_postal)
-		INSERT INTO MATE_LAVADO.dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), 3)
+		VALUES ((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
+			@telefono, CONVERT(DATETIME, @fecha_creacion, 121), CONVERT(DATETIME, @fecha_nacimiento, 121), @calle, @numero_calle, @piso, @depto, @codigo_postal)
+		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 3)
 		COMMIT TRANSACTION
 		END
 	ELSE
@@ -371,18 +372,18 @@ CREATE PROCEDURE MATE_LAVADO.registroEmpresa_sp(@username VARCHAR(255), @passwor
  @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30))
 AS
 BEGIN
-	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.dbo.Usuarios u JOIN MATE_LAVADO.dbo.Empresas e ON (u.id_usuario = e.id_usuario) 
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Empresas e ON (u.id_usuario = e.id_usuario) 
 	WHERE username = @username OR cuit = @cuit OR mail = @mail OR razon_social = @razon_social)
 	BEGIN
 		BEGIN TRANSACTION
-		INSERT INTO MATE_LAVADO.dbo.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1',
-			CONVERT(DATETIME, @fecha_creacion, 120)
+		INSERT INTO MATE_LAVADO.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1',
+			CONVERT(DATETIME, @fecha_creacion, 121)
 			--CAST(@fecha_creacion AS DATETIME)
 			, 0, @cambio_pass)
-		INSERT INTO MATE_LAVADO.dbo.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
-		VALUES ((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
+		INSERT INTO MATE_LAVADO.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
+		VALUES ((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
 			@calle, @numero_calle, @piso, @depto, @codigo_postal)
-		INSERT INTO MATE_LAVADO.dbo.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.dbo.Usuarios WHERE username like @username), 2)
+		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 2)
 		COMMIT TRANSACTION
 	END
 	ELSE
@@ -639,18 +640,18 @@ CREATE PROCEDURE MATE_LAVADO.agregarEspectaculo_sp(
 )
 AS
 BEGIN
-	IF (CONVERT(DATETIME, @fecha, 120) <  CONVERT(DATETIME, @fecha_creacion, 120))
+	IF (CONVERT(DATETIME, @fecha, 121) <  CONVERT(DATETIME, @fecha_creacion, 121))
 		BEGIN
 		RAISERROR('La fecha del evento no puede ser anterior a la fecha actual', 16, 1)
 		END
 
-	IF EXISTS (SELECT * FROM MATE_LAVADO.Espectaculos WHERE fecha_evento =  CONVERT(DATETIME, @fecha, 120) AND @id_publicacion = id_publicacion)
+	IF EXISTS (SELECT * FROM MATE_LAVADO.Espectaculos WHERE fecha_evento =  CONVERT(DATETIME, @fecha, 121) AND @id_publicacion = id_publicacion)
 		BEGIN
 		RAISERROR('No pueden existir dos funciones para una publicacion con la misma fecha', 16, 1)
 		END
 
 	INSERT INTO MATE_LAVADO.Espectaculos(id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
-	VALUES(@id_publicacion,  CONVERT(DATETIME, @fecha_creacion, 120),  CONVERT(DATETIME, @fecha, 120), @estado_publicacion)
+	VALUES(@id_publicacion,  CONVERT(DATETIME, @fecha_creacion, 121),  CONVERT(DATETIME, @fecha, 121), @estado_publicacion)
 
 	SELECT MAX(id_espectaculo) AS id_espectaculo FROM MATE_LAVADO.Espectaculos
 END

@@ -97,9 +97,9 @@ namespace PalcoNet.Abm_Cliente
 
                 String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
                                 + "', '" + clienteModificado.Mail + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
-                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "', '" + clienteModificado.TipoDocumento + "'";
+                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "'";
 
-                servidor.realizarQuery("EXEC modificarCliente_sp " + query);
+                servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
                 this.cerrarAnteriores();
             }
