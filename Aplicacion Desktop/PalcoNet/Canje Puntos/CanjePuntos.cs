@@ -14,8 +14,7 @@ namespace PalcoNet.Canje_Puntos
 {
     public partial class CanjePuntos : MiForm
     {
-        Cliente cliente = new Cliente();
-        Sesion sesion = Sesion.getInstance();
+        Cliente cliente;
         Servidor servidor = Servidor.getInstance();
         int puntosOriginales;
         int puntosAcumulados = 0;
@@ -50,25 +49,22 @@ namespace PalcoNet.Canje_Puntos
         {
             InitializeComponent();
 
+            this.Cliente = Sesion.getInstance().traerCliente();
+            Console.WriteLine("LLEGA A CREAR EL CLIENTE: " + this.Cliente.Nombre);
+
             //Se verifica que el usuario actual se un cliente
             if (Sesion.getInstance().rol.Nombre == "Cliente")
             {
-                this.Cliente.NombreUsuario = sesion.usuario.NombreUsuario;
-
                 //Aca traemos los puntos que tiene el usuario actual y los mostramos en el textBox
                 //Y  traemos una lista de todos los premios de la base, los guardamos en la lista premios y 
                 //los mostramos en el checkedListBox
 
-                SqlDataReader reader = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha + "' ");
-                while (reader.Read())
-                {
-                    puntosOriginales = Convert.ToInt32(reader["cantidad_puntos"]);
-                    textBoxPuntos.Text = puntosOriginales.ToString();
+                Console.WriteLine("LLEGA A ACA CON PUNTOS: " + cliente.Puntos);
+                    puntosOriginales = this.Cliente.Puntos;
+                    textBoxPuntos.Text = this.Cliente.Puntos.ToString();
+                    Console.WriteLine("PASA ESA PARTE");
 
-                }
-                reader.Close();
-
-                reader = servidor.query("EXEC dbo.getPremios_sp");
+                SqlDataReader reader = servidor.query("EXEC dbo.getPremios_sp");
                 while (reader.Read())
                 {
                     Premio p = new Premio();
@@ -99,7 +95,7 @@ namespace PalcoNet.Canje_Puntos
 
             if (this.puntosOriginales >= this.PuntosAcumulados)
             {
-                servidor.realizarQuery("EXEC borrarPuntos_sp '" + this.PuntosAcumulados + "', '" + sesion.usuario.NombreUsuario + "'");
+                servidor.realizarQuery("EXEC borrarPuntos_sp '" + this.PuntosAcumulados + "', '" + Sesion.getInstance().usuario.NombreUsuario + "'");
                 this.Cliente.Puntos = this.PuntosOriginales - this.PuntosAcumulados;
                 List<Premio> premiosSeleccionados = new List<Premio>();
                 foreach (int index in this.checkedListBoxPremios.SelectedIndices)
