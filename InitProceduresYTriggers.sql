@@ -58,7 +58,7 @@ DROP TRIGGER rolInhabilitado_tr
 DROP TRIGGER insertarNuevaCompra
 DROP TRIGGER finalizarEspectaculoAgotado_tg
 
-DROP FUNCTION getCantidadEntradasPublicacion
+DROP FUNCTION getCantidadEntradasEspectaculo
 DROP FUNCTION getCantidadEntradasVendidas
 GO
 -----CREAR PROCEDURES-----
@@ -91,7 +91,7 @@ BEGIN
 			UPDATE Usuarios
 			SET intentos_fallidos = (SELECT intentos_fallidos FROM Usuarios WHERE username = @usuario) + 1
 			WHERE username = @usuario;
-			RAISERROR('Contraseña invalida', 16, 1)
+			RAISERROR('Contraseï¿½a invalida', 16, 1)
 		END
 		ELSE --tiene 3 intentos fallidos
 			BEGIN
@@ -454,8 +454,10 @@ CREATE PROCEDURE registrarCompra_sp
 @fecha VARCHAR(30)
 AS
 BEGIN
-	INSERT INTO Compras(id_medio_de_pago, id_factura, fecha, importe)
-	VALUES(@id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT Compras ON
+	INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
+	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT Compras OFF
 END
 go
 
@@ -653,29 +655,6 @@ BEGIN
 END
 GO
 
------agregarUbicaciones-----
-CREATE PROCEDURE agregarUbicaciones_sp(
-@tipo_ubicacion NVARCHAR(20),
-@cantidad INT,
-@filas INT,
-@precio NUMERIC(18)
-)
-AS
-BEGIN
-	
-	CREATE TABLE #UbicacionesInsertadas(
-	id_ubicacion INT)
- 	IF(@filas > 0) -- Caso numerado
-	BEGIN
-		EXEC agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
-	END
-	ELSE
-	BEGIN
-		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
-	END
- 	DROP TABLE #UbicacionesInsertadas
-END
-GO
 
 -----agregarUbicacionNumerada-----
 CREATE PROCEDURE agregarUbicacionNumerada_sp(
@@ -753,6 +732,31 @@ BEGIN
 	END
 
 	SELECT * FROM #UbicacionesInsertadas
+END
+GO
+
+
+-----agregarUbicaciones-----
+CREATE PROCEDURE agregarUbicaciones_sp(
+@tipo_ubicacion NVARCHAR(20),
+@cantidad INT,
+@filas INT,
+@precio NUMERIC(18)
+)
+AS
+BEGIN
+	
+	CREATE TABLE #UbicacionesInsertadas(
+	id_ubicacion INT)
+ 	IF(@filas > 0) -- Caso numerado
+	BEGIN
+		EXEC agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
+	END
+	ELSE
+	BEGIN
+		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
+	END
+ 	DROP TABLE #UbicacionesInsertadas
 END
 GO
 
@@ -857,11 +861,12 @@ BEGIN
 	
 	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM Clientes c
 	JOIN Puntos p ON(p.id_cliente = c.id_cliente)
-	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 127) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
+	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 121) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 121) AND CONVERT(DATETIME, @fecha_fin, 121))
 	GROUP BY nombre, apellido
 	ORDER BY SUM(cantidad_puntos) DESC
 END
 GO
+
 
 -----top5ClientesComprasParaUnaEmpresa----
 CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
@@ -879,11 +884,12 @@ BEGIN
 	JOIN Publicaciones p ON (p.id_publicacion = e.id_publicacion)
 	JOIN Empresas ee ON(p.id_empresa = ee.id_empresa)
 
-	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 127) AND fecha < CONVERT(DATETIME, @fecha_fin, 127)  AND ee.razon_social = @razon_social
+	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 121) AND fecha < CONVERT(DATETIME, @fecha_fin, 121)  AND ee.razon_social = @razon_social
 	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
 	ORDER BY COUNT(id_ubicacion) DESC
 END
 GO
+
 
 -----top5LocalidadesNoVendidasEmpresa-----
 CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
@@ -899,11 +905,13 @@ BEGIN
 	JOIN Empresas emp ON(emp.id_empresa = p.id_empresa)
 	WHERE uxe.id_compra IS NULL
 		AND gp.nombre = @grado
-		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 127) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 127)
+		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 121) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 121)
 	GROUP BY razon_social, cuit, p.id_publicacion, fecha_evento, comision
 	ORDER BY fecha_evento ASC, comision DESC
 END
 GO
+
+
 
 -----agregarFactura-----
 create procedure agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
@@ -1025,6 +1033,7 @@ BEGIN
 END
 GO
 
+
 -----finalizarEspectaculo-----
 CREATE TRIGGER finalizarEspectaculoAgotado_tg
 ON Compras
@@ -1034,27 +1043,30 @@ BEGIN
 	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM Espectaculos e
 								JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
 								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
-	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
-	IF (dbo.getCantidadEntradasPublicacion(@id_publicacion) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
+	--DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	IF (dbo.getCantidadEntradasEspectaculo(@id_espectaculo) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
 	BEGIN
 		UPDATE Espectaculos
-		SET estado_espectaculo = 'Finalizado'
+		SET estado_espectaculo = 'Finalizada'
+		WHERE id_espectaculo = @id_espectaculo
 	END
 END
 GO
 
+
 ----------FUNCIONES----------
 
 -----getCantidadEntradasPublicacion-----
-CREATE FUNCTION getCantidadEntradasPublicacion(@id_publicacion INT)
+CREATE FUNCTION getCantidadEntradasEspectaculo(@id_espectaculo INT)
 RETURNS INT
 AS
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
 			JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
-			WHERE e.id_publicacion = @id_publicacion)
+			WHERE e.id_espectaculo = @id_espectaculo)
 END
 GO
+
 
 -----getCantidadEntradasVendidas-----
 CREATE FUNCTION getCantidadEntradasVendidas(@id_espectaculo INT)
@@ -1123,3 +1135,4 @@ BEGIN
 	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
 	GROUP BY asiento
 END
+GO
