@@ -13,6 +13,13 @@ namespace PalcoNet.Dominio
         long cuit;
         DateTime fechaDeCreacion;
         int telefono;
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public int Telefono
         {

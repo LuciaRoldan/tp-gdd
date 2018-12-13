@@ -42,6 +42,11 @@ namespace PalcoNet.Generar_Publicacion
             else {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
                 "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
+                textBoxDescripcion.Enabled = false;
+                comboBoxRubro.Enabled = false;
+                textBoxDireccion.Enabled = false;
+                comboBoxGrado.Enabled = false;
+                comboBoxEstado.Enabled = false;
             }
         }
         //verificamos que esten todos los campos necesarios completos

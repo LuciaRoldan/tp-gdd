@@ -43,25 +43,20 @@ namespace PalcoNet.Abm_Grado
             InitializeComponent();
             if (sesion.rol.Nombre == "Empresa") {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-                //Aca habria que buscar las publicaciones en la base y asegurarnos que tengan su grado
-                //Hay que guardar las publicaciones de la empresa y guardarlas en publicaciones
-                //Se puede cambiar el grado de cualquier publicacion o solo de las que no tienen uno seleccionado?
                 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
                 List<Publicacion> publicaciones = new List<Publicacion>();
                 //19-67139304-09
-                Console.WriteLine("--------------------------------");
                 while (reader.Read())
                 {
                     Publicacion publicacion = new Publicacion();
                     publicacion.Id = Convert.ToInt16(reader["id_publicacion"]);
                     publicacion.Descripcion = reader["descripcion"].ToString();
-                    publicacion.Direccion = reader["direccion"].ToString();
+                    publicacion.GradoDePublicacion = reader["grado"].ToString();
                     checkedListBoxPublicaciones.Items.Add(publicacion.Descripcion);
                     this.Publicaciones.Add(publicacion);
                 }
                 reader.Close();
-                Console.WriteLine("-------------------------------- Leimos");
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 buttonAceptar.Enabled = false;

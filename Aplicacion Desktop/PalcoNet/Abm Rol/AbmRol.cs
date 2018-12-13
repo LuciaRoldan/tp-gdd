@@ -43,7 +43,7 @@ namespace PalcoNet.Abm_Rol
         {
             InitializeComponent();
   
-                SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM Funcionalidades");
+                SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Funcionalidades");
 
                 while (reader.Read())
                 {
@@ -55,7 +55,7 @@ namespace PalcoNet.Abm_Rol
 
                 //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
 
-                reader = servidor.query("SELECT DISTINCT nombre FROM Roles");
+                reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
 
                 while (reader.Read())
                 {
