@@ -862,11 +862,12 @@ BEGIN
 	
 	SELECT TOP 5 nombre, apellido, SUM(cantidad_puntos) 'Puntos Vencidos' FROM Clientes c
 	JOIN Puntos p ON(p.id_cliente = c.id_cliente)
-	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 127) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 127) AND CONVERT(DATETIME, @fecha_fin, 127))
+	WHERE fecha_vencimiento < CONVERT(DATETIME, @fecha_actual, 121) AND (fecha_vencimiento BETWEEN CONVERT(DATETIME, @fecha_inicio, 121) AND CONVERT(DATETIME, @fecha_fin, 121))
 	GROUP BY nombre, apellido
 	ORDER BY SUM(cantidad_puntos) DESC
 END
 GO
+
 
 -----top5ClientesComprasParaUnaEmpresa----
 CREATE PROCEDURE top5ClienteComprasParaUnaEmpresa_sp
@@ -884,11 +885,12 @@ BEGIN
 	JOIN Publicaciones p ON (p.id_publicacion = e.id_publicacion)
 	JOIN Empresas ee ON(p.id_empresa = ee.id_empresa)
 
-	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 127) AND fecha < CONVERT(DATETIME, @fecha_fin, 127)  AND ee.razon_social = @razon_social
+	WHERE c.fecha > CONVERT(DATETIME, @fecha_inicio, 121) AND fecha < CONVERT(DATETIME, @fecha_fin, 121)  AND ee.razon_social = @razon_social
 	GROUP BY ee.id_empresa, razon_social, nombre, apellido, documento
 	ORDER BY COUNT(id_ubicacion) DESC
 END
 GO
+
 
 -----top5LocalidadesNoVendidasEmpresa-----
 CREATE PROCEDURE top5EmpresasLocalidadesNoVendidas_sp
@@ -904,11 +906,13 @@ BEGIN
 	JOIN Empresas emp ON(emp.id_empresa = p.id_empresa)
 	WHERE uxe.id_compra IS NULL
 		AND gp.nombre = @grado
-		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 127) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 127)
+		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 121) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 121)
 	GROUP BY razon_social, cuit, p.id_publicacion, fecha_evento, comision
 	ORDER BY fecha_evento ASC, comision DESC
 END
 GO
+
+
 
 -----agregarFactura-----
 create procedure agregarFactura_sp (@razonSocial NVARCHAR(255), @total NUMERIC(18,2)) as begin
