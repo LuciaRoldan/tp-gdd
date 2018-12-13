@@ -245,7 +245,7 @@ namespace PalcoNet.Editar_Publicacion
 
                 foreach (DateTime f in this.PublicacionElegida.Fechas)
                 {
-                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f + "', '" + this.PublicacionElegida.EstadoDePublicacion + "'";
+                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + Sesion.getInstance().fecha.ToString() + "'";
                     SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
 
                     readerEspectaculo.Read();

@@ -46,6 +46,7 @@ namespace PalcoNet
                 empresa.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                 empresa.Mail = reader["mail"].ToString();
                 empresa.RazonSocial = reader["razon_social"].ToString();
+                empresa.Id = int.Parse(reader["id_empresa"].ToString());
 
                 //Falta traer telefono, localidad y ciudad?
             }

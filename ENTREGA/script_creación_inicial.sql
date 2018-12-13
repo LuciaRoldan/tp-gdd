@@ -1,3 +1,7 @@
+use GD2C2018
+
+begin transaction
+go
 CREATE SCHEMA MATE_LAVADO
 GO
 ---------------CREACION DE TABLAS---------------
@@ -315,7 +319,7 @@ VALUES
 
 INSERT INTO MATE_LAVADO.Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
 			direccion)
-SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL
+SELECT DISTINCT e.id_empresa, 3, 1, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 
@@ -841,9 +845,10 @@ CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT id_publicacion, descripcion, direccion FROM MATE_LAVADO.Publicaciones p
+	SELECT id_publicacion, descripcion, direccion, g.nombre grado FROM MATE_LAVADO.Publicaciones p
 	JOIN MATE_LAVADO.Empresas e ON(e.id_empresa = p.id_empresa)
 	JOIN MATE_LAVADO.Usuarios u ON (e.id_usuario = u.id_usuario)
+	JOIN MATE_LAVADO.Grados_publicacion g ON (p.id_grado_publicacion = g.id_grado_publicacion)
 	WHERE username = @usuario
 END
 GO
@@ -1017,16 +1022,16 @@ BEGIN
 END
 GO
 
------agregarUbicaciones-----
+-----agregarUbicaciones----- 
 CREATE PROCEDURE MATE_LAVADO.agregarUbicaciones_sp(
 @tipo_ubicacion NVARCHAR(20),
 @cantidad INT,
 @filas INT,
 @precio NUMERIC(18)
-)
+) 
 AS
 BEGIN
-	
+	drop trigger
 	CREATE TABLE #UbicacionesInsertadas(
 	id_ubicacion INT)
  	IF(@filas > 0) -- Caso numerado
@@ -1056,8 +1061,7 @@ BEGIN
 
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
-			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values (
-			(SELECT MAX(id_tipo_ubicacion)+1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
+			INSERT INTO MATE_LAVADO.TiposDeUbicacion (descripcion) values (@tipo_ubicacion)
 		END
 
 	WHILE(@contador_filas < @filas)
@@ -1101,8 +1105,7 @@ BEGIN
 
 		IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
-			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values(
-			(SELECT MAX(id_tipo_ubicacion) + 1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
+			INSERT INTO MATE_LAVADO.TiposDeUbicacion(descripcion) values(@tipo_ubicacion)
 		END
 
 		INSERT INTO MATE_LAVADO.Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
@@ -1494,3 +1497,4 @@ BEGIN
 	GROUP BY asiento
 END
 GO
+commit transaction
