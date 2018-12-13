@@ -58,7 +58,7 @@ DROP TRIGGER rolInhabilitado_tr
 DROP TRIGGER insertarNuevaCompra
 DROP TRIGGER finalizarEspectaculoAgotado_tg
 
-DROP FUNCTION getCantidadEntradasPublicacion
+DROP FUNCTION getCantidadEntradasEspectaculo
 DROP FUNCTION getCantidadEntradasVendidas
 GO
 -----CREAR PROCEDURES-----
@@ -449,13 +449,16 @@ GO
 
 -----registrarCompra-----
 CREATE PROCEDURE registrarCompra_sp
+@id_cliente INT,
 @id_medio_de_pago INT,
 @importe BIGINT,
 @fecha VARCHAR(30)
 AS
 BEGIN
-	INSERT INTO Compras(id_medio_de_pago, id_factura, fecha, importe)
-	VALUES(@id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT Compras ON
+	INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
+	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	SET IDENTITY_INSERT Compras OFF
 END
 go
 
@@ -653,29 +656,6 @@ BEGIN
 END
 GO
 
------agregarUbicaciones-----
-CREATE PROCEDURE agregarUbicaciones_sp(
-@tipo_ubicacion NVARCHAR(20),
-@cantidad INT,
-@filas INT,
-@precio NUMERIC(18)
-)
-AS
-BEGIN
-	
-	CREATE TABLE #UbicacionesInsertadas(
-	id_ubicacion INT)
- 	IF(@filas > 0) -- Caso numerado
-	BEGIN
-		EXEC agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
-	END
-	ELSE
-	BEGIN
-		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
-	END
- 	DROP TABLE #UbicacionesInsertadas
-END
-GO
 
 -----agregarUbicacionNumerada-----
 CREATE PROCEDURE agregarUbicacionNumerada_sp(
@@ -753,6 +733,31 @@ BEGIN
 	END
 
 	SELECT * FROM #UbicacionesInsertadas
+END
+GO
+
+
+-----agregarUbicaciones-----
+CREATE PROCEDURE agregarUbicaciones_sp(
+@tipo_ubicacion NVARCHAR(20),
+@cantidad INT,
+@filas INT,
+@precio NUMERIC(18)
+)
+AS
+BEGIN
+	
+	CREATE TABLE #UbicacionesInsertadas(
+	id_ubicacion INT)
+ 	IF(@filas > 0) -- Caso numerado
+	BEGIN
+		EXEC agregarUbicacionNumerada_sp @tipo_ubicacion, @cantidad, @filas, @precio
+	END
+	ELSE
+	BEGIN
+		EXEC agregarUbicacionSinNumerar_sp @tipo_ubicacion, @cantidad, @precio
+	END
+ 	DROP TABLE #UbicacionesInsertadas
 END
 GO
 
@@ -1025,6 +1030,8 @@ BEGIN
 END
 GO
 
+drop trigger insertarNuevaCompra
+
 -----finalizarEspectaculo-----
 CREATE TRIGGER finalizarEspectaculoAgotado_tg
 ON Compras
@@ -1034,27 +1041,30 @@ BEGIN
 	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM Espectaculos e
 								JOIN UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
 								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
-	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
-	IF (dbo.getCantidadEntradasPublicacion(@id_publicacion) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
+	--DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	IF (dbo.getCantidadEntradasEspectaculo(@id_espectaculo) = dbo.getCantidadEntradasVendidas(@id_espectaculo))
 	BEGIN
 		UPDATE Espectaculos
-		SET estado_espectaculo = 'Finalizado'
+		SET estado_espectaculo = 'Finalizada'
+		WHERE id_espectaculo = @id_espectaculo
 	END
 END
 GO
 
+
 ----------FUNCIONES----------
 
 -----getCantidadEntradasPublicacion-----
-CREATE FUNCTION getCantidadEntradasPublicacion(@id_publicacion INT)
+CREATE FUNCTION getCantidadEntradasEspectaculo(@id_espectaculo INT)
 RETURNS INT
 AS
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM UbicacionXEspectaculo uxe
 			JOIN Espectaculos e ON(e.id_espectaculo = uxe.id_espectaculo)
-			WHERE e.id_publicacion = @id_publicacion)
+			WHERE e.id_espectaculo = @id_espectaculo)
 END
 GO
+
 
 -----getCantidadEntradasVendidas-----
 CREATE FUNCTION getCantidadEntradasVendidas(@id_espectaculo INT)
@@ -1123,3 +1133,4 @@ BEGIN
 	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
 	GROUP BY asiento
 END
+GO
