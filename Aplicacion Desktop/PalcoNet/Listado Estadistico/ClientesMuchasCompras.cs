@@ -64,7 +64,7 @@ namespace PalcoNet.Listado_Estadistico
             //Se busca en la base los clientes y se los muestra en la tabla
             if (comboBox1.SelectedIndex > -1)
             {
-                SqlDataReader reader = servidor.query("EXEC dbo.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + termina.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+                SqlDataReader reader = servidor.query("EXEC dbo.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + termina.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
                 List<CompraCliente> comprasClientes = new List<CompraCliente>();
 
                 while (reader.Read())

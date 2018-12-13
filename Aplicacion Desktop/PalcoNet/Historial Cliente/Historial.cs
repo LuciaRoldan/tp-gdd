@@ -33,7 +33,7 @@ namespace PalcoNet.Historial_Cliente
         public Historial(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-
+            //Verificamos que sea cliente ya que esta funcionalidad es solo apta para ellos
             if (Sesion.getInstance().rol.Nombre == "Cliente")
             {
                 this.Cliente = Sesion.getInstance().traerCliente();
@@ -49,6 +49,7 @@ namespace PalcoNet.Historial_Cliente
             List<ElementoHistorialCliente> historial = new List<ElementoHistorialCliente>();
 
             if (paraAdelante) { this.Offset++; } else { this.Offset--; }
+            //Traemos toda la información sobre las compras efectuadas por el cliente
 
             if (this.Offset >= 0)
             {
@@ -76,7 +77,8 @@ namespace PalcoNet.Historial_Cliente
                 var source = new BindingSource(bindingList, null);
                 tabla.DataSource = source;
             }
-            
+            //Las cargamos en la lista y la configuramos para que pueda ser paginada dependiendo de la cantidad
+            // de compras que haya hecho el cliente
             
         }
 

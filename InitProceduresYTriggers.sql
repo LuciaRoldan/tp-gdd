@@ -92,7 +92,7 @@ BEGIN
 			UPDATE MATE_LAVADO.Usuarios
 			SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
 			WHERE username = @usuario;
-			RAISERROR('Contraseña invalida', 16, 1)
+			RAISERROR('Contraseï¿½a invalida', 16, 1)
 		END
 		ELSE --tiene 3 intentos fallidos
 			BEGIN
@@ -456,7 +456,7 @@ CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 AS
 BEGIN
 	SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-	INSERT INTO Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
+	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
 	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
 	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
