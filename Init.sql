@@ -1,6 +1,8 @@
 CREATE SCHEMA MATE_LAVADO
 GO
 
+--drop schema MATE_LAVADO
+
 DROP TABLE MATE_LAVADO.UsuarioXRol
 DROP TABLE MATE_LAVADO.FuncionalidadXRol
 DROP TABLE MATE_LAVADO.Roles
@@ -150,7 +152,7 @@ titular NVARCHAR(50);
 
 ALTER TABLE MATE_LAVADO.Puntos ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
-cantidad_puntos BIGINT,
+cantidad_puntos INT,
 fecha_vencimiento DATE;
 
 ALTER TABLE MATE_LAVADO.Empresas ADD
@@ -421,11 +423,19 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 
 DROP TABLE MATE_LAVADO.#ComprasTemp
 
+
+UPDATE MATE_LAVADO.Compras
+SET importe = u.precio
+FROM MATE_LAVADO.Compras c
+JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
+JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
+WHERE c.id_compra = uxe.id_compra
+
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
-SELECT DISTINCT id_cliente, 0, NULL
-FROM MATE_LAVADO.Clientes
+SELECT id_cliente, importe, DATEADD(year, 1, fecha)
+FROM MATE_LAVADO.Compras
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 

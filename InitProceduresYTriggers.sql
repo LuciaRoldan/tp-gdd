@@ -947,7 +947,7 @@ AS
 BEGIN
 DECLARE @id_publicacion INT, @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo CHAR(15) 
 DECLARE cur CURSOR FOR 
-SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM inserted
+SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM MATE_LAVADO.inserted
 DECLARE @last_id INT
 SET @last_id = (SELECT MAX(id_espectaculo) FROM MATE_LAVADO.Espectaculos) + 1
 OPEN cur
@@ -971,7 +971,7 @@ AS
 BEGIN
 DECLARE @fecha_facturacion DATETIME, @importe_total NUMERIC(18,2), @id_empresa INT 
 DECLARE cur CURSOR FOR 
-SELECT fecha_facturacion, importe_total, id_empresa FROM inserted
+SELECT fecha_facturacion, importe_total, id_empresa FROM MATE_LAVADO.inserted
 DECLARE @last_id INT
 SET @last_id = (SELECT MAX(id_factura) FROM MATE_LAVADO.Facturas) + 1
 OPEN cur
@@ -994,7 +994,7 @@ ON MATE_LAVADO.Roles
 AFTER UPDATE
 AS
 BEGIN	
-	IF((SELECT habilitado FROM MATE_LAVADO.DELETED) <> (SELECT habilitado FROM inserted))
+	IF((SELECT habilitado FROM MATE_LAVADO.DELETED) <> (SELECT habilitado FROM MATE_LAVADO.INSERTED))
 	BEGIN
 		DECLARE @id_rol_modificado INT
 		SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.DELETED)
@@ -1013,7 +1013,7 @@ AS
 BEGIN
 	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT
 	DECLARE cur CURSOR FOR 
-	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM inserted
+	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM MATE_LAVADO.inserted
 	DECLARE @last_id INT
 	SET @last_id = (SELECT MAX(id_compra) FROM MATE_LAVADO.Compras) + 1
 	OPEN cur
@@ -1022,6 +1022,10 @@ BEGIN
 		BEGIN
 		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe, id_compra)
 		VALUES (@id_cliente, @id_medio_de_pago, NULL, @fecha, @importe, @last_id)
+
+		INSERT INTO Puntos(cantidad_puntos, id_cliente, fecha_vencimiento)
+		VALUES(@importe, @id_cliente, DATEADD(year, 1, @fecha))
+
 		SET @last_id += 1
 		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
 		END
