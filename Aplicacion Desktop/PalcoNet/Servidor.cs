@@ -16,8 +16,6 @@ namespace PalcoNet
         string user = ConfigurationManager.AppSettings["username"];
         string password = ConfigurationManager.AppSettings["password"];
 
-
-
         public static Servidor server;
         private SqlConnection connection;
         private SqlDataReader reader;

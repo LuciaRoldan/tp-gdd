@@ -50,6 +50,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxAsiento = new System.Windows.Forms.TextBox();
             this.checkBoxNumerado = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxCantidad = new System.Windows.Forms.TextBox();
-            this.textBoxAsiento = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFechas)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUbicaciones)).BeginInit();
@@ -144,7 +144,6 @@
             this.comboBoxRubro.Name = "comboBoxRubro";
             this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);
             this.comboBoxRubro.TabIndex = 81;
-            this.comboBoxRubro.SelectedIndexChanged += new System.EventHandler(this.comboBoxRubro_SelectedIndexChanged);
             // 
             // comboBoxEstado
             // 
@@ -299,6 +298,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Asientos";
             // 
+            // textBoxAsiento
+            // 
+            this.textBoxAsiento.Location = new System.Drawing.Point(98, 20);
+            this.textBoxAsiento.Name = "textBoxAsiento";
+            this.textBoxAsiento.Size = new System.Drawing.Size(94, 20);
+            this.textBoxAsiento.TabIndex = 139;
+            // 
             // checkBoxNumerado
             // 
             this.checkBoxNumerado.AutoSize = true;
@@ -416,13 +422,6 @@
             this.textBoxCantidad.Name = "textBoxCantidad";
             this.textBoxCantidad.Size = new System.Drawing.Size(81, 20);
             this.textBoxCantidad.TabIndex = 134;
-            // 
-            // textBoxAsiento
-            // 
-            this.textBoxAsiento.Location = new System.Drawing.Point(98, 20);
-            this.textBoxAsiento.Name = "textBoxAsiento";
-            this.textBoxAsiento.Size = new System.Drawing.Size(94, 20);
-            this.textBoxAsiento.TabIndex = 139;
             // 
             // Editar_publicacion
             // 

@@ -145,7 +145,6 @@ namespace PalcoNet.Comprar
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();
 
-
                 while (reader.Read())
                 {
                     Publicacion publicacion = new Publicacion();

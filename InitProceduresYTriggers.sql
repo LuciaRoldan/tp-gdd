@@ -51,6 +51,7 @@ DROP PROCEDURE MATE_LAVADO.buscarPublicacionesPorEmpresa_sp
 DROP PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
 DROP PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
+DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
@@ -614,7 +615,7 @@ GO
 create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
-	'select p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
+	'select distinct p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id, p.id_grado_publicacion FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
 	JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
 	where e.estado_espectaculo = ''Publicada'''
 
@@ -842,6 +843,19 @@ create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp (@id_publicacion
 	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
 	where p.id_publicacion = 1 and e.id_compra is null
 	group by t.descripcion, sin_numerar, precio, u.id_ubicacion
+end
+GO
+
+-----buscarUbicacionesPorPublicacionEdicion-----
+create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp (@id_publicacion int) as begin
+	select t.descripcion descripcion, COUNT(DISTINCT u.id_ubicacion) asientos, COUNT(DISTINCT fila) as filas, sin_numerar, precio
+	FROM MATE_LAVADO.Ubicaciones u 
+	JOIN MATE_LAVADO.UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
+	JOIN MATE_LAVADO.TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
+	JOIN MATE_LAVADO.Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
+	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
+	where p.id_publicacion = @id_publicacion and e.id_compra is null
+	group by t.descripcion, sin_numerar, precio
 end
 GO
 

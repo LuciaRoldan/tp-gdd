@@ -91,8 +91,8 @@ namespace PalcoNet.Editar_Publicacion
             string errores = "";
             if (string.IsNullOrWhiteSpace(textBoxDescripcion.Text)) { errores += "El campo Descripción no puede estar vacío.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxDireccion.Text)) { errores += "El campo Dirección no puede estar vacío.\n"; }
-            if (comboBoxEstado.SelectedIndex > -1) { errores += "Se debe seleccionar un Estado.\n"; }
-            if (comboBoxRubro.SelectedIndex > -1) { errores += "Se debe seleccionar un Rubro.\n"; }
+            if (comboBoxEstado.SelectedIndex < -1) { errores += "Se debe seleccionar un Estado.\n"; }
+            if (comboBoxRubro.SelectedIndex < -1) { errores += "Se debe seleccionar un Rubro.\n"; }
             if (dataGridViewFechas.Rows.Count < 1) { errores += "Debe haber por lo menos una Fecha.\n"; }
             if (dataGridViewUbicaciones.Rows.Count < 1) { errores += "Debe haber por lo menos una Ubicación.\n"; }
 
@@ -131,7 +131,7 @@ namespace PalcoNet.Editar_Publicacion
                 }
                 this.actualizarFechas();
 
-                SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacion_sp " + this.PublicacionElegida.Id);
+                SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp " + this.PublicacionElegida.Id);
 
                 while (reader2.Read())
                 {
@@ -143,13 +143,28 @@ namespace PalcoNet.Editar_Publicacion
                     ubicacion.TipoAsiento = reader2["descripcion"].ToString();
                     this.PublicacionElegida.Ubicaciones.Add(ubicacion);
                 }
+                reader2.Close();
+
                 this.actualizarUbicaciones();
+                this.cargarRubros();
+
                 button2.Enabled = true;
                 button3.Enabled = true;
                 button5.Enabled = true;
             } else {
                 MessageBox.Show("Se debe sleccionar alguna publicación", "Error", MessageBoxButtons.OK);
             } 
+        }
+
+        private void cargarRubros()
+        {
+            SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.getRubros_sp");
+
+            while (reader.Read())
+            {
+                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+            }
+            reader.Close();
         }
 
         public void actualizarFechas() {
@@ -245,7 +260,7 @@ namespace PalcoNet.Editar_Publicacion
 
                 foreach (DateTime f in this.PublicacionElegida.Fechas)
                 {
-                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.PublicacionElegida.EstadoDePublicacion + "'";
+                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
                     SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
 
                     readerEspectaculo.Read();
@@ -316,11 +331,6 @@ namespace PalcoNet.Editar_Publicacion
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
-        }
-
-        private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.HayCambios = true;
         }
 
         private void textBoxDireccion_TextChanged(object sender, EventArgs e)

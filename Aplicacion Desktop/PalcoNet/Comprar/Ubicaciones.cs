@@ -48,8 +48,6 @@ namespace PalcoNet.Comprar
                 Ubicacion u = new Ubicacion();
                 u.Numerada = ! bool.Parse(reader["sin_numerar"].ToString());
                 u.CantidadAsientos = int.Parse(reader["asientos"].ToString());
-                Console.WriteLine("*******");
-                Console.WriteLine(u.CantidadAsientos = int.Parse(reader["asientos"].ToString()));
                 if (u.Numerada) { u.CantidadFilas = int.Parse(reader["filas"].ToString()); }
                 u.Precio = decimal.Parse(reader["precio"].ToString());
                 u.Id = int.Parse(reader["id_ubicacion"].ToString());
