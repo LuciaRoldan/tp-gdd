@@ -1195,14 +1195,14 @@ GO
 
 -----buscarUbicacionesPorPublicacion-----
 create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
-	select t.descripcion descripcion, count(distinct asiento)*count(distinct fila) asientos, sin_numerar, precio, count(distinct fila) filas, u.id_ubicacion
+	select t.descripcion descripcion, count(*) asientos, sin_numerar, precio, count(distinct fila) filas, MIN(u.id_ubicacion) as id_ubicacion
 	FROM MATE_LAVADO.Ubicaciones u 
 	JOIN MATE_LAVADO.UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
 	JOIN MATE_LAVADO.TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
 	JOIN MATE_LAVADO.Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
 	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
 	where p.id_publicacion = @id_publicacion and e.id_compra is null
-	group by t.descripcion, sin_numerar, precio, u.id_ubicacion
+	group by t.descripcion, sin_numerar, precio
 end
 GO
 
