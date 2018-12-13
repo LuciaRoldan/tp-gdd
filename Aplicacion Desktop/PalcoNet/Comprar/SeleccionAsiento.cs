@@ -49,7 +49,7 @@ namespace PalcoNet.Comprar
             Servidor servidor = Servidor.getInstance();
             //Aca hay que buscar en la base todas las filas que tienen asientos disponibles para la publicacion seleccionada
 
-            SqlDataReader reader = servidor.query("EXEC dbo.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
 
             while (reader.Read())
             {
@@ -70,7 +70,7 @@ namespace PalcoNet.Comprar
             comboBoxAsiento.ResetText();
             //Aca hay que buscar en la base todas los asientos disponibles para la fila seleccionada de la publicacion seleccionada
 
-            SqlDataReader reader = Servidor.getInstance().query("EXEC dbo.asientosDisponiblesSegunEspectaculoYFila_sp " + this.compra.Espectaculo.Id + ", '" + filaSeleccionada + "', " + this.ubicacion.Precio);
+            SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp " + this.compra.Espectaculo.Id + ", '" + filaSeleccionada + "', " + this.ubicacion.Precio);
 
             while (reader.Read())
             {

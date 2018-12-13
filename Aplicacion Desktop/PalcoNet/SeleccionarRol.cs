@@ -20,7 +20,7 @@ namespace PalcoNet
             //Se traen los roles que tiene el usuario y se le da a elegir cual quiere utilizar
             InitializeComponent();
             
-            SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
             while (reader.Read())
             {

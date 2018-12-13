@@ -63,7 +63,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
                 String query = (empresa.Cuit == 0 ? "" : empresa.Cuit.ToString()) + "', '" + empresa.RazonSocial + "', '" + empresa.Mail + "'";
 
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarEmpresaPorCriterio_sp '" + query );
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEmpresaPorCriterio_sp '" + query );
                 Console.WriteLine(query);
                 while (reader.Read())
                 {

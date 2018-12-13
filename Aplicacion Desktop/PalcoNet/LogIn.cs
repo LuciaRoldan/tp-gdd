@@ -57,7 +57,7 @@ namespace PalcoNet
             }
             try
             {
-                SqlDataReader r = servidor.query("EXEC verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
+                SqlDataReader r = servidor.query("EXEC MATE_LAVADO.verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
                 while (r.Read())
                 {
@@ -77,7 +77,7 @@ namespace PalcoNet
                 List<Rol> roles = new List<Rol>();
 
                
-                SqlDataReader reader = servidor.query("EXEC dbo.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
 
                 while (reader.Read())

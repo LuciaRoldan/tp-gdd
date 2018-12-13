@@ -33,9 +33,9 @@ namespace PalcoNet
             Empresa empresa = new Empresa();
             
             Servidor servidor = Servidor.getInstance();
-            SqlDataReader reader = servidor.query("EXEC buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
             
-            Console.WriteLine("EXEC buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
+            Console.WriteLine("EXEC MATE_LAVADO.buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
             while (reader.Read())
             {
                 empresa.Calle = reader["calle"].ToString();
@@ -58,7 +58,7 @@ namespace PalcoNet
             Cliente cliente = new Cliente();
 
             Servidor servidor = Servidor.getInstance();
-            SqlDataReader reader = servidor.query("EXEC buscarClientePorUsername_sp '" + this.usuario.NombreUsuario + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarClientePorUsername_sp '" + this.usuario.NombreUsuario + "'");
 
             while (reader.Read())
             {
@@ -79,7 +79,7 @@ namespace PalcoNet
                 cliente.Id = int.Parse(reader["id_cliente"].ToString());
             }
 
-            SqlDataReader reader2 = servidor.query("EXEC dbo.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "' ");
+            SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.getPuntos_sp '" + sesion.usuario.NombreUsuario + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "' ");
 
             reader2.Read();
             cliente.Puntos = Convert.ToInt32(reader2["cantidad_puntos"]);

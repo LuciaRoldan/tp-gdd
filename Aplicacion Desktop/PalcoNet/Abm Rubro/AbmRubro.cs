@@ -41,7 +41,7 @@ namespace PalcoNet.Abm_Rubro
             //Acá se buscaría una publicación particular, a la cual luego se le modificaría el rubro/categoría
             publicacion.Id = Convert.ToInt16(textBox3.Text);
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getRubrosDePublicacion_sp " + publicacion.Id);
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubrosDePublicacion_sp " + publicacion.Id);
 
             while (reader.Read())
             {

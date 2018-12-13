@@ -57,7 +57,7 @@ namespace PalcoNet.Comprar
 
                 this.Cliente = sesion.traerCliente();
 
-                SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
 
                 while (reader.Read())
                 {
@@ -142,7 +142,7 @@ namespace PalcoNet.Comprar
 
                 String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
 
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorCriterio_sp " + query);
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
                 List<Publicacion> resultados = new List<Publicacion>();
 
 

@@ -30,7 +30,7 @@ namespace PalcoNet.Generar_Publicacion
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 
-                SqlDataReader reader = servidor.query("EXEC dbo.getRubros_sp");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
                 
                 while (reader.Read())
                 {

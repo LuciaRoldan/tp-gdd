@@ -82,7 +82,7 @@ namespace PalcoNet.Abm_Cliente
                 String query = cliente.Nombre + "', '" + cliente.Apellido + "', " + (cliente.NumeroDeDocumento == 0 ? "''" : cliente.NumeroDeDocumento.ToString()) +
                                 ", '" + cliente.Mail + "'";
 
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarUsuarioPorCriterio_sp '" + query);
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUsuarioPorCriterio_sp '" + query);
                 Console.WriteLine(query);
                 while (reader.Read())
                 {

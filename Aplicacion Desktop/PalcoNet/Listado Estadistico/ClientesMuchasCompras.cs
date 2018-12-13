@@ -25,7 +25,7 @@ namespace PalcoNet.Listado_Estadistico
             termina = fin;
 
             //Se traen todas las razones sociales de las empresas existentes y se las agrega al combobox
-            SqlDataReader reader = servidor.query("exec traerTodasRazonesSociales_sp");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.traerTodasRazonesSociales_sp");
 
             while (reader.Read())
             {
@@ -64,7 +64,7 @@ namespace PalcoNet.Listado_Estadistico
             //Se busca en la base los clientes y se los muestra en la tabla
             if (comboBox1.SelectedIndex > -1)
             {
-                SqlDataReader reader = servidor.query("EXEC dbo.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + termina.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.top5ClienteComprasParaUnaEmpresa_sp '" + comboBox1.Text.ToString() + "', '" + empieza.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + termina.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
                 List<CompraCliente> comprasClientes = new List<CompraCliente>();
 
                 while (reader.Read())

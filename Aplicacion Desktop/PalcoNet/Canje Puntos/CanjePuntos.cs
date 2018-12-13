@@ -64,7 +64,7 @@ namespace PalcoNet.Canje_Puntos
                     textBoxPuntos.Text = this.Cliente.Puntos.ToString();
                     Console.WriteLine("PASA ESA PARTE");
 
-                SqlDataReader reader = servidor.query("EXEC dbo.getPremios_sp");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
                 while (reader.Read())
                 {
                     Premio p = new Premio();

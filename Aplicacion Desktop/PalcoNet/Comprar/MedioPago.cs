@@ -126,7 +126,7 @@ namespace PalcoNet.Comprar
             tarjetas.Clear();
             
             Servidor servidor = Servidor.getInstance();
-            SqlDataReader reader = servidor.query("exec getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
+            SqlDataReader reader = servidor.query("exec MATE_LAVADO.getMediosDePago_sp " + Sesion.getInstance().traerCliente().Id);
             
             while (reader.Read())
             {

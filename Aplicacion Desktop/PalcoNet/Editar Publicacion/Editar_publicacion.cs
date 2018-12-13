@@ -46,7 +46,7 @@ namespace PalcoNet.Editar_Publicacion
                 Servidor servidor = Servidor.getInstance();
                 //Aca buscamos en la base todas las publicaciones de la empresa y las guardamos en la lista de arriba
 
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
 
                 while (reader.Read()) {
                     Publicacion publicacion = new Publicacion();
@@ -122,7 +122,7 @@ namespace PalcoNet.Editar_Publicacion
                 comboBoxRubro.Text = publicacionElegida.Rubro;
                 comboBoxEstado.Text = publicacionElegida.EstadoDePublicacion;
                 Servidor servidor = Servidor.getInstance();
-                SqlDataReader reader = servidor.query("EXEC dbo.buscarEspectaculosPorPublicacion_sp " + this.PublicacionElegida.Id);
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEspectaculosPorPublicacion_sp " + this.PublicacionElegida.Id);
 
                 while (reader.Read())
                 {
@@ -131,7 +131,7 @@ namespace PalcoNet.Editar_Publicacion
                 }
                 this.actualizarFechas();
 
-                SqlDataReader reader2 = servidor.query("EXEC dbo.buscarUbicacionesPorPublicacion_sp " + this.PublicacionElegida.Id);
+                SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacion_sp " + this.PublicacionElegida.Id);
 
                 while (reader2.Read())
                 {
@@ -235,18 +235,18 @@ namespace PalcoNet.Editar_Publicacion
                 this.PublicacionElegida.Ubicaciones = ubicaciones;
 
                 Servidor servidor = Servidor.getInstance();
-                servidor.query("EXEC actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
+                servidor.query("EXEC MATE_LAVADO.actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
                     "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
 
                 //Limpia los espectaculos existente y agrega los seleccionados a la publicacion
-                servidor.query("EXEC vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
+                servidor.query("EXEC MATE_LAVADO.vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
 
                 List<Int32> ids_espectaculos = new List<Int32>();
 
                 foreach (DateTime f in this.PublicacionElegida.Fechas)
                 {
                     string query2 = "'" + this.PublicacionElegida.Id + "', '" + f + "', '" + this.PublicacionElegida.EstadoDePublicacion + "'";
-                    SqlDataReader readerEspectaculo = servidor.query("EXEC dbo.agregarEspectaculo_sp " + query2);
+                    SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
 
                     readerEspectaculo.Read();
                     Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
@@ -262,7 +262,7 @@ namespace PalcoNet.Editar_Publicacion
                     string query3 = "'" + u.TipoAsiento + "', '"
                     + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
 
-                    SqlDataReader readerUbicaciones = servidor.query("EXEC dbo.agregarUbicaciones_sp " + query3);
+                    SqlDataReader readerUbicaciones = servidor.query("EXEC MATE_LAVADO.agregarUbicaciones_sp " + query3);
 
                     while (readerUbicaciones.Read())
                     {
@@ -275,7 +275,7 @@ namespace PalcoNet.Editar_Publicacion
                     foreach (Int32 id_e in ids_espectaculos)
                     {
                         string query4 = "'" + id_u + "', '" + id_e + "'";
-                        servidor.query("EXEC dbo.agregarUbicacionXEspectaculo_sp " + query4);
+                        servidor.query("EXEC MATE_LAVADO.agregarUbicacionXEspectaculo_sp " + query4);
                     }
 
                 }

@@ -36,7 +36,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
             Servidor servidor = Servidor.getInstance();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.traerTodasRazonesSociales_sp");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.traerTodasRazonesSociales_sp");
 
             while (reader.Read()) {
                 string leido = reader["razon_social"].ToString();
@@ -79,7 +79,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
                 Servidor servidor = Servidor.getInstance();
                 string query = "'" + factura.Empresa.RazonSocial + "', '" + factura.ImporteTotal + "'";
 
-                SqlDataReader reader = servidor.query("EXEC dbo.agregarFactura_sp " + query);
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.agregarFactura_sp " + query);
 
                 int idFactura = 0;
                 while (reader.Read())
@@ -90,7 +90,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
                 foreach (Compra c in comprasSeleccionadas) {
                     string query2 = "'" + idFactura + "', '" + c.Id + "'";
-                    servidor.query("EXEC dbo.actualizarCompraFactura_sp " + query2);
+                    servidor.query("EXEC MATE_LAVADO.actualizarCompraFactura_sp " + query2);
                 }
 
                 MessageBox.Show("La rendición de comisiones se realizó exitosamente.", "Rendición de Comisiones", MessageBoxButtons.OK);
@@ -123,7 +123,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
             Servidor servidor = Servidor.getInstance();
 
-            SqlDataReader reader = servidor.query("EXEC dbo.buscarComprasNoFacturadas_sp '" + this.EmpresaSeleccionada + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarComprasNoFacturadas_sp '" + this.EmpresaSeleccionada + "'");
 
             while (reader.Read())
             {

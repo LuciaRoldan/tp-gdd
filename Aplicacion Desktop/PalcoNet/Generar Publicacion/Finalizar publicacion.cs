@@ -63,7 +63,7 @@ namespace PalcoNet.Generar_Publicacion
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";
 
-            SqlDataReader reader = servidor.query("EXEC dbo.registrarPublicacion_sp " + query);
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.registrarPublicacion_sp " + query);
 
             while (reader.Read())
             {
@@ -76,7 +76,7 @@ namespace PalcoNet.Generar_Publicacion
 
             foreach (DateTime f in publicacion.Fechas) {
                 string query2 = "'" + publicacion.Id + "', '" + f.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + publicacion.EstadoDePublicacion + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
-                SqlDataReader readerEspectaculo = servidor.query("EXEC dbo.agregarEspectaculo_sp " + query2);
+                SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
                 
                 readerEspectaculo.Read();
                 Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
@@ -92,7 +92,7 @@ namespace PalcoNet.Generar_Publicacion
                 string query3 = "'" + u.TipoAsiento + "', '"
                 + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
 
-                SqlDataReader readerUbicaciones = servidor.query("EXEC dbo.agregarUbicaciones_sp " + query3);
+                SqlDataReader readerUbicaciones = servidor.query("EXEC MATE_LAVADO.agregarUbicaciones_sp " + query3);
 
                 while (readerUbicaciones.Read())
                 {
@@ -108,7 +108,7 @@ namespace PalcoNet.Generar_Publicacion
                     Console.WriteLine(id_u);
                     
                     string query4 = "'" + id_u + "', '"  + id_e + "'";
-                    servidor.query("EXEC dbo.agregarUbicacionXEspectaculo_sp " + query4);
+                    servidor.query("EXEC MATE_LAVADO.agregarUbicacionXEspectaculo_sp " + query4);
                 }
 
             }

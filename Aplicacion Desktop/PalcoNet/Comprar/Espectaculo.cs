@@ -36,7 +36,7 @@ namespace PalcoNet.Comprar
             this.Compra = compra;
 
             Servidor servidor = Servidor.getInstance();
-            SqlDataReader reader = servidor.query("exec buscarEspectaculosPorPublicacion_sp " + compra.Publicacion.Id);
+            SqlDataReader reader = servidor.query("exec MATE_LAVADO.buscarEspectaculosPorPublicacion_sp " + compra.Publicacion.Id);
             while (reader.Read()) {
                 Espectaculo e = new Espectaculo();
                 e.Fecha = (DateTime)reader["fecha_evento"];

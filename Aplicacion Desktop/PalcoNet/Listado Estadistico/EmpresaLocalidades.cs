@@ -36,9 +36,9 @@ namespace PalcoNet.Listado_Estadistico
         {
             //Busca las empresas segun el grado que se seleccione y las mustra en la tabla
 
-            SqlDataReader reader = servidor.query("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();
-            Console.WriteLine("EXEC dbo.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+            Console.WriteLine("EXEC MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
             while (reader.Read())
             {
                 CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();

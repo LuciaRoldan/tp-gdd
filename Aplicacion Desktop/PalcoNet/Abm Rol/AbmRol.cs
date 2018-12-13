@@ -110,13 +110,13 @@ namespace PalcoNet.Abm_Rol
             if (!string.IsNullOrWhiteSpace(textBoxNombre.Text) && checkedListBoxFuncionalidades.CheckedIndices.Count > 0)
             {
                 string nombre = textBoxNombre.Text;
-                servidor.realizarQuery("EXEC dbo.agregarRol_sp '" + nombre + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.agregarRol_sp '" + nombre + "'");
                 foreach(String f in checkedListBoxFuncionalidades.CheckedItems){
                     funcionalidadesSeleccionadas.Add(f);
                 }
                 foreach (String fun in funcionalidadesSeleccionadas)
                 {
-                    servidor.realizarQuery("EXEC dbo.AgregarFuncionalidadARol_sp '" + nombre + "', '" + fun + "'");
+                    servidor.realizarQuery("EXEC MATE_LAVADO.AgregarFuncionalidadARol_sp '" + nombre + "', '" + fun + "'");
                 }
 
                 //Aca creamos el ROL, lo guardamos en la base y lo asociamos a las funcionalidades elegidas
@@ -141,7 +141,7 @@ namespace PalcoNet.Abm_Rol
                 rolModificado.Nombre = this.textBoxNomb.Text;
                 Console.WriteLine(rolSeleccionado.Nombre);
 
-                servidor.realizarQuery("EXEC dbo.eliminarFuncionalidadesRol_sp '" + rolSeleccionado.Nombre + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.eliminarFuncionalidadesRol_sp '" + rolSeleccionado.Nombre + "'");
 
                 //eliminamos todas las funcionalidades  y recuperamos las que habian sido seleccionadas para mostrarlas 
                 //como elegidas. La persona marca o desmarca las que quiera, las relacionamos con el rol, tambien podemos
@@ -153,10 +153,10 @@ namespace PalcoNet.Abm_Rol
                 }
                 foreach (String fun in funcionalidadesSeleccionadas)
                 {
-                    servidor.realizarQuery("EXEC dbo.AgregarFuncionalidadARol_sp '" + rolSeleccionado.Nombre + "', '" + fun + "'");
+                    servidor.realizarQuery("EXEC MATE_LAVADO.AgregarFuncionalidadARol_sp '" + rolSeleccionado.Nombre + "', '" + fun + "'");
                 }
 
-                servidor.realizarQuery("EXEC dbo.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
                 rolSeleccionado = rolModificado;
 
                 for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
@@ -179,7 +179,7 @@ namespace PalcoNet.Abm_Rol
             this.button5.Enabled = true;
             this.button6.Enabled = true;
 
-            SqlDataReader reader = servidor.query("EXEC dbo.getFuncionalidadesDeRol_sp '" + rolSeleccionado.Nombre + "'");
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + rolSeleccionado.Nombre + "'");
             //selecciona en el checkedList las funcionalidades que tenia el rol originalmente 
 
             while (reader.Read())
@@ -210,7 +210,7 @@ namespace PalcoNet.Abm_Rol
 
         private void button5_Click_1(object sender, EventArgs e) //inhabilita el rol pasando el bit habilitado a 0
         {
-            servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 0);
+            servidor.realizarQuery("EXEC MATE_LAVADO.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 0);
 
             MessageBox.Show("El Rol está inhabilitado.", "Rol inhabilitado", MessageBoxButtons.OK);
 
@@ -225,7 +225,7 @@ namespace PalcoNet.Abm_Rol
 
         private void button6_Click(object sender, EventArgs e) //inhabilita el rol pasando el bit habilitado a 1
         {
-                    servidor.realizarQuery("EXEC dbo.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
+                    servidor.realizarQuery("EXEC MATE_LAVADO.modificarRol_sp '" + rolSeleccionado.Nombre + "'," + 1);
 
                     MessageBox.Show("El Rol está habilitado.", "Rol habilitado", MessageBoxButtons.OK);
 
