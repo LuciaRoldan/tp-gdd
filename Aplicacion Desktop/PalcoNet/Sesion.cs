@@ -35,7 +35,6 @@ namespace PalcoNet
             Servidor servidor = Servidor.getInstance();
             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
             
-            Console.WriteLine("EXEC MATE_LAVADO.buscarEmpresaPorUsername_sp '" + this.usuario.NombreUsuario + "'");
             while (reader.Read())
             {
                 empresa.Calle = reader["calle"].ToString();
@@ -69,7 +68,8 @@ namespace PalcoNet
                 if (!(cuil is DBNull)) cliente.Cuil = Convert.ToInt64(cuil);
                 cliente.Departamento = reader["depto"].ToString();
                 //cliente.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
-                cliente.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
+                var numero_calle = reader["numero_calle"];
+                if (!(numero_calle is DBNull)) cliente.NumeroDeCalle = Convert.ToInt32(numero_calle);
                 cliente.Mail = reader["mail"].ToString();
                 cliente.Apellido = reader["apellido"].ToString();
                 cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
@@ -80,7 +80,8 @@ namespace PalcoNet
                 var tel = reader["telefono"];
                 if (!(tel is DBNull)) cliente.Telefono = Convert.ToInt64(tel);
                 cliente.TipoDocumento = reader["tipo_documento"].ToString();
-                cliente.Piso = Convert.ToInt32(reader["piso"]);
+                var piso = reader["piso"];
+                if (!(piso is DBNull)) cliente.Piso = Convert.ToInt32(piso);
                 cliente.Id = int.Parse(reader["id_cliente"].ToString());
             }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Abm_Cliente
 {
@@ -16,6 +17,12 @@ namespace PalcoNet.Abm_Cliente
         bool fueModificado = false;
         Cliente clienteViejo;
         Servidor servidor = Servidor.getInstance();
+        SqlDataReader readerCliente;
+        String calle;
+        Int32 numeroCalle;
+        Int32 piso;
+        String depto;
+        String codigoPostal;
 
         public bool FueModificado
         {
@@ -32,12 +39,37 @@ namespace PalcoNet.Abm_Cliente
             textBoxNombre.Text += cliente.Nombre;
             textBoxApellido.Text += cliente.Apellido;
             textBoxMail.Text += cliente.Mail;
-            textBoxTelefono.Text += cliente.Telefono;
-            textBoxDocumento.Text += cliente.NumeroDeDocumento;
-            textBoxCuil.Text += cliente.Cuil;
+            var telefono = cliente.Telefono;
+            textBoxTelefono.Text += telefono == 0 ? null : telefono.ToString();
+            var documento = cliente.NumeroDeDocumento;
+            textBoxDocumento.Text += documento == 0 ? null : documento.ToString();
+            var cuil = cliente.Cuil;
+            textBoxCuil.Text += cuil == 0 ? null : cuil.ToString();
             comboBoxDocumento.Text = cliente.TipoDocumento;
             dateTimePickerNacimiento.Value = cliente.FechaDeNacimiento;
             clienteViejo = cliente;
+
+            Servidor servidor = Servidor.getInstance();
+            readerCliente = servidor.query("EXEC MATE_LAVADO.obtenerDatosAdicionalesCliente '" + cliente.Id + "'");
+
+            readerCliente.Read();
+
+            calle = readerCliente["calle"].ToString();
+            var nro = readerCliente["numero_calle"];
+            if (!(nro is DBNull)) numeroCalle = Convert.ToInt32(nro);
+            var _piso = readerCliente["piso"];
+            if (!(_piso is DBNull)) piso = Convert.ToInt32(piso);
+            depto = readerCliente["depto"].ToString();
+            codigoPostal = readerCliente["codigo_postal"].ToString();
+
+            readerCliente.Close();
+
+            textBoxCalle.Text += calle;
+            textBoxNumeroCalle.Text += numeroCalle == 0 ? null : numeroCalle.ToString();
+            textBoxPiso.Text += piso == 0 ? null : piso.ToString();
+            textBoxDepto.Text += depto;
+            textBoxCodigoPostal.Text += codigoPostal;
+            
         }
         //verificamos que ninguno quede vacio
         public bool verificarCampos() {
@@ -94,10 +126,16 @@ namespace PalcoNet.Abm_Cliente
                 //Aca hay que hacer el update en la base
                 //sp que le paso el cuil (validamos que el nuevo cuil no exista)del cliente que es unico 
                 //para que busque el viejo y todos los datos nuevos para ser actualizados
+                calle = textBoxCalle.Text;
+                numeroCalle = Convert.ToInt32(textBoxNumeroCalle.Text);
+                piso = Convert.ToInt32(textBoxPiso.Text);
+                depto = textBoxDepto.Text;
+                codigoPostal = textBoxCodigoPostal.Text;                
 
-                String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido 
-                                + "', '" + clienteModificado.Mail + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
-                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "'";
+                String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido
+                                + "', '" + clienteModificado.Mail + "', '" + comboBoxDocumento.Text + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
+                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "', '"
+                                + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
@@ -143,6 +181,16 @@ namespace PalcoNet.Abm_Cliente
         private void dateTimePickerNacimiento_ValueChanged(object sender, EventArgs e)
         {
             this.fueModificado = true;
+        }
+
+        private void ModificarCli_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
