@@ -32,23 +32,23 @@ namespace PalcoNet.Comprar
 
         public MedioPago(MiForm anterior, Compra compra) : base(anterior)
         {
+            this.Compra = compra;
+            InitializeComponent();
+            
             if (Sesion.getInstance().rol.Nombre == "Cliente")
             {
                 Cliente cliente = Sesion.getInstance().traerCliente();
-                this.Compra = compra;
-                InitializeComponent();
-
                 //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
-                this.updateMP();
-              
+                this.updateMP();              
             }
             else 
             {
+                this.button3.Enabled = false;
                 Tarjeta tarjeta = new Tarjeta();
                 tarjeta.NumeroDeTarjeta = 0;
-                this.Compra.MedioDePago = tarjeta;
-                new FinalizarCompra(this, this.Compra).Show();
-                this.Hide();
+                tarjeta.Id = 0;
+                comboBoxTarjeta.Items.Add("*******");
+                this.tarjetas.Add(tarjeta);
             }
         }
 
