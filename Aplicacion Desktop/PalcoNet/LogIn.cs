@@ -118,12 +118,13 @@ namespace PalcoNet
                             if (bool.Parse(reader2["esta_completa"].ToString()))
                             {
                                 new SeleccionarFuncionalidad().Show();
+                                this.Hide();
                             }
                             else
                             {
-                                Console.Write("Info incompleta");
                                 cli = Sesion.getInstance().traerCliente();
                                 new ModificarCli(cli, this).Show();
+                                this.Hide();
                             }
                             break;
 
@@ -134,11 +135,13 @@ namespace PalcoNet
                             if (bool.Parse(reader4["esta_completa"].ToString()))
                             {
                                 new SeleccionarFuncionalidad().Show();
+                                this.Hide();
                             }
                             else
                             {
                                 emp = Sesion.getInstance().traerEmpresa();
                                 new ModificarEmp(emp, this).Show();
+                                this.Hide();
                             }
                             break;
                         default:
