@@ -1739,3 +1739,41 @@ BEGIN
 			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
 END
 GO
+
+-----usuarioEsEmpresa-----
+CREATE PROCEDURE MATE_LAVADO.usuarioEsEmpresa_sp(
+@id_usuario INT
+)
+AS
+BEGIN
+DECLARE @bool BIT = 1
+	IF EXISTS(SELECT 1 FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario)
+	BEGIN
+		SELECT @bool AS es_empresa
+	END
+	ELSE
+	BEGIN
+		SET @bool = 0
+		SELECT @bool AS es_empresa
+	END
+END
+GO
+
+-----usuarioEsCliente-----
+CREATE PROCEDURE MATE_LAVADO.usuarioEsCliente_sp(
+@id_usuario INT
+)
+AS
+BEGIN
+DECLARE @bool BIT = 1
+	IF EXISTS(SELECT 1 FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario)
+	BEGIN
+		SELECT @bool AS es_cliente
+	END
+	ELSE
+	BEGIN
+		SET @bool = 0
+		SELECT @bool AS es_cliente
+	END
+END
+GO
