@@ -38,10 +38,10 @@ namespace PalcoNet.Comprar
             this.textBoxTotal.Text = this.Compra.Importe.ToString();
             this.textBoxFecha.Text = this.Compra.Espectaculo.Fecha.ToString();
 
-            if (Sesion.getInstance().rol.Nombre == "Cliente"){
-            } else{
+            if (cliente == null)
+            {
                 button2.Enabled = false;
-            }
+            } 
         }
 
         private void button1_Click(object sender, EventArgs e)

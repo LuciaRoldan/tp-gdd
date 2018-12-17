@@ -34,10 +34,10 @@ namespace PalcoNet.Comprar
         {
             this.Compra = compra;
             InitializeComponent();
+            Cliente cliente = Sesion.getInstance().traerCliente();
             
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            if (cliente != null)
             {
-                Cliente cliente = Sesion.getInstance().traerCliente();
                 //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
                 this.updateMP();              
             }

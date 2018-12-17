@@ -49,13 +49,12 @@ namespace PalcoNet.Comprar
         public BuscarP(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+            this.Cliente = sesion.traerCliente();
 
-            if (sesion.rol.Nombre == "Cliente") {
+            if (this.Cliente != null) {
 
                 dateTimePickerDesde.Enabled = false;
                 dateTimePickerHasta.Enabled = false;
-
-                this.Cliente = sesion.traerCliente();
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
 
@@ -67,8 +66,6 @@ namespace PalcoNet.Comprar
                 reader.Close();
 
                 dataGridViewResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-
 
             } else {
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." + 
