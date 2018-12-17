@@ -91,12 +91,14 @@ namespace PalcoNet
                     rol.Nombre = tokens[0];
                     roles.Add(rol);
                 }
+
                 reader.Close();
 
 
 
                 if (roles.Count() > 1)
                 {
+                    Console.Write("hay mas d un rol");
                     this.Hide();
                     new SeleccionarRol().ShowDialog();
                     this.Close();

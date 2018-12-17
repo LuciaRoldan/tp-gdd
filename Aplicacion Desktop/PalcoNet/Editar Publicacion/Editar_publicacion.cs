@@ -342,5 +342,10 @@ namespace PalcoNet.Editar_Publicacion
         {
             this.HayCambios = true;
         }
+
+        private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
 using System.Data.SqlClient;
-using PalcoNet.Dominio;
 
 namespace PalcoNet.Comprar
 {

@@ -132,7 +132,8 @@ namespace PalcoNet.Registro_de_Usuario
 
                 
                     this.Hide();
-                    this.cerrarAnteriores();
+                    new SeleccionarFuncionalidad().Show();
+                    //this.cerrarAnteriores();
                 }
 
             

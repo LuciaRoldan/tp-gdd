@@ -1073,11 +1073,11 @@ BEGIN
 	IF (SELECT id_empresa FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL
 	BEGIN
 		SET @existe_la_empresa = 1
-		SELECT @existe_la_empresa existe_el_cliente
+		SELECT @existe_la_empresa existe_la_empresa
 	END
 	ELSE
 		SET @existe_la_empresa = 0
-		SELECT @existe_la_empresa existe_el_cliente
+		SELECT @existe_la_empresa existe_la_empresa
 END
 GO
 

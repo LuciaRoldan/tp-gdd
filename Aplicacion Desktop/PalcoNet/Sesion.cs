@@ -11,7 +11,14 @@ namespace PalcoNet
 {
     class Sesion
     {
-        public Rol rol { get; set; }
+        Rol Rol = new Rol();
+
+        public Rol rol
+        {
+            get { return Rol; }
+            set { Rol = value; }
+        }
+
         public Usuario usuario { get; set; }
         public DateTime fecha = DateTime.ParseExact(ConfigurationManager.AppSettings["horarioSistema"], "yyyy-dd-MM HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
 
@@ -91,5 +98,6 @@ namespace PalcoNet
 
             return cliente;
         }
+
     }
 }

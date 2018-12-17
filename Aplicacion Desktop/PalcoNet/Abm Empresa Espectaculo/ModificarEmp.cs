@@ -71,7 +71,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
                 empresaModificada.Cuit = Int64.Parse(textBoxCuit.Text);
-                empresaModificada.Mail = textBoxMail.Text; 
+                empresaModificada.Mail = textBoxMail.Text;
                 //Aca hay que hacer el update en la base
 
                 String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail

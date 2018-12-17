@@ -47,55 +47,72 @@ namespace PalcoNet
         private void button2_Click(object sender, EventArgs e)
         {
             //Cuando se selecciona un rol se lo guarda en la sesion y se abre la siguiente pantalla
-            sesion.rol.Nombre = comboBox1.Text.ToString();
+            Console.Write(comboBox1.Text.ToString());
+            String lol = comboBox1.Text.Substring(0, 3);
+            //String lol = comboBox1.Text.substring(0, Math.Min(3, comboBox1.Text.Length));
 
-            switch (sesion.rol.Nombre)
+            switch (lol)
             {
-                case "Cliente":
+                case "Cli":
+                    
                     Cliente cli = new Cliente();
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.elClienteExiste_sp '" + sesion.usuario.NombreUsuario + "'");
+                    cli.IdUsuario = sesion.usuario.IdUsuario;
+
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.elClienteExiste_sp '" + sesion.usuario.IdUsuario + "'");
                     reader.Read();
-                    if (!(int.Parse(reader["existe_el_cliente"].ToString()) == 1))
+                    if (bool.Parse(reader["existe_el_cliente"].ToString()))
                     {
-                        new RegistroDeCliente(cli, this).Show();
-                        this.Hide();
+                        Console.Write("holaa");
+                        new RegistroDeCliente(new Cliente(), this).Show();
+                        //this.Hide();
+                        break;
                     }
 
-                    SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.elClienteTieneInfoCompleta_sp '" + sesion.usuario.NombreUsuario + "'");
-                    reader2.Read();
-                    if (int.Parse(reader2["esta_completa"].ToString()) == 1)
-                    {
-                        new SeleccionarFuncionalidad().Show();
-                    }
-                    else
-                    {
-                        cli = Sesion.getInstance().traerCliente();
-                        new ModificarCli(cli, this).Show();
-                    }
+                    SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.elClienteTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
+                            reader2.Read();
+                            if (bool.Parse(reader2["esta_completa"].ToString()))
+                            {
+                                new SeleccionarFuncionalidad().Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                cli = Sesion.getInstance().traerCliente();
+                                new ModificarCli(cli, this).Show();
+                                this.Hide();
+                            }
                     break;
-                    
-                case "Empresa":
+
+                case "Emp":
+                    Console.Write("holaa");
                     Empresa emp = new Empresa();
-                    SqlDataReader reader3 = servidor.query("EXEC MATE_LAVADO.laEmpresaExiste_sp '" + sesion.usuario.NombreUsuario + "'");
+                    SqlDataReader reader3 = servidor.query("EXEC MATE_LAVADO.laEmpresaExiste_sp '" + sesion.usuario.IdUsuario + "'");
                     reader3.Read();
-                    if (!(int.Parse(reader3["existe_la_empresa"].ToString()) == 1))
+                    
+                    Console.Write(bool.Parse(reader3["existe_la_empresa"].ToString()));
+                    if (bool.Parse(reader3["existe_la_empresa"].ToString()))
                     {
+                        
+                        
                         new RegistroDeEmpresa(emp, this).Show();
                         this.Hide();
                     }
 
                     SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.NombreUsuario + "'");
                     reader4.Read();
-                    if (int.Parse(reader4["esta_completa"].ToString()) == 1)
+                    if (bool.Parse(reader4["esta_completa"].ToString()))
                     {
                         new SeleccionarFuncionalidad().Show();
+                        this.Hide();
                     }
                     else
                     {
                         emp = Sesion.getInstance().traerEmpresa();
                         new ModificarEmp(emp, this).Show();
+                        this.Hide();
                     }
                     break;
+                
                 default:
                     new SeleccionarFuncionalidad().Show();
                     break;
@@ -104,7 +121,7 @@ namespace PalcoNet
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            sesion.rol.Nombre = comboBox1.Text;
         }
     }
 }

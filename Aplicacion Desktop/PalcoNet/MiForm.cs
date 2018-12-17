@@ -37,5 +37,10 @@ namespace PalcoNet
             else { anterior.cerrarAnteriores(); }
             this.Close();
         }
+
+        private void MiForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
