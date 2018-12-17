@@ -50,19 +50,16 @@ namespace PalcoNet.Canje_Puntos
             InitializeComponent();
 
             this.Cliente = Sesion.getInstance().traerCliente();
-            Console.WriteLine("LLEGA A CREAR EL CLIENTE: " + this.Cliente.Nombre);
 
             //Se verifica que el usuario actual se un cliente
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            if (this.Cliente != null)
             {
                 //Aca traemos los puntos que tiene el usuario actual y los mostramos en el textBox
                 //Y  traemos una lista de todos los premios de la base, los guardamos en la lista premios y 
                 //los mostramos en el checkedListBox
 
-                Console.WriteLine("LLEGA A ACA CON PUNTOS: " + cliente.Puntos);
-                    puntosOriginales = this.Cliente.Puntos;
-                    textBoxPuntos.Text = this.Cliente.Puntos.ToString();
-                    Console.WriteLine("PASA ESA PARTE");
+                puntosOriginales = this.Cliente.Puntos;
+                textBoxPuntos.Text = this.Cliente.Puntos.ToString();
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
                 while (reader.Read())

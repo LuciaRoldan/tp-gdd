@@ -32,7 +32,7 @@ namespace PalcoNet.Generar_Publicacion
 
         public Finalizar_publicacion(MiForm anterior, Publicacion publicacion) : base(anterior)
         {
-            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            if (Sesion.getInstance().esEmpresa())
             {
                 this.Empresa = Sesion.getInstance().traerEmpresa();
                 this.Publicacion = publicacion;

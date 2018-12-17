@@ -34,7 +34,7 @@ namespace PalcoNet.Historial_Cliente
         {
             InitializeComponent();
             //Verificamos que sea cliente ya que esta funcionalidad es solo apta para ellos
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            if (Sesion.getInstance().esCliente())
             {
                 this.Cliente = Sesion.getInstance().traerCliente();
                 this.leer(true);

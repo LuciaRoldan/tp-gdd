@@ -41,7 +41,7 @@ namespace PalcoNet.Abm_Grado
         public GradoDeLaPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            if (sesion.rol.Nombre == "Empresa") {
+            if (sesion.esEmpresa()) {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");

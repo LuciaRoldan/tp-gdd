@@ -83,9 +83,7 @@ namespace PalcoNet
                 Console.Write(sesion.usuario.IdUsuario);
                 List<Rol> roles = new List<Rol>();
 
-
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
-
 
                 while (reader.Read())
                 {
@@ -97,21 +95,15 @@ namespace PalcoNet
 
                 reader.Close();
 
-
-
                 if (roles.Count() > 1)
                 {
-                    Console.Write("hay mas d un rol");
                     this.Hide();
                     new SeleccionarRol().ShowDialog();
                     this.Close();
                 }
                 else
                 {
-                    Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
-                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     sesion.rol = roles[0];
-
 
                     //Verificamos que el usuario, si es Cliente o Empresa, tenga toda la información correspondiente completa
                     switch (sesion.rol.Nombre)

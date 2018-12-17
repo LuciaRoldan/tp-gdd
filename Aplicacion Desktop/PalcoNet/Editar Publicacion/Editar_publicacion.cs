@@ -40,7 +40,7 @@ namespace PalcoNet.Editar_Publicacion
         {
             InitializeComponent();
 
-            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 Servidor servidor = Servidor.getInstance();

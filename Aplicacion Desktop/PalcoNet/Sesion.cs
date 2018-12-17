@@ -126,5 +126,15 @@ namespace PalcoNet
             cliente.Id = int.Parse(reader["id_cliente"].ToString());
         }
 
+
+        internal bool esEmpresa()
+        {
+            return this.rol.Nombre == "Empresa";
+        }
+
+        internal bool esCliente()
+        {
+            return this.rol.Nombre == "Cliente";
+        }
     }
 }

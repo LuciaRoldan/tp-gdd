@@ -26,7 +26,7 @@ namespace PalcoNet.Generar_Publicacion
         public CrearPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 

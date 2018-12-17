@@ -37,7 +37,7 @@ namespace PalcoNet
             InitializeComponent();
 
 
-            if (sesion.rol.Nombre == "Empresa" || sesion.rol.Nombre == "Cliente")
+            if (sesion.esEmpresa() || sesion.esCliente())
             {
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
 
