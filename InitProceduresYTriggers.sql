@@ -52,6 +52,10 @@ DROP PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
 DROP PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
 DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp
+DROP PROCEDURE MATE_LAVADO.elClienteExiste_sp
+DROP PROCEDURE MATE_LAVADO.elClienteTieneInfoCompleta_sp
+DROP PROCEDURE MATE_LAVADO.laEmpresaExiste_sp
+DROP PROCEDURE MATE_LAVADO.laEmpresaTieneInfoCompleta_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
@@ -63,6 +67,8 @@ DROP FUNCTION MATE_LAVADO.getCantidadEntradasEspectaculo
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasVendidas
 
 GO
+
+
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
 CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
@@ -70,11 +76,14 @@ CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
 @encriptada VARCHAR(255)
 AS
 BEGIN
-	IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND  password = @encriptada AND intentos_fallidos < 3)
+	DECLARE @id_usuario INT
+	IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND intentos_fallidos < 3)
 		BEGIN
 		UPDATE MATE_LAVADO.Usuarios
 		SET intentos_fallidos = 0
 		WHERE username = @usuario AND password = @encriptada
+
+		SET @id_usuario = (SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
 
 		DECLARE @debe_cambiar_pass BIT
 		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada)
@@ -82,7 +91,8 @@ BEGIN
 			BEGIN
 			UPDATE MATE_LAVADO.Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
 			END
-		SELECT @debe_cambiar_pass debe_cambiar_pass
+		
+		SELECT @debe_cambiar_pass debe_cambiar_pass, @id_usuario id_usuario
 	END
 	ELSE --existe el usuario pero la contrasenia es otra
 	BEGIN
@@ -107,6 +117,7 @@ BEGIN
 	END
 END
 GO
+
 
 -----getPremios-----
 CREATE PROCEDURE MATE_LAVADO.getPremios_sp
@@ -954,6 +965,150 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 end
 GO
 
+-----vaciarEspectaculosPublicacion-----
+CREATE PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp(
+@id_publicacion INT)
+AS
+BEGIN
+
+CREATE TABLE #UbicacionesDeUnaPublicacion(
+id_espectaculo INT,
+id_ubicacion INT,
+id_ubicacion_espectaculo INT
+)
+
+INSERT INTO MATE_LAVADO.#UbicacionesDeUnaPublicacion(id_espectaculo, id_ubicacion, id_ubicacion_espectaculo)
+SELECT e.id_espectaculo, u.id_ubicacion, uxe.id_ubicacion_espectaculo FROM MATE_LAVADO.Espectaculos e
+JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON (e.id_espectaculo = uxe.id_espectaculo)
+JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+WHERE e.id_publicacion = @id_publicacion
+
+DELETE UbicacionXEspectaculo
+WHERE id_ubicacion_espectaculo IN (SELECT id_ubicacion_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
+
+DELETE Ubicaciones 
+WHERE id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
+
+DELETE Espectaculos 
+WHERE id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
+
+DROP TABLE MATE_LAVADO.#UbicacionesDeUnaPublicacion
+
+END
+GO
+
+CREATE PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
+@id_espectaculo INT,
+@precio INT
+AS
+BEGIN
+	SELECT fila
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND @precio = precio
+	GROUP BY fila
+END
+GO
+
+CREATE PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
+@id_espectaculo INT,
+@fila CHAR,
+@precio INT
+AS
+BEGIN
+	SELECT asiento
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
+	GROUP BY asiento
+END
+GO
+
+
+-----elClienteExiste-----
+CREATE PROCEDURE MATE_LAVADO.elClienteExiste_sp(@id_usuario INT)
+AS
+BEGIN
+	DECLARE @existe_el_cliente BIT
+	IF (SELECT id_cliente FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL
+	BEGIN
+		SET @existe_el_cliente = 1
+		SELECT @existe_el_cliente existe_el_cliente
+	END
+	ELSE
+		SET @existe_el_cliente = 0
+		SELECT @existe_el_cliente existe_el_cliente
+END
+GO
+
+-----elClienteTieneInfoCompleta-----
+CREATE PROCEDURE MATE_LAVADO.elClienteTieneInfoCompleta_sp(@id_usuario INT)
+AS --es como una funcion truchita xd
+BEGIN
+	DECLARE @esta_completa BIT
+	IF (SELECT nombre FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT apellido FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT tipo_documento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT documento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT cuil FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT mail FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT telefono FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT fecha_nacimiento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT numero_calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT piso FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT depto FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT codigo_postal FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL
+	BEGIN
+		SET @esta_completa = 1
+		SELECT @esta_completa esta_completa
+	END
+	ELSE
+		SET @esta_completa = 0
+		SELECT @esta_completa esta_completa
+END
+GO
+
+-----laEmpresaExiste-----
+CREATE PROCEDURE MATE_LAVADO.laEmpresaExiste_sp(@id_usuario INT)
+AS
+BEGIN
+	DECLARE @existe_la_empresa BIT
+	IF (SELECT id_empresa FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL
+	BEGIN
+		SET @existe_la_empresa = 1
+		SELECT @existe_la_empresa existe_el_cliente
+	END
+	ELSE
+		SET @existe_la_empresa = 0
+		SELECT @existe_la_empresa existe_el_cliente
+END
+GO
+
+-----laEmpresaTieneInfoCompleta-----
+CREATE PROCEDURE MATE_LAVADO.laEmpresaTieneInfoCompleta_sp(@id_usuario INT)
+AS --es como una funcion truchita xd
+BEGIN
+	DECLARE @esta_completa BIT
+	IF (SELECT razon_social FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT mail FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT cuit FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT calle FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT numero_calle FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT piso FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT depto FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
+		(SELECT codigo_postal FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL
+	BEGIN
+		SET @esta_completa = 1
+		SELECT @esta_completa esta_completa
+	END
+	ELSE
+		SET @esta_completa = 0
+		SELECT @esta_completa esta_completa
+END
+GO
+
+
 ----------TRIGGERS----------
 
 -----insertarNuevoEspectaculo-----
@@ -1092,64 +1247,5 @@ AS
 BEGIN
 	RETURN (SELECT COUNT(DISTINCT id_ubicacion_espectaculo) FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 			WHERE id_espectaculo = @id_espectaculo AND id_compra IS NOT NULL)
-END
-GO
-
------vaciarEspectaculosPublicacion-----
-CREATE PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp(
-@id_publicacion INT)
-AS
-BEGIN
-
-CREATE TABLE #UbicacionesDeUnaPublicacion(
-id_espectaculo INT,
-id_ubicacion INT,
-id_ubicacion_espectaculo INT
-)
-
-INSERT INTO MATE_LAVADO.#UbicacionesDeUnaPublicacion(id_espectaculo, id_ubicacion, id_ubicacion_espectaculo)
-SELECT e.id_espectaculo, u.id_ubicacion, uxe.id_ubicacion_espectaculo FROM MATE_LAVADO.Espectaculos e
-JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON (e.id_espectaculo = uxe.id_espectaculo)
-JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
-WHERE e.id_publicacion = @id_publicacion
-
-DELETE UbicacionXEspectaculo
-WHERE id_ubicacion_espectaculo IN (SELECT id_ubicacion_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion) OR id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
-
-DELETE Ubicaciones 
-WHERE id_ubicacion IN (SELECT id_ubicacion FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
-
-DELETE Espectaculos 
-WHERE id_espectaculo IN (SELECT id_espectaculo FROM MATE_LAVADO.#UbicacionesDeUnaPublicacion)
-
-DROP TABLE MATE_LAVADO.#UbicacionesDeUnaPublicacion
-
-END
-GO
-
-CREATE PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
-@id_espectaculo INT,
-@precio INT
-AS
-BEGIN
-	SELECT fila
-	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
-	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
-	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND @precio = precio
-	GROUP BY fila
-END
-GO
-
-CREATE PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
-@id_espectaculo INT,
-@fila CHAR,
-@precio INT
-AS
-BEGIN
-	SELECT asiento
-	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
-	JOIN MATE_LAVADO.Ubicaciones u ON (u.id_ubicacion = uxe.id_ubicacion)
-	WHERE uxe.id_espectaculo = @id_espectaculo AND id_compra is NULL AND fila = @fila AND @precio = precio
-	GROUP BY asiento
 END
 GO

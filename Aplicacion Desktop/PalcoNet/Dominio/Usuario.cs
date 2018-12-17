@@ -18,6 +18,7 @@ namespace PalcoNet.Dominio
         string depto;
         string codigoPostal;
         bool debeCambiarContraseña = false;
+        int idUsuario;
 
         public bool DebeCambiarContraseña
         {
@@ -30,7 +31,13 @@ namespace PalcoNet.Dominio
             get { return piso; }
             set { piso = value; }
         }
-        
+
+        public int IdUsuario
+        {
+            get { return idUsuario; }
+            set { idUsuario = value; }
+        }
+
         public string Calle
         {
             get { return calle; }

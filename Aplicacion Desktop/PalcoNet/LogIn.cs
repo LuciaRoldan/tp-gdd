@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using PalcoNet.Dominio;
 using PalcoNet.Registro_de_Usuario;
+using PalcoNet.Abm_Cliente;
+using PalcoNet.Abm_Empresa_Espectaculo;
 
 namespace PalcoNet
 {
@@ -62,12 +64,14 @@ namespace PalcoNet
                 while (r.Read())
                 {
                     usuario.DebeCambiarContraseña = bool.Parse(r["debe_cambiar_pass"].ToString());
+                    usuario.IdUsuario = int.Parse(r["id_usuario"].ToString());
                 }
 
                 //en el caso de que el usurio haya sido registrado por un administrador o en el login en el primer
                 //ingreso deberá cambiar su contraseña obligatoriamente
 
-                if (usuario.DebeCambiarContraseña) {
+                if (usuario.DebeCambiarContraseña)
+                {
                     CambioContrasenia c = new CambioContrasenia(usuario.NombreUsuario);
                     c.TopMost = true;
                     c.ShowDialog();
@@ -76,7 +80,7 @@ namespace PalcoNet
                 sesion.usuario = this.Usuario;
                 List<Rol> roles = new List<Rol>();
 
-               
+
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
 
@@ -89,6 +93,8 @@ namespace PalcoNet
                 }
                 reader.Close();
 
+
+
                 if (roles.Count() > 1)
                 {
                     this.Hide();
@@ -98,11 +104,48 @@ namespace PalcoNet
                 else
                 {
                     Console.Write("EL USUARIO ES: " + sesion.usuario.NombreUsuario);
-                   // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
+                    // Console.Write("EL ROL ES: " + sesion.rol.Nombre);
                     sesion.rol = roles[0];
-                    this.Hide();
-                    new SeleccionarFuncionalidad().Show();
-                    //this.Close();
+
+
+                    //Verificamos que el usuario, si es Cliente o Empresa, tenga toda la información correspondiente completa
+                    switch (sesion.rol.Nombre)
+                    {
+                        case "Cliente":
+                            Cliente cli = new Cliente();
+                            SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.elClienteTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
+                            reader2.Read();
+                            if (bool.Parse(reader2["esta_completa"].ToString()))
+                            {
+                                new SeleccionarFuncionalidad().Show();
+                            }
+                            else
+                            {
+                                Console.Write("Info incompleta");
+                                cli = Sesion.getInstance().traerCliente();
+                                new ModificarCli(cli, this).Show();
+                            }
+                            break;
+
+                        case "Empresa":
+                            Empresa emp = new Empresa();
+                            SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.NombreUsuario + "'");
+                            reader4.Read();
+                            if (bool.Parse(reader4["esta_completa"].ToString()))
+                            {
+                                new SeleccionarFuncionalidad().Show();
+                            }
+                            else
+                            {
+                                emp = Sesion.getInstance().traerEmpresa();
+                                new ModificarEmp(emp, this).Show();
+                            }
+                            break;
+                        default:
+                            this.Hide();
+                            new SeleccionarFuncionalidad().Show();
+                            break;
+                    }
                 }
             }
             catch (SqlException ex)
