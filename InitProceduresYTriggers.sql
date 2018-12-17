@@ -11,6 +11,7 @@ DROP PROCEDURE MATE_LAVADO.getPuntos_sp
 DROP PROCEDURE MATE_LAVADO.getRubros_sp
 DROP PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp
 DROP PROCEDURE MATE_LAVADO.registroCliente_sp
+DROP PROCEDURE MATE_LAVADO.registroClienteConUsuario_sp
 DROP PROCEDURE MATE_LAVADO.registroEmpresa_sp
 DROP PROCEDURE MATE_LAVADO.getPremios_sp
 DROP PROCEDURE MATE_LAVADO.borrarPuntos_sp
@@ -386,6 +387,42 @@ BEGIN
 END
 GO
 
+
+-----registroClienteConUsuario-----
+CREATE PROCEDURE MATE_LAVADO.registroClienteConUsuario_sp
+(@id_usuario INT,
+@nombre nvarchar(255),
+@apellido nvarchar(255),
+@tipo_documento CHAR(3),
+@documento NUMERIC(18,0),
+@cuil NUMERIC(18,0),
+@mail NVARCHAR(50),
+@telefono NUMERIC(15),
+@fecha_nacimiento VARCHAR(30),
+@calle nvarchar(255),
+@numero_calle NUMERIC(18,0),
+@piso NUMERIC(18,0),
+@depto nvarchar(255),
+@codigo_postal nvarchar(50),
+@fecha_creacion VARCHAR(30))
+AS
+BEGIN 
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario OR documento = @documento OR cuil = @cuil)
+
+		BEGIN
+		BEGIN TRANSACTION
+		INSERT INTO MATE_LAVADO.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
+			calle, numero_calle, piso, depto, codigo_postal)
+		VALUES (@id_usuario, @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
+			@telefono, CONVERT(DATETIME, @fecha_creacion, 121), CONVERT(DATETIME, @fecha_nacimiento, 121), @calle, @numero_calle, @piso, @depto, @codigo_postal)
+		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES(@id_usuario, 3)
+		COMMIT TRANSACTION
+		END
+	ELSE
+	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
+END
+GO
+
 -----registroEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
  @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30))
@@ -403,6 +440,27 @@ BEGIN
 		VALUES ((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
 			@calle, @numero_calle, @piso, @depto, @codigo_postal)
 		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 2)
+		COMMIT TRANSACTION
+	END
+	ELSE
+		RAISERROR( 'La empresa ya existe',20,1) WITH LOG
+END
+GO
+
+
+-----registroEmpresaConUsuario-----
+CREATE PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp
+(@id_usuario INT, @razon_social nvarchar(255), @mail nvarchar(50), 
+ @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @fecha_creacion VARCHAR(30))
+AS
+BEGIN
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario OR cuit = @cuit OR razon_social = @razon_social)
+	BEGIN
+		BEGIN TRANSACTION
+		INSERT INTO MATE_LAVADO.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
+		VALUES (@id_usuario, @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
+			@calle, @numero_calle, @piso, @depto, @codigo_postal)
+		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES(@id_usuario, 2)
 		COMMIT TRANSACTION
 	END
 	ELSE

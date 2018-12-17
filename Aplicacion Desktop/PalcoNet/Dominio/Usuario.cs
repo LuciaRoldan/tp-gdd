@@ -18,7 +18,7 @@ namespace PalcoNet.Dominio
         string depto;
         string codigoPostal;
         bool debeCambiarContraseña = false;
-        int idUsuario;
+        int idUsuario = 0;
 
         public bool DebeCambiarContraseña
         {

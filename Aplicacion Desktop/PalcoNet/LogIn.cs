@@ -67,6 +67,8 @@ namespace PalcoNet
                     usuario.IdUsuario = int.Parse(r["id_usuario"].ToString());
                 }
 
+             
+
                 //en el caso de que el usurio haya sido registrado por un administrador o en el login en el primer
                 //ingreso deberá cambiar su contraseña obligatoriamente
 
@@ -78,6 +80,7 @@ namespace PalcoNet
                 }
 
                 sesion.usuario = this.Usuario;
+                Console.Write(sesion.usuario.IdUsuario);
                 List<Rol> roles = new List<Rol>();
 
 

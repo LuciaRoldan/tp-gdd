@@ -60,10 +60,10 @@ namespace PalcoNet
 
                     SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.elClienteExiste_sp '" + sesion.usuario.IdUsuario + "'");
                     reader.Read();
-                    if (bool.Parse(reader["existe_el_cliente"].ToString()))
+
+                    if (!bool.Parse(reader["existe_el_cliente"].ToString()))
                     {
-                        Console.Write("holaa");
-                        new RegistroDeCliente(new Cliente(), this).Show();
+                        new RegistroDeCliente(cli, this).Show();
                         //this.Hide();
                         break;
                     }
@@ -84,21 +84,21 @@ namespace PalcoNet
                     break;
 
                 case "Emp":
-                    Console.Write("holaa");
                     Empresa emp = new Empresa();
+                    emp.IdUsuario = sesion.usuario.IdUsuario;
+
                     SqlDataReader reader3 = servidor.query("EXEC MATE_LAVADO.laEmpresaExiste_sp '" + sesion.usuario.IdUsuario + "'");
                     reader3.Read();
                     
-                    Console.Write(bool.Parse(reader3["existe_la_empresa"].ToString()));
-                    if (bool.Parse(reader3["existe_la_empresa"].ToString()))
+                    //Console.Write(bool.Parse(reader3["existe_la_empresa"].ToString()));
+                    if (!bool.Parse(reader3["existe_la_empresa"].ToString()))
                     {
-                        
-                        
                         new RegistroDeEmpresa(emp, this).Show();
-                        this.Hide();
+                        //this.Hide();
+                        break;
                     }
 
-                    SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.NombreUsuario + "'");
+                    SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
                     reader4.Read();
                     if (bool.Parse(reader4["esta_completa"].ToString()))
                     {

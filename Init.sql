@@ -487,3 +487,5 @@ INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_mati, 3)
 BEGIN TRANSACTION
 UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
 COMMIT
+
+select * from MATE_LAVADO.clientes where id_usuario = 799
