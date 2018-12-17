@@ -129,12 +129,16 @@ namespace PalcoNet
 
         internal bool esEmpresa()
         {
-            return this.rol.Nombre == "Empresa";
+            SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.usuarioEsEmpresa_sp " + this.usuario.IdUsuario);
+            reader.Read();
+            return bool.Parse(reader["es_empresa"].ToString());
         }
 
         internal bool esCliente()
         {
-            return this.rol.Nombre == "Cliente";
+            SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.usuarioEsCliente_sp " + this.usuario.IdUsuario);
+            reader.Read();
+            return bool.Parse(reader["es_cliente"].ToString());
         }
     }
 }

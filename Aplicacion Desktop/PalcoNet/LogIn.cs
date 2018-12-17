@@ -129,7 +129,7 @@ namespace PalcoNet
 
                         case "Empresa":
                             Empresa emp = new Empresa();
-                            SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.NombreUsuario + "'");
+                            SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
                             reader4.Read();
                             if (bool.Parse(reader4["esta_completa"].ToString()))
                             {
