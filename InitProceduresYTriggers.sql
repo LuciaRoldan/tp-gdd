@@ -1067,13 +1067,9 @@ BEGIN
 		(SELECT documento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT cuil FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT mail FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT telefono FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT fecha_nacimiento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT numero_calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT piso FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT depto FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT codigo_postal FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL
+		(SELECT numero_calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL
 	BEGIN
 		SET @esta_completa = 1
 		SELECT @esta_completa esta_completa
@@ -1109,10 +1105,7 @@ BEGIN
 		(SELECT mail FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT cuit FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT calle FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT numero_calle FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT piso FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT depto FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT codigo_postal FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL
+		(SELECT numero_calle FROM MATE_LAVADO.Empresas WHERE id_usuario = @id_usuario) IS NOT NULL
 	BEGIN
 		SET @esta_completa = 1
 		SELECT @esta_completa esta_completa

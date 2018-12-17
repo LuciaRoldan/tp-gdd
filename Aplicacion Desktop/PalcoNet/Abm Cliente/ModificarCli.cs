@@ -23,6 +23,7 @@ namespace PalcoNet.Abm_Cliente
         Int32 piso;
         String depto;
         String codigoPostal;
+        MiForm formAnt;
 
         public bool FueModificado
         {
@@ -34,6 +35,7 @@ namespace PalcoNet.Abm_Cliente
         //pueda modificar el que desea
         public ModificarCli(Cliente cliente, MiForm formAnterior) : base(formAnterior)
         {
+            formAnt = formAnterior;
             InitializeComponent();
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
             textBoxNombre.Text += cliente.Nombre;
@@ -139,7 +141,12 @@ namespace PalcoNet.Abm_Cliente
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
-                this.cerrarAnteriores();
+                //this.cerrarAnteriores();
+                new SeleccionarFuncionalidad().Show();
+                this.Close();
+
+              
+                //formAnt.Show();
             }
         }
 

@@ -65,7 +65,7 @@ namespace PalcoNet
                 cliente.Calle = reader["calle"].ToString();
                 cliente.CodigoPostal = reader["codigo_postal"].ToString();
                 var cuil = reader["cuil"];
-                if (!(cuil is DBNull)) cliente.Cuil = Convert.ToInt64(cuil);
+                if (!(cuil is DBNull)) { cliente.Cuil = Convert.ToInt64(cuil); }
                 cliente.Departamento = reader["depto"].ToString();
                 //cliente.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
                 var numero_calle = reader["numero_calle"];
@@ -75,7 +75,7 @@ namespace PalcoNet
                 cliente.FechaDeNacimiento = (DateTime) reader["fecha_nacimiento"];
                 cliente.Nombre = reader["nombre"].ToString();
                 var doc = reader["documento"];
-                if (!(doc is DBNull)) cliente.NumeroDeDocumento = Convert.ToInt64(doc);
+                if (!(doc is DBNull)) { cliente.NumeroDeDocumento = Convert.ToInt64(doc); }
                 //cliente.NumeroDeDocumento = Convert.ToInt64(reader["documento"]);
                 var tel = reader["telefono"];
                 if (!(tel is DBNull)) cliente.Telefono = Convert.ToInt64(tel);
