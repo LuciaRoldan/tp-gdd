@@ -1,5 +1,5 @@
-CREATE SCHEMA MATE_LAVADO
-GO
+--CREATE SCHEMA MATE_LAVADO
+--GO
 
 --drop schema MATE_LAVADO
 
@@ -448,6 +448,17 @@ VALUES
 ('Fin de semana en Tandil', 8000),
 ('Batidora', 1000)
 
+-----TESTING-----
+--ro lol Cliente--
+INSERT INTO MATE_LAVADO.Usuarios VALUES('ro', 'lol', 1, '12-12-2016 02:03:02', 0, 0)
+DECLARE @id_ro INT
+SET @id_ro = SCOPE_IDENTITY()
+INSERT INTO MATE_LAVADO.Clientes VALUES(@id_ro, 'Ro', 'Chi', 'DNI', NULL, 290151473212, 'ro@ro.com', 15423681, '11-11-2011 03:03:30', '10-10-2010 04:04:04', 'Gu', 12, 5, 'C', 1412)
+INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(785, 3)
+
+--select * from MATE_LAVADO.Usuarios ORDER BY id_usuario desc
+--select * from MATE_LAVADO.Roles
+
 --.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
 BEGIN TRANSACTION
 UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
@@ -456,13 +467,3 @@ COMMIT
 
 
 
------TESTING-----
---ro lol Cliente--
-INSERT INTO MATE_LAVADO.Usuarios VALUES('ro', 'lol', 1, '12-12-2016 02:03:02', 0, 0)
-DECLARE @id_ro INT
-SET @id_ro = SCOPE_IDENTITY()
-INSERT INTO MATE_LAVADO.Clientes VALUES(@id_ro, 'Ro', 'Chi', 'DNI', NULL, 290151473212, 'ro@ro.com', 15423681, '11-11-2011 03:03:30', '10-10-2010 04:04:04', 'Gu', 12, 5, 'C', 1412)
-INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(787, 3)
-
-select * from MATE_LAVADO.Usuarios ORDER BY id_usuario desc
-select * from MATE_LAVADO.Roles
