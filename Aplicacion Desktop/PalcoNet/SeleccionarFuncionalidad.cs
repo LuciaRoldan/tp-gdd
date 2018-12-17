@@ -35,14 +35,28 @@ namespace PalcoNet
             //Trae las funcionalidades disponibles segun el rol con el que se loggeo y las carga para verlas en el combobox
 
             InitializeComponent();
-            
-            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
 
-            while (reader.Read())
+
+            if (sesion.rol.Nombre == "Empresa" || sesion.rol.Nombre == "Cliente")
             {
-              comboBox1.Items.Add(reader["nombre"].ToString());
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
+
+                while (reader.Read())
+                {
+                    comboBox1.Items.Add(reader["nombre"].ToString());
+                }
+                reader.Close();
             }
-            reader.Close();
+            else
+            {
+                SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
+
+                while (reader2.Read())
+                {
+                    comboBox1.Items.Add(reader2["nombre"].ToString());
+                }
+                reader2.Close();
+            }
          }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

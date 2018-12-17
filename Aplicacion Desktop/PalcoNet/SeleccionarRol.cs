@@ -47,11 +47,10 @@ namespace PalcoNet
         private void button2_Click(object sender, EventArgs e)
         {
             //Cuando se selecciona un rol se lo guarda en la sesion y se abre la siguiente pantalla
-            Console.Write(comboBox1.Text.ToString());
-            String lol = comboBox1.Text.Substring(0, 3);
+            String rol = comboBox1.Text.Substring(0, 3);
             //String lol = comboBox1.Text.substring(0, Math.Min(3, comboBox1.Text.Length));
 
-            switch (lol)
+            switch (rol)
             {
                 case "Cli":
                     
@@ -63,6 +62,8 @@ namespace PalcoNet
 
                     if (!bool.Parse(reader["existe_el_cliente"].ToString()))
                     {
+                        sesion.rol.Nombre = "Cliente";
+                        Console.Write("el cliente no existe");
                         new RegistroDeCliente(cli, this).Show();
                         //this.Hide();
                         break;
@@ -72,16 +73,20 @@ namespace PalcoNet
                             reader2.Read();
                             if (bool.Parse(reader2["esta_completa"].ToString()))
                             {
+                                sesion.rol.Nombre = "Cliente";
                                 new SeleccionarFuncionalidad().Show();
-                                this.Hide();
+                                //this.Hide();
+                                break;
                             }
                             else
                             {
+                                sesion.rol.Nombre = "Cliente";
+                                Console.Write("el cliente esta incompleto");
                                 cli = Sesion.getInstance().traerCliente();
                                 new ModificarCli(cli, this).Show();
-                                this.Hide();
+                                //this.Hide();
+                                break;
                             }
-                    break;
 
                 case "Emp":
                     Empresa emp = new Empresa();
@@ -93,6 +98,7 @@ namespace PalcoNet
                     //Console.Write(bool.Parse(reader3["existe_la_empresa"].ToString()));
                     if (!bool.Parse(reader3["existe_la_empresa"].ToString()))
                     {
+                        sesion.rol.Nombre = "Empresa";
                         new RegistroDeEmpresa(emp, this).Show();
                         //this.Hide();
                         break;
@@ -102,16 +108,19 @@ namespace PalcoNet
                     reader4.Read();
                     if (bool.Parse(reader4["esta_completa"].ToString()))
                     {
+                        sesion.rol.Nombre = "Empresa";
                         new SeleccionarFuncionalidad().Show();
-                        this.Hide();
+                        //this.Hide();
+                        break;
                     }
                     else
                     {
+                        sesion.rol.Nombre = "Empresa";
                         emp = Sesion.getInstance().traerEmpresa();
                         new ModificarEmp(emp, this).Show();
-                        this.Hide();
+                        //this.Hide();
+                        break;
                     }
-                    break;
                 
                 default:
                     new SeleccionarFuncionalidad().Show();

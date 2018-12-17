@@ -205,5 +205,10 @@ namespace PalcoNet.Registro_de_Usuario
         {
 
         }
+
+        private void textBoxPiso_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

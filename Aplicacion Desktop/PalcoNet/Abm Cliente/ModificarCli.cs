@@ -130,8 +130,8 @@ namespace PalcoNet.Abm_Cliente
                 //para que busque el viejo y todos los datos nuevos para ser actualizados
                 calle = textBoxCalle.Text;
                 numeroCalle = Convert.ToInt32(textBoxNumeroCalle.Text);
-                piso = Convert.ToInt32(textBoxPiso.Text);
-                depto = textBoxDepto.Text;
+                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { piso = Int32.Parse(textBoxPiso.Text); }
+                if (!string.IsNullOrWhiteSpace(textBoxDepto.Text)) { depto = textBoxDepto.Text; }
                 codigoPostal = textBoxCodigoPostal.Text;                
 
                 String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido

@@ -122,11 +122,13 @@ namespace PalcoNet
                             reader2.Read();
                             if (bool.Parse(reader2["esta_completa"].ToString()))
                             {
+                                sesion.rol.Nombre = "Cliente";
                                 new SeleccionarFuncionalidad().Show();
                                 this.Hide();
                             }
                             else
                             {
+                                sesion.rol.Nombre = "Cliente";
                                 cli = Sesion.getInstance().traerCliente();
                                 new ModificarCli(cli, this).Show();
                                 this.Hide();
@@ -139,11 +141,13 @@ namespace PalcoNet
                             reader4.Read();
                             if (bool.Parse(reader4["esta_completa"].ToString()))
                             {
+                                sesion.rol.Nombre = "Empresa";
                                 new SeleccionarFuncionalidad().Show();
                                 this.Hide();
                             }
                             else
                             {
+                                sesion.rol.Nombre = "Empresa";
                                 emp = Sesion.getInstance().traerEmpresa();
                                 new ModificarEmp(emp, this).Show();
                                 this.Hide();

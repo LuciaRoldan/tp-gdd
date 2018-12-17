@@ -1035,8 +1035,9 @@ CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
 AS
 BEGIN
 	SELECT piso, depto, calle, numero_calle, codigo_postal FROM MATE_LAVADO.Clientes
-	WHERE @id_cliente = id_cliente
+	WHERE id_cliente = @id_cliente
 END
+GO
 
 -----vaciarEspectaculosPublicacion-----
 CREATE PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp(
