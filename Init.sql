@@ -1,5 +1,5 @@
-CREATE SCHEMA MATE_LAVADO
-GO
+--CREATE SCHEMA MATE_LAVADO
+--GO
 
 --drop schema MATE_LAVADO
 
@@ -343,7 +343,7 @@ SELECT DISTINCT e.id_empresa, NULL, 1, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 
---.--.--.--.--.--.--ESPECTÁCULOS--.--.--.--.--.--.--
+--.--.--.--.--.--.--ESPECTï¿½CULOS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Espectaculos(id_espectaculo, id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo)
 SELECT DISTINCT gd.Espectaculo_Cod, p.id_publicacion, Espectaculo_Fecha, Espectaculo_Fecha_Venc, Espectaculo_Estado
 FROM gd_esquema.Maestra gd
@@ -472,6 +472,18 @@ INSERT INTO MATE_LAVADO.Clientes VALUES(@id_ro, 'Ro', 'Chi', 'DNI', NULL, 290151
 INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_ro, 3)
 INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_ro, 2)
 
+--mati 123 Cliente--
+INSERT INTO MATE_LAVADO.Usuarios VALUES('mati', '123', 1, '12-12-2016 02:03:02', 0, 0)
+DECLARE @id_mati INT
+SET @id_mati = SCOPE_IDENTITY()
+INSERT INTO MATE_LAVADO.Clientes VALUES(@id_mati, NULL, NULL, NULL, NULL, NULL, NULL, 15423681, '11-11-2011 03:03:30', '10-10-2010 04:04:04', NULL, NULL, NULL, NULL, NULL)
+INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_mati, 3)
+
 --select * from MATE_LAVADO.Usuarios ORDER BY id_usuario desc
 --select * from MATE_LAVADO.Roles
 --select * from MATE_LAVADO.clientes order by id_cliente desc
+
+--.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
+BEGIN TRANSACTION
+UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
+COMMIT

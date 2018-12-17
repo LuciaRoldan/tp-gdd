@@ -322,17 +322,24 @@ CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @nombre nvarchar(255),
 @apellido nvarchar(255),
 @mail NVARCHAR(50),
+@tipo_documento CHAR(3),
 @documento NUMERIC(18,0),
 @cuil NUMERIC(18,0),
 @telefono NUMERIC(15),
-@fecha_nacimiento DATETIME
+@fecha_nacimiento DATETIME,
+@calle NVARCHAR(255),
+@numero_calle NUMERIC(18,0),
+@piso NUMERIC(18,0),
+@depto NVARCHAR(255),
+@codigo_postal NVARCHAR(50)
 AS
 BEGIN 
 	IF EXISTS (SELECT * FROM MATE_LAVADO.Clientes WHERE id_cliente = @id_cliente) 
 		BEGIN
 		BEGIN TRANSACTION
 		UPDATE MATE_LAVADO.Clientes
-		SET nombre = @nombre, apellido = @apellido, mail = @mail, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_creacion = @fecha_nacimiento
+		SET nombre = @nombre, apellido = @apellido, mail = @mail, tipo_documento = @tipo_documento, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_nacimiento = @fecha_nacimiento,
+		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
 		WHERE id_cliente = @id_cliente
 		COMMIT TRANSACTION
 		END
@@ -964,6 +971,14 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 	where id_factura is null 
 end
 GO
+
+CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
+@id_cliente INT)
+AS
+BEGIN
+	SELECT piso, depto, calle, numero_calle, codigo_postal FROM MATE_LAVADO.Clientes
+	WHERE @id_cliente = id_cliente
+END
 
 -----vaciarEspectaculosPublicacion-----
 CREATE PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp(

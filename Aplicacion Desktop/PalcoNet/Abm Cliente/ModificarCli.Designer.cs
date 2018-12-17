@@ -47,11 +47,21 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBoxCalle = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxNumeroCalle = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxPiso = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxDepto = new System.Windows.Forms.TextBox();
+            this.textBoxCodigoPostal = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(346, 186);
+            this.button1.Location = new System.Drawing.Point(338, 231);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 23);
             this.button1.TabIndex = 63;
@@ -204,7 +214,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(16, 186);
+            this.button3.Location = new System.Drawing.Point(16, 231);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 46;
@@ -222,11 +232,102 @@
             this.label2.TabIndex = 45;
             this.label2.Text = "Editar cliente";
             // 
+            // textBoxCalle
+            // 
+            this.textBoxCalle.Location = new System.Drawing.Point(73, 175);
+            this.textBoxCalle.Name = "textBoxCalle";
+            this.textBoxCalle.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCalle.TabIndex = 64;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 178);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(33, 13);
+            this.label10.TabIndex = 65;
+            this.label10.Text = "Calle:";
+            // 
+            // textBoxNumeroCalle
+            // 
+            this.textBoxNumeroCalle.Location = new System.Drawing.Point(253, 175);
+            this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
+            this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
+            this.textBoxNumeroCalle.TabIndex = 66;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(220, 178);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 67;
+            this.label11.Text = "Nro:";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
+            // 
+            // textBoxPiso
+            // 
+            this.textBoxPiso.Location = new System.Drawing.Point(395, 175);
+            this.textBoxPiso.Name = "textBoxPiso";
+            this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
+            this.textBoxPiso.TabIndex = 70;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(315, 204);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 13);
+            this.label12.TabIndex = 71;
+            this.label12.Text = "Código postal:";
+            // 
+            // textBoxDepto
+            // 
+            this.textBoxDepto.Location = new System.Drawing.Point(253, 201);
+            this.textBoxDepto.Name = "textBoxDepto";
+            this.textBoxDepto.Size = new System.Drawing.Size(50, 20);
+            this.textBoxDepto.TabIndex = 72;
+            // 
+            // textBoxCodigoPostal
+            // 
+            this.textBoxCodigoPostal.Location = new System.Drawing.Point(395, 201);
+            this.textBoxCodigoPostal.Name = "textBoxCodigoPostal";
+            this.textBoxCodigoPostal.Size = new System.Drawing.Size(50, 20);
+            this.textBoxCodigoPostal.TabIndex = 73;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(359, 178);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(30, 13);
+            this.label13.TabIndex = 74;
+            this.label13.Text = "Piso:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(208, 204);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(39, 13);
+            this.label14.TabIndex = 75;
+            this.label14.Text = "Depto:";
+            // 
             // ModificarCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 216);
+            this.ClientSize = new System.Drawing.Size(459, 266);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.textBoxCodigoPostal);
+            this.Controls.Add(this.textBoxDepto);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.textBoxPiso);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxNumeroCalle);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxCalle);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.dateTimePickerNacimiento);
@@ -248,6 +349,7 @@
             this.Controls.Add(this.label2);
             this.Name = "ModificarCli";
             this.Text = "Editar cliente";
+            this.Load += new System.EventHandler(this.ModificarCli_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,5 +376,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxCalle;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxNumeroCalle;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxPiso;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxDepto;
+        private System.Windows.Forms.TextBox textBoxCodigoPostal;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }
