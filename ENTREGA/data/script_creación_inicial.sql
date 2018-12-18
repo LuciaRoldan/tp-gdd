@@ -981,9 +981,10 @@ CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT id_publicacion, descripcion, direccion FROM MATE_LAVADO.Publicaciones p
+	SELECT id_publicacion, descripcion, direccion, gp.nombre FROM MATE_LAVADO.Publicaciones p
 	JOIN MATE_LAVADO.Empresas e ON(e.id_empresa = p.id_empresa)
 	JOIN MATE_LAVADO.Usuarios u ON (e.id_usuario = u.id_usuario)
+	JOIN MATE_LAVADO.Grados_publicacion gp ON (p.id_grado_publicacion = gp.id_grado_publicacion)
 	WHERE username = @usuario
 END
 GO
