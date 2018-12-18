@@ -1172,8 +1172,10 @@ BEGIN
 
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
+			SET IDENTITY_INSERT MATE_LAVADO.TiposDeUbicacion ON
 			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values (
 			(SELECT MAX(id_tipo_ubicacion)+1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
+			SET IDENTITY_INSERT MATE_LAVADO.TiposDeUbicacion OFF
 		END
 
 	WHILE(@contador_filas < @filas)
@@ -1217,8 +1219,10 @@ BEGIN
 
 		IF NOT EXISTS (SELECT * FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 		BEGIN
+			SET IDENTITY_INSERT MATE_LAVADO.TiposDeUbicacion ON
 			INSERT INTO MATE_LAVADO.TiposDeUbicacion(id_tipo_ubicacion, descripcion) values(
 			(SELECT MAX(id_tipo_ubicacion) + 1 FROM MATE_LAVADO.TiposDeUbicacion), @tipo_ubicacion)
+			SET IDENTITY_INSERT MATE_LAVADO.TiposDeUbicacion OFF
 		END
 
 		INSERT INTO MATE_LAVADO.Ubicaciones(fila, asiento, sin_numerar, precio, codigo_tipo_ubicacion)
