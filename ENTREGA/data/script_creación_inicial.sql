@@ -1,6 +1,6 @@
 ﻿use GD2C2018
-
 go
+
 CREATE SCHEMA MATE_LAVADO
 GO
 ---------------CREACION DE TABLAS---------------
@@ -961,7 +961,7 @@ BEGIN
 	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
 	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
-go
+GO
 
 -----registrarCompraEXU-----
 CREATE PROCEDURE MATE_LAVADO.registrarCompraExU_sp (@id_compra INT, @id_ubicacion INT, @id_espectaculo BIGINT)
