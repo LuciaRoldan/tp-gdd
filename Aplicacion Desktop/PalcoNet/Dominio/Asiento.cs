@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Dominio
 {
-    class Asiento
+    public class Asiento
     {
         char fila;
 
