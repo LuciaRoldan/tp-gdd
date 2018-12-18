@@ -1633,7 +1633,7 @@ CREATE PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicaci
 AS
 BEGIN
 	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
-	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
+	SELECT uxe.id_ubicacion, fila, asiento
 	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion

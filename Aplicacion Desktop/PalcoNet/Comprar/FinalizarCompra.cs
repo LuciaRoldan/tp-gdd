@@ -61,7 +61,8 @@ namespace PalcoNet.Comprar
 
             foreach (Ubicacion u in this.Compra.Ubicaciones)
             {
-                    if (!u.Numerada)
+                //Este if else se puede unificar    
+                if (!u.Numerada)
                     {
                         for (int i = 0; i < u.CantidadAsientos; i++)
                         {
@@ -74,6 +75,7 @@ namespace PalcoNet.Comprar
                         foreach (Asiento a in u.Asientos)
                         {
                             string q = this.Compra.Id + ", " + (a.Id) + ", " + this.Compra.Espectaculo.Id;
+                            MessageBox.Show("La compra se realizó exitosamente!" + q, "Compra", MessageBoxButtons.OK);
                             Servidor.getInstance().query("exec MATE_LAVADO.registrarCompraExU_sp " + q);
                         }
                     }
