@@ -207,7 +207,9 @@ GO
 ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
-id_compra INT REFERENCES MATE_LAVADO.Compras
+id_compra INT REFERENCES MATE_LAVADO.Compras,
+id_factura INT REFERENCES MATE_LAVADO.Facturas,
+monto_facturado INT
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -451,8 +453,8 @@ FROM MATE_LAVADO.#ComprasTemp
 SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 GO
 
-INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
+INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra, id_factura, monto_facturado)
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra, gd.Factura_Nro, gd.Item_Factura_Monto
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
 	AND gd.Ubicacion_Fila = u.fila
@@ -472,6 +474,14 @@ GO
 INSERT INTO MATE_LAVADO.Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
 SELECT DISTINCT id_cliente, 0, NULL
 FROM MATE_LAVADO.Clientes
+GO
+
+UPDATE MATE_LAVADO.Compras
+SET importe = u.precio
+FROM MATE_LAVADO.Compras c
+JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
+JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
+WHERE c.id_compra = uxe.id_compra
 GO
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
@@ -1924,3 +1934,6 @@ DECLARE @bool BIT = 1
 	END
 END
 GO
+
+
+select * from gd_esquema.Maestra
