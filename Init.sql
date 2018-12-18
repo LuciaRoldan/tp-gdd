@@ -539,7 +539,20 @@ INSERT INTO MATE_LAVADO.Clientes VALUES(@id_ro, 'Ro', 'Chi', 'DNI', NULL, 290151
 --INSERT INTO MATE_LAVADO.Empresas VALUES(@id_ro, 'RoCo', 'ro@co.com', 154843, '11-11-2012 03:03:30', 'Gur', 12, 3, 'C', 5486)
 
 INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_ro, 3)
-INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_ro, 2)
+--INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_ro, 2)
+
+
+INSERT INTO MATE_LAVADO.Usuarios VALUES('roco', 'lol', 1, '12-12-2016 02:03:02', 0, 0)
+DECLARE @id_roo INT
+SET @id_roo = SCOPE_IDENTITY()
+INSERT INTO MATE_LAVADO.Empresas VALUES(@id_roo, 'RoCo', 'rorro@lo.com', 4853, '12-12-2016 02:03:04', 'Gs', 84, 1, 'G', 548)
+
+INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_roo, 2)
+
+--.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
+BEGIN TRANSACTION
+UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
+COMMIT
 
 
 
@@ -561,3 +574,9 @@ select * from MATE_LAVADO.Empresas WHERE id_usuario = 785
 BEGIN TRANSACTION
 UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))
 COMMIT
+
+
+
+
+select * from MATE_LAVADO.Compras order by id_compra desc
+select * from MATE_LAVADO.UbicacionXEspectaculo order by id_ubicacion_espectaculo desc
