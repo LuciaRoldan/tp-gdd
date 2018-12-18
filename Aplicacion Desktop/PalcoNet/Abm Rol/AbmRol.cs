@@ -54,8 +54,8 @@ namespace PalcoNet.Abm_Rol
                 reader.Close();
 
                 //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
-
-                reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
+                
+               reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
 
                 while (reader.Read())
                 {
@@ -128,6 +128,19 @@ namespace PalcoNet.Abm_Rol
                 textBoxNombre.ResetText();
 
                 MessageBox.Show("Se creó el rol " + nombre + " de forma exitosa.", "Rol creado", MessageBoxButtons.OK);
+
+                
+
+               SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
+               comboBoxRoles.Items.Clear();
+                while (reader.Read())
+                {
+                    comboBoxRoles.Items.Add(reader["nombre"].ToString());
+                }
+                reader.Close();
+                
+                
+            
             } 
         }
 
@@ -174,6 +187,7 @@ namespace PalcoNet.Abm_Rol
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //mientras no haya rol seleccionado no estarán habilitados los demás campos
+
             rolSeleccionado.Nombre = comboBoxRoles.SelectedItem.ToString();
             this.checkedListBoxFun2.Enabled = true;
             this.button5.Enabled = true;
