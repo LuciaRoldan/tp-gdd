@@ -97,12 +97,6 @@ namespace PalcoNet.Comprar
 
             if (this.numericUpDownCantidad.Value > 0 && this.comboBoxUbicaciones.SelectedIndex > -1)
             {
-                this.ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
-                ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
-                ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
-                ubicacion.Id = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Id;
-                ubicacion.CantidadAsientos = (int) this.numericUpDownCantidad.Value;
-
 
                 if (ubicacion.Numerada)
                 {
@@ -135,6 +129,39 @@ namespace PalcoNet.Comprar
                         seleccion.Close();
                     }
                     
+                }
+
+                if (!ubicacion.Numerada)
+                {
+
+                    Servidor servidor = Servidor.getInstance();
+
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'");
+
+                    while (reader.Read())
+                    {
+                        //Se guarda una lista con todos los asientos disponibles para ese espectaculo y ese tipo de ubicacion al comenzar la seleccion, para pasarsela
+                        //a la pantalla de seleccionar asientos, actualizandola cada vez que se selecciona un asiento nuevo.
+                        Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
+                        Asiento unAsiento = new Asiento();
+                        unAsiento.Id = id;
+                        this.AsientosDisponibles.Add(unAsiento);
+                    }
+                    reader.Close();
+
+                    this.Compra.Ubicaciones.Add(ubicacion);
+
+                    for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
+                    {
+
+                        Asiento elAsiento = asientosDisponibles[i];
+                        asientosDisponibles.Remove(elAsiento);
+                        Console.Write("ak removiendo asientos");
+                        Console.Write("id del asiento es: ");
+                        Console.Write(elAsiento.Id.ToString());
+                        //Agrego el asiento elegido a la lista de asientos de la compra
+                        this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
+                    }
                 }
 
                 MessageBox.Show("Los asientos se agregaron al carrito!", "Seleccionar Asientos", MessageBoxButtons.OK);

@@ -976,6 +976,21 @@ BEGIN
 END
 GO
 
+
+-----registrarCompraNumerada-----
+CREATE PROCEDURE MATE_LAVADO.registrarCompraUbicacion_sp
+@id_compra INT,
+@id_uxe INT
+AS
+BEGIN
+	UPDATE MATE_LAVADO.UbicacionXEspectaculo
+	SET id_compra = @id_compra
+	WHERE id_ubicacion_espectaculo = @id_uxe
+END
+GO
+
+drop procedure mate_lavado.registrarCompraNumerada_sp
+
 -----getPublicacionesDeUsuario-----
 CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
@@ -1640,6 +1655,19 @@ BEGIN
 END
 GO
 
+
+-----ubicSinNumerarDisponibleSegunEspectaculoYTipoUbicacion-----
+CREATE PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp
+@id_espectaculo INT,
+@tipo_ubicacion VARCHAR(30)
+AS
+BEGIN
+	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+	SELECT uxe.id_ubicacion_espectaculo
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
+END
 
 -----elClienteExiste-----
 CREATE PROCEDURE MATE_LAVADO.elClienteExiste_sp(@id_usuario INT)
