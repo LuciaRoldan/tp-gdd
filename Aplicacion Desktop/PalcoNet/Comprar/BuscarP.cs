@@ -106,12 +106,11 @@ namespace PalcoNet.Comprar
 
         private void leer(bool paraAdelante)
         {
-
             if (paraAdelante) { this.Offset++; } else { this.Offset--; }
+            List<Publicacion> encontradas = new List<Publicacion>();
 
             if (this.Offset >= 0)
             {
-                this.Publicaciones.Clear();
                 string descripcion = "";
                 List<string> categoriasSelecc = new List<string>();
                 DateTime? desde = null;
@@ -140,7 +139,6 @@ namespace PalcoNet.Comprar
                 String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
-                List<Publicacion> resultados = new List<Publicacion>();
 
                 while (reader.Read())
                 {
@@ -149,19 +147,19 @@ namespace PalcoNet.Comprar
                     publicacion.Descripcion = reader["descripcion"].ToString();
                     publicacion.Direccion = reader["direccion"].ToString();
                     publicacion.Rubro = reader["rubro"].ToString();
-                    resultados.Add(publicacion);
-                    this.Publicaciones.Add(publicacion);
+                    encontradas.Add(publicacion);
                 }
                 reader.Close();
             }
-            if (this.Publicaciones.Count() == 0)
+            if (encontradas.Count() == 0)
             {
                 if (paraAdelante) { this.Offset--; } else { this.Offset++; }
-                dataGridViewResultados.DataSource = new BindingSource(new BindingList<Publicacion>(), null);
                 MessageBox.Show("No existen más resultados", "Advertencia", MessageBoxButtons.OK);
             }
             else
             {
+                this.Publicaciones.Clear();
+                this.Publicaciones = encontradas;
                 var bindingList = new BindingList<Publicacion> (this.Publicaciones);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
