@@ -110,7 +110,7 @@ namespace PalcoNet.Comprar
                         //a la pantalla de seleccionar asientos, actualizandola cada vez que se selecciona un asiento nuevo.
                         Char fila = (Convert.ToChar(reader["fila"]));
                         Int32 asiento = (Convert.ToInt32(reader["asiento"]));
-                        Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
+                        Int32 id = (Convert.ToInt32(reader["id_ubicacion"]));
                         Asiento unAsiento = new Asiento();
                         unAsiento.Asiento1 = asiento;
                         unAsiento.Fila = fila;
