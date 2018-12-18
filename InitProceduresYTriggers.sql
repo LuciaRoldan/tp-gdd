@@ -57,6 +57,9 @@ DROP PROCEDURE MATE_LAVADO.elClienteExiste_sp
 DROP PROCEDURE MATE_LAVADO.elClienteTieneInfoCompleta_sp
 DROP PROCEDURE MATE_LAVADO.laEmpresaExiste_sp
 DROP PROCEDURE MATE_LAVADO.laEmpresaTieneInfoCompleta_sp
+DROP PROCEDURE MATE_LAVADO.eliminarPublicacion_sp
+DROP PROCEDURE MATE_LAVADO.eliminarEspectaculo_sp
+DROP PROCEDURE MATE_LAVADO.eliminarUbicacion_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
@@ -115,6 +118,96 @@ BEGIN
 			BEGIN
 			RAISERROR('Usuario inexistente', 16, 1)
 		END
+	END
+END
+GO
+
+
+-----eliminarEspectaculo-----
+CREATE PROCEDURE MATE_LAVADO.eliminarEspectaculo_sp
+(@id_espectaculo INT
+)
+AS
+BEGIN
+	IF (SELECT estado_espectaculo FROM MATE_LAVADO.Espectaculos WHERE id_espectaculo = @id_espectaculo) LIKE 'Borrador'
+	BEGIN
+
+		DECLARE @id_ubicacion INT
+		DECLARE cursorUbicaciones CURSOR FOR SELECT id_ubicacion FROM MATE_LAVADO.UbicacionXEspectaculo WHERE id_espectaculo = @id_espectaculo
+		OPEN cursorUbicaciones
+
+		FETCH NEXT FROM cursorUbicaciones INTO @id_ubicacion
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			
+			DELETE FROM MATE_LAVADO.Ubicaciones
+			WHERE id_ubicacion = @id_ubicacion
+
+			FETCH NEXT FROM cursorUbicaciones INTO @id_ubicacion
+		END
+
+		DELETE FROM MATE_LAVADO.UbicacionXEspectaculo
+		WHERE id_espectaculo = @id_espectaculo
+
+		DELETE FROM MATE_LAVADO.Espectaculos
+		WHERE id_espectaculo = @id_espectaculo
+
+		CLOSE cursorUbicaciones
+		DEALLOCATE cursorUbicaciones
+
+	END
+	ELSE
+		RAISERROR('El espectaculo no se encuentra en estado borrador, por lo tanto no puede ser eliminado', 16, 1)
+END
+GO
+
+
+-----eliminarPublicacion-----
+CREATE PROCEDURE MATE_LAVADO.eliminarPublicacion_sp
+(@id_publicacion INT
+)
+AS
+BEGIN
+	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Espectaculos WHERE id_publicacion =  @id_publicacion AND estado_espectaculo <> 'Borrador')
+	BEGIN
+		DECLARE @id_espectaculo INT
+		DECLARE cursor_espectaculos CURSOR FOR
+		(SELECT id_espectaculo FROM MATE_LAVADO.Espectaculos WHERE id_publicacion = @id_publicacion)
+		OPEN cursor_espectaculos
+
+		FETCH NEXT FROM cursor_espectaculos INTO @id_espectaculo
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+
+			EXEC MATE_LAVADO.eliminarEspectaculo_sp @id_espectaculo
+
+			FETCH NEXT FROM cursor_espectaculos INTO @id_espectaculo
+		END
+		CLOSE cursor_espectaculos
+		DEALLOCATE cursor_espectaculos
+
+		DELETE FROM MATE_LAVADO.Publicaciones WHERE id_publicacion = @id_publicacion
+	END
+	ELSE
+		RAISERROR('La publicacion no se encuentra en estado borrador', 16, 1)
+END
+GO
+
+
+-----eliminarUbicacion-----
+CREATE PROCEDURE MATE_LAVADO.eliminarUbicacion_sp(
+@id_ubicacion INT
+)
+AS
+BEGIN
+	IF EXISTS(SELECT * FROM MATE_LAVADO.Ubicaciones WHERE id_ubicacion = @id_ubicacion)
+	BEGIN
+		DELETE FROM MATE_LAVADO.UbicacionXEspectaculo
+		WHERE id_ubicacion = @id_ubicacion
+
+		DELETE FROM MATE_LAVADO.Ubicaciones
+		WHERE id_ubicacion = @id_ubicacion
+
 	END
 END
 GO
