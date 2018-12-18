@@ -17,11 +17,32 @@ namespace PalcoNet.Comprar
         Compra compra;
         Servidor servidor = Servidor.getInstance();
         Sesion sesion = Sesion.getInstance();
+        public List<Asiento> asientosDisponibles = new List<Asiento>();
+        public List<Asiento> asientosSeleccionados = new List<Asiento>();
+        Ubicacion ubicacion = new Ubicacion();
+
+        public List<Asiento> AsientosDisponibles
+        {
+            get { return asientosDisponibles; }
+            set { asientosDisponibles = value; }
+        }
+
+        internal List<Asiento> AsientosSeleccionados
+        {
+            get { return asientosSeleccionados; }
+            set { asientosSeleccionados = value; }
+        }
 
         internal Compra Compra
         {
             get { return compra; }
             set { compra = value; }
+        }
+
+        internal Ubicacion Ubicacion
+        {
+            get { return ubicacion; }
+            set { ubicacion = value; }
         }
 
         List<Ubicacion> ubicacionesDisponibles = new List<Ubicacion>();
@@ -72,6 +93,26 @@ namespace PalcoNet.Comprar
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Servidor servidor = Servidor.getInstance();
+            //Aca hay que buscar en la base todas las filas que tienen asientos disponibles para la publicacion seleccionada
+
+            //SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
+
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.TipoAsiento);
+
+            while (reader.Read())
+            {
+                Char fila = (Convert.ToChar(reader["fila"]));
+                Int32 asiento = (Convert.ToInt32(reader["asiento"]));
+                Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
+                Asiento unAsiento = new Asiento();
+                unAsiento.Asiento1 = asiento;
+                unAsiento.Fila = fila;
+                unAsiento.Id = id;
+                this.AsientosDisponibles.Add(unAsiento);
+            }
+            reader.Close();
+
             new MedioPago(this, this.Compra).Show();
             this.Hide();
         }
@@ -83,8 +124,8 @@ namespace PalcoNet.Comprar
 
             if (this.numericUpDownCantidad.Value > 0 && this.comboBoxUbicaciones.SelectedIndex > -1)
             {
-                Ubicacion ubicacion = new Ubicacion();
-                ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
+                //Ubicacion ubicacion = new Ubicacion();
+                this.ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
                 ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
                 ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
                 ubicacion.Id = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Id;
@@ -96,13 +137,17 @@ namespace PalcoNet.Comprar
                     List<Asiento> asientos = new List<Asiento>();
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
                     {
-                        SeleccionAsiento seleccion = new SeleccionAsiento(ubicacion, compra);
+                        SeleccionAsiento seleccion = new SeleccionAsiento(this, ubicacion, compra);
                         seleccion.ShowDialog();
-                        asientos.Add(seleccion.Asiento);
+                        //asientos.Add(seleccion.Asiento);
                         seleccion.Close();
                     }
-                    ubicacion.Asientos = asientos;
+                    //ubicacion.Asientos = asientos;
                 }
+
+
+
+
                 this.Compra.Ubicaciones.Add(ubicacion);
                 MessageBox.Show("Los asientos se agregaron al carrito!", "Seleccionar Asientos", MessageBoxButtons.OK);
                 if (this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos == ubicacion.CantidadAsientos)
@@ -139,6 +184,15 @@ namespace PalcoNet.Comprar
          private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
          {
              numericUpDownCantidad.Enabled = true;
+         }
+
+         public void asientoSeleccionado(Char fila, int asiento)
+         {
+             Asiento elAsiento = asientosDisponibles.Find(a => a.Asiento1 == asiento && a.Fila == fila);
+             asientosDisponibles.Remove(elAsiento);
+             Console.Write("ak removiendo asientos");
+             Console.Write(elAsiento.Id.ToString(), elAsiento.Fila.ToString(), elAsiento.Asiento1.ToString());
+             asientosSeleccionados.Add(elAsiento);
          }
             
     }

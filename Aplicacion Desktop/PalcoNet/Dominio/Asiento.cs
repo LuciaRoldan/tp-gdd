@@ -8,9 +8,9 @@ namespace PalcoNet.Dominio
 {
     class Asiento
     {
-        int fila;
+        char fila;
 
-        public int Fila
+        public char Fila
         {
             get { return fila; }
             set { fila = value; }
@@ -21,6 +21,14 @@ namespace PalcoNet.Dominio
         {
             get { return asiento; }
             set { asiento = value; }
+        }
+
+        int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
     }
 }

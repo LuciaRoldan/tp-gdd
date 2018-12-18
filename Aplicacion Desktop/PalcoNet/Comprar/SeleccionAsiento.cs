@@ -17,8 +17,9 @@ namespace PalcoNet.Comprar
         Ubicacion ubicacion;
         Asiento asiento;
         Compra compra;
-        List<char> filas = new List<char>();
+        HashSet<Char> filas = new HashSet<Char>();
         List<int> asientos = new List<int>();
+        Ubicaciones formUbicaciones;
 
         public Compra Compra
         {
@@ -39,23 +40,22 @@ namespace PalcoNet.Comprar
         }
 
 
-        public SeleccionAsiento(Ubicacion ubicacion, Compra compra)
+        public SeleccionAsiento(Ubicaciones formUbicaciones, Ubicacion ubicacion, Compra compra)
         {
             InitializeComponent();
 
             this.compra = compra;
             this.ubicacion = ubicacion;
+            this.formUbicaciones = formUbicaciones;
 
             Servidor servidor = Servidor.getInstance();
             //Aca hay que buscar en la base todas las filas que tienen asientos disponibles para la publicacion seleccionada
 
-            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
+            //SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
 
-            while (reader.Read())
-            {
-                this.filas.Add(Convert.ToChar(reader["fila"]));
-            }
-            reader.Close();
+            List<Char> lista = new List<Char>();
+            lista = formUbicaciones.AsientosDisponibles.Select(a => a.Fila).ToList();
+            this.filas = new HashSet<Char>(lista);
                         
             foreach (char f in filas) {
                 comboBoxFila.Items.Add(f);
@@ -68,28 +68,28 @@ namespace PalcoNet.Comprar
             this.asientos.Clear();
             comboBoxAsiento.Items.Clear();
             comboBoxAsiento.ResetText();
+
+            List<Asiento> asientosSeleccionados = formUbicaciones.AsientosDisponibles.Where(a => a.Fila == filaSeleccionada).ToList();
+
             //Aca hay que buscar en la base todas los asientos disponibles para la fila seleccionada de la publicacion seleccionada
 
-            SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp " + this.compra.Espectaculo.Id + ", '" + filaSeleccionada + "', " + this.ubicacion.Precio);
+            //SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp " + this.compra.Espectaculo.Id + ", '" + filaSeleccionada + "', " + this.ubicacion.Precio);
 
-            while (reader.Read())
-            {
-                this.asientos.Add(Convert.ToInt32(reader["asiento"]));
-            }
-            reader.Close();
 
-            foreach (int a in asientos)
+            foreach (Asiento a in asientosSeleccionados)
             {
-                comboBoxAsiento.Items.Add(a);
+                comboBoxAsiento.Items.Add(a.Asiento1);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (comboBoxAsiento.SelectedIndex > -1 && comboBoxFila.SelectedIndex > -1){
-                this.Asiento = new Asiento();
-                this.Asiento.Fila = this.filas.ElementAt(comboBoxFila.SelectedIndex);
-                this.Asiento.Asiento1 = this.asientos.ElementAt(comboBoxAsiento.SelectedIndex);
+                //this.Asiento = new Asiento();
+                //this.Asiento.Fila = this.filas.ElementAt(comboBoxFila.SelectedIndex);
+                //this.Asiento.Asiento1 = this.asientos.ElementAt(comboBoxAsiento.SelectedIndex);
+                this.formUbicaciones.asientoSeleccionado(this.filas.ElementAt(comboBoxFila.SelectedIndex), this.asientos.ElementAt(comboBoxAsiento.SelectedIndex));
+                
                 this.Hide();
             } else {
                 MessageBox.Show("Se debe seleccionar un asiento", "Error", MessageBoxButtons.OK);

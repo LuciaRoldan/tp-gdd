@@ -64,6 +64,7 @@ DROP PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp
 DROP PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente
 DROP PROCEDURE MATE_LAVADO.usuarioEsCliente_sp
 DROP PROCEDURE MATE_LAVADO.usuarioEsEmpresa_sp
+DROP PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura

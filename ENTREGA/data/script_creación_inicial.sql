@@ -1613,6 +1613,21 @@ END
 GO
 
 
+-----ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion-----
+CREATE PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
+@id_espectaculo INT,
+@tipo_ubicacion VARCHAR(30)
+AS
+BEGIN
+	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
+	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
+	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
+	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.tipo_ubicacion = @id_tipo_ubicacion
+END
+GO
+
+
 -----elClienteExiste-----
 CREATE PROCEDURE MATE_LAVADO.elClienteExiste_sp(@id_usuario INT)
 AS
