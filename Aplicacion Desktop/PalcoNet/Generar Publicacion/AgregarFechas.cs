@@ -73,5 +73,12 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.cerrarAnteriores();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem);
+            this.publicacion.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem);
+            this.actualizarFechas();
+        }
     }
 }

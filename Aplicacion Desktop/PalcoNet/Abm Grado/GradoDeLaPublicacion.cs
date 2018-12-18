@@ -52,7 +52,7 @@ namespace PalcoNet.Abm_Grado
                     Publicacion publicacion = new Publicacion();
                     publicacion.Id = Convert.ToInt16(reader["id_publicacion"]);
                     publicacion.Descripcion = reader["descripcion"].ToString();
-                    publicacion.GradoDePublicacion = reader["grado"].ToString();
+                    publicacion.GradoDePublicacion = reader["nombre"].ToString();
                     checkedListBoxPublicaciones.Items.Add(publicacion.Descripcion);
                     this.Publicaciones.Add(publicacion);
                 }

@@ -355,7 +355,9 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-
+            //Borrar espectaculo
+            this.publicacionElegida.Fechas.Remove((DateTime) this.dataGridViewFechas.CurrentRow.DataBoundItem);
+            this.actualizarFechas();
         }
 
         private void button7_Click_1(object sender, EventArgs e)
@@ -363,12 +365,13 @@ namespace PalcoNet.Editar_Publicacion
             this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
 
             Servidor servidor = Servidor.getInstance();
-            string query5 = "'" + this.publicacionElegida.Id + "'";
-            servidor.query("EXEC MATE_LAVADO.eliminarPublicacion_sp " + query5);
+            servidor.query("EXEC MATE_LAVADO.vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
+            servidor.query("EXEC MATE_LAVADO.eliminarPublicacion_sp " + this.publicacionElegida.Id);
 
+            MessageBox.Show("La publicación se eliminó exitosamente!", "Editar publicación", MessageBoxButtons.OK);
 
-
-
+            new SeleccionarFuncionalidad().Show();
+            this.Hide(); 
         }
 
         private void dataGridViewUbicaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -383,7 +386,9 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            //Borrar ubicacion
+            this.publicacionElegida.Ubicaciones.Remove((Ubicacion)dataGridViewUbicaciones.CurrentRow.DataBoundItem);
+            this.actualizarUbicaciones();
         }
     }
 }

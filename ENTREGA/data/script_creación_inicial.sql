@@ -981,9 +981,10 @@ CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
 @usuario VARCHAR(50)
 AS
 BEGIN
-	SELECT id_publicacion, descripcion, direccion FROM MATE_LAVADO.Publicaciones p
+	SELECT id_publicacion, descripcion, direccion, gp.nombre FROM MATE_LAVADO.Publicaciones p
 	JOIN MATE_LAVADO.Empresas e ON(e.id_empresa = p.id_empresa)
 	JOIN MATE_LAVADO.Usuarios u ON (e.id_usuario = u.id_usuario)
+	JOIN MATE_LAVADO.Grados_publicacion gp ON (p.id_grado_publicacion = gp.id_grado_publicacion)
 	WHERE username = @usuario
 END
 GO
@@ -1020,7 +1021,12 @@ CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 @cuit_viejo varchar(20),
 @razon_social varchar(20),
 @mail varchar(20),
-@cuit varchar(20)
+@cuit varchar(20),
+@calle NVARCHAR(255),
+@numero_calle NUMERIC(18,0),
+@piso NUMERIC(18,0),
+@depto NVARCHAR(255),
+@codigo_postal NVARCHAR(50)
 AS
 BEGIN
 	IF EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas WHERE cuit = @cuit_viejo)
@@ -1028,18 +1034,16 @@ BEGIN
 		IF(@cuit = @cuit_viejo)
 			BEGIN
 			UPDATE MATE_LAVADO.Empresas
-				SET razon_social = @razon_social,
-					mail = @mail,
-					cuit = @cuit
+				SET razon_social = @razon_social, mail = @mail, cuit = @cuit,
+				calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
 				WHERE cuit like @cuit_viejo
 			END
 			ELSE
 				IF NOT EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas where cuit like @cuit)
 				BEGIN
 					UPDATE MATE_LAVADO.Empresas
-						SET razon_social = @razon_social,
-						mail = @mail,
-						cuit = @cuit
+						SET razon_social = @razon_social, mail = @mail,	cuit = @cuit,
+						calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
 					WHERE cuit like @cuit_viejo
 				END
 				ELSE
@@ -1550,6 +1554,15 @@ AS
 BEGIN
 	SELECT piso, depto, calle, numero_calle, codigo_postal FROM MATE_LAVADO.Clientes
 	WHERE id_cliente = @id_cliente
+END
+GO
+
+CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesEmpresa(
+@id_empresa INT)
+AS
+BEGIN
+	SELECT piso, depto, calle, numero_calle, codigo_postal FROM MATE_LAVADO.Empresas
+	WHERE id_empresa = @id_empresa
 END
 GO
 
