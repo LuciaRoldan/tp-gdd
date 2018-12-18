@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Abm_Empresa_Espectaculo
 {
@@ -16,6 +17,12 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         bool fueModificada = false;
         Servidor servidor = Servidor.getInstance();
         Empresa empresaVieja;
+        String calle;
+        Int32 numeroCalle;
+        Int32 piso;
+        String depto;
+        String codigoPostal;
+        SqlDataReader readerEmpresa;
 
         public bool FueModificada
         {
@@ -29,9 +36,32 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             textBoxRazonSocial.Text += empresa.RazonSocial;
             textBoxMail.Text += empresa.Mail;
-            textBoxCuit.Text += empresa.Cuit;
+            var cuit = empresa.Cuit;
+            textBoxCuit.Text += cuit == 0 ? null : cuit.ToString();
    
             empresaVieja = empresa;
+
+            readerEmpresa = servidor.query("EXEC MATE_LAVADO.obtenerDatosAdicionalesEmpresa '" + empresa.Id + "'");
+
+            readerEmpresa.Read();
+
+            calle = readerEmpresa["calle"].ToString();
+            var nro = readerEmpresa["numero_calle"];
+            if (!(nro is DBNull)) numeroCalle = Convert.ToInt32(nro);
+            var _piso = readerEmpresa["piso"];
+            if (!(_piso is DBNull)) piso = Convert.ToInt32(piso);
+            depto = readerEmpresa["depto"].ToString();
+            codigoPostal = readerEmpresa["codigo_postal"].ToString();
+
+            readerEmpresa.Close();
+
+            textBoxCalle.Text += calle;
+            textBoxNumeroCalle.Text += numeroCalle == 0 ? null : numeroCalle.ToString();
+            textBoxPiso.Text += piso == 0 ? null : piso.ToString();
+            textBoxDepto.Text += depto;
+            textBoxCodigoPostal.Text += codigoPostal;
+            
+            
         }
 
         public bool verificarCampos()
@@ -67,7 +97,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         {
             if (this.verificarCampos() && this.FueModificada) //Tambien faltaria verificar que no sean nulos los ingresados
             {
-                Console.WriteLine("Estoy en el if");
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
                 empresaModificada.Cuit = Int64.Parse(textBoxCuit.Text);
@@ -75,10 +104,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 //Aca hay que hacer el update en la base
 
                 String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
-                                + "', '" + empresaModificada.Cuit + "'";
+                                + "', '" + empresaModificada.Cuit + "', '"
+                                + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarEmpresa_sp '" + query);
-                MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
-                //this.cerrarAnteriores();
+                MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar empresa", MessageBoxButtons.OK);
+
                 new SeleccionarFuncionalidad().Show();
                 this.Close();
             }
@@ -98,6 +128,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void textBoxCuit_TextChanged(object sender, EventArgs e)
         {
             this.FueModificada = true;
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
