@@ -92,5 +92,10 @@ namespace PalcoNet.Comprar
                 }
             }
         }
+
+        private void textBoxNumero_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

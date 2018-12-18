@@ -1636,7 +1636,7 @@ BEGIN
 	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
 	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
-	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.tipo_ubicacion = @id_tipo_ubicacion
+	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
 END
 GO
 

@@ -11,11 +11,12 @@ namespace PalcoNet.Dominio
         Publicacion publicacion;
         Tarjeta medioDePago;
         decimal importe;
-        List<Ubicacion> ubicaciones;
+        List<Ubicacion> ubicaciones = new List<Ubicacion>();
         int cantidadEntradas;
         int id;
         decimal comision;
         Espectaculo espectaculo;
+        List<Asiento> asientos;
 
         internal Espectaculo Espectaculo
         {
@@ -45,6 +46,12 @@ namespace PalcoNet.Dominio
         {
             get { return ubicaciones; }
             set { ubicaciones = value; }
+        }
+
+        public List<Asiento> Asientos
+        {
+            get { return asientos; }
+            set { asientos = value; }
         }
 
         internal Publicacion Publicacion

@@ -18,7 +18,7 @@ namespace PalcoNet.Comprar
         Asiento asiento;
         Compra compra;
         HashSet<Char> filas = new HashSet<Char>();
-        List<int> asientos = new List<int>();
+        List<Int32> asientos = new List<Int32>();
         Ubicaciones formUbicaciones;
 
         public Compra Compra
@@ -54,6 +54,8 @@ namespace PalcoNet.Comprar
             //SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp " + this.compra.Espectaculo.Id + ", " + this.ubicacion.Precio);
 
             List<Char> lista = new List<Char>();
+            Console.Write("una fila");
+            Console.Write(formUbicaciones.AsientosDisponibles[0].Fila);
             lista = formUbicaciones.AsientosDisponibles.Select(a => a.Fila).ToList();
             this.filas = new HashSet<Char>(lista);
                         
@@ -70,15 +72,17 @@ namespace PalcoNet.Comprar
             comboBoxAsiento.ResetText();
 
             List<Asiento> asientosSeleccionados = formUbicaciones.AsientosDisponibles.Where(a => a.Fila == filaSeleccionada).ToList();
-
+            List<Int32> numeroAsientosSeleccionados = asientosSeleccionados.Select(a => a.Asiento1).ToList();
+            this.asientos = numeroAsientosSeleccionados;
             //Aca hay que buscar en la base todas los asientos disponibles para la fila seleccionada de la publicacion seleccionada
 
             //SqlDataReader reader = Servidor.getInstance().query("EXEC MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp " + this.compra.Espectaculo.Id + ", '" + filaSeleccionada + "', " + this.ubicacion.Precio);
 
 
-            foreach (Asiento a in asientosSeleccionados)
+            foreach (Int32 a in numeroAsientosSeleccionados)
             {
-                comboBoxAsiento.Items.Add(a.Asiento1);
+                comboBoxAsiento.Items.Add(a);
+                Console.Write(a.ToString());
             }
         }
 
@@ -88,6 +92,12 @@ namespace PalcoNet.Comprar
                 //this.Asiento = new Asiento();
                 //this.Asiento.Fila = this.filas.ElementAt(comboBoxFila.SelectedIndex);
                 //this.Asiento.Asiento1 = this.asientos.ElementAt(comboBoxAsiento.SelectedIndex);
+                Console.Write("la fila selecc es");
+                Console.Write(this.filas.ElementAt(comboBoxFila.SelectedIndex));
+                Console.Write("el asiento selecc es");
+                Console.Write(this.asientos.ElementAt(comboBoxAsiento.SelectedIndex).ToString());
+                
+
                 this.formUbicaciones.asientoSeleccionado(this.filas.ElementAt(comboBoxFila.SelectedIndex), this.asientos.ElementAt(comboBoxAsiento.SelectedIndex));
                 
                 this.Hide();
