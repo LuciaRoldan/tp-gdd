@@ -77,6 +77,7 @@
             // dataGridViewFechas
             // 
             this.dataGridViewFechas.AllowUserToAddRows = false;
+            this.dataGridViewFechas.AllowUserToDeleteRows = false;
             this.dataGridViewFechas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFechas.Location = new System.Drawing.Point(15, 78);
             this.dataGridViewFechas.Name = "dataGridViewFechas";
@@ -226,6 +227,7 @@
             // dataGridViewUbicaciones
             // 
             this.dataGridViewUbicaciones.AllowUserToAddRows = false;
+            this.dataGridViewUbicaciones.AllowUserToDeleteRows = false;
             this.dataGridViewUbicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUbicaciones.Location = new System.Drawing.Point(11, 124);
             this.dataGridViewUbicaciones.Name = "dataGridViewUbicaciones";

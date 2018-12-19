@@ -19,8 +19,15 @@ namespace PalcoNet.Dominio
         DateTime fechaDeNacimiento;
         int puntos;
         int id;
+        List<Tarjeta> tarjetas = new List<Tarjeta>();
         string ciudad;
         string localidad;
+
+        public List<Tarjeta> Tarjetas
+        {
+            get { return tarjetas; }
+            set { tarjetas = value; }
+        }
 
         public int Id
         {

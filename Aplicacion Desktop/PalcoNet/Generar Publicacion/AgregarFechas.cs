@@ -77,8 +77,7 @@ namespace PalcoNet.Generar_Publicacion
         private void RemoverFechaAnteBorrado(object sender, DataGridViewRowCancelEventArgs e)
         {
             this.publicacion.Fechas.Remove((DateTime) e.Row.DataBoundItem);
-            this.actualizarFechas();
-            
+            this.actualizarFechas();            
         }
     }
 }
