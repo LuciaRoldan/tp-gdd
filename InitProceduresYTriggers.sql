@@ -74,6 +74,7 @@ DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
 DROP TRIGGER MATE_LAVADO.insertarNuevaCompra
 DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
+DROP TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasEspectaculo
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasVendidas

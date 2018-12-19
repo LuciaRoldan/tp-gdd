@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Registro_de_Usuario
 {
@@ -132,13 +133,14 @@ namespace PalcoNet.Registro_de_Usuario
                                     + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
                                     + ((Cliente)this.Usuario).FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
                                     + this.Usuario.Piso + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
-                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + ((Cliente)this.Usuario).Ciudad + "', '" + ((Cliente)this.Usuario).Localidad + "'";
+                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + ((Cliente)this.Usuario).Ciudad + "', '" + ((Cliente)this.Usuario).Localidad + "', '"
+                                    + ((Cliente)this.Usuario).Tarjetas[0].Titular + "', " + ((Cliente)this.Usuario).Tarjetas[0].NumeroDeTarjeta;
 
                             Console.WriteLine(queryCli);
 
                             try
                             {
-                                servidor.realizarQuery("EXEC MATE_LAVADO.registroCliente_sp " + queryCli);
+                                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.registroCliente_sp " + queryCli);
                                 if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception eee)

@@ -42,6 +42,9 @@ namespace PalcoNet.Registro_de_Usuario
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
             if (!long.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value ) { error += "La fecha de nacimiento no es válida\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxNumero.Text)) { error += "El Número de Tarjeta no puede estar vacío\n"; }
+            if (!long.TryParse(textBoxNumero.Text, out x)) { error += "El Número de Tarjeta debe ser numérico\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxTitular.Text)) { error += "El Titular no puede estar vacío\n"; }
 
             if (error != "")
             {
@@ -72,6 +75,13 @@ namespace PalcoNet.Registro_de_Usuario
                 cliente.TipoDocumento = comboBoxDocumento.SelectedText;
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = long.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
+
+                //Agregamos la tarjeta
+                Tarjeta tarjeta = new Tarjeta();
+                tarjeta.NumeroDeTarjeta = long.Parse(textBoxNumero.Text);
+                tarjeta.Titular = textBoxTitular.Text;
+                this.Cliente.Tarjetas.Clear();
+                this.Cliente.Tarjetas.Add(tarjeta);
 
                 //Encriptamos la contraseña
                 if (string.IsNullOrWhiteSpace(cliente.NombreUsuario) || cliente.DebeCambiarContraseña) {

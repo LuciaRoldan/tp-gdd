@@ -297,6 +297,9 @@ FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL
 GO
 
+--select * from MATE_LAVADO.Usuarios where username = 'admin'
+
+
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
@@ -858,7 +861,9 @@ CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
 @cambio_pass BIT,
 @fecha_creacion VARCHAR(30),
 @ciudad NVARCHAR(255),
-@localidad NVARCHAR(255))
+@localidad NVARCHAR(255),
+@titular NVARCHAR(50),
+@numeroTarjeta NUMERIC(30))
 AS
 BEGIN 
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
@@ -875,6 +880,10 @@ BEGIN
 		END
 	ELSE BEGIN
 	RAISERROR('Ya existe un cliente con el mismo nombre de usuario, cuil, numero de documento o email', 11, 1) WITH LOG END
+	
+	DECLARE @id_cliente INT
+	SET	@id_cliente = (SELECT id_cliente from MATE_LAVADO.Clientes where mail = @mail)
+	INSERT INTO MATE_LAVADO.Medios_de_pago (id_cliente, titular, nro_tarjeta) VALUES (@id_cliente, @titular, @numeroTarjeta)
 END
 GO
 
@@ -1078,7 +1087,7 @@ CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM MATE_LAVADO.Empresas
+	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM MATE_LAVADO.Empresas
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -1100,7 +1109,7 @@ GO
 
 -----modificarEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
-@cuit_viejo varchar(20),
+@id_empresa INT,
 @razon_social varchar(20),
 @mail varchar(20),
 @cuit varchar(20),
@@ -1111,35 +1120,22 @@ CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 @codigo_postal NVARCHAR(50)
 AS
 BEGIN
-	IF EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas WHERE cuit = @cuit_viejo)
+	IF EXISTS (SELECT id_empresa FROM MATE_LAVADO.Empresas WHERE id_empresa = @id_empresa)
 	BEGIN
-		IF(@cuit = @cuit_viejo)
-			BEGIN
-			UPDATE MATE_LAVADO.Empresas
-				SET razon_social = @razon_social, mail = @mail, cuit = @cuit,
-				calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
-				WHERE cuit like @cuit_viejo
-			END
-			ELSE
-				IF NOT EXISTS (SELECT cuit FROM MATE_LAVADO.Empresas where cuit like @cuit)
-				BEGIN
-					UPDATE MATE_LAVADO.Empresas
-						SET razon_social = @razon_social, mail = @mail,	cuit = @cuit,
-						calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
-					WHERE cuit like @cuit_viejo
-				END
-				ELSE
-				BEGIN
-					RAISERROR('Su cuit ya existe', 16, 1)
-				END
-			END
-		ELSE
-		BEGIN
-			RAISERROR('El cuit es invalido o no existe, pruebe nuevamente', 16, 1)
-		END
+		UPDATE MATE_LAVADO.Empresas
+		SET razon_social = @razon_social, mail = @mail, cuit = @cuit,
+			calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
+		WHERE id_empresa = @id_empresa
+	END
+	ELSE
+	BEGIN
+		RAISERROR('La empresa no existe', 16, 1)
+	END
 END
 GO
 
+
+select * from MATE_LAVADO.Empresas
 -----agregarRol-----
 CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
@@ -1899,13 +1895,15 @@ BEGIN
 	select @last_id-1 id
 END
 GO
------actualizarUsuarioPorIntentosFallidos-----
-CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
+
+--drop TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
+-----actualizarUsuarioHabilitado-----
+/*CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 ON MATE_LAVADO.Usuarios
 AFTER UPDATE
 AS
 BEGIN
-	DECLARE @username varchar(30) = (SELECT username FROM deleted)
+	DECLARE @username varchar(30) = (SELECT username FROM inserted)
 
 	IF (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @username) = 3
 	BEGIN
@@ -1914,7 +1912,7 @@ BEGIN
 		WHERE username = @username
 	END
 END
-GO
+GO*/
 
 
 -----finalizarEspectaculo-----
