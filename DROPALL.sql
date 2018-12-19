@@ -54,7 +54,6 @@ DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
-DROP TRIGGER MATE_LAVADO.rolInhabilitado_tr
 DROP TRIGGER MATE_LAVADO.insertarNuevaCompra
 DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 
