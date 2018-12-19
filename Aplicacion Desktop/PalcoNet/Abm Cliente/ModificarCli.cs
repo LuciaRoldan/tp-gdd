@@ -76,19 +76,26 @@ namespace PalcoNet.Abm_Cliente
                 && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
                 && !string.IsNullOrWhiteSpace(textBoxMail.Text)
                 && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
+                && !string.IsNullOrWhiteSpace(textBoxNumeroCalle.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCalle.Text)
+                && !string.IsNullOrWhiteSpace(textBoxLocalidad.Text)
                 && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
                 && comboBoxDocumento.SelectedIndex > -1
                 && dateTimePickerNacimiento.Value != null;
 
             if (!camposCompletos)
             {
-                errores += "Todos los campos deben estar completos.";
+                errores += "Todos los campos obligatorios deben estar completos.";
             }
             else
             {
                 if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
                 if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; }
                 if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out numero)) { errores += "El Piso debe ser un valor numérico. \n"; }
+                if (!int.TryParse(textBoxNumeroCalle.Text, out numero)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text) && !int.TryParse(textBoxCodigoPostal.Text, out numero)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }
+
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
             }
 
@@ -196,6 +203,11 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void textBoxPiso_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxNumeroCalle_TextChanged(object sender, EventArgs e)
         {
 
         }

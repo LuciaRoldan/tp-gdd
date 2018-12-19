@@ -258,6 +258,7 @@
             this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
             this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
             this.textBoxNumeroCalle.TabIndex = 66;
+            this.textBoxNumeroCalle.TextChanged += new System.EventHandler(this.textBoxNumeroCalle_TextChanged);
             // 
             // label11
             // 

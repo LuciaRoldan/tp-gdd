@@ -1139,6 +1139,10 @@ BEGIN
 END
 GO
 
+
+select * from MATE_LAVADO.clientes where nombre = 'munira'
+
+
 -----agregarRol-----
 CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
