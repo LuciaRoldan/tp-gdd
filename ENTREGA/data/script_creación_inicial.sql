@@ -186,7 +186,9 @@ id_medio_de_pago INT REFERENCES MATE_LAVADO.Medios_de_pago,
 id_factura INT REFERENCES MATE_LAVADO.Facturas,
 comision NUMERIC(3,3),
 fecha DATETIME,
-importe INT
+importe NUMERIC(18,2),
+descripcion NVARCHAR(60),
+cantidad NUMERIC(18, 0)
 Go
 
 ALTER TABLE MATE_LAVADO.Publicaciones ADD
@@ -209,7 +211,7 @@ id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
 id_compra INT REFERENCES MATE_LAVADO.Compras,
 id_factura INT REFERENCES MATE_LAVADO.Facturas,
-monto_facturado INT
+monto_facturado NUMERIC(18,2)
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -227,7 +229,6 @@ GO
 
 ALTER TABLE MATE_LAVADO.Ubicaciones ADD
 codigo_tipo_ubicacion INT,
-tipo_ubicacion NVARCHAR(20),
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
@@ -429,14 +430,17 @@ id_espectaculo INT,
 id_medio_de_pago INT,
 id_factura INT,
 fecha DATETIME,
+descripcion NVARCHAR(60),
+cantidad NUMERIC(18, 0),
 asiento INT,
 fila CHAR(1),
-tipo_codigo INT
+tipo_codigo INT,
+factura_monto NUMERIC(18,2)
 )
 GO
 
-INSERT INTO MATE_LAVADO.#ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, fecha, asiento, fila, tipo_codigo)
-SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, gd.Compra_Fecha, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo
+INSERT INTO MATE_LAVADO.#ComprasTemp(id_cliente, id_espectaculo, id_medio_de_pago, id_factura, fecha, descripcion, cantidad, asiento, fila, tipo_codigo, factura_monto)
+SELECT c.id_cliente, gd.Espectaculo_Cod, mp.id_medio_de_pago, f.id_factura, gd.Compra_Fecha, gd.Item_Factura_Descripcion, gd.Item_Factura_Cantidad, gd.Ubicacion_Asiento, gd.Ubicacion_Fila, gd.Ubicacion_Tipo_Codigo, gd.Item_Factura_Monto
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Clientes c ON(gd.Cli_Dni = c.documento)
 JOIN MATE_LAVADO.Facturas f ON(f.id_factura = gd.Factura_Nro)
@@ -447,14 +451,14 @@ GO
 --.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
 
 SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-INSERT INTO MATE_LAVADO.Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha)
-SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha
+INSERT INTO MATE_LAVADO.Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha, descripcion, cantidad)
+SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha, descripcion, cantidad
 FROM MATE_LAVADO.#ComprasTemp
 SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 GO
 
 INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra, id_factura, monto_facturado)
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra, gd.Factura_Nro, gd.Item_Factura_Monto
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra, ct.id_factura, ct.factura_monto
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
 	AND gd.Ubicacion_Fila = u.fila
@@ -986,7 +990,6 @@ BEGIN
 END
 GO
 
-
 -----registrarCompraNumerada-----
 CREATE PROCEDURE MATE_LAVADO.registrarCompraUbicacion_sp
 @id_compra INT,
@@ -998,8 +1001,6 @@ BEGIN
 	WHERE id_ubicacion_espectaculo = @id_uxe
 END
 GO
-
-drop procedure mate_lavado.registrarCompraNumerada_sp
 
 -----getPublicacionesDeUsuario-----
 CREATE PROCEDURE MATE_LAVADO.getPublicacionesDeUsuario_sp
@@ -1564,12 +1565,12 @@ GO
 
 -----buscarComprasNoFacturadas-----
 create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
-	select c.id_compra, descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe FROM MATE_LAVADO.Compras c 
+	select c.id_compra, p.descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe FROM MATE_LAVADO.Compras c 
 	JOIN MATE_LAVADO.UbicacionXEspectaculo u on c.id_compra = u.id_compra
 	JOIN MATE_LAVADO.Espectaculos es on es.id_espectaculo = u.id_espectaculo
 	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = es.id_publicacion
 	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
-	where id_factura is null 
+	where c.id_factura is null 
 end
 GO
 
@@ -1678,9 +1679,12 @@ BEGIN
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
 END
+GO
 
 -----elClienteExiste-----
-CREATE PROCEDURE MATE_LAVADO.elClienteExiste_sp(@id_usuario INT)
+CREATE PROCEDURE MATE_LAVADO.elClienteExiste_sp(
+@id_usuario INT
+)
 AS
 BEGIN
 	DECLARE @existe_el_cliente BIT
@@ -1934,6 +1938,3 @@ DECLARE @bool BIT = 1
 	END
 END
 GO
-
-
-select * from gd_esquema.Maestra
