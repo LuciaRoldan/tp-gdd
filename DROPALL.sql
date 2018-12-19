@@ -98,5 +98,6 @@ DROP PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp
 DROP PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesEmpresa
 DROP PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp
+DROP PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
 
 drop schema MATE_LAVADO

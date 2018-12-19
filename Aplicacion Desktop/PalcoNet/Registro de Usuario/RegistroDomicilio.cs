@@ -85,7 +85,8 @@ namespace PalcoNet.Registro_de_Usuario
                             string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
                             + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                             + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "', '" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '"
+                            + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ((Empresa)this.Usuario).Ciudad + "', '" + ((Empresa)this.Usuario).Localidad + "'";
 
                             Console.WriteLine("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
 
@@ -131,7 +132,7 @@ namespace PalcoNet.Registro_de_Usuario
                                     + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
                                     + ((Cliente)this.Usuario).FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
                                     + this.Usuario.Piso + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
-                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + ((Cliente)this.Usuario).Ciudad + "', '" + ((Cliente)this.Usuario).Localidad + "'";
 
                             Console.WriteLine(queryCli);
 
