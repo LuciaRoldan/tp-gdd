@@ -79,14 +79,17 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresaEnc.Piso = Convert.ToInt32(reader["piso"]);
                     empresaEnc.Departamento = reader["depto"].ToString();
                     empresaEnc.CodigoPostal = reader["codigo_postal"].ToString();
+                    empresaEnc.Ciudad= reader["ciudad"].ToString();
+                    empresaEnc.Localidad = reader["localidad"].ToString();
 
                     resultados.Add(empresaEnc);
                 }
                 reader.Close();
-
+                
                 var bindingList = new BindingList<Empresa>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
+                this.dataGridViewResultados.Columns[1].Visible = false;
 
                 //Aca hay que buscar en la base y obtener una lista de empresas que cumplan con los criterios de busqueda
                 //y mostramos por pantalla los resultados de la busqueda

@@ -19,6 +19,8 @@ namespace PalcoNet.Dominio
         DateTime fechaDeNacimiento;
         int puntos;
         int id;
+        string ciudad;
+        string localidad;
 
         public int Id
         {
@@ -31,6 +33,18 @@ namespace PalcoNet.Dominio
         {
             get { return nombre; }
             set { nombre = value; }
+        }
+
+        public string Ciudad
+        {
+            get { return ciudad; }
+            set { ciudad = value; }
+        }
+
+        public string Localidad
+        {
+            get { return localidad; }
+            set { localidad = value; }
         }
 
         public string Apellido
