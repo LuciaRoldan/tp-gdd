@@ -1087,7 +1087,7 @@ CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM MATE_LAVADO.Empresas
+	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad FROM MATE_LAVADO.Empresas
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -1117,14 +1117,16 @@ CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 @numero_calle NUMERIC(18,0),
 @piso NUMERIC(18,0),
 @depto NVARCHAR(255),
-@codigo_postal NVARCHAR(50)
+@codigo_postal NVARCHAR(50),
+@ciudad varchar(50),
+@localidad varchar(50)
 AS
 BEGIN
 	IF EXISTS (SELECT id_empresa FROM MATE_LAVADO.Empresas WHERE id_empresa = @id_empresa)
 	BEGIN
 		UPDATE MATE_LAVADO.Empresas
-		SET razon_social = @razon_social, mail = @mail, cuit = @cuit,
-			calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
+		SET razon_social = @razon_social, mail = @mail, cuit = @cuit, calle = @calle, numero_calle = @numero_calle, 
+		piso = @piso, depto = @depto, codigo_postal = @codigo_postal, ciudad = @ciudad, localidad = @localidad
 		WHERE id_empresa = @id_empresa
 	END
 	ELSE
@@ -1134,8 +1136,6 @@ BEGIN
 END
 GO
 
-
-select * from MATE_LAVADO.Empresas
 -----agregarRol-----
 CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
