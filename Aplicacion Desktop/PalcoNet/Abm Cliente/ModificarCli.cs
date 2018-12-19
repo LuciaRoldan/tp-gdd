@@ -58,22 +58,13 @@ namespace PalcoNet.Abm_Cliente
 
             readerCliente.Read();
 
-            calle = readerCliente["calle"].ToString();
-            var nro = readerCliente["numero_calle"];
-            if (!(nro is DBNull)) numeroCalle = Convert.ToInt32(nro);
-            var _piso = readerCliente["piso"];
-            if (!(_piso is DBNull)) piso = Convert.ToInt32(piso);
-            depto = readerCliente["depto"].ToString();
-            codigoPostal = readerCliente["codigo_postal"].ToString();
+            textBoxNumeroCalle.Text += clienteViejo.NumeroDeCalle == 0 ? null : clienteViejo.NumeroDeCalle.ToString();
+            textBoxPiso.Text += clienteViejo.Piso == 0 ? null : clienteViejo.Piso.ToString();
+            textBoxCalle.Text += readerCliente["calle"].ToString();
+            textBoxDepto.Text += readerCliente["depto"].ToString();
+            textBoxCodigoPostal.Text += readerCliente["codigo_postal"].ToString();
 
             readerCliente.Close();
-
-            textBoxCalle.Text += calle;
-            textBoxNumeroCalle.Text += numeroCalle == 0 ? null : numeroCalle.ToString();
-            textBoxPiso.Text += piso == 0 ? null : piso.ToString();
-            textBoxDepto.Text += depto;
-            textBoxCodigoPostal.Text += codigoPostal;
-            
         }
         //verificamos que ninguno quede vacio
         public bool verificarCampos() {
@@ -200,6 +191,11 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPiso_TextChanged(object sender, EventArgs e)
         {
 
         }

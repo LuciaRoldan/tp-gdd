@@ -275,6 +275,7 @@
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
             this.textBoxPiso.TabIndex = 70;
+            this.textBoxPiso.TextChanged += new System.EventHandler(this.textBoxPiso_TextChanged);
             // 
             // label12
             // 
