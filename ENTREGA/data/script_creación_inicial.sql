@@ -799,7 +799,7 @@ CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 AS
 BEGIN
 	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
-		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad
 	FROM MATE_LAVADO.Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
@@ -827,7 +827,9 @@ CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @numero_calle NUMERIC(18,0),
 @piso NUMERIC(18,0),
 @depto NVARCHAR(255),
-@codigo_postal NVARCHAR(50)
+@codigo_postal NVARCHAR(50),
+@ciudad NVARCHAR(255),
+@localidad NVARCHAR(255)
 AS
 BEGIN 
 	IF EXISTS (SELECT * FROM MATE_LAVADO.Clientes WHERE id_cliente = @id_cliente) 
@@ -835,7 +837,7 @@ BEGIN
 		BEGIN TRANSACTION
 		UPDATE MATE_LAVADO.Clientes
 		SET nombre = @nombre, apellido = @apellido, mail = @mail, tipo_documento = @tipo_documento, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_nacimiento = @fecha_nacimiento,
-		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
+		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal, localidad = @localidad, ciudad = @ciudad
 		WHERE id_cliente = @id_cliente
 		COMMIT TRANSACTION
 		END

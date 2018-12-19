@@ -82,22 +82,29 @@ namespace PalcoNet.Abm_Cliente
             long num;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
                 && !string.IsNullOrWhiteSpace(textBoxApellido.Text)
-                && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
                 && !string.IsNullOrWhiteSpace(textBoxMail.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
                 && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
+                && !string.IsNullOrWhiteSpace(textBoxLocalidad.Text)
                 && comboBoxDocumento.SelectedIndex > -1
                 && dateTimePickerNacimiento.Value != null;
 
             if (!camposCompletos)
             {
-                errores += "Todos los campos deben estar completos.";
+                if (!string.IsNullOrWhiteSpace(textBoxNombre.Text)) {errores += "El campo Nombre no puede estar vacio.\n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxApellido.Text)) {errores += "El campo Apellido no puede estar vacio.\n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) {errores += "El campo Mail no puede estar vacio.\n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxDocumento.Text)) {errores += "El campo Documento no puede estar vacio.\n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) {errores += "El campo CUIL no puede estar vacio.\n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) {errores += "El campo Localidad no puede estar vacio.\n"; }
+                if (comboBoxDocumento.SelectedIndex > -1) {errores += "El campo Tipo de Documento no puede estar vacio.\n"; }
+                if (dateTimePickerNacimiento.Value > Sesion.getInstance().fecha) { errores += "La Fecha de Nacimiento no puede ser posterior a hoy.\n"; }
             }
             else
             {
                 if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
-                if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; }
-                if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) {if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; }}
+                if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; } }
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
             }
 
@@ -122,9 +129,9 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.Apellido = textBoxApellido.Text;
                 clienteModificado.Nombre = textBoxNombre.Text;
                 clienteModificado.Mail = textBoxMail.Text;
-                clienteModificado.Telefono = long.Parse(textBoxTelefono.Text);
+                if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { clienteModificado.Telefono = long.Parse(textBoxTelefono.Text); }
                 clienteModificado.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-                clienteModificado.Cuil = long.Parse(textBoxCuil.Text);
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { clienteModificado.Cuil = long.Parse(textBoxCuil.Text); }
                 clienteModificado.TipoDocumento = comboBoxDocumento.Text;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
@@ -145,8 +152,8 @@ namespace PalcoNet.Abm_Cliente
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
-                //this.cerrarAnteriores();
-                new SeleccionarFuncionalidad().Show();
+
+                this.Anterior.Show();
                 this.Close();
 
               
