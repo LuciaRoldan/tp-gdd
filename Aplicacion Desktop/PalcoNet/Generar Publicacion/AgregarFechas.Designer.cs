@@ -51,6 +51,7 @@
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(254, 184);
             this.dataGridView.TabIndex = 83;
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.RemoverFechaAnteBorrado);
             // 
             // button3
             // 

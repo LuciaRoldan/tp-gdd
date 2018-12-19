@@ -74,11 +74,11 @@ namespace PalcoNet.Generar_Publicacion
             this.cerrarAnteriores();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void RemoverFechaAnteBorrado(object sender, DataGridViewRowCancelEventArgs e)
         {
-            this.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem);
-            //this.publicacion.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem); //No esta andando esto
+            this.publicacion.Fechas.Remove((DateTime) e.Row.DataBoundItem);
             this.actualizarFechas();
+            
         }
     }
 }
