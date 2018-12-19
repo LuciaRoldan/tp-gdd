@@ -45,17 +45,18 @@
             this.dataGridResultados = new System.Windows.Forms.DataGridView();
             this.buttonModificar = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.IdCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.debeCambiarContraseña = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CUIL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nro_documento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Calle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Piso = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.debeCambiarContraseña = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ciudad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Localidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -204,17 +205,18 @@
             this.dataGridResultados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdCliente,
             this.Nombre,
-            this.debeCambiarContraseña,
             this.Apellido,
             this.CUIL,
-            this.Email,
-            this.Telefono,
             this.Nro_documento,
-            this.TipoDocumento,
+            this.Email,
             this.Calle,
             this.Nro,
             this.Piso,
+            this.Telefono,
+            this.debeCambiarContraseña,
+            this.TipoDocumento,
             this.Ciudad,
             this.CP,
             this.Localidad,
@@ -254,6 +256,14 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // IdCliente
+            // 
+            this.IdCliente.DataPropertyName = "id";
+            this.IdCliente.HeaderText = "IdCliente";
+            this.IdCliente.Name = "IdCliente";
+            this.IdCliente.ReadOnly = true;
+            this.IdCliente.Width = 73;
+            // 
             // Nombre
             // 
             this.Nombre.DataPropertyName = "nombre";
@@ -261,15 +271,6 @@
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             this.Nombre.Width = 69;
-            // 
-            // debeCambiarContraseña
-            // 
-            this.debeCambiarContraseña.DataPropertyName = "debeCambiarContraseña";
-            this.debeCambiarContraseña.HeaderText = "Debe cambiar contraseña";
-            this.debeCambiarContraseña.Name = "debeCambiarContraseña";
-            this.debeCambiarContraseña.ReadOnly = true;
-            this.debeCambiarContraseña.Visible = false;
-            this.debeCambiarContraseña.Width = 154;
             // 
             // Apellido
             // 
@@ -287,22 +288,6 @@
             this.CUIL.ReadOnly = true;
             this.CUIL.Width = 56;
             // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "mail";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            this.Email.Width = 57;
-            // 
-            // Telefono
-            // 
-            this.Telefono.DataPropertyName = "telefono";
-            this.Telefono.HeaderText = "Telefono";
-            this.Telefono.Name = "Telefono";
-            this.Telefono.ReadOnly = true;
-            this.Telefono.Width = 74;
-            // 
             // Nro_documento
             // 
             this.Nro_documento.DataPropertyName = "numeroDeDocumento";
@@ -311,12 +296,13 @@
             this.Nro_documento.ReadOnly = true;
             this.Nro_documento.Width = 99;
             // 
-            // TipoDocumento
+            // Email
             // 
-            this.TipoDocumento.DataPropertyName = "tipoDocumento";
-            this.TipoDocumento.HeaderText = "Tipo documento";
-            this.TipoDocumento.Name = "TipoDocumento";
-            this.TipoDocumento.ReadOnly = true;
+            this.Email.DataPropertyName = "mail";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            this.Email.Width = 57;
             // 
             // Calle
             // 
@@ -341,6 +327,31 @@
             this.Piso.Name = "Piso";
             this.Piso.ReadOnly = true;
             this.Piso.Width = 52;
+            // 
+            // Telefono
+            // 
+            this.Telefono.DataPropertyName = "telefono";
+            this.Telefono.HeaderText = "Telefono";
+            this.Telefono.Name = "Telefono";
+            this.Telefono.ReadOnly = true;
+            this.Telefono.Width = 74;
+            // 
+            // debeCambiarContraseña
+            // 
+            this.debeCambiarContraseña.DataPropertyName = "debeCambiarContraseña";
+            this.debeCambiarContraseña.HeaderText = "Debe cambiar contraseña";
+            this.debeCambiarContraseña.Name = "debeCambiarContraseña";
+            this.debeCambiarContraseña.ReadOnly = true;
+            this.debeCambiarContraseña.Visible = false;
+            this.debeCambiarContraseña.Width = 141;
+            // 
+            // TipoDocumento
+            // 
+            this.TipoDocumento.DataPropertyName = "tipoDocumento";
+            this.TipoDocumento.HeaderText = "Tipo documento";
+            this.TipoDocumento.Name = "TipoDocumento";
+            this.TipoDocumento.ReadOnly = true;
+            this.TipoDocumento.Visible = false;
             // 
             // Ciudad
             // 
@@ -392,6 +403,7 @@
             this.FechaNa.HeaderText = "Fecha de nacimiento";
             this.FechaNa.Name = "FechaNa";
             this.FechaNa.ReadOnly = true;
+            this.FechaNa.Visible = false;
             this.FechaNa.Width = 120;
             // 
             // FechaC
@@ -400,6 +412,7 @@
             this.FechaC.HeaderText = "Fecha de creacion";
             this.FechaC.Name = "FechaC";
             this.FechaC.ReadOnly = true;
+            this.FechaC.Visible = false;
             this.FechaC.Width = 111;
             // 
             // puntos
@@ -455,17 +468,18 @@
         private System.Windows.Forms.DataGridView dataGridResultados;
         private System.Windows.Forms.Button buttonModificar;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn debeCambiarContraseña;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn CUIL;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nro_documento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoDocumento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Calle;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nro;
         private System.Windows.Forms.DataGridViewTextBoxColumn Piso;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn debeCambiarContraseña;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TipoDocumento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ciudad;
         private System.Windows.Forms.DataGridViewTextBoxColumn CP;
         private System.Windows.Forms.DataGridViewTextBoxColumn Localidad;

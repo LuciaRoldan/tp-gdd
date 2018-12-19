@@ -549,6 +549,9 @@ INSERT INTO MATE_LAVADO.Empresas VALUES(@id_roo, 'RoCo', 'rorro@lo.com', 4853, '
 
 INSERT INTO MATE_LAVADO.UsuarioXRol VALUES(@id_roo, 2)
 
+
+select * from MATE_LAVADO.Empresas
+
 --.--.--.--.--.--.--ENCRIPTACION--.--.--.--.--.--.--
 BEGIN TRANSACTION
 UPDATE MATE_LAVADO.Usuarios set password = LOWER(CONVERT(char(100),HASHBYTES('SHA2_256', password),2))

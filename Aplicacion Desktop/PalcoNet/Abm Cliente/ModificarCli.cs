@@ -47,6 +47,8 @@ namespace PalcoNet.Abm_Cliente
             textBoxDocumento.Text += documento == 0 ? null : documento.ToString();
             var cuil = cliente.Cuil;
             textBoxCuil.Text += cuil == 0 ? null : cuil.ToString();
+            textBoxCiudad.Text = cliente.Ciudad;
+            textBoxLocalidad.Text = cliente.Localidad;
             comboBoxDocumento.Text = cliente.TipoDocumento;
             dateTimePickerNacimiento.Value = cliente.FechaDeNacimiento;
             clienteViejo = cliente;
@@ -132,12 +134,14 @@ namespace PalcoNet.Abm_Cliente
                 numeroCalle = Convert.ToInt32(textBoxNumeroCalle.Text);
                 if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { piso = Int32.Parse(textBoxPiso.Text); }
                 if (!string.IsNullOrWhiteSpace(textBoxDepto.Text)) { depto = textBoxDepto.Text; }
-                codigoPostal = textBoxCodigoPostal.Text;                
+                codigoPostal = textBoxCodigoPostal.Text;
+                clienteModificado.Ciudad = textBoxCiudad.Text;
+                clienteModificado.Localidad = textBoxLocalidad.Text;
 
                 String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido
                                 + "', '" + clienteModificado.Mail + "', '" + comboBoxDocumento.Text + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
                                 + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "', '"
-                                + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
+                                + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "', '" + clienteModificado.Ciudad + "', '" + clienteModificado.Localidad + "'";
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
