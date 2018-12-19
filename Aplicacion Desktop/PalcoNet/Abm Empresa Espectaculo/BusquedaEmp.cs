@@ -116,6 +116,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             Empresa empresa = (Empresa)dataGridViewResultados.CurrentRow.DataBoundItem;
             this.Hide();
             new ModificarEmp(empresa, this).Show();
+
         }
 
         private void button4_Click(object sender, EventArgs e)
