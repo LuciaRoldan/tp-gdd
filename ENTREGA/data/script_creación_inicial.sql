@@ -637,12 +637,13 @@ BEGIN
 END
 GO
 
------getRolesHabilitados-----
+-----getRolesHabilitados(Empresa y Cliente)-----
 CREATE PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
 AS
 BEGIN
-	SELECT nombre FROM MATE_LAVADO.Roles
+	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles
 	WHERE habilitado = 1
+	AND nombre like 'Empresa' OR nombre like 'Cliente'
 END
 GO
 
