@@ -55,6 +55,11 @@ id_factura INT PRIMARY KEY
 )
 GO
 
+CREATE TABLE MATE_LAVADO.ItemFactura(
+id_item_factura INT IDENTITY(1,1) PRIMARY KEY
+)
+GO
+
 CREATE TABLE MATE_LAVADO.Compras(
 id_compra INT IDENTITY PRIMARY KEY
 )
@@ -184,16 +189,24 @@ fecha_facturacion DATETIME,
 importe_total NUMERIC(18,2)
 GO
 
+ALTER TABLE MATE_LAVADO.ItemFactura ADD
+id_factura INT REFERENCES MATE_LAVADO.Facturas,
+id_compra INT REFERENCES MATE_LAVADO.Compras,
+id_tipo_ubicacion INT REFERENCES MATE_LAVADO.TiposDeUbicacion,
+cantidad INT,
+importe NUMERIC(18,2),
+comision NUMERIC(3,3),
+descripcion NVARCHAR(60);
+GO
+
 ALTER TABLE MATE_LAVADO.Compras ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
 id_medio_de_pago INT REFERENCES MATE_LAVADO.Medios_de_pago,
-id_factura INT REFERENCES MATE_LAVADO.Facturas,
-comision NUMERIC(3,3),
+cantidad NUMERIC(18, 0),
 fecha DATETIME,
 importe NUMERIC(18,2),
-descripcion NVARCHAR(60),
-cantidad NUMERIC(18, 0)
-Go
+comision NUMERIC(3,3);
+GO
 
 ALTER TABLE MATE_LAVADO.Publicaciones ADD
 id_empresa INT REFERENCES MATE_LAVADO.Empresas,
@@ -213,9 +226,7 @@ GO
 ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
-id_compra INT REFERENCES MATE_LAVADO.Compras,
-id_factura INT REFERENCES MATE_LAVADO.Facturas,
-monto_facturado NUMERIC(18,2)
+id_compra INT REFERENCES MATE_LAVADO.Compras;
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -455,17 +466,17 @@ JOIN MATE_LAVADO.Medios_de_pago mp ON(c.id_cliente = mp.id_cliente)
 WHERE gd.Forma_Pago_Desc IS NOT NULL
 GO
 
---.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
-
 SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-INSERT INTO MATE_LAVADO.Compras(id_compra, id_cliente, id_factura, id_medio_de_pago, fecha, descripcion, cantidad)
-SELECT DISTINCT id_compra, id_cliente, id_factura, id_medio_de_pago, fecha, descripcion, cantidad
+INSERT INTO MATE_LAVADO.Compras(id_compra, id_cliente, id_medio_de_pago, fecha, cantidad)
+SELECT DISTINCT id_compra, id_cliente, id_medio_de_pago, fecha, cantidad
 FROM MATE_LAVADO.#ComprasTemp
 SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 GO
 
-INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra, id_factura, monto_facturado)
-SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra, ct.id_factura, ct.factura_monto
+--.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
+
+INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
+SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
 	AND gd.Ubicacion_Fila = u.fila
@@ -475,6 +486,13 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.asiento = gd.Ubicacion_Asiento
 		AND ct.fila = gd.Ubicacion_Fila
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
+GO
+
+--.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
+
+INSERT INTO MATE_LAVADO.ItemFactura(id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, descripcion)
+SELECT ct.id_factura, ct.id_compra, ct.tipo_codigo, ct.cantidad, ct.factura_monto, ct.descripcion
+FROM MATE_LAVADO.#ComprasTemp ct
 GO
 
 DROP TABLE MATE_LAVADO.#ComprasTemp
@@ -1008,7 +1026,8 @@ create PROCEDURE MATE_LAVADO.historialClienteConOffset_sp (@id_cliente int, @off
 end
 GO
 
------registrarCompra-----
+-----registrarCompra----- 
+/*REVISAR*/ --saque el id_factura que lo insertabamos como NULL
 CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 @id_cliente INT,
 @id_medio_de_pago INT,
@@ -1017,8 +1036,8 @@ CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 AS
 BEGIN
 	SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe)
-	VALUES(@id_cliente, @id_medio_de_pago, NULL, CONVERT(DATETIME, @fecha, 121), @importe)
+	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe)
+	VALUES(@id_cliente, @id_medio_de_pago, CONVERT(DATETIME, @fecha, 121), @importe)
 	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
 GO
@@ -1591,12 +1610,16 @@ end
 GO
 
 -----actualizarCompraFactura-----
+/*REVISAR*/ --Pareciera no tener sentido ahora
+/*
 create PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
 	UPDATE MATE_LAVADO.Compras set id_factura = @id_factura where id_compra = @id_compra
 end
 GO
-
+*/
 -----buscarComprasNoFacturadas-----
+/*REVISAR*/ --Ahora tenemos que buscar que el item no tenga la factura...
+/*
 create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
 	select c.id_compra, p.descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe FROM MATE_LAVADO.Compras c 
 	JOIN MATE_LAVADO.UbicacionXEspectaculo u on c.id_compra = u.id_compra
@@ -1606,6 +1629,7 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 	where c.id_factura is null 
 end
 GO
+*/
 
 CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
 @id_cliente INT)
@@ -1843,6 +1867,7 @@ END
 GO
 
 -----insertarNuevaCompra-----
+/*REVISAR*/ --saque el id_factura que lo insertabamos como NULL 
 CREATE TRIGGER MATE_LAVADO.insertarNuevaCompra ON MATE_LAVADO.Compras
 INSTEAD OF INSERT
 AS
@@ -1856,8 +1881,8 @@ BEGIN
 		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, id_factura, fecha, importe, id_compra)
-		VALUES (@id_cliente, @id_medio_de_pago, NULL, @fecha, @importe, @last_id)
+		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, id_compra)
+		VALUES (@id_cliente, @id_medio_de_pago, @fecha, @importe, @last_id)
 
 		INSERT INTO Puntos(cantidad_puntos, id_cliente, fecha_vencimiento)
 		VALUES(@importe, @id_cliente, DATEADD(year, 1, @fecha))

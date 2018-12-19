@@ -101,7 +101,8 @@ namespace PalcoNet.Abm_Cliente
                     clienteEnc.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
                     clienteEnc.CodigoPostal = reader["codigo_postal"].ToString();
                     clienteEnc.Id = int.Parse(reader["id_cliente"].ToString());
-                    clienteEnc.Departamento = reader["depto"].ToString();
+                    clienteEnc.Ciudad = reader["ciudad"].ToString();
+                    clienteEnc.Localidad = reader["localidad"].ToString();
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);

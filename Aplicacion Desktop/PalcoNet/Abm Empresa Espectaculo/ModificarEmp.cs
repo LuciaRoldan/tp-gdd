@@ -17,7 +17,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         bool fueModificada = false;
         Servidor servidor = Servidor.getInstance();
         Empresa empresaVieja;
-        String calle;
         Int32 numeroCalle;
         Int32 piso;
         String depto;
@@ -45,14 +44,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             readerEmpresa.Read();
 
-            /*calle = readerEmpresa["calle"].ToString();
-            var nro = readerEmpresa["numero_calle"];
-            if (!(nro is DBNull)) numeroCalle = Convert.ToInt32(nro);
-            var _piso = readerEmpresa["piso"];
-            if (!(_piso is DBNull)) piso = Convert.ToInt32(piso);
-            depto = readerEmpresa["depto"].ToString();
-            codigoPostal = readerEmpresa["codigo_postal"].ToString();*/
-
             readerEmpresa.Close();
 
             textBoxCalle.Text += empresaVieja.Calle;
@@ -60,6 +51,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textBoxPiso.Text += empresaVieja.Piso == 0 ? null : empresaVieja.Piso.ToString();
             textBoxDepto.Text += empresaVieja.Departamento;
             textBoxCodigoPostal.Text += empresaVieja.CodigoPostal;
+            textBoxCiudad.Text += empresaVieja.Ciudad;
+            textBoxLocalidad.Text += empresaVieja.Localidad;
             
             
         }
@@ -105,12 +98,15 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 numeroCalle = Int32.Parse(textBoxNumeroCalle.Text);
                 if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { piso = Int32.Parse(textBoxPiso.Text); }
                 if (!string.IsNullOrWhiteSpace(textBoxDepto.Text)) { depto = textBoxDepto.Text; }
-                codigoPostal = textBoxCodigoPostal.Text; 
+                codigoPostal = textBoxCodigoPostal.Text;
+                empresaModificada.Ciudad = textBoxCiudad.Text;
+                empresaModificada.Localidad = textBoxLocalidad.Text;
                 //Aca hay que hacer el update en la base
 
                 String query = empresaVieja.Id + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
                                 + "', '" + empresaModificada.Cuit + "', '"
-                                + empresaModificada.Calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
+                                + empresaModificada.Calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "', '" +
+                                empresaModificada.Localidad + "', '" + empresaModificada.Ciudad + "'";
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarEmpresa_sp '" + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar empresa", MessageBoxButtons.OK);
 
