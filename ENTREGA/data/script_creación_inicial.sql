@@ -103,7 +103,7 @@ GO
 -----ALTER TABLES-----
 
 ALTER TABLE MATE_LAVADO.Usuarios ADD
-username VARCHAR(255),
+username VARCHAR(255) UNIQUE,
 password VARCHAR(255),
 habilitado BIT,
 alta_logica DATETIME,
