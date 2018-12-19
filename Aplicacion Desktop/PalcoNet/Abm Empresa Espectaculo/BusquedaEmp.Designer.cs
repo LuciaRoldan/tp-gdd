@@ -45,6 +45,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.razonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.debeCambiarContraseña = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cuit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -180,6 +181,7 @@
             this.dataGridViewResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.razonSocial,
             this.debeCambiarContraseña,
+            this.Id,
             this.mail,
             this.Cuit,
             this.fechaC,
@@ -236,6 +238,13 @@
             this.debeCambiarContraseña.Name = "debeCambiarContraseña";
             this.debeCambiarContraseña.ReadOnly = true;
             this.debeCambiarContraseña.Visible = false;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
             // 
             // mail
             // 
@@ -372,6 +381,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn razonSocial;
         private System.Windows.Forms.DataGridViewTextBoxColumn debeCambiarContraseña;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn mail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cuit;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaC;

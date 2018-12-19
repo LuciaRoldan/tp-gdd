@@ -45,21 +45,21 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
             readerEmpresa.Read();
 
-            calle = readerEmpresa["calle"].ToString();
+            /*calle = readerEmpresa["calle"].ToString();
             var nro = readerEmpresa["numero_calle"];
             if (!(nro is DBNull)) numeroCalle = Convert.ToInt32(nro);
             var _piso = readerEmpresa["piso"];
             if (!(_piso is DBNull)) piso = Convert.ToInt32(piso);
             depto = readerEmpresa["depto"].ToString();
-            codigoPostal = readerEmpresa["codigo_postal"].ToString();
+            codigoPostal = readerEmpresa["codigo_postal"].ToString();*/
 
             readerEmpresa.Close();
 
-            textBoxCalle.Text += calle;
-            textBoxNumeroCalle.Text += numeroCalle == 0 ? null : numeroCalle.ToString();
-            textBoxPiso.Text += piso == 0 ? null : piso.ToString();
-            textBoxDepto.Text += depto;
-            textBoxCodigoPostal.Text += codigoPostal;
+            textBoxCalle.Text += empresaVieja.Calle;
+            textBoxNumeroCalle.Text += empresaVieja.NumeroDeCalle == 0 ? null : empresaVieja.NumeroDeCalle.ToString();
+            textBoxPiso.Text += empresaVieja.Piso == 0 ? null : empresaVieja.Piso.ToString();
+            textBoxDepto.Text += empresaVieja.Departamento;
+            textBoxCodigoPostal.Text += empresaVieja.CodigoPostal;
             
             
         }
@@ -101,11 +101,16 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
                 empresaModificada.Cuit = Int64.Parse(textBoxCuit.Text);
                 empresaModificada.Mail = textBoxMail.Text;
+                empresaModificada.Calle = textBoxCalle.Text;
+                numeroCalle = Int32.Parse(textBoxNumeroCalle.Text);
+                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { piso = Int32.Parse(textBoxPiso.Text); }
+                if (!string.IsNullOrWhiteSpace(textBoxDepto.Text)) { depto = textBoxDepto.Text; }
+                codigoPostal = textBoxCodigoPostal.Text; 
                 //Aca hay que hacer el update en la base
 
-                String query = empresaVieja.Cuit + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
+                String query = empresaVieja.Id + "', '" + empresaModificada.RazonSocial + "', '" + empresaModificada.Mail
                                 + "', '" + empresaModificada.Cuit + "', '"
-                                + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
+                                + empresaModificada.Calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "'";
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarEmpresa_sp '" + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar empresa", MessageBoxButtons.OK);
 
