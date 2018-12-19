@@ -683,6 +683,17 @@ BEGIN
 		UPDATE MATE_LAVADO.Roles
 		SET habilitado = @habilitado
 		WHERE nombre = @nombre
+
+
+		IF(@habilitado = 0)
+		BEGIN
+			DECLARE @id_rol_modificado INT
+			SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.Roles WHERE nombre = @nombre)
+
+			DELETE FROM MATE_LAVADO.UsuarioXRol
+			WHERE id_rol = @id_rol_modificado
+		END
+
 	END
 	ELSE
 	BEGIN
@@ -721,7 +732,7 @@ END
 GO
 
 -----agregarFuncionalidadARol-----
-ALTER PROCEDURE MATE_LAVADO.AgregarFuncionalidadARol_sp
+ALTER PROCEDURE MATE_LAVADO.agregarFuncionalidadARol_sp
 @nombre_rol VARCHAR(50),
 @nombre_funcionalidad VARCHAR(50)
 AS
@@ -1727,7 +1738,6 @@ BEGIN
 		(SELECT apellido FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT tipo_documento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT documento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
-		(SELECT cuil FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT mail FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT fecha_nacimiento FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
 		(SELECT calle FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
