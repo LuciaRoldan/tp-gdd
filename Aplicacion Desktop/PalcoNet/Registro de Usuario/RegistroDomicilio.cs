@@ -110,7 +110,6 @@ namespace PalcoNet.Registro_de_Usuario
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroEmpresaConUsuario_sp " + query);
-                                //if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception ee)
                             {
@@ -162,7 +161,6 @@ namespace PalcoNet.Registro_de_Usuario
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroClienteConUsuario_sp " + queryCli);
-                                //if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception eee)
                             {
