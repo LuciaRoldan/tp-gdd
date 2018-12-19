@@ -144,6 +144,7 @@ namespace PalcoNet.Registro_de_Usuario
                             {
                                 error = true;
                                 mensajeError += eee.Message;
+                                Console.WriteLine(eee.Message);
                             }
                         /*}
                         else
@@ -173,14 +174,15 @@ namespace PalcoNet.Registro_de_Usuario
                     if (!error)
                     {
                         MessageBox.Show("El usuario se creó exitosamente.\n" + cambioContraseña, "Creación completa", MessageBoxButtons.OK);
+                        this.Hide();
+                        new SeleccionarFuncionalidad().Show();
                     }
                     else {
                         MessageBox.Show("No se pudo crear el usuario.\n" + mensajeError, "Error", MessageBoxButtons.OK);
                     }
 
                 
-                    this.Hide();
-                    new SeleccionarFuncionalidad().Show();
+                    
                     //this.cerrarAnteriores();
                 }
 

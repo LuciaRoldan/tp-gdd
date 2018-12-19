@@ -145,7 +145,9 @@ calle NVARCHAR(255),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(255),
-codigo_postal NVARCHAR(50)
+codigo_postal NVARCHAR(50),
+ciudad NVARCHAR(255),
+localidad NVARCHAR(255)
 GO
 
 ALTER TABLE MATE_LAVADO.Medios_de_pago ADD
@@ -171,7 +173,9 @@ calle NVARCHAR(50),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(50),
-codigo_postal NVARCHAR(50)
+codigo_postal NVARCHAR(50),
+ciudad NVARCHAR(255),
+localidad NVARCHAR(255)
 GO
 
 ALTER TABLE MATE_LAVADO.Facturas ADD
@@ -849,8 +853,8 @@ BEGIN
 		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 3)
 		COMMIT TRANSACTION
 		END
-	ELSE
-	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
+	ELSE BEGIN
+	RAISERROR('Ya existe un cliente con el mismo nombre de usuario, cuil, numero de documento o email', 11, 1) WITH LOG END
 END
 GO
 
