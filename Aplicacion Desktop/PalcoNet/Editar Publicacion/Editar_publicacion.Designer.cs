@@ -332,6 +332,7 @@
             this.checkBoxNumerado.TabIndex = 141;
             this.checkBoxNumerado.Text = "Asientos numerados";
             this.checkBoxNumerado.UseVisualStyleBackColor = true;
+            this.checkBoxNumerado.CheckedChanged += new System.EventHandler(this.checkBoxNumerado_CheckedChanged);
             // 
             // label6
             // 

@@ -393,5 +393,17 @@ namespace PalcoNet.Editar_Publicacion
             this.publicacionElegida.Ubicaciones.Remove((Ubicacion)dataGridViewUbicaciones.CurrentRow.DataBoundItem);
             this.actualizarUbicaciones();
         }
+
+        private void checkBoxNumerado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNumerado.Checked)
+            {
+                textBoxFilas.Enabled = true;
+            }
+            else
+            {
+                textBoxFilas.Enabled = false;
+            }
+        }
     }
 }
