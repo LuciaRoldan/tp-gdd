@@ -67,7 +67,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 Console.WriteLine(query);
                 while (reader.Read())
                 {
+
                     Empresa empresaEnc = new Empresa();
+                    empresaEnc.Id = Convert.ToInt64(reader["id_empresa"]);
                     empresaEnc.RazonSocial = reader["razon_social"].ToString();
                     empresaEnc.Mail = reader["mail"].ToString();
                     empresaEnc.Cuit = Convert.ToInt64(reader["cuit"]);
@@ -76,6 +78,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresaEnc.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                     empresaEnc.Piso = Convert.ToInt32(reader["piso"]);
                     empresaEnc.Departamento = reader["depto"].ToString();
+                    empresaEnc.CodigoPostal = reader["codigo_postal"].ToString();
 
                     resultados.Add(empresaEnc);
                 }
