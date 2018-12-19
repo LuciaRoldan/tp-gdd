@@ -21,6 +21,7 @@ namespace PalcoNet
         
         Sesion sesion = Sesion.getInstance();
         Usuario usuario = new Usuario();
+        Servidor servidor = Servidor.getInstance();
 
         public Usuario Usuario
         {
@@ -31,6 +32,13 @@ namespace PalcoNet
         {
             this.Usuario = usuario;
             InitializeComponent();
+
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesHabilitados_sp");
+            usuario.NombreUsuario = textBox1.Text.ToString();
+            while (reader.Read())
+            {
+                comboBoxUsuario.Items.Add(reader["nombre"].ToString());
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -46,7 +54,6 @@ namespace PalcoNet
         private void button1_Click(object sender, EventArgs e)
         {
             //encripta la contraseña que ingresa la persona para compararla con la encriptada que se encuentra en la base
-            Servidor servidor = Servidor.getInstance();
             StringBuilder Sb = new StringBuilder();
             using (SHA256 hash = SHA256Managed.Create())
             {
@@ -178,6 +185,11 @@ namespace PalcoNet
             }else {
                 MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
             }
+        }
+
+        private void comboBoxUsuario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

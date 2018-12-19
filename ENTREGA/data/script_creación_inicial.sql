@@ -515,43 +515,52 @@ CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
 AS
 BEGIN
 	DECLARE @id_usuario INT
-	IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND intentos_fallidos < 3)
+	IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
+												join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
+												WHERE username = @usuario) = 1)
 		BEGIN
-		UPDATE MATE_LAVADO.Usuarios
-		SET intentos_fallidos = 0
-		WHERE username = @usuario AND password = @encriptada
-
-		SET @id_usuario = (SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
-
-		DECLARE @debe_cambiar_pass BIT
-		SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada)
-		IF @debe_cambiar_pass = 1
-			BEGIN
-			UPDATE MATE_LAVADO.Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
-			END
-		
-		SELECT @debe_cambiar_pass debe_cambiar_pass, @id_usuario id_usuario
-	END
-	ELSE --existe el usuario pero la contrasenia es otra
-	BEGIN
-		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
-		BEGIN
-		IF((SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) < 3)
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1)
 			BEGIN
 			UPDATE MATE_LAVADO.Usuarios
-			SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
-			WHERE username = @usuario;
-			RAISERROR('Contrase�a invalida', 16, 1)
+			SET intentos_fallidos = 0
+			WHERE username = @usuario AND password = @encriptada
+
+			SET @id_usuario = (SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
+
+			DECLARE @debe_cambiar_pass BIT
+			SET @debe_cambiar_pass = (SELECT debe_cambiar_pass FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada)
+			IF @debe_cambiar_pass = 1
+				BEGIN
+				UPDATE MATE_LAVADO.Usuarios SET debe_cambiar_pass = 0 WHERE username = @usuario AND password = @encriptada
+				END
+		
+			SELECT @debe_cambiar_pass debe_cambiar_pass, @id_usuario id_usuario
 		END
-		ELSE --tiene 3 intentos fallidos
+		ELSE --existe el usuario pero la contrasenia es otra
+		BEGIN
+			IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
 			BEGIN
-			RAISERROR('Su usuario esta bloqueado', 16, 1)
-		END	
-		END	
-		ELSE --no existe el usuario
-			BEGIN
-			RAISERROR('Usuario inexistente', 16, 1)
+			IF((SELECT habilitado FROM MATE_LAVADO.Usuarios WHERE username = @usuario) = 1)
+				BEGIN
+				UPDATE MATE_LAVADO.Usuarios
+				SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
+				WHERE username = @usuario;
+				RAISERROR('Contrase�a invalida', 16, 1)
+			END
+			ELSE --esta inhabilitado
+				BEGIN
+				RAISERROR('Su usuario esta bloqueado', 16, 1)
+			END	
+			END	
+			ELSE --no existe el usuario
+				BEGIN
+				RAISERROR('Usuario inexistente', 16, 1)
+			END
 		END
+	END
+	ELSE
+		BEGIN
+		RAISERROR('El ROL esta inhabilitado', 16, 1)
 	END
 END
 GO
@@ -625,6 +634,15 @@ BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles r
 	JOIN MATE_LAVADO.Usuarios u ON(u.username = @usuario)
 	JOIN MATE_LAVADO.UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
+END
+GO
+
+-----getRolesHabilitados-----
+CREATE PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
+AS
+BEGIN
+	SELECT nombre FROM MATE_LAVADO.Roles
+	WHERE habilitado = 1
 END
 GO
 
@@ -1810,24 +1828,6 @@ DEALLOCATE cur
 END
 GO
 
------rollInhabilitado-----
-CREATE TRIGGER MATE_LAVADO.rolInhabilitado_tr
-ON MATE_LAVADO.Roles
-AFTER UPDATE
-AS
-BEGIN	
-	IF((SELECT habilitado FROM MATE_LAVADO.DELETED) <> (SELECT habilitado FROM INSERTED))
-	BEGIN
-		DECLARE @id_rol_modificado INT
-		SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.DELETED)
-
-		DELETE FROM MATE_LAVADO.UsuarioXRol
-		WHERE id_rol = @id_rol_modificado
-
-	END
-END
-GO
-
 -----insertarNuevaCompra-----
 CREATE TRIGGER MATE_LAVADO.insertarNuevaCompra ON MATE_LAVADO.Compras
 INSTEAD OF INSERT
@@ -1854,6 +1854,22 @@ BEGIN
 	CLOSE cur
 	DEALLOCATE cur
 	select @last_id-1 id
+END
+GO
+-----actualizarUsuarioPorIntentosFallidos-----
+CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
+ON MATE_LAVADO.Usuarios
+AFTER UPDATE
+AS
+BEGIN
+	DECLARE @username varchar(30) = (SELECT username FROM deleted)
+
+	IF (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @username) = 3
+	BEGIN
+		UPDATE MATE_LAVADO.Usuarios
+		SET habilitado = 0
+		WHERE username = @username
+	END
 END
 GO
 
