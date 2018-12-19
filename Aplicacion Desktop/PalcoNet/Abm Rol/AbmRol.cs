@@ -172,12 +172,18 @@ namespace PalcoNet.Abm_Rol
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
                 rolSeleccionado = rolModificado;
 
-                for (int i = 0; this.checkedListBoxFun2.Items.Count > i; i++)
+                for (int i = 0; i < this.checkedListBoxFun2.Items.Count; i++)
                 {
-                     this.checkedListBoxFun2.SetItemChecked(i, false);
+                    //Console.WriteLine(this.checkedListBoxFun2.GetItemCheckState(i));
+                    this.checkedListBoxFun2.SetItemChecked(i, false);
+                    this.checkedListBoxFun2.SetItemCheckState(i, CheckState.Unchecked);
+                    Console.WriteLine(this.checkedListBoxFun2.GetItemCheckState(i));
                 }
                 textBoxNomb.ResetText();
                 comboBoxRoles.SelectedIndex = -1;
+                this.button5.Enabled = false;
+                this.button6.Enabled = false;
+                this.checkedListBoxFun2.Enabled = false;
 
                 MessageBox.Show("Se actualizó el rol de forma exitosa.", "Rol editado", MessageBoxButtons.OK);
 
@@ -188,7 +194,7 @@ namespace PalcoNet.Abm_Rol
         {
             //mientras no haya rol seleccionado no estarán habilitados los demás campos
 
-            rolSeleccionado.Nombre = comboBoxRoles.SelectedItem.ToString();
+            rolSeleccionado.Nombre = comboBoxRoles.Text;
             this.checkedListBoxFun2.Enabled = true;
             this.button5.Enabled = true;
             this.button6.Enabled = true;
@@ -234,7 +240,9 @@ namespace PalcoNet.Abm_Rol
             }
             textBoxNomb.ResetText();
             comboBoxRoles.ResetText();
-
+            this.button5.Enabled = false;
+            this.button6.Enabled = false;
+            this.checkedListBoxFun2.Enabled = false;
         }
 
         private void button6_Click(object sender, EventArgs e) //inhabilita el rol pasando el bit habilitado a 1
@@ -249,6 +257,9 @@ namespace PalcoNet.Abm_Rol
                     }
                     textBoxNomb.ResetText();
                     comboBoxRoles.ResetText();
+                    this.button5.Enabled = false;
+                    this.button6.Enabled = false;
+                    this.checkedListBoxFun2.Enabled = false;
           }
     }
 }
