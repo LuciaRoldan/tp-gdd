@@ -1996,3 +1996,9 @@ DECLARE @bool BIT = 1
 	END
 END
 GO
+
+-----eliminarRol-----
+create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
+update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
+end
+go

@@ -71,6 +71,7 @@ DROP TABLE MATE_LAVADO.Puntos
 DROP TABLE MATE_LAVADO.UbicacionXEspectaculo
 DROP TABLE MATE_LAVADO.Espectaculos
 DROP TABLE MATE_LAVADO.Ubicaciones
+DROP TABLE MATE_LAVADO.ItemFactura
 DROP TABLE MATE_LAVADO.TiposDeUbicacion
 DROP TABLE MATE_LAVADO.Compras
 DROP TABLE MATE_LAVADO.Facturas
@@ -81,6 +82,7 @@ DROP TABLE MATE_LAVADO.Empresas
 DROP TABLE MATE_LAVADO.Medios_de_pago
 DROP TABLE MATE_LAVADO.Clientes
 DROP TABLE MATE_LAVADO.Usuarios
+
 
 DROP PROCEDURE MATE_LAVADO.elClienteTieneInfoCompleta_sp
 DROP PROCEDURE MATE_LAVADO.laEmpresaExiste_sp
@@ -98,5 +100,6 @@ DROP PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesEmpresa
 DROP PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
+DROP PROCEDURE MATE_LAVADO.eliminarRol_sp
 
 drop schema MATE_LAVADO
