@@ -70,6 +70,7 @@ namespace PalcoNet.Editar_Publicacion
             button7.Enabled = false;
             button8.Enabled = false;
             button6.Enabled = false;
+            button6.Enabled = true;
         }
 
         //Verifica que tenga todos los campos completos
@@ -154,6 +155,8 @@ namespace PalcoNet.Editar_Publicacion
                 button2.Enabled = true;
                 button3.Enabled = true;
                 button5.Enabled = true;
+                button7.Enabled = true;
+                button8.Enabled = true;
             } else {
                 MessageBox.Show("Se debe sleccionar alguna publicación", "Error", MessageBoxButtons.OK);
             } 
@@ -379,7 +382,6 @@ namespace PalcoNet.Editar_Publicacion
 
         private void dataGridViewUbicaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
@@ -404,6 +406,15 @@ namespace PalcoNet.Editar_Publicacion
             {
                 textBoxFilas.Enabled = false;
             }
+        }
+
+        private void dataGridViewFechas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void comboBoxRubro_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

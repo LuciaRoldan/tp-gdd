@@ -58,15 +58,15 @@ namespace PalcoNet.Registro_de_Usuario
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(217, 102);
+            this.label9.Location = new System.Drawing.Point(217, 109);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(109, 13);
+            this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 78;
-            this.label9.Text = "Fecha de nacimiento:";
+            this.label9.Text = "Fecha nacimiento:";
             // 
             // dateTimePickerNacimiento
             // 
-            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(220, 121);
+            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(220, 131);
             this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
             this.dateTimePickerNacimiento.Size = new System.Drawing.Size(226, 20);
             this.dateTimePickerNacimiento.TabIndex = 77;
