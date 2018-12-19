@@ -248,7 +248,7 @@ codigo_tipo_ubicacion INT,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
-precio NUMERIC(18)
+precio NUMERIC(18, 2)
 GO
 
 ALTER TABLE MATE_LAVADO.Premios ADD
@@ -1137,8 +1137,6 @@ BEGIN
 END
 GO
 
-
-
 -----agregarRol-----
 CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
@@ -1631,8 +1629,8 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
 	where c.id_factura is null 
 end
-GO
 */
+GO
 
 CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
 @id_cliente INT)
