@@ -67,10 +67,11 @@ DROP PROCEDURE MATE_LAVADO.usuarioEsEmpresa_sp
 DROP PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.registrarCompraUbicacion_sp
+DROP PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesEmpresa
+DROP PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
-DROP TRIGGER MATE_LAVADO.rolInhabilitado_tr
 DROP TRIGGER MATE_LAVADO.insertarNuevaCompra
 DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 
