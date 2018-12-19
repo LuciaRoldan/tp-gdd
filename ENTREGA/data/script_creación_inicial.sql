@@ -840,7 +840,9 @@ CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
 @cambio_pass BIT,
 @fecha_creacion VARCHAR(30),
 @ciudad NVARCHAR(255),
-@localidad NVARCHAR(255))
+@localidad NVARCHAR(255),
+@titular NVARCHAR(50),
+@numeroTarjeta NUMERIC(30))
 AS
 BEGIN 
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
@@ -857,6 +859,10 @@ BEGIN
 		END
 	ELSE BEGIN
 	RAISERROR('Ya existe un cliente con el mismo nombre de usuario, cuil, numero de documento o email', 11, 1) WITH LOG END
+	
+	DECLARE @id_cliente INT
+	SET	@id_cliente = (SELECT id_cliente from MATE_LAVADO.Clientes where mail = @mail)
+	INSERT INTO MATE_LAVADO.Medios_de_pago (id_cliente, titular, nro_tarjeta) VALUES (@id_cliente, @titular, @numeroTarjeta)
 END
 GO
 
