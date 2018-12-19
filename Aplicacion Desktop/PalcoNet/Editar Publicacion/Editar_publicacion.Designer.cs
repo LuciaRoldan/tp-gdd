@@ -83,6 +83,7 @@
             this.dataGridViewFechas.Name = "dataGridViewFechas";
             this.dataGridViewFechas.Size = new System.Drawing.Size(335, 153);
             this.dataGridViewFechas.TabIndex = 125;
+            this.dataGridViewFechas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFechas_CellContentClick);
             // 
             // button5
             // 
@@ -148,6 +149,7 @@
             this.comboBoxRubro.Name = "comboBoxRubro";
             this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);
             this.comboBoxRubro.TabIndex = 81;
+            this.comboBoxRubro.SelectedIndexChanged += new System.EventHandler(this.comboBoxRubro_SelectedIndexChanged_1);
             // 
             // comboBoxEstado
             // 

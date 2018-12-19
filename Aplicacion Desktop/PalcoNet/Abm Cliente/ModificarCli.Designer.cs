@@ -258,6 +258,7 @@
             this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
             this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
             this.textBoxNumeroCalle.TabIndex = 66;
+            this.textBoxNumeroCalle.TextChanged += new System.EventHandler(this.textBoxNumeroCalle_TextChanged);
             // 
             // label11
             // 
@@ -275,6 +276,7 @@
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
             this.textBoxPiso.TabIndex = 70;
+            this.textBoxPiso.TextChanged += new System.EventHandler(this.textBoxPiso_TextChanged);
             // 
             // label12
             // 

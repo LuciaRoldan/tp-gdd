@@ -58,8 +58,8 @@ namespace PalcoNet.Generar_Publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             //Se guarda todos los datos de la publicación en la base
-            
-            string query = "'" + Sesion.getInstance().traerEmpresa().RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
+
+            string query = "'" + this.Empresa.RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
                     + publicacion.EstadoDePublicacion + "', '" + publicacion.Direccion + "'";
 
