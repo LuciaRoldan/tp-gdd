@@ -46,13 +46,13 @@ namespace PalcoNet.Generar_Publicacion
             //Hace que se guarde la fecha en la lista de abajo
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
             //Verificamos que la fecha no sea anterior a hoy
-            if (fecha > Sesion.getInstance().fecha){
+            if (fecha > Sesion.getInstance().fecha && !this.Publicacion.Fechas.Contains(fecha)){
                 this.Fechas.Add(fecha);
                 this.Publicacion.Fechas.Add(fecha);
                 this.actualizarFechas();
             }
             else{
-                MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("La fecha no puede ser anterior a la actual ni se puede repetir.", "Error", MessageBoxButtons.OK);
             }
         }
 
@@ -77,7 +77,7 @@ namespace PalcoNet.Generar_Publicacion
         private void button4_Click(object sender, EventArgs e)
         {
             this.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem);
-            this.publicacion.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem);
+            //this.publicacion.Fechas.Remove((DateTime)this.dataGridView.CurrentRow.DataBoundItem); //No esta andando esto
             this.actualizarFechas();
         }
     }

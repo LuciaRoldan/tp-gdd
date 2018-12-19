@@ -29,26 +29,22 @@ namespace PalcoNet.Generar_Publicacion
             if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-                
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
-                
-                while (reader.Read())
-                {
-                    comboBoxRubro.Items.Add(reader["descripcion"].ToString());
-                }
-                reader.Close();
-                //Cargamos los rubros existentes de la base y los ponemos en el combo box
             }
             else {
-                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.\n" +
                 "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
-                textBoxDescripcion.Enabled = false;
-                comboBoxRubro.Enabled = false;
-                textBoxDireccion.Enabled = false;
-                comboBoxGrado.Enabled = false;
-                comboBoxEstado.Enabled = false;
             }
+
+            //Cargamos los rubros existentes de la base y los ponemos en el combo box
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
+
+            while (reader.Read())
+            {
+                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+            }
+            reader.Close();
         }
+
         //verificamos que esten todos los campos necesarios completos
         public bool verificarCampos() {
             string errores = "";

@@ -67,6 +67,9 @@ namespace PalcoNet.Editar_Publicacion
             button2.Enabled = false;
             button3.Enabled = false;
             button5.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+            button6.Enabled = false;
         }
 
         //Verifica que tenga todos los campos completos
