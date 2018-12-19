@@ -60,24 +60,24 @@ namespace PalcoNet.Canje_Puntos
 
                 puntosOriginales = this.Cliente.Puntos;
                 textBoxPuntos.Text = this.Cliente.Puntos.ToString();
-
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
-                while (reader.Read())
-                {
-                    Premio p = new Premio();
-                    p.Descripcion = reader["descripcion"].ToString();
-                    p.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
-                    this.Premios.Add(p);
-                    checkedListBoxPremios.Items.Add(p.Descripcion + " (" + p.CantidadDePuntos + " puntos)");
-
-                }
-                reader.Close();
             }
             else
             {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 button1.Enabled = false;
             }
+
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
+            while (reader.Read())
+            {
+                Premio p = new Premio();
+                p.Descripcion = reader["descripcion"].ToString();
+                p.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
+                this.Premios.Add(p);
+                checkedListBoxPremios.Items.Add(p.Descripcion + " (" + p.CantidadDePuntos + " puntos)");
+
+            }
+            reader.Close();
             
         }
 

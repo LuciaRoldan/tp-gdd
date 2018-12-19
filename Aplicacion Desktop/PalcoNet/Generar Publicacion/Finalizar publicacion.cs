@@ -32,11 +32,11 @@ namespace PalcoNet.Generar_Publicacion
 
         public Finalizar_publicacion(MiForm anterior, Publicacion publicacion) : base(anterior)
         {
+            InitializeComponent();
             if (Sesion.getInstance().esEmpresa())
             {
                 this.Empresa = Sesion.getInstance().traerEmpresa();
                 this.Publicacion = publicacion;
-                InitializeComponent();
                 textBoxDescripcion.Text = this.publicacion.Descripcion;
                 textBoxFechas.Text = this.publicacion.Fechas.Count().ToString();
                 textBoxUbicaciones.Text = this.publicacion.Ubicaciones.Count().ToString();

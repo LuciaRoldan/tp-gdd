@@ -80,37 +80,37 @@ namespace PalcoNet.Registro_de_Usuario
                     {
 
 
-                        if (this.Usuario.IdUsuario == 0)
-                        {
+                        //if (this.Usuario.IdUsuario == 0)
+                        //{
                             string query = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
                             + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                             + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "', '" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
-                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                            + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '"
+                            + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ((Empresa)this.Usuario).Ciudad + "', '" + ((Empresa)this.Usuario).Localidad + "'";
 
-                            Console.WriteLine(query);
+                            Console.WriteLine("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
 
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
-                                if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
+                                if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception ee)
                             {
                                 error = true;
                                 mensajeError += ee.Message;
                             }
-                        } else {
+                        /*} else {
                             string query = "'" + this.Usuario.IdUsuario + "', '"
                             + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                             + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "', '" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
                             + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
 
-                            Console.WriteLine(query);
+                            Console.WriteLine("EXEC MATE_LAVADO.registroEmpresaConUsuario_sp " + query);
 
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroEmpresaConUsuario_sp " + query);
-                                //if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception ee)
                             {
@@ -119,35 +119,35 @@ namespace PalcoNet.Registro_de_Usuario
                             }
                         }
 
-                        //atrapar error y mostrar mensaje si la empresa ya existe
+                        //atrapar error y mostrar mensaje si la empresa ya existe*/
                     }
                     else
                     {
-                        if (this.Usuario.IdUsuario == 0)
-                        {
+                        //if (this.Usuario.IdUsuario == 0)
+                        //{
                         
-                            Console.Write("es 0");
                             string queryCli = "'" + this.Usuario.NombreUsuario + "', '" + this.Usuario.Contrasenia + "', '"
                                     + ((Cliente)this.Usuario).Nombre + "', '" + ((Cliente)this.Usuario).Apellido + "', '"
                                     + ((Cliente)this.Usuario).TipoDocumento + "', '" + ((Cliente)this.Usuario).NumeroDeDocumento + "', '"
                                     + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
                                     + ((Cliente)this.Usuario).FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
-                                    + this.Usuario.Piso + "', " + this.Usuario.Departamento + ", '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
-                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                                    + this.Usuario.Piso + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
+                                    + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + ((Cliente)this.Usuario).Ciudad + "', '" + ((Cliente)this.Usuario).Localidad + "'";
 
                             Console.WriteLine(queryCli);
 
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroCliente_sp " + queryCli);
-                                if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
+                                if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception eee)
                             {
                                 error = true;
                                 mensajeError += eee.Message;
+                                Console.WriteLine(eee.Message);
                             }
-                        }
+                        /*}
                         else
                         {
                             string queryCli = "'" + this.Usuario.IdUsuario + "', '"
@@ -163,27 +163,27 @@ namespace PalcoNet.Registro_de_Usuario
                             try
                             {
                                 servidor.realizarQuery("EXEC MATE_LAVADO.registroClienteConUsuario_sp " + queryCli);
-                                //if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += " Deberá utilizar su DNI como nombre de usuario y contraseña la primera vez que ingrese."; }
                             }
                             catch (Exception eee)
                             {
                                 error = true;
                                 mensajeError += eee.Message;
                             }
-                        }     
+                        }*/
                     }
 
                     if (!error)
                     {
                         MessageBox.Show("El usuario se creó exitosamente.\n" + cambioContraseña, "Creación completa", MessageBoxButtons.OK);
+                        this.Hide();
+                        new SeleccionarFuncionalidad().Show();
                     }
                     else {
                         MessageBox.Show("No se pudo crear el usuario.\n" + mensajeError, "Error", MessageBoxButtons.OK);
                     }
 
                 
-                    this.Hide();
-                    new SeleccionarFuncionalidad().Show();
+                    
                     //this.cerrarAnteriores();
                 }
 

@@ -41,6 +41,8 @@ namespace PalcoNet.Historial_Cliente
             }
             else 
             {
+                button1.Enabled = false;
+                button3.Enabled = false;
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
             }
         }

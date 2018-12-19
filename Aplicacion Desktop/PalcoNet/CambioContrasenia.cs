@@ -9,12 +9,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Dominio;
 
 namespace PalcoNet
 {
     public partial class CambioContrasenia : Form
     {
         string username;
+        Sesion sesion = Sesion.getInstance();
+         
 
         public string Username
         {
@@ -57,7 +60,8 @@ namespace PalcoNet
                 string query = this.Username + "', '" + textBoxUser.Text + "', '" + Sb + "'";
                 Servidor servidor = Servidor.getInstance();
                 SqlDataReader reader = servidor.query("exec MATE_LAVADO.actualizarUsuarioYContrasenia_sp '" + query);
-
+                Console.WriteLine(textBoxUser.Text);
+                sesion.usuario = new Usuario();
                 Sesion.getInstance().usuario.NombreUsuario = textBoxUser.Text;
                 MessageBox.Show("El nombre de usuario y constraseña se acualizaron exitosamente!", "Cambiar Contraseña", MessageBoxButtons.OK);
                 this.Close();

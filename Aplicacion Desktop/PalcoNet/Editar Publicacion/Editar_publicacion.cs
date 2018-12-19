@@ -67,6 +67,9 @@ namespace PalcoNet.Editar_Publicacion
             button2.Enabled = false;
             button3.Enabled = false;
             button5.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+            button6.Enabled = false;
         }
 
         //Verifica que tenga todos los campos completos
@@ -389,6 +392,18 @@ namespace PalcoNet.Editar_Publicacion
             //Borrar ubicacion
             this.publicacionElegida.Ubicaciones.Remove((Ubicacion)dataGridViewUbicaciones.CurrentRow.DataBoundItem);
             this.actualizarUbicaciones();
+        }
+
+        private void checkBoxNumerado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNumerado.Checked)
+            {
+                textBoxFilas.Enabled = true;
+            }
+            else
+            {
+                textBoxFilas.Enabled = false;
+            }
         }
     }
 }

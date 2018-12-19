@@ -145,7 +145,9 @@ calle NVARCHAR(255),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(255),
-codigo_postal NVARCHAR(50)
+codigo_postal NVARCHAR(50),
+ciudad NVARCHAR(255),
+localidad NVARCHAR(255)
 GO
 
 ALTER TABLE MATE_LAVADO.Medios_de_pago ADD
@@ -171,7 +173,9 @@ calle NVARCHAR(50),
 numero_calle NUMERIC(18,0),
 piso NUMERIC(18,0),
 depto NVARCHAR(50),
-codigo_postal NVARCHAR(50)
+codigo_postal NVARCHAR(50),
+ciudad NVARCHAR(255),
+localidad NVARCHAR(255)
 GO
 
 ALTER TABLE MATE_LAVADO.Facturas ADD
@@ -837,7 +841,9 @@ CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
 @depto nvarchar(255),
 @codigo_postal nvarchar(50),
 @cambio_pass BIT,
-@fecha_creacion VARCHAR(30))
+@fecha_creacion VARCHAR(30),
+@ciudad NVARCHAR(255),
+@localidad NVARCHAR(255))
 AS
 BEGIN 
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Clientes c ON (u.id_usuario = c.id_usuario)
@@ -846,18 +852,18 @@ BEGIN
 		BEGIN TRANSACTION
 		INSERT INTO MATE_LAVADO.Usuarios(username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass) VALUES (@username, @password, '1', CONVERT(DATETIME, @fecha_creacion, 120), 0, @cambio_pass)
 		INSERT INTO MATE_LAVADO.Clientes(id_usuario, nombre, apellido, tipo_documento, documento, cuil, mail, telefono, fecha_creacion, fecha_nacimiento,
-			calle, numero_calle, piso, depto, codigo_postal)
+			calle, numero_calle, piso, depto, codigo_postal, ciudad, localidad)
 		VALUES ((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), @nombre, @apellido, @tipo_documento, @documento, @cuil, @mail,
-			@telefono, CONVERT(DATETIME, @fecha_creacion, 121), CONVERT(DATETIME, @fecha_nacimiento, 121), @calle, @numero_calle, @piso, @depto, @codigo_postal)
+			@telefono, CONVERT(DATETIME, @fecha_creacion, 121), CONVERT(DATETIME, @fecha_nacimiento, 121), @calle, @numero_calle, @piso, @depto, @codigo_postal, @ciudad, @localidad)
 		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 3)
 		COMMIT TRANSACTION
 		END
-	ELSE
-	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
+	ELSE BEGIN
+	RAISERROR('Ya existe un cliente con el mismo nombre de usuario, cuil, numero de documento o email', 11, 1) WITH LOG END
 END
 GO
 
-
+--Vuela?
 -----registroClienteConUsuario-----
 CREATE PROCEDURE MATE_LAVADO.registroClienteConUsuario_sp
 (@id_usuario INT,
@@ -895,7 +901,8 @@ GO
 
 -----registroEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
- @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30))
+ @cuit nvarchar(255), @calle nvarchar(50), @numero_calle NUMERIC(18,0), @piso NUMERIC(18,0), @depto nvarchar(50), @codigo_postal nvarchar(50), @cambio_pass BIT, @fecha_creacion VARCHAR(30),
+ @ciudad NVARCHAR(255), @localidad NVARCHAR(255))
 AS
 BEGIN
 	IF NOT EXISTS (SELECT * FROM MATE_LAVADO.Usuarios u JOIN MATE_LAVADO.Empresas e ON (u.id_usuario = e.id_usuario) 
@@ -906,9 +913,9 @@ BEGIN
 			CONVERT(DATETIME, @fecha_creacion, 121)
 			--CAST(@fecha_creacion AS DATETIME)
 			, 0, @cambio_pass)
-		INSERT INTO MATE_LAVADO.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal)
+		INSERT INTO MATE_LAVADO.Empresas(id_usuario, razon_social, mail, cuit, fecha_creacion, calle, numero_calle, piso, depto, codigo_postal, ciudad, localidad)
 		VALUES ((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), @razon_social, @mail, @cuit, CONVERT(DATETIME, @fecha_creacion, 120),
-			@calle, @numero_calle, @piso, @depto, @codigo_postal)
+			@calle, @numero_calle, @piso, @depto, @codigo_postal, @ciudad, @localidad)
 		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 2)
 		COMMIT TRANSACTION
 	END
@@ -917,7 +924,7 @@ BEGIN
 END
 GO
 
-
+--Vuela?
 -----registroEmpresaConUsuario-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp
 (@id_usuario INT, @razon_social nvarchar(255), @mail nvarchar(50), 

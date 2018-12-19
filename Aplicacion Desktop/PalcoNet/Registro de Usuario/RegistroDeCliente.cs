@@ -63,7 +63,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (this.VerificarCampos())
             {
                 //Creamos el objeto cliete con todos los datos que ingreso el usuario
-                cliente.FechaDeCreacion = DateTime.Now;
+                cliente.FechaDeCreacion = Sesion.getInstance().fecha;
                 cliente.Apellido = textBoxApellido.Text;
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Mail = textBoxMail.Text;
@@ -74,7 +74,7 @@ namespace PalcoNet.Registro_de_Usuario
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
 
                 //Encriptamos la contraseña
-                if (string.IsNullOrWhiteSpace(cliente.NombreUsuario)) {
+                if (string.IsNullOrWhiteSpace(cliente.NombreUsuario) || cliente.DebeCambiarContraseña) {
                     cliente.NombreUsuario = textBoxDocumento.Text;
                    
                     StringBuilder Sb = new StringBuilder();

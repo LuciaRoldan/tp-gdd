@@ -37,7 +37,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePickerHora = new System.Windows.Forms.DateTimePicker();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,15 +45,17 @@
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView.Location = new System.Drawing.Point(18, 162);
+            this.dataGridView.Location = new System.Drawing.Point(16, 130);
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(254, 184);
             this.dataGridView.TabIndex = 83;
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.RemoverFechaAnteBorrado);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(180, 114);
+            this.button3.Location = new System.Drawing.Point(180, 101);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 23);
             this.button3.TabIndex = 82;
@@ -71,7 +72,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(197, 352);
+            this.button2.Location = new System.Drawing.Point(195, 320);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 80;
@@ -81,7 +82,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(18, 352);
+            this.button1.Location = new System.Drawing.Point(16, 320);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 79;
@@ -102,7 +103,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 146);
+            this.label1.Location = new System.Drawing.Point(13, 114);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 77;
@@ -126,22 +127,11 @@
             this.dateTimePickerHora.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerHora.TabIndex = 84;
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(16, 114);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(92, 23);
-            this.button4.TabIndex = 85;
-            this.button4.Text = "Quitar fecha";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // AgregarFechas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 387);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(284, 356);
             this.Controls.Add(this.dateTimePickerHora);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.button3);
@@ -170,6 +160,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dateTimePickerHora;
-        private System.Windows.Forms.Button button4;
     }
 }

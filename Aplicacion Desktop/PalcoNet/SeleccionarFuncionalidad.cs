@@ -36,9 +36,7 @@ namespace PalcoNet
 
             InitializeComponent();
 
-
-            if (sesion.esEmpresa() || sesion.esCliente())
-            {
+            Console.WriteLine(sesion.rol.Nombre);
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
 
                 while (reader.Read())
@@ -46,17 +44,7 @@ namespace PalcoNet
                     comboBox1.Items.Add(reader["nombre"].ToString());
                 }
                 reader.Close();
-            }
-            else
-            {
-                SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
-
-                while (reader2.Read())
-                {
-                    comboBox1.Items.Add(reader2["nombre"].ToString());
-                }
-                reader2.Close();
-            }
+         
          }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
