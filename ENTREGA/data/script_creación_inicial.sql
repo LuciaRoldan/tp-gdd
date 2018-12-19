@@ -123,7 +123,8 @@ GO
 
 ALTER TABLE MATE_LAVADO.Roles ADD
 nombre CHAR(40),
-habilitado BIT
+habilitado BIT,
+alta BIT
 GO
 
 ALTER TABLE MATE_LAVADO.FuncionalidadXRol ADD
@@ -247,7 +248,7 @@ codigo_tipo_ubicacion INT,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
-precio NUMERIC(18)
+precio NUMERIC(18, 2)
 GO
 
 ALTER TABLE MATE_LAVADO.Premios ADD
@@ -257,8 +258,8 @@ GO
 
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 
-INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
-VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1)
+INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
+VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('adminOP', 1, 1)
 GO
 
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
@@ -542,7 +543,7 @@ BEGIN
 	DECLARE @id_usuario INT
 	IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 												join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-												WHERE username = @usuario) = 1)
+												WHERE username = @usuario and alta = 1) = 1)
 		BEGIN
 		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1)
 			BEGIN
@@ -659,6 +660,7 @@ BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles r
 	JOIN MATE_LAVADO.Usuarios u ON(u.username = @usuario)
 	JOIN MATE_LAVADO.UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
+	WHERE r.alta = 1
 END
 GO
 
@@ -668,6 +670,7 @@ AS
 BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles
 	WHERE habilitado = 1
+	AND alta = 1
 	AND nombre like 'Empresa' OR nombre like 'Cliente'
 END
 GO
@@ -1139,10 +1142,6 @@ BEGIN
 END
 GO
 
-
-select * from MATE_LAVADO.clientes where nombre = 'munira'
-
-
 -----agregarRol-----
 CREATE PROCEDURE MATE_LAVADO.agregarRol_sp 
 @nombre_rol VARCHAR(50)
@@ -1150,8 +1149,8 @@ AS
 BEGIN
 	IF NOT EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre_rol)
 		BEGIN
-		INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
-		VALUES(@nombre_rol, 1)		
+		INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
+		VALUES(@nombre_rol, 1, 1)		
 		END
 	ELSE
 		BEGIN
@@ -1635,8 +1634,8 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
 	where c.id_factura is null 
 end
-GO
 */
+GO
 
 CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
 @id_cliente INT)
@@ -2004,3 +2003,9 @@ DECLARE @bool BIT = 1
 	END
 END
 GO
+
+-----eliminarRol-----
+create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
+update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
+end
+go
