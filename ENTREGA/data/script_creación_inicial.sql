@@ -1092,12 +1092,14 @@ CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 @id_medio_de_pago INT,
 @importe BIGINT,
 @fecha VARCHAR(30),
-@cantidad int
+@cantidad int,
+@grado varchar(50)
 AS
 BEGIN
 	SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, cantidad)
-	VALUES(@id_cliente, @id_medio_de_pago, CONVERT(DATETIME, @fecha, 121), @importe, @cantidad)
+	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, cantidad, comision)
+	VALUES(@id_cliente, @id_medio_de_pago, CONVERT(DATETIME, @fecha, 121), @importe, @cantidad,
+	(select comision from MATE_LAVADO.Grados_publicacion where nombre like @grado))
 	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
 GO
@@ -1263,13 +1265,12 @@ create PROCEDURE MATE_LAVADO.buscarEspectaculosBorradorPorPublicacion_sp (@id_pu
 end
 GO
 
-
 -----buscarPublicacionesPorCriterio_sp-----
-create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
+CREATE PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
-	'select distinct p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id, p.id_grado_publicacion FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
-	LEFT JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
+	'select distinct p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id, gr.nombre grado, p.id_grado_publicacion FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
+	LEFT JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro JOIN MATE_LAVADO.Grados_publicacion  gr on gr.id_grado_publicacion = p.id_grado_publicacion
 	where e.estado_espectaculo = ''Publicada'''
 
 	if ( @desde is not null and @hasta is not null) begin set @query = 
@@ -1898,7 +1899,7 @@ CREATE TRIGGER MATE_LAVADO.insertarNuevoEspectaculo ON MATE_LAVADO.Espectaculos
 INSTEAD OF INSERT
 AS
 BEGIN
-DECLARE @id_publicacion INT, @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo CHAR(15) 
+DECLARE @id_publicacion INT, @fecha_inicio DATETIME, @fecha_evento DATETIME, @estado_espectaculo CHAR(15)
 DECLARE cur CURSOR FOR 
 SELECT id_publicacion, fecha_inicio, fecha_evento, estado_espectaculo FROM inserted
 DECLARE @last_id INT
@@ -1947,23 +1948,23 @@ CREATE TRIGGER MATE_LAVADO.insertarNuevaCompra ON MATE_LAVADO.Compras
 INSTEAD OF INSERT
 AS
 BEGIN
-	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT, @cantidad numeric(18,2)
+	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT, @cantidad int, @comision numeric(3,3)
 	DECLARE cur CURSOR FOR 
-	SELECT id_cliente, id_medio_de_pago, fecha, importe, cantidad FROM inserted
+	SELECT id_cliente, id_medio_de_pago, fecha, importe, cantidad, comision FROM inserted
 	DECLARE @last_id INT
 	SET @last_id = (SELECT MAX(id_compra) FROM MATE_LAVADO.Compras) + 1
 	OPEN cur
-		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad, @comision
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, id_compra, cantidad)
-		VALUES (@id_cliente, @id_medio_de_pago, @fecha, @importe, @last_id, @cantidad)
+		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, id_compra, cantidad, comision)
+		VALUES (@id_cliente, @id_medio_de_pago, @fecha, @importe, @last_id, @cantidad, @comision)
 
 		INSERT INTO Puntos(cantidad_puntos, id_cliente, fecha_vencimiento)
 		VALUES(@importe, @id_cliente, DATEADD(year, 1, @fecha))
 
 		SET @last_id += 1
-		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad, @comision
 		END
 	CLOSE cur
 	DEALLOCATE cur
@@ -2252,8 +2253,10 @@ go
 
 -----crearItemFactura-----
 create procedure MATE_LAVADO.crearItemFactura_sp (@id_factura int, @id_compra int, @id_ubicacion int, @cantidad int, @importe numeric(18,2), @comision numeric(3,3)) as begin
-insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, comision)
-values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
+insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, comision, descripcion)
+values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision, 'Rendicion de comisiones')
+
+update MATE_LAVADO.UbicacionXEspectaculo set facturado = 0 where id_compra = @id_compra and id_ubicacion = id_ubicacion
 end
 go
 
