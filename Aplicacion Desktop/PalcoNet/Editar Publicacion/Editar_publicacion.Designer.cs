@@ -44,6 +44,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.comboBoxPublicaciones = new System.Windows.Forms.ComboBox();
             this.dataGridViewUbicaciones = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -229,11 +230,20 @@
             this.dataGridViewUbicaciones.AllowUserToAddRows = false;
             this.dataGridViewUbicaciones.AllowUserToDeleteRows = false;
             this.dataGridViewUbicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewUbicaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id});
             this.dataGridViewUbicaciones.Location = new System.Drawing.Point(11, 124);
             this.dataGridViewUbicaciones.Name = "dataGridViewUbicaciones";
             this.dataGridViewUbicaciones.Size = new System.Drawing.Size(341, 207);
             this.dataGridViewUbicaciones.TabIndex = 113;
             this.dataGridViewUbicaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewUbicaciones_CellContentClick);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
             // 
             // button3
             // 
@@ -384,6 +394,7 @@
             this.textBoxPrecio.Name = "textBoxPrecio";
             this.textBoxPrecio.Size = new System.Drawing.Size(60, 20);
             this.textBoxPrecio.TabIndex = 135;
+            this.textBoxPrecio.TextChanged += new System.EventHandler(this.textBoxPrecio_TextChanged);
             // 
             // label15
             // 
@@ -546,5 +557,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
     }
 }
