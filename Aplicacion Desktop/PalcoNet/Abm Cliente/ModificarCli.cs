@@ -99,7 +99,7 @@ namespace PalcoNet.Abm_Cliente
             if (comboBoxDocumento.SelectedIndex > -1) { errores += "El campo Tipo de Documento no puede estar vacio.\n"; }
             if (dateTimePickerNacimiento.Value > Sesion.getInstance().fecha) { errores += "La Fecha de Nacimiento no puede ser posterior a hoy.\n"; }
             if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
-            if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; }
+            if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; } }
             if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; }
             if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out numero)) { errores += "El Piso debe ser un valor numérico. \n"; }
             if (!int.TryParse(textBoxNumeroCalle.Text, out numero)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
@@ -108,7 +108,6 @@ namespace PalcoNet.Abm_Cliente
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
 
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
-            }
 
                 //Si posee DNI, valido DNI y CUIL
                 if (comboBoxDocumento.Text == "DNI")
@@ -144,8 +143,6 @@ namespace PalcoNet.Abm_Cliente
                         }
 
                     }
-
-                }
             }
                 if (errores != "")
                 {
