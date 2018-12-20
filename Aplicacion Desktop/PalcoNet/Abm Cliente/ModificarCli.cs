@@ -181,7 +181,7 @@ namespace PalcoNet.Abm_Cliente
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar cliente", MessageBoxButtons.OK);
-                //this.cerrarAnteriores();
+               
                 new SeleccionarFuncionalidad().Show();
                 this.Close();
 

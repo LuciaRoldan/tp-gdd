@@ -36,13 +36,15 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(25, 115);
+            this.button3.Location = new System.Drawing.Point(202, 177);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(209, 23);
+            this.button3.Size = new System.Drawing.Size(150, 35);
             this.button3.TabIndex = 123;
             this.button3.Text = "Ingresar tarjeta nueva";
             this.button3.UseVisualStyleBackColor = true;
@@ -50,44 +52,49 @@
             // 
             // textBoxCodigo
             // 
-            this.textBoxCodigo.Location = new System.Drawing.Point(135, 79);
+            this.textBoxCodigo.Location = new System.Drawing.Point(202, 122);
+            this.textBoxCodigo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxCodigo.Name = "textBoxCodigo";
-            this.textBoxCodigo.Size = new System.Drawing.Size(99, 20);
+            this.textBoxCodigo.Size = new System.Drawing.Size(146, 26);
             this.textBoxCodigo.TabIndex = 122;
             this.textBoxCodigo.TextChanged += new System.EventHandler(this.textBoxCodigo_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 82);
+            this.label1.Location = new System.Drawing.Point(33, 126);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.Size = new System.Drawing.Size(159, 20);
             this.label1.TabIndex = 121;
             this.label1.Text = "Codigo de seguridad:";
             // 
             // comboBoxTarjeta
             // 
             this.comboBoxTarjeta.FormattingEnabled = true;
-            this.comboBoxTarjeta.Location = new System.Drawing.Point(90, 48);
+            this.comboBoxTarjeta.Location = new System.Drawing.Point(135, 74);
+            this.comboBoxTarjeta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxTarjeta.Name = "comboBoxTarjeta";
-            this.comboBoxTarjeta.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxTarjeta.Size = new System.Drawing.Size(214, 28);
             this.comboBoxTarjeta.TabIndex = 120;
             this.comboBoxTarjeta.SelectedIndexChanged += new System.EventHandler(this.comboBoxTarjeta_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 51);
+            this.label4.Location = new System.Drawing.Point(33, 78);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(62, 20);
             this.label4.TabIndex = 119;
             this.label4.Text = "Tarjeta:";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(135, 144);
+            this.button2.Location = new System.Drawing.Point(202, 222);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 23);
+            this.button2.Size = new System.Drawing.Size(148, 35);
             this.button2.TabIndex = 118;
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = true;
@@ -95,9 +102,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(25, 144);
+            this.button1.Location = new System.Drawing.Point(38, 222);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 23);
+            this.button1.Size = new System.Drawing.Size(147, 35);
             this.button1.TabIndex = 117;
             this.button1.Text = "Atras";
             this.button1.UseVisualStyleBackColor = true;
@@ -107,17 +115,30 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(18, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(243, 24);
+            this.label2.Size = new System.Drawing.Size(368, 33);
             this.label2.TabIndex = 116;
             this.label2.Text = "Seleccionar medio de pago";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(38, 177);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(150, 35);
+            this.button4.TabIndex = 124;
+            this.button4.Text = "Modificar tarjeta";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // MedioPago
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(265, 181);
+            this.ClientSize = new System.Drawing.Size(398, 278);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBoxCodigo);
             this.Controls.Add(this.label1);
@@ -126,6 +147,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MedioPago";
             this.Text = "Medio de pago";
             this.ResumeLayout(false);
@@ -143,5 +165,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button4;
     }
 }

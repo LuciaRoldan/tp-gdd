@@ -23,6 +23,7 @@ namespace PalcoNet.Comprar
         }
 
         List<Tarjeta> tarjetas = new List<Tarjeta>();
+        Tarjeta tarjetaSeleccionada = new Tarjeta();
 
         internal List<Tarjeta> Tarjetas
         {
@@ -58,6 +59,12 @@ namespace PalcoNet.Comprar
             this.Tarjetas.Add(tarjeta);
         }
 
+        public void borrar(Tarjeta tarjeta)
+        {
+            this.tarjetas.Remove(tarjeta);
+        }
+
+
         public bool verificarCampos() {
             string error = "";
             int i;
@@ -87,6 +94,7 @@ namespace PalcoNet.Comprar
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos()) {
+                    
                 long NumeroDeTarjeta = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex].NumeroDeTarjeta;
                 string codigoSeguridad = this.textBoxCodigo.Text;
 
@@ -121,6 +129,12 @@ namespace PalcoNet.Comprar
 
         }
 
+        internal void resetearComboBox()
+        {
+            comboBoxTarjeta.ResetText();
+        }
+
+
         internal void updateMP()
         {
             tarjetas.Clear();
@@ -139,6 +153,12 @@ namespace PalcoNet.Comprar
                     this.tarjetas.Add(tarjeta);
                 }
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ModificarMP modificar = new ModificarMP(this, this.Tarjetas[this.comboBoxTarjeta.SelectedIndex]);
+            modificar.Show();
         }
     }
 }
