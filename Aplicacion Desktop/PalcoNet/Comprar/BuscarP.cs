@@ -148,6 +148,7 @@ namespace PalcoNet.Comprar
                     publicacion.Descripcion = reader["descripcion"].ToString();
                     publicacion.Direccion = reader["direccion"].ToString();
                     publicacion.Rubro = reader["rubro"].ToString();
+                    publicacion.GradoDePublicacion = reader["grado"].ToString();
                     encontradas.Add(publicacion);
                 }
                 reader.Close();
@@ -217,6 +218,7 @@ namespace PalcoNet.Comprar
                 Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
                 Compra compra = new Compra();
                 compra.Publicacion = publicacionSeleccionada;
+                Console.WriteLine(publicacionSeleccionada.GradoDePublicacion);
                 new Espectaculos(this, compra).Show();
                 this.Hide();
             }

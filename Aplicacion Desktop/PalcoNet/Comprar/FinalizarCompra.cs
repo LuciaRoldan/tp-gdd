@@ -50,7 +50,9 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "', " + this.Compra.calcularCantidadAsientos();
+            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe 
+                + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "', " + this.Compra.calcularCantidadAsientos()
+                + " , '" + this.Compra.Publicacion.GradoDePublicacion + "'";
             Console.WriteLine("exec MATE_LAVADO.registrarCompra_sp " + query);
             SqlDataReader reader = Servidor.getInstance().query("exec MATE_LAVADO.registrarCompra_sp " + query);
             while (reader.Read())
