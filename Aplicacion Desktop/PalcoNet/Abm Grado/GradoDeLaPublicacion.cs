@@ -41,12 +41,14 @@ namespace PalcoNet.Abm_Grado
         public GradoDeLaPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+            
+            //verificamos que el usuario actual sea una empresa y obtenemos todas sus publicaciones y las mostramos en el checked list
             if (sesion.esEmpresa()) {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
                 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPublicacionesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
                 List<Publicacion> publicaciones = new List<Publicacion>();
-                //19-67139304-09
+
                 while (reader.Read())
                 {
                     Publicacion publicacion = new Publicacion();
@@ -61,11 +63,10 @@ namespace PalcoNet.Abm_Grado
                 MessageBox.Show("Se encuentra loggeado como " + sesion.rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 buttonAceptar.Enabled = false;
             }
-
-            
              
         }
 
+        //Volvemos al inicio
         private void button3_Click(object sender, EventArgs e)
         {
             this.cerrarAnteriores();
@@ -74,20 +75,13 @@ namespace PalcoNet.Abm_Grado
         private void button1_Click(object sender, EventArgs e)
         {
             this.PubSelecc.GradoDePublicacion = this.GradoSelecc;
-            //Aca hay que hacer un update en la base de la publicacion seleccionada
-            //Estaria bueno que salga un cartelito de que salio todo ok
+            //Aca hacemos un update en la base de la publicacion seleccionada con el grado de publicacion elegido
 
             servidor.realizarQuery("EXEC MATE_LAVADO.actualizarGradoPublicacion_sp '" + this.pubSelecc.Id + "', '" + this.pubSelecc.GradoDePublicacion + "'");
             MessageBox.Show("El grado de la publicacion se ha modificado con éxito", "Grado Publicación", MessageBoxButtons.OK);
         }
 
-        private void checkedListBoxPublicaciones_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (e.NewValue == CheckState.Checked)
-                for (int ix = 0; ix < checkedListBoxPublicaciones.Items.Count; ++ix)
-                    if (e.Index != ix) checkedListBoxPublicaciones.SetItemChecked(ix, false);
-        }
-
+        //Funcion para asignar el grado elegido por el usuario a la publicación
         private void checkedListBoxPublicaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             checkedListBoxGrado.Enabled = true;
@@ -128,12 +122,22 @@ namespace PalcoNet.Abm_Grado
 
         }
 
+        private void checkedListBoxPublicaciones_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (e.NewValue == CheckState.Checked)
+                for (int ix = 0; ix < checkedListBoxPublicaciones.Items.Count; ++ix)
+                    if (e.Index != ix) checkedListBoxPublicaciones.SetItemChecked(ix, false);
+        }
+
         private void checkedListBoxGrado_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (e.NewValue == CheckState.Checked)
                 for (int ix = 0; ix < checkedListBoxGrado.Items.Count; ++ix)
                     if (e.Index != ix) checkedListBoxGrado.SetItemChecked(ix, false);
         }
+
+        //Segun las funciones anteriores cada vez que se marca algo de desmarcan las demás opciones y se guarda el grado marcado para la 
+        // publicación elegida
 
         private void checkedListBoxGrado_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -146,7 +150,6 @@ namespace PalcoNet.Abm_Grado
             }
 
             int[] indexes = checkedListBoxGrado.CheckedIndices.Cast<int>().ToArray();
-            Console.WriteLine(indexes[0]);
             switch (indexes[0]) { 
                 case 0:
                     this.GradoSelecc = "Alto";

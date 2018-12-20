@@ -43,6 +43,7 @@ namespace PalcoNet.Abm_Rol
         {
             InitializeComponent();
   
+            //Traemos todas las posibles funcionalidades para que el usuario pueda seleccionar las que desee
                 SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Funcionalidades");
 
                 while (reader.Read())
@@ -53,15 +54,12 @@ namespace PalcoNet.Abm_Rol
                 }
                 reader.Close();
 
-                //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
+                this.recargarRoles();    //Aca traemos todos los roles de la basey los mostramos en el comboBox
 
-                this.recargarRoles();
-
+            //invalidamos los botones de modificar rol 
                 this.button5.Enabled = false;
                 this.button6.Enabled = false;
                 this.button7.Enabled = false;
-            
-            //Aca traemos todos los roles de la basey los mostramos en el comboBox
 
         }
 
@@ -102,6 +100,8 @@ namespace PalcoNet.Abm_Rol
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //verificamos que se hayan completado los campos de forma correcta
+
             if (!string.IsNullOrWhiteSpace(textBoxNombre.Text) && checkedListBoxFuncionalidades.CheckedIndices.Count > 0)
             {
                 string nombre = textBoxNombre.Text;
@@ -165,7 +165,6 @@ namespace PalcoNet.Abm_Rol
 
                 Rol rolModificado = new Rol();
                 rolModificado.Nombre = this.textBoxNomb.Text;
-                Console.WriteLine(rolSeleccionado.Nombre);
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.eliminarFuncionalidadesRol_sp '" + comboBoxRoles.Text + "'");
 
@@ -187,10 +186,8 @@ namespace PalcoNet.Abm_Rol
 
                 for (int i = 0; i < this.checkedListBoxFun2.Items.Count; i++)
                 {
-                    //Console.WriteLine(this.checkedListBoxFun2.GetItemCheckState(i));
                     this.checkedListBoxFun2.SetItemChecked(i, false);
                     this.checkedListBoxFun2.SetItemCheckState(i, CheckState.Unchecked);
-                    Console.WriteLine(this.checkedListBoxFun2.GetItemCheckState(i));
                 }
                 textBoxNomb.ResetText();
                 comboBoxRoles.SelectedIndex = -1;
@@ -282,6 +279,7 @@ namespace PalcoNet.Abm_Rol
                     this.checkedListBoxFun2.Enabled = false;
           }
 
+        //elimina el rol dandolo de baja, en la bd los roles tienen una columna alta la cual si esta en 0 en porque ha sido eliminado y ya no podrá recuperarse
         private void button7_Click(object sender, EventArgs e)
         {
             servidor.realizarQuery("EXEC MATE_LAVADO.eliminarRol_sp '" + rolSeleccionado.Nombre + "'");
