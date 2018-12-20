@@ -2039,7 +2039,7 @@ CREATE PROCEDURE MATE_LAVADO.modificarTarjeta_sp
 @titular varchar(50)
 AS
 BEGIN
-	IF NOT EXISTS(select * from MATE_LAVADO.Medios_de_pago where nro_tarjeta = @numeroTarjetaNueva)
+	IF NOT EXISTS(select * from MATE_LAVADO.Medios_de_pago where nro_tarjeta = @numeroTarjetaNueva AND id_medio_de_pago != @id)
 		BEGIN
 			UPDATE MATE_LAVADO.Medios_de_pago
 			SET nro_tarjeta = @numeroTarjetaNueva,
