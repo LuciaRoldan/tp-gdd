@@ -267,7 +267,6 @@ GO
 
 INSERT INTO MATE_LAVADO.Funcionalidades
 VALUES
-('Login y seguridad'),
 ('ABM de rol'),
 ('Registro de usuario'),
 ('ABM de cliente'),
@@ -1649,7 +1648,7 @@ create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(
 	join MATE_LAVADO.Empresas em on em.id_empresa = p.id_empresa
 	where facturado = 0 and razon_social = @razonSocial
 	group by c.id_compra, tu.id_tipo_ubicacion, tu.descripcion, comision, precio
-end  --acaaaaaaaaa EXEC MATE_LAVADO.buscarComprasNoFacturadas_sp 'Razon Social Nº:10'
+end
 
 
 GO
