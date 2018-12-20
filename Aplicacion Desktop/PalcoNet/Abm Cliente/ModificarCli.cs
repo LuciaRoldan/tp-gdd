@@ -37,6 +37,7 @@ namespace PalcoNet.Abm_Cliente
         {
             formAnt = formAnterior;
             InitializeComponent();
+            dateTimePickerNacimiento.MaxDate = Sesion.getInstance().fecha;
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
             textBoxNombre.Text += cliente.Nombre;
             textBoxApellido.Text += cliente.Apellido;
@@ -63,7 +64,6 @@ namespace PalcoNet.Abm_Cliente
             textBoxCalle.Text += readerCliente["calle"].ToString();
             textBoxDepto.Text += readerCliente["depto"].ToString();
             textBoxCodigoPostal.Text += readerCliente["codigo_postal"].ToString();
-
             readerCliente.Close();
         }
         //verificamos que ninguno quede vacio
@@ -81,7 +81,8 @@ namespace PalcoNet.Abm_Cliente
                 && !string.IsNullOrWhiteSpace(textBoxLocalidad.Text)
                 && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
                 && comboBoxDocumento.SelectedIndex > -1
-                && dateTimePickerNacimiento.Value != null;
+                && dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate
+                && Sesion.getInstance().fecha < dateTimePickerNacimiento.Value;
 
             if (!camposCompletos)
             {
@@ -95,7 +96,7 @@ namespace PalcoNet.Abm_Cliente
                 if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out numero)) { errores += "El Piso debe ser un valor numérico. \n"; }
                 if (!int.TryParse(textBoxNumeroCalle.Text, out numero)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
                 if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text) && !int.TryParse(textBoxCodigoPostal.Text, out numero)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }
-
+                if (dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { errores += "La fecha de nacimiento no puede ser anterior al 1900. \n"; }
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
             }
 

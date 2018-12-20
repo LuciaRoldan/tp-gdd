@@ -57,7 +57,7 @@
             // 
             this.textBoxCuit.Location = new System.Drawing.Point(93, 102);
             this.textBoxCuit.Name = "textBoxCuit";
-            this.textBoxCuit.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCuit.Size = new System.Drawing.Size(153, 20);
             this.textBoxCuit.TabIndex = 63;
             this.textBoxCuit.TextChanged += new System.EventHandler(this.textBoxCuit_TextChanged);
             // 
@@ -74,7 +74,7 @@
             // 
             this.textBoxMail.Location = new System.Drawing.Point(93, 76);
             this.textBoxMail.Name = "textBoxMail";
-            this.textBoxMail.Size = new System.Drawing.Size(121, 20);
+            this.textBoxMail.Size = new System.Drawing.Size(153, 20);
             this.textBoxMail.TabIndex = 60;
             this.textBoxMail.TextChanged += new System.EventHandler(this.textBoxMail_TextChanged);
             // 
@@ -82,7 +82,7 @@
             // 
             this.textBoxRazonSocial.Location = new System.Drawing.Point(93, 50);
             this.textBoxRazonSocial.Name = "textBoxRazonSocial";
-            this.textBoxRazonSocial.Size = new System.Drawing.Size(121, 20);
+            this.textBoxRazonSocial.Size = new System.Drawing.Size(153, 20);
             this.textBoxRazonSocial.TabIndex = 59;
             this.textBoxRazonSocial.TextChanged += new System.EventHandler(this.textBoxRazonSocial_TextChanged);
             // 
@@ -106,7 +106,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(129, 276);
+            this.button1.Location = new System.Drawing.Point(147, 259);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 23);
             this.button1.TabIndex = 55;
@@ -116,9 +116,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(10, 276);
+            this.button3.Location = new System.Drawing.Point(16, 259);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(107, 23);
             this.button3.TabIndex = 54;
             this.button3.Text = "Volver";
             this.button3.UseVisualStyleBackColor = true;
@@ -137,7 +137,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(7, 246);
+            this.label14.Location = new System.Drawing.Point(17, 236);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(39, 13);
             this.label14.TabIndex = 85;
@@ -146,7 +146,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(112, 220);
+            this.label13.Location = new System.Drawing.Point(122, 210);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(30, 13);
             this.label13.TabIndex = 84;
@@ -154,14 +154,14 @@
             // 
             // textBoxCodigoPostal
             // 
-            this.textBoxCodigoPostal.Location = new System.Drawing.Point(186, 243);
+            this.textBoxCodigoPostal.Location = new System.Drawing.Point(196, 233);
             this.textBoxCodigoPostal.Name = "textBoxCodigoPostal";
             this.textBoxCodigoPostal.Size = new System.Drawing.Size(50, 20);
             this.textBoxCodigoPostal.TabIndex = 83;
             // 
             // textBoxDepto
             // 
-            this.textBoxDepto.Location = new System.Drawing.Point(52, 243);
+            this.textBoxDepto.Location = new System.Drawing.Point(62, 233);
             this.textBoxDepto.Name = "textBoxDepto";
             this.textBoxDepto.Size = new System.Drawing.Size(50, 20);
             this.textBoxDepto.TabIndex = 82;
@@ -169,7 +169,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(112, 246);
+            this.label12.Location = new System.Drawing.Point(122, 236);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 13);
             this.label12.TabIndex = 81;
@@ -177,7 +177,7 @@
             // 
             // textBoxPiso
             // 
-            this.textBoxPiso.Location = new System.Drawing.Point(186, 217);
+            this.textBoxPiso.Location = new System.Drawing.Point(196, 207);
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
             this.textBoxPiso.TabIndex = 80;
@@ -185,7 +185,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 220);
+            this.label11.Location = new System.Drawing.Point(17, 210);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 79;
@@ -193,7 +193,7 @@
             // 
             // textBoxNumeroCalle
             // 
-            this.textBoxNumeroCalle.Location = new System.Drawing.Point(52, 217);
+            this.textBoxNumeroCalle.Location = new System.Drawing.Point(62, 207);
             this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
             this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
             this.textBoxNumeroCalle.TabIndex = 78;
@@ -211,21 +211,21 @@
             // 
             this.textBoxCalle.Location = new System.Drawing.Point(93, 128);
             this.textBoxCalle.Name = "textBoxCalle";
-            this.textBoxCalle.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCalle.Size = new System.Drawing.Size(153, 20);
             this.textBoxCalle.TabIndex = 76;
             // 
             // textBoxCiudad
             // 
             this.textBoxCiudad.Location = new System.Drawing.Point(93, 154);
             this.textBoxCiudad.Name = "textBoxCiudad";
-            this.textBoxCiudad.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCiudad.Size = new System.Drawing.Size(153, 20);
             this.textBoxCiudad.TabIndex = 86;
             // 
             // textBoxLocalidad
             // 
             this.textBoxLocalidad.Location = new System.Drawing.Point(93, 180);
             this.textBoxLocalidad.Name = "textBoxLocalidad";
-            this.textBoxLocalidad.Size = new System.Drawing.Size(121, 20);
+            this.textBoxLocalidad.Size = new System.Drawing.Size(153, 20);
             this.textBoxLocalidad.TabIndex = 87;
             // 
             // label3
@@ -250,7 +250,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(244, 303);
+            this.ClientSize = new System.Drawing.Size(265, 294);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxLocalidad);
