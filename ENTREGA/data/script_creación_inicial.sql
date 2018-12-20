@@ -2024,11 +2024,11 @@ go
 
 -----obtener datos de tarjeta-----
 CREATE PROCEDURE MATE_LAVADO.getDatosTarjeta_sp 
-@numeroTarjeta NUMERIC(30)
+@id int
 AS
 BEGIN
 	SELECT titular from MATE_LAVADO.Medios_de_pago
-	WHERE nro_tarjeta = @numeroTarjeta
+	WHERE id_medio_de_pago = @id
 END
 GO
 
