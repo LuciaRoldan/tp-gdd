@@ -108,7 +108,7 @@ namespace PalcoNet.Abm_Cliente
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
 
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
-            }
+            
 
                 //Si posee DNI, valido DNI y CUIL
                 if (comboBoxDocumento.Text == "DNI")
@@ -146,7 +146,7 @@ namespace PalcoNet.Abm_Cliente
                     }
 
                 }
-            }
+            
                 if (errores != "")
                 {
                     MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
