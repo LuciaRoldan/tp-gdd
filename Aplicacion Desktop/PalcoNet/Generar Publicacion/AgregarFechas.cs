@@ -52,7 +52,7 @@ namespace PalcoNet.Generar_Publicacion
                 this.actualizarFechas();
             }
             else{
-                MessageBox.Show("La fecha no puede ser anterior a la actual ni se puede repetir.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("La fecha no puede ser anterior a la actual ni ser menor a la última fecha agregada.", "Error", MessageBoxButtons.OK);
             }
         }
 
