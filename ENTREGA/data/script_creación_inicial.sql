@@ -1598,7 +1598,7 @@ GO
 
 
 -----top5LocalidadesNoVendidasEmpresa-----
-CREATE PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
+create PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
 @grado VARCHAR(20),
 @fecha_inicio VARCHAR(30),
 @fecha_fin VARCHAR(30)
@@ -1613,7 +1613,7 @@ BEGIN
 		AND gp.nombre = @grado
 		AND e.fecha_evento> CONVERT(DATETIME, @fecha_inicio, 121) AND e.fecha_evento < CONVERT(DATETIME, @fecha_fin, 121)
 	GROUP BY razon_social, cuit, p.id_publicacion, fecha_evento, comision
-	ORDER BY fecha_evento ASC, comision DESC
+	ORDER BY COUNT(id_ubicacion) desc
 END
 GO
 

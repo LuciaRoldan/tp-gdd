@@ -106,7 +106,8 @@ namespace PalcoNet.Listado_Estadistico
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '"
                     + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
                 List<ClientePuntosListado> clientesOrdenadosPorPuntos = new List<ClientePuntosListado>();
-
+                Console.WriteLine("EXEC MATE_LAVADO.top5ClientesPuntosVencidos_sp '" + inicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '"
+                    + fin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
                 while (reader.Read())
                 {
                     ClientePuntosListado cliente = new ClientePuntosListado();
