@@ -371,11 +371,6 @@ GO
 
 --.--.--.--.--.--.--RUBROS--.--.--.--.--.--.--
 INSERT INTO MATE_LAVADO.Rubros
-SELECT DISTINCT Espectaculo_Rubro_Descripcion
-FROM gd_esquema.Maestra
-GO
-
-INSERT INTO MATE_LAVADO.Rubros
 VALUES
 ('Concierto'),
 ('Obra infantil'),
@@ -396,7 +391,7 @@ GO
 
 INSERT INTO MATE_LAVADO.Publicaciones(id_empresa, id_grado_publicacion, id_rubro, descripcion,
 			direccion)
-SELECT DISTINCT e.id_empresa, 3, 1, Espectaculo_Descripcion, NULL
+SELECT DISTINCT e.id_empresa, 3, NULL, Espectaculo_Descripcion, NULL
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Empresas e ON (e.razon_social = gd.Espec_Empresa_Razon_Social)
 GO
@@ -1093,7 +1088,7 @@ END
 GO
 
 -----buscarEmpresaPorCriterio-----
-alter PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
+CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @cuit VARCHAR(20),
 @razon_social VARCHAR(20),
 @email VARCHAR(20)
