@@ -37,6 +37,7 @@ namespace PalcoNet.Registro_de_Usuario
             long x;
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { error += "El Mail no puede estar vacío.\n"; }
             if (!string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { if (!long.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; } }
 
 
