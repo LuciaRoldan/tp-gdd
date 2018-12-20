@@ -249,7 +249,7 @@ namespace PalcoNet.Editar_Publicacion
             {
                 this.HayCambiosDeFecha = true;
 
-                if (fecha > Sesion.getInstance().fecha)
+                if (fecha > this.fechaMaximaActual())
                 {
                     this.PublicacionElegida.Fechas.Add(fecha);
                     this.actualizarFechas();
@@ -263,6 +263,13 @@ namespace PalcoNet.Editar_Publicacion
             {
                 MessageBox.Show("No puede haber fechas repetidas.", "Error", MessageBoxButtons.OK);
             }
+        }
+
+        private DateTime fechaMaximaActual()
+        {
+            var fechas = this.PublicacionElegida.Fechas;
+            if (fechas.Count == 0) { return Sesion.getInstance().fecha; }
+            return fechas.Max();
         }
 
         private void button2_Click(object sender, EventArgs e)
