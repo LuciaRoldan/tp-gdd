@@ -51,6 +51,8 @@
             this.textBoxLocalidad = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.buttonD = new System.Windows.Forms.Button();
+            this.buttonH = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxCuit
@@ -106,7 +108,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(147, 259);
+            this.button1.Location = new System.Drawing.Point(146, 293);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 23);
             this.button1.TabIndex = 55;
@@ -116,7 +118,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(16, 259);
+            this.button3.Location = new System.Drawing.Point(15, 293);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(107, 23);
             this.button3.TabIndex = 54;
@@ -158,6 +160,7 @@
             this.textBoxCodigoPostal.Name = "textBoxCodigoPostal";
             this.textBoxCodigoPostal.Size = new System.Drawing.Size(50, 20);
             this.textBoxCodigoPostal.TabIndex = 83;
+            this.textBoxCodigoPostal.TextChanged += new System.EventHandler(this.textBoxCodigoPostal_TextChanged);
             // 
             // textBoxDepto
             // 
@@ -165,6 +168,7 @@
             this.textBoxDepto.Name = "textBoxDepto";
             this.textBoxDepto.Size = new System.Drawing.Size(50, 20);
             this.textBoxDepto.TabIndex = 82;
+            this.textBoxDepto.TextChanged += new System.EventHandler(this.textBoxDepto_TextChanged);
             // 
             // label12
             // 
@@ -181,6 +185,7 @@
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
             this.textBoxPiso.TabIndex = 80;
+            this.textBoxPiso.TextChanged += new System.EventHandler(this.textBoxPiso_TextChanged);
             // 
             // label11
             // 
@@ -197,6 +202,7 @@
             this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
             this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
             this.textBoxNumeroCalle.TabIndex = 78;
+            this.textBoxNumeroCalle.TextChanged += new System.EventHandler(this.textBoxNumeroCalle_TextChanged);
             // 
             // label10
             // 
@@ -213,6 +219,7 @@
             this.textBoxCalle.Name = "textBoxCalle";
             this.textBoxCalle.Size = new System.Drawing.Size(153, 20);
             this.textBoxCalle.TabIndex = 76;
+            this.textBoxCalle.TextChanged += new System.EventHandler(this.textBoxCalle_TextChanged);
             // 
             // textBoxCiudad
             // 
@@ -220,6 +227,7 @@
             this.textBoxCiudad.Name = "textBoxCiudad";
             this.textBoxCiudad.Size = new System.Drawing.Size(153, 20);
             this.textBoxCiudad.TabIndex = 86;
+            this.textBoxCiudad.TextChanged += new System.EventHandler(this.textBoxCiudad_TextChanged);
             // 
             // textBoxLocalidad
             // 
@@ -227,6 +235,7 @@
             this.textBoxLocalidad.Name = "textBoxLocalidad";
             this.textBoxLocalidad.Size = new System.Drawing.Size(153, 20);
             this.textBoxLocalidad.TabIndex = 87;
+            this.textBoxLocalidad.TextChanged += new System.EventHandler(this.textBoxLocalidad_TextChanged);
             // 
             // label3
             // 
@@ -246,11 +255,33 @@
             this.label6.TabIndex = 89;
             this.label6.Text = "Localidad:";
             // 
+            // buttonD
+            // 
+            this.buttonD.Location = new System.Drawing.Point(146, 264);
+            this.buttonD.Name = "buttonD";
+            this.buttonD.Size = new System.Drawing.Size(107, 23);
+            this.buttonD.TabIndex = 97;
+            this.buttonD.Text = "Deshabilitar empresa";
+            this.buttonD.UseVisualStyleBackColor = true;
+            this.buttonD.Click += new System.EventHandler(this.buttonD_Click);
+            // 
+            // buttonH
+            // 
+            this.buttonH.Location = new System.Drawing.Point(15, 264);
+            this.buttonH.Name = "buttonH";
+            this.buttonH.Size = new System.Drawing.Size(107, 23);
+            this.buttonH.TabIndex = 96;
+            this.buttonH.Text = "Habilitar empresa";
+            this.buttonH.UseVisualStyleBackColor = true;
+            this.buttonH.Click += new System.EventHandler(this.buttonH_Click);
+            // 
             // ModificarEmp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(265, 294);
+            this.ClientSize = new System.Drawing.Size(265, 328);
+            this.Controls.Add(this.buttonD);
+            this.Controls.Add(this.buttonH);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxLocalidad);
@@ -306,5 +337,7 @@
         private System.Windows.Forms.TextBox textBoxLocalidad;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button buttonD;
+        private System.Windows.Forms.Button buttonH;
     }
 }

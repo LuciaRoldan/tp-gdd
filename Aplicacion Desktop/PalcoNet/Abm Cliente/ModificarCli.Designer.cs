@@ -61,8 +61,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxLocalidad = new System.Windows.Forms.TextBox();
             this.textBoxCiudad = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonH = new System.Windows.Forms.Button();
+            this.buttonD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -244,6 +244,7 @@
             this.textBoxCalle.Name = "textBoxCalle";
             this.textBoxCalle.Size = new System.Drawing.Size(121, 20);
             this.textBoxCalle.TabIndex = 64;
+            this.textBoxCalle.TextChanged += new System.EventHandler(this.textBoxCalle_TextChanged);
             // 
             // label10
             // 
@@ -295,6 +296,7 @@
             this.textBoxDepto.Name = "textBoxDepto";
             this.textBoxDepto.Size = new System.Drawing.Size(50, 20);
             this.textBoxDepto.TabIndex = 72;
+            this.textBoxDepto.TextChanged += new System.EventHandler(this.textBoxDepto_TextChanged);
             // 
             // textBoxCodigoPostal
             // 
@@ -302,6 +304,7 @@
             this.textBoxCodigoPostal.Name = "textBoxCodigoPostal";
             this.textBoxCodigoPostal.Size = new System.Drawing.Size(50, 20);
             this.textBoxCodigoPostal.TabIndex = 73;
+            this.textBoxCodigoPostal.TextChanged += new System.EventHandler(this.textBoxCodigoPostal_TextChanged);
             // 
             // label13
             // 
@@ -345,6 +348,7 @@
             this.textBoxLocalidad.Name = "textBoxLocalidad";
             this.textBoxLocalidad.Size = new System.Drawing.Size(121, 20);
             this.textBoxLocalidad.TabIndex = 91;
+            this.textBoxLocalidad.TextChanged += new System.EventHandler(this.textBoxLocalidad_TextChanged);
             // 
             // textBoxCiudad
             // 
@@ -352,32 +356,35 @@
             this.textBoxCiudad.Name = "textBoxCiudad";
             this.textBoxCiudad.Size = new System.Drawing.Size(121, 20);
             this.textBoxCiudad.TabIndex = 90;
+            this.textBoxCiudad.TextChanged += new System.EventHandler(this.textBoxCiudad_TextChanged);
             // 
-            // button2
+            // buttonH
             // 
-            this.button2.Location = new System.Drawing.Point(219, 206);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 23);
-            this.button2.TabIndex = 94;
-            this.button2.Text = "Habilitar cliente";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonH.Location = new System.Drawing.Point(219, 206);
+            this.buttonH.Name = "buttonH";
+            this.buttonH.Size = new System.Drawing.Size(107, 23);
+            this.buttonH.TabIndex = 94;
+            this.buttonH.Text = "Habilitar cliente";
+            this.buttonH.UseVisualStyleBackColor = true;
+            this.buttonH.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button4
+            // buttonD
             // 
-            this.button4.Location = new System.Drawing.Point(335, 206);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(107, 23);
-            this.button4.TabIndex = 95;
-            this.button4.Text = "Deshabilitar cliente";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonD.Location = new System.Drawing.Point(335, 206);
+            this.buttonD.Name = "buttonD";
+            this.buttonD.Size = new System.Drawing.Size(107, 23);
+            this.buttonD.TabIndex = 95;
+            this.buttonD.Text = "Deshabilitar cliente";
+            this.buttonD.UseVisualStyleBackColor = true;
+            this.buttonD.Click += new System.EventHandler(this.button4_Click);
             // 
             // ModificarCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 287);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonD);
+            this.Controls.Add(this.buttonH);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBoxLocalidad);
@@ -454,7 +461,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxLocalidad;
         private System.Windows.Forms.TextBox textBoxCiudad;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonH;
+        private System.Windows.Forms.Button buttonD;
     }
 }

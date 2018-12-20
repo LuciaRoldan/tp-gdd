@@ -804,9 +804,9 @@ CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 @email NVARCHAR(50)
 AS
 BEGIN
-	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
-		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad, id_usuario
-	FROM MATE_LAVADO.Clientes
+	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento, habilitado,
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad, c.id_usuario
+	FROM MATE_LAVADO.Clientes c join MATE_LAVADO.Usuarios u on c.id_usuario = u.id_usuario
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
 		AND documento = CAST(@dni AS INT)
@@ -1098,7 +1098,9 @@ CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad FROM MATE_LAVADO.Empresas
+	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, e.id_usuario,
+	depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad, habilitado FROM MATE_LAVADO.Empresas e
+	join MATE_LAVADO.Usuarios u on e.id_usuario = e.id_usuario
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -2024,4 +2026,11 @@ END
 go
 
 -----deshabilitarUsuario-----
-create procedure deshabilitarUsuario_sp (@id_u)
+create procedure deshabilitarUsuario_sp (@id_usuario int) as begin
+update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
+end
+
+-----habilitarUsuario-----
+create procedure habilitarUsuario_sp (@id_usuario int) as begin
+update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
+end
