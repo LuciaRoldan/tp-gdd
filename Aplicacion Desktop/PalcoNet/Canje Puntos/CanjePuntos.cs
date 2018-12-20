@@ -88,7 +88,8 @@ namespace PalcoNet.Canje_Puntos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Aca hacemos que se actualicen los puntos
+            //Aca hacemos que se actualicen los puntos y agregamos al cliente el premio adquirido
+            //Como los puntos tienen un vencimiento usamos primero los puntos mas viejos y despues los mas nuevos
 
             if (this.puntosOriginales >= this.PuntosAcumulados)
             {
@@ -114,12 +115,6 @@ namespace PalcoNet.Canje_Puntos
             {
                 MessageBox.Show("Su monto actual de puntos no le permite canjear el obsequio, prube en otro momento.", "Premios", MessageBoxButtons.OK);
             }
-            
-
-            //Aca hay que actualizar los puntos del cliente y persistir los nuevos premios adquiridos
-            //Como los puntos tienen un vencimiento usamos primero los puntos mas viejos y despues los mas nuevos
-
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -130,11 +125,6 @@ namespace PalcoNet.Canje_Puntos
         //Con esto actualizamos los puntos acumulados actuales
         private void checkedListBoxPremios_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < this.Premios.Count(); i++)
-            {
-                Console.WriteLine(this.Premios[i].CantidadDePuntos);
-            }
-
             if (this.checkedListBoxPremios.GetItemCheckState(this.checkedListBoxPremios.SelectedIndex) == CheckState.Checked)
             {
                  this.PuntosAcumulados = this.PuntosAcumulados + this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;

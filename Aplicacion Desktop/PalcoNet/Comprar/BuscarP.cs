@@ -123,7 +123,6 @@ namespace PalcoNet.Comprar
                 {
                     for (int i = 0; i < checkedListBoxCategorias.Items.Count; i++)
                     {
-                        Console.WriteLine(this.Categorias[i]);
                         if (checkedListBoxCategorias.GetItemCheckState(i) == CheckState.Checked) { categoriasSelecc.Add(this.Categorias[i]); }
                     }
                 }
@@ -140,7 +139,6 @@ namespace PalcoNet.Comprar
                 }
 
                 String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
-                Console.WriteLine("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
 
                 while (reader.Read())
@@ -161,6 +159,8 @@ namespace PalcoNet.Comprar
             }
             else
             {
+                //las publicaciones encontradas se cargaran en el data grid para que el usuario pueda seleccionar la que desea
+
                 this.Publicaciones = encontradas;
                 var bindingList = new BindingList<Publicacion> (this.Publicaciones);
                 var source = new BindingSource(bindingList, null);
@@ -211,7 +211,7 @@ namespace PalcoNet.Comprar
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //Verifica que se haya seleccionado una fila y genera una compra que le pasa a la siguiente pantalla
+            //Verifica que se haya seleccionado una fila y genera una compra que le pasa a la siguiente pantalla para elegir la fecha
             if (dataGridViewResultados.SelectedRows.Count > 0)
             {
                 Publicacion publicacionSeleccionada = (Publicacion)dataGridViewResultados.CurrentRow.DataBoundItem;
