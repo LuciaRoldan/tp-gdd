@@ -322,7 +322,7 @@ SELECT DISTINCT u.id_usuario, Espec_Empresa_Razon_Social ,Espec_Empresa_Mail, RE
 				Espec_Empresa_Dom_Calle, Espec_Empresa_Nro_Calle, Espec_Empresa_Piso, Espec_Empresa_Depto,
 				Espec_Empresa_Cod_Postal
 FROM gd_esquema.Maestra gd
-JOIN MATE_LAVADO.Usuarios u ON(u.username = gd.Espec_Empresa_Cuit)
+JOIN MATE_LAVADO.Usuarios u ON(u.username = replace(gd.Espec_Empresa_Cuit,'-',''))
 WHERE Espec_Empresa_Cuit IS NOT NULL
 GO
 
@@ -490,7 +490,7 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 GO
 
 update MATE_LAVADO.UbicacionXEspectaculo set facturado = 1 
-
+go
 
 --.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
 
@@ -2182,3 +2182,4 @@ create procedure MATE_LAVADO.crearItemFactura_sp (@id_factura int, @id_compra in
 insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, comision)
 values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
 end
+go
