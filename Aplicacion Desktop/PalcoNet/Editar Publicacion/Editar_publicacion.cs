@@ -16,12 +16,26 @@ namespace PalcoNet.Editar_Publicacion
     {
         List<Publicacion> publicaciones = new List<Publicacion>();
         Publicacion publicacionElegida;
-        bool hayCambios = false;
+        bool hayCambiosDeFecha = false;
+        bool hayCambiosDeUbicaciones = false;
+        bool hayCambiosDeBase = false;
 
-        public bool HayCambios
+        public bool HayCambiosDeFecha
         {
-            get { return hayCambios; }
-            set { hayCambios = value; }
+            get { return hayCambiosDeFecha; }
+            set { hayCambiosDeFecha = value; }
+        }
+
+        public bool HayCambiosDeUbicaciones
+        {
+            get { return hayCambiosDeUbicaciones; }
+            set { hayCambiosDeUbicaciones = value; }
+        }
+
+        public bool HayCambiosDeBase
+        {
+            get { return hayCambiosDeBase; }
+            set { hayCambiosDeBase = value; }
         }
 
         public Publicacion PublicacionElegida
@@ -116,7 +130,9 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.HayCambios = false;
+            this.HayCambiosDeFecha = false;
+            this.HayCambiosDeUbicaciones = false;
+            this.HayCambiosDeBase = false;
 
             //Hace se completan los campos con la informacion de la publicacion seleccionada
             if (comboBoxPublicaciones.SelectedIndex > -1) {
@@ -189,7 +205,7 @@ namespace PalcoNet.Editar_Publicacion
         {
             //Agrega una ubicacion a la lista de abajo
 
-            this.HayCambios = true;
+            this.HayCambiosDeUbicaciones = true;
 
             if (this.VerificarCamposUbicacion())
             {
@@ -211,18 +227,24 @@ namespace PalcoNet.Editar_Publicacion
         {
             //Agrega una fecha a la lista de abajo y validamos que la fecha sea posterior al dia de hoy
 
-
-            this.HayCambios = true;
-
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
-            if (fecha > Sesion.getInstance().fecha)
+            if (!PublicacionElegida.Fechas.Contains(fecha))
             {
-                this.PublicacionElegida.Fechas.Add(fecha);
-                this.actualizarFechas();
+                this.HayCambiosDeFecha = true;
+
+                if (fecha > Sesion.getInstance().fecha)
+                {
+                    this.PublicacionElegida.Fechas.Add(fecha);
+                    this.actualizarFechas();
+                }
+                else
+                {
+                    MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
+                }
             }
             else
             {
-                MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("No puede haber fechas repetidas.", "Error", MessageBoxButtons.OK);
             }
         }
 
@@ -231,7 +253,7 @@ namespace PalcoNet.Editar_Publicacion
             //Hace los cambios correspondientes en la base
             //Podria salir un cartelito que diga que los cambios se guardaron correctamente
 
-            if (this.VerificarCampos() && this.hayCambios)
+            if (this.VerificarCampos() && (this.hayCambiosDeBase || this.HayCambiosDeUbicaciones || this.HayCambiosDeFecha))
             {
                 this.PublicacionElegida.Descripcion = textBoxDescripcion.Text;
                 this.PublicacionElegida.Direccion = textBoxDireccion.Text;
@@ -256,49 +278,55 @@ namespace PalcoNet.Editar_Publicacion
                 this.PublicacionElegida.Ubicaciones = ubicaciones;
 
                 Servidor servidor = Servidor.getInstance();
-                servidor.query("EXEC MATE_LAVADO.actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
-                    "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
+                if(this.HayCambiosDeBase){
+                    servidor.query("EXEC MATE_LAVADO.actualizarPublicacion_sp " + this.PublicacionElegida.Id + ", '" + this.PublicacionElegida.Descripcion +
+                        "', '" + this.PublicacionElegida.Direccion + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + this.PublicacionElegida.Rubro + "'");
+                }
 
                 //Limpia los espectaculos existente y agrega los seleccionados a la publicacion
-                servidor.query("EXEC MATE_LAVADO.vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
+                if(this.HayCambiosDeFecha || this.HayCambiosDeUbicaciones){
+                    progressBar1.Maximum = this.PublicacionElegida.Fechas.Count() * this.PublicacionElegida.Ubicaciones.Sum(ubi => ubi.CantidadAsientos);
+                    servidor.query("EXEC MATE_LAVADO.vaciarEspectaculosPublicacion_sp " + this.PublicacionElegida.Id);
 
-                List<Int32> ids_espectaculos = new List<Int32>();
+                    List<Int32> ids_espectaculos = new List<Int32>();
 
-                foreach (DateTime f in this.PublicacionElegida.Fechas)
-                {
-                    string query2 = "'" + this.PublicacionElegida.Id + "', '" + f.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
-                    SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
-
-                    readerEspectaculo.Read();
-                    Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
-                    ids_espectaculos.Add(id);
-
-                }
-
-                //Agrega las ubicaciones y la relacion de ellas con la publicacion a la base
-                List<Int32> ids_ubicaciones = new List<Int32>();
-
-                foreach (Ubicacion u in this.PublicacionElegida.Ubicaciones)
-                {
-                    string query3 = "'" + u.TipoAsiento + "', '"
-                    + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
-
-                    SqlDataReader readerUbicaciones = servidor.query("EXEC MATE_LAVADO.agregarUbicaciones_sp " + query3);
-
-                    while (readerUbicaciones.Read())
+                    foreach (DateTime f in this.PublicacionElegida.Fechas)
                     {
-                        ids_ubicaciones.Add(Convert.ToInt32(readerUbicaciones["id_ubicacion"]));
-                    }
-                }
+                        string query2 = "'" + this.PublicacionElegida.Id + "', '" + f.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.PublicacionElegida.EstadoDePublicacion + "', '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                        SqlDataReader readerEspectaculo = servidor.query("EXEC MATE_LAVADO.agregarEspectaculo_sp " + query2);
 
-                foreach (Int32 id_u in ids_ubicaciones)
-                {
-                    foreach (Int32 id_e in ids_espectaculos)
-                    {
-                        string query4 = "'" + id_u + "', '" + id_e + "'";
-                        servidor.query("EXEC MATE_LAVADO.agregarUbicacionXEspectaculo_sp " + query4);
+                        readerEspectaculo.Read();
+                        Int32 id = Convert.ToInt32(readerEspectaculo["id_espectaculo"]);
+                        ids_espectaculos.Add(id);
+
                     }
 
+                    //Agrega las ubicaciones y la relacion de ellas con la publicacion a la base
+                    List<Int32> ids_ubicaciones = new List<Int32>();
+
+                    foreach (Ubicacion u in this.PublicacionElegida.Ubicaciones)
+                    {
+                        string query3 = "'" + u.TipoAsiento + "', '"
+                        + u.CantidadAsientos + "', '" + (u.Numerada ? u.CantidadFilas : 0) + "', '" + u.Precio + "'";
+
+                        SqlDataReader readerUbicaciones = servidor.query("EXEC MATE_LAVADO.agregarUbicaciones_sp " + query3);
+
+                        while (readerUbicaciones.Read())
+                        {
+                            ids_ubicaciones.Add(Convert.ToInt32(readerUbicaciones["id_ubicacion"]));
+                        }
+                    }
+
+                    foreach (Int32 id_u in ids_ubicaciones)
+                    {
+                        foreach (Int32 id_e in ids_espectaculos)
+                        {
+                            string query4 = "'" + id_u + "', '" + id_e + "'";
+                            servidor.query("EXEC MATE_LAVADO.agregarUbicacionXEspectaculo_sp " + query4);
+                            this.progressBar1.Increment(1);
+                        }
+
+                    }
                 }
 
                 MessageBox.Show("Los cambios se registraron exitosamente!", "Editar publicación", MessageBoxButtons.OK);
@@ -331,7 +359,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void textBoxDescripcion_TextChanged(object sender, EventArgs e)
         {
-            this.HayCambios = true;
+            this.HayCambiosDeBase = true;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -341,12 +369,12 @@ namespace PalcoNet.Editar_Publicacion
 
         private void textBoxDireccion_TextChanged(object sender, EventArgs e)
         {
-            this.HayCambios = true;
+            this.HayCambiosDeBase = true;
         }
 
         private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.HayCambios = true;
+            this.HayCambiosDeBase = true;
         }
 
         private void comboBoxRubro_SelectedIndexChanged(object sender, EventArgs e)
@@ -362,6 +390,7 @@ namespace PalcoNet.Editar_Publicacion
         private void button6_Click_1(object sender, EventArgs e)
         {
             //Borrar espectaculo
+            this.hayCambiosDeFecha = true;
             this.publicacionElegida.Fechas.Remove((DateTime) this.dataGridViewFechas.CurrentRow.DataBoundItem);
             this.actualizarFechas();
         }
@@ -394,6 +423,7 @@ namespace PalcoNet.Editar_Publicacion
             //Borrar ubicacion
             this.publicacionElegida.Ubicaciones.Remove((Ubicacion)dataGridViewUbicaciones.CurrentRow.DataBoundItem);
             this.actualizarUbicaciones();
+            this.HayCambiosDeUbicaciones = true;
         }
 
         private void checkBoxNumerado_CheckedChanged(object sender, EventArgs e)
@@ -414,7 +444,7 @@ namespace PalcoNet.Editar_Publicacion
 
         private void comboBoxRubro_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
+            this.HayCambiosDeBase = true;
         }
     }
 }

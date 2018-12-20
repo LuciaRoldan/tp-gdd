@@ -2036,9 +2036,6 @@ end
 go
 
 
-
-
-
 -----validarDigitoVerificador-----
 create function MATE_LAVADO.fn_ValidarDigitoVerificador (@cuit_nro varchar(11))
 returns  bit
@@ -2146,6 +2143,7 @@ BEGIN
 	DECLARE @datosDeClienteValidos BIT = (SELECT MATE_LAVADO.fn_cuilDeCliente(@cuil, @documento))
 	SELECT @verificadorValido & @datosDeClienteValidos AS valido
 END
+>>>>>>> 81d97c62934445bda26e0dd7983ad4083026384a
 GO
 
 -----habilitarUsuario-----
