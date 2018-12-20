@@ -143,9 +143,6 @@
             // comboBoxRubro
             // 
             this.comboBoxRubro.FormattingEnabled = true;
-            this.comboBoxRubro.Items.AddRange(new object[] {
-            "Borrador",
-            "Publicada"});
             this.comboBoxRubro.Location = new System.Drawing.Point(82, 64);
             this.comboBoxRubro.Name = "comboBoxRubro";
             this.comboBoxRubro.Size = new System.Drawing.Size(268, 21);

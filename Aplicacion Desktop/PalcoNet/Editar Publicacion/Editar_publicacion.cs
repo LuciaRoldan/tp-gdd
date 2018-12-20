@@ -57,21 +57,10 @@ namespace PalcoNet.Editar_Publicacion
             if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-                Servidor servidor = Servidor.getInstance();
-                //Aca buscamos en la base todas las publicaciones de la empresa y las guardamos en la lista de arriba
+                
+                this.buscarPublicaciones();             
 
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
-
-                while (reader.Read()) {
-                    Publicacion publicacion = new Publicacion();
-                    publicacion.Descripcion = reader["descripcion"].ToString();
-                    publicacion.Direccion = reader["direccion"].ToString();
-                    publicacion.EstadoDePublicacion = reader["estado"].ToString();
-                    publicacion.Id = Convert.ToInt32(reader["id"]);
-                    publicacion.Rubro = reader["rubro"].ToString();
-                    publicaciones.Add(publicacion);
-                    comboBoxPublicaciones.Items.Add(publicacion.Descripcion);
-                }
+                dateTimePickerFecha.MinDate = Sesion.getInstance().fecha;
             }
             else //En el caso de que no sea Empresa no podrá llevar a cabo esta funcionalidad
             {
@@ -85,6 +74,29 @@ namespace PalcoNet.Editar_Publicacion
             button8.Enabled = false;
             button6.Enabled = false;
             button6.Enabled = true;
+        }
+
+        //Aca buscamos en la base todas las publicaciones de la empresa y las guardamos en la lista
+        public void buscarPublicaciones() {
+
+            comboBoxPublicaciones.Items.Clear();
+            publicaciones.Clear();
+            comboBoxPublicaciones.Text = "";
+
+            Servidor servidor = Servidor.getInstance();
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorEmpresa_sp '" + Sesion.getInstance().traerEmpresa().RazonSocial + "'");
+
+            while (reader.Read())
+            {
+                Publicacion publicacion = new Publicacion();
+                publicacion.Descripcion = reader["descripcion"].ToString();
+                publicacion.Direccion = reader["direccion"].ToString();
+                publicacion.EstadoDePublicacion = reader["estado"].ToString();
+                publicacion.Id = Convert.ToInt32(reader["id"]);
+                publicacion.Rubro = reader["rubro"].ToString();
+                publicaciones.Add(publicacion);
+                comboBoxPublicaciones.Items.Add(publicacion.Descripcion);
+            }
         }
 
         //Verifica que tenga todos los campos completos
@@ -134,6 +146,8 @@ namespace PalcoNet.Editar_Publicacion
             this.HayCambiosDeUbicaciones = false;
             this.HayCambiosDeBase = false;
 
+            this.limpiar();
+
             //Hace se completan los campos con la informacion de la publicacion seleccionada
             if (comboBoxPublicaciones.SelectedIndex > -1) {
                 this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
@@ -144,6 +158,7 @@ namespace PalcoNet.Editar_Publicacion
                 Servidor servidor = Servidor.getInstance();
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEspectaculosPorPublicacion_sp " + this.PublicacionElegida.Id);
 
+                this.PublicacionElegida.Fechas.Clear();
                 while (reader.Read())
                 {
                     DateTime fecha = (DateTime)reader["fecha_evento"];
@@ -153,6 +168,7 @@ namespace PalcoNet.Editar_Publicacion
 
                 SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp " + this.PublicacionElegida.Id);
 
+                this.PublicacionElegida.Ubicaciones.Clear();
                 while (reader2.Read())
                 {
                     Ubicacion ubicacion = new Ubicacion();
@@ -274,6 +290,8 @@ namespace PalcoNet.Editar_Publicacion
                     ubicaciones.Add(ubicacion);
                 }
 
+                this.PublicacionElegida.Fechas.Clear();
+                this.PublicacionElegida.Ubicaciones.Clear();
                 this.PublicacionElegida.Fechas = fechas;
                 this.PublicacionElegida.Ubicaciones = ubicaciones;
 
@@ -331,6 +349,10 @@ namespace PalcoNet.Editar_Publicacion
 
                 MessageBox.Show("Los cambios se registraron exitosamente!", "Editar publicación", MessageBoxButtons.OK);
 
+                this.limpiar();
+
+                this.buscarPublicaciones();
+
             }
             else
             {
@@ -342,6 +364,28 @@ namespace PalcoNet.Editar_Publicacion
 
                 MessageBox.Show(mensaje, "Error", MessageBoxButtons.OK);
             }
+        }
+
+        public void limpiar() {
+            /*var bindingList = new BindingList<DateTime>(new List<DateTime>());
+            var source = new BindingSource(bindingList, null);
+            dataGridViewFechas.DataSource = source;*/
+
+            dataGridViewFechas.DataSource = null;
+            dataGridViewUbicaciones.DataSource = null;
+            this.textBoxAsiento.Text = "";
+            this.textBoxCantidad.Text = "";
+            this.textBoxDescripcion.Text = "";
+            this.textBoxDireccion.Text = "";
+            this.textBoxFilas.Text = "";
+            this.textBoxPrecio.Text = "";
+            this.comboBoxEstado.SelectedIndex = -1;
+            this.comboBoxRubro.SelectedIndex = -1;
+            dateTimePickerFecha.Value = dateTimePickerFecha.MinDate;
+
+            /*var bindingList2 = new BindingList<Ubicacion>(new List<Ubicacion>());
+            var source2 = new BindingSource(bindingList2, null);
+            dataGridViewUbicaciones.DataSource = source2;*/
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -404,9 +448,6 @@ namespace PalcoNet.Editar_Publicacion
             servidor.query("EXEC MATE_LAVADO.eliminarPublicacion_sp " + this.publicacionElegida.Id);
 
             MessageBox.Show("La publicación se eliminó exitosamente!", "Editar publicación", MessageBoxButtons.OK);
-
-            new SeleccionarFuncionalidad().Show();
-            this.Hide(); 
         }
 
         private void dataGridViewUbicaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
