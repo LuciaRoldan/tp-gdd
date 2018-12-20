@@ -555,12 +555,11 @@ CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
 AS
 BEGIN
 	DECLARE @id_usuario INT
-	IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
-												join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-												WHERE username = @usuario and alta = 1) = 1)
 		BEGIN
-		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1)
-			BEGIN
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1 AND (select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
+													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
+													WHERE username = @usuario and alta = 1) = 1)
+		BEGIN
 			UPDATE MATE_LAVADO.Usuarios
 			SET intentos_fallidos = 0
 			WHERE username = @usuario AND password = @encriptada
@@ -575,36 +574,40 @@ BEGIN
 				END
 		
 			SELECT @debe_cambiar_pass debe_cambiar_pass, @id_usuario id_usuario
-		END
-		ELSE --existe el usuario pero la contrasenia es otra
+		END	
+		ELSE --existe el usuario pero la contrasenia es otra/no esta habilitado o el rol no esta habilitado
 		BEGIN
 			IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
 			BEGIN
-			IF((SELECT habilitado FROM MATE_LAVADO.Usuarios WHERE username = @usuario) = 1)
-				BEGIN
-				UPDATE MATE_LAVADO.Usuarios
-				SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
-				WHERE username = @usuario;
-				RAISERROR('Contrase�a invalida', 16, 1)
+					IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
+													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
+													WHERE username = '20959835' and alta = 1) != 1)
+						BEGIN
+						RAISERROR('El ROL esta inhabilitado', 16, 1)
+						END
+					ELSE
+					BEGIN
+						IF((SELECT habilitado FROM MATE_LAVADO.Usuarios WHERE username = @usuario) = 1)
+							BEGIN
+							UPDATE MATE_LAVADO.Usuarios
+							SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
+							WHERE username = @usuario;
+							RAISERROR('Contrase�a invalida', 16, 1)
+						END
+						ELSE --esta inhabilitado
+							BEGIN
+							RAISERROR('Su usuario esta bloqueado', 16, 1)
+						END
+					END	
 			END
-			ELSE --esta inhabilitado
-				BEGIN
-				RAISERROR('Su usuario esta bloqueado', 16, 1)
-			END	
-			END	
 			ELSE --no existe el usuario
-				BEGIN
+			BEGIN
 				RAISERROR('Usuario inexistente', 16, 1)
 			END
 		END
 	END
-	ELSE
-		BEGIN
-		RAISERROR('El ROL esta inhabilitado', 16, 1)
-	END
 END
 GO
-
 
 -----getPremios-----
 CREATE PROCEDURE MATE_LAVADO.getPremios_sp
@@ -725,16 +728,6 @@ BEGIN
 		UPDATE MATE_LAVADO.Roles
 		SET habilitado = @habilitado
 		WHERE nombre = @nombre
-
-
-		IF(@habilitado = 0)
-		BEGIN
-			DECLARE @id_rol_modificado INT
-			SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.Roles WHERE nombre = @nombre)
-
-			DELETE FROM MATE_LAVADO.UsuarioXRol
-			WHERE id_rol = @id_rol_modificado
-		END
 
 	END
 	ELSE
@@ -2018,7 +2011,16 @@ END
 GO
 
 -----eliminarRol-----
-create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
-update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
-end
+create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255))
+AS
+BEGIN
+	update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
+		BEGIN
+			DECLARE @id_rol_modificado INT
+			SET @id_rol_modificado = (SELECT id_rol FROM MATE_LAVADO.Roles WHERE nombre = @nombre)
+
+			DELETE FROM MATE_LAVADO.UsuarioXRol
+			WHERE id_rol = @id_rol_modificado
+		END
+END
 go
