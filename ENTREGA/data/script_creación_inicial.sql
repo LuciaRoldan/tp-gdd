@@ -796,9 +796,6 @@ BEGIN
 END
 GO
 
-
-select * from gd_esquema.Maestra
-
 -----buscarUsuarioPorCriterio-----
 CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 @nombre VARCHAR(255),
@@ -2149,12 +2146,8 @@ BEGIN
 END
 GO
 
-
-update mate_lavado.usuarios
-set habilitado = 1
-where username = 'admin'
-
 -----habilitarUsuario-----
 create procedure habilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
 end
+go
