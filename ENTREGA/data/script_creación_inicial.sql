@@ -847,7 +847,6 @@ BEGIN
 END
 GO
 
-select * from MATE_LAVADO.Clientes order by id_cliente desc
 
 -----registroCliente-----
 CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
@@ -2035,8 +2034,6 @@ BEGIN
 END
 GO
 
-
-select * from MATE_LAVADO.empresas where cuit = '30709533769'
 
 
 -----modificar datos de tarjeta-----
