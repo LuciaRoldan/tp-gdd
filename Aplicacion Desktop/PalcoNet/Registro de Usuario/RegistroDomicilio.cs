@@ -37,6 +37,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (!int.TryParse(textBoxNro.Text, out x)) { error += "El campo 'Número de Calle' debe ser numerico\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { error += "El campo 'Código Postal' no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { error += "El campo 'Localidad' no puede estar vacío\n"; }
+            if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { if (!int.TryParse(textBoxPiso.Text, out x)) { error += "El campo 'Piso' debe ser numerico\n"; } }
 
             if (error != "")
             {

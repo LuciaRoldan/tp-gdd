@@ -67,6 +67,9 @@ namespace PalcoNet
             empresa.Mail = reader["mail"].ToString();
             empresa.RazonSocial = reader["razon_social"].ToString();
             empresa.Id = int.Parse(reader["id_empresa"].ToString());
+            empresa.Localidad = reader["localidad"].ToString();
+            var piso = reader["piso"];
+            if (!(piso is DBNull)) { empresa.Piso = Convert.ToInt32(piso); }
         }
 
         //Trae los datos de cliente de la base relacionados con el usuario
@@ -113,6 +116,8 @@ namespace PalcoNet
             var numero_calle = reader["numero_calle"];
             if (!(numero_calle is DBNull)) cliente.NumeroDeCalle = Convert.ToInt32(numero_calle);
             cliente.Mail = reader["mail"].ToString();
+            cliente.Localidad = reader["localidad"].ToString();
+            cliente.Ciudad = reader["ciudad"].ToString();
             cliente.Apellido = reader["apellido"].ToString();
             cliente.FechaDeNacimiento = (DateTime)reader["fecha_nacimiento"];
             cliente.Nombre = reader["nombre"].ToString();

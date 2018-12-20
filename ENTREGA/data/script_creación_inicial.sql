@@ -822,7 +822,7 @@ CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @documento NUMERIC(18,0),
 @cuil NUMERIC(18,0),
 @telefono NUMERIC(15),
-@fecha_nacimiento DATETIME,
+@fecha_nacimiento VARCHAR(30),
 @calle NVARCHAR(255),
 @numero_calle NUMERIC(18,0),
 @piso NUMERIC(18,0),
@@ -836,7 +836,8 @@ BEGIN
 		BEGIN
 		BEGIN TRANSACTION
 		UPDATE MATE_LAVADO.Clientes
-		SET nombre = @nombre, apellido = @apellido, mail = @mail, tipo_documento = @tipo_documento, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_nacimiento = @fecha_nacimiento,
+		SET nombre = @nombre, apellido = @apellido, mail = @mail, tipo_documento = @tipo_documento, documento = @documento, cuil = @cuil, telefono = @telefono,
+		fecha_nacimiento = CONVERT(DATETIME, @fecha_nacimiento, 121),
 		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal, localidad = @localidad, ciudad = @ciudad
 		WHERE id_cliente = @id_cliente
 		COMMIT TRANSACTION
@@ -845,6 +846,8 @@ BEGIN
 	RAISERROR('El cliente no existe', 20, 1) WITH LOG
 END
 GO
+
+select * from MATE_LAVADO.Clientes order by id_cliente desc
 
 -----registroCliente-----
 CREATE PROCEDURE MATE_LAVADO.registroCliente_sp
@@ -1105,6 +1108,8 @@ BEGIN
 		AND @cuit LIKE '')
 END
 GO
+
+
 
 -----buscarEmpresaPorUsername-----
 CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorUsername_sp
@@ -2029,6 +2034,10 @@ BEGIN
 	WHERE id_medio_de_pago = @id
 END
 GO
+
+
+select * from MATE_LAVADO.empresas where cuit = '30709533769'
+
 
 -----modificar datos de tarjeta-----
 CREATE PROCEDURE MATE_LAVADO.modificarTarjeta_sp
