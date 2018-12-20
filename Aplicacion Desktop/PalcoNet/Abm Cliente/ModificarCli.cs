@@ -252,7 +252,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            servidor.realizarQuery("exec habilitarUsuario_sp " + this.clienteViejo.IdUsuario);
+            servidor.realizarQuery("exec MATE_LAVADO.habilitarUsuario_sp " + this.clienteViejo.IdUsuario);
             MessageBox.Show("El cliente fue habilitado", "Editar Cliente", MessageBoxButtons.OK);
             buttonD.Enabled = true;
             buttonH.Enabled = false;
@@ -260,7 +260,7 @@ namespace PalcoNet.Abm_Cliente
 
         private void button4_Click(object sender, EventArgs e)
         {
-            servidor.realizarQuery("exec deshabilitarUsuario_sp " + this.clienteViejo.IdUsuario);
+            servidor.realizarQuery("exec MATE_LAVADO.deshabilitarUsuario_sp " + this.clienteViejo.IdUsuario);
             MessageBox.Show("El cliente fue deshabilitado", "Editar Cliente", MessageBoxButtons.OK);
             buttonD.Enabled = false;
             buttonH.Enabled = true;

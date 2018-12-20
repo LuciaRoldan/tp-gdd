@@ -171,7 +171,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void buttonH_Click(object sender, EventArgs e)
         {
-            servidor.realizarQuery("exec habilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            servidor.realizarQuery("exec MATE_LAVADO.habilitarUsuario_sp " + this.empresaVieja.IdUsuario);
             MessageBox.Show("La empresa fue habilitada", "Editar Empresa", MessageBoxButtons.OK);
             buttonD.Enabled = true;
             buttonH.Enabled = false;
@@ -179,7 +179,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void buttonD_Click(object sender, EventArgs e)
         {
-            servidor.realizarQuery("exec deshabilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            servidor.realizarQuery("exec MATE_LAVADO.deshabilitarUsuario_sp " + this.empresaVieja.IdUsuario);
             MessageBox.Show("La empresa fue deshabilitada", "Editar Empresa", MessageBoxButtons.OK);
             buttonD.Enabled = false;
             buttonH.Enabled = true;
