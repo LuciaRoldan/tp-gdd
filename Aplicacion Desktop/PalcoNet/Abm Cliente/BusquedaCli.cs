@@ -142,5 +142,10 @@ namespace PalcoNet.Abm_Cliente
 
         }
 
+        private void textBoxDni_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

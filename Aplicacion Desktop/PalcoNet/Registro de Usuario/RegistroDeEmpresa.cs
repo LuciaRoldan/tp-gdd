@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Registro_de_Usuario
 {
@@ -37,6 +38,32 @@ namespace PalcoNet.Registro_de_Usuario
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
             if (!long.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
+
+
+            if (long.TryParse(textBoxCUIT.Text, out x))
+            {
+                //Verificamos que el CUIT tenga el largo que corresponde
+                if (!(Int64.Parse(textBoxCUIT.Text) > 9999999999 & Int64.Parse(textBoxCUIT.Text) < 100000000000))
+                { error += "El CUIL debe poseer 11 digitos. \n"; }
+                else
+                {
+                    //Verificamos que el CUIL sea valido
+
+                    Servidor servidor = Servidor.getInstance();
+                    string query = "'" + Int64.Parse(textBoxCUIT.Text) + "'";
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        if (!bool.Parse(reader["valido"].ToString()))
+                        {
+                            error += "Ingrese un CUIL válido. \n";
+                        }
+                    }
+                }
+
+            }
+
 
             if (error != "")
             {

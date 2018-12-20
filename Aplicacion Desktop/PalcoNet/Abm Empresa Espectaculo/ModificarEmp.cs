@@ -71,6 +71,32 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
             }
 
+            if (!long.TryParse(textBoxCuit.Text, out numero))
+            {
+                //Verificamos que el CUIT tenga el largo que corresponde
+                if (!(Int64.Parse(textBoxCuit.Text) > 9999999999 & Int64.Parse(textBoxCuit.Text) < 100000000000))
+                { errores += "El CUIL debe poseer 11 digitos. \n"; }
+                else
+                {
+                    //Verificamos que el CUIL sea valido
+
+                    Servidor servidor = Servidor.getInstance();
+                    string query = "'" + Int64.Parse(textBoxCuit.Text) + "'";
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        if (!bool.Parse(reader["valido"].ToString()))
+                        {
+                            errores += "Ingrese un CUIL válido. \n";
+                        }
+                    }
+                }
+
+            }
+            
+
+
             if (errores != "") {
                 Console.WriteLine("Hay errores");
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
@@ -132,6 +158,11 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         }
 
         private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ModificarEmp_Load(object sender, EventArgs e)
         {
 
         }

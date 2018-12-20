@@ -276,6 +276,7 @@
             this.Controls.Add(this.label2);
             this.Name = "ModificarEmp";
             this.Text = "ModificarEmp";
+            this.Load += new System.EventHandler(this.ModificarEmp_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
