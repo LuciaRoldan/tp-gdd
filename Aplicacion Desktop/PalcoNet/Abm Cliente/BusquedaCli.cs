@@ -117,6 +117,7 @@ namespace PalcoNet.Abm_Cliente
                 var bindingList = new BindingList<Cliente>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridResultados.DataSource = source;
+                if (resultados.Count >= 1) { dataGridResultados.Rows[0].Selected = true; }
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
                 //y mostramos por pantalla los resultados de la busqueda
 
