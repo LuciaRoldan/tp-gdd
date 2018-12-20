@@ -55,13 +55,7 @@ namespace PalcoNet.Abm_Rol
 
                 //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
 
-                reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
-
-                while (reader.Read())
-                {
-                    comboBoxRoles.Items.Add(reader["nombre"].ToString());
-                }
-                reader.Close();
+                this.recargarRoles();
 
                 this.button5.Enabled = false;
                 this.button6.Enabled = false;
@@ -131,31 +125,45 @@ namespace PalcoNet.Abm_Rol
                 MessageBox.Show("Se creó el rol " + nombre + " de forma exitosa.", "Rol creado", MessageBoxButtons.OK);
 
 
-
-               SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
-               comboBoxRoles.Items.Clear();
-                while (reader.Read())
-                {
-                    comboBoxRoles.Items.Add(reader["nombre"].ToString());
-                }
-                reader.Close();
-                
-                
+                this.recargarRoles();
             
             } 
         }
 
+        public void recargarRoles() {
+            SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
+            comboBoxRoles.Items.Clear();
+            while (reader.Read())
+            {
+                comboBoxRoles.Items.Add(reader["nombre"].ToString().Trim());
+            }
+            reader.Close();
+        }
+
+        //Cheque que haya al menos una funcionalidad marcada
+        private bool algunoChequeado() {
+            bool resultado = false;
+            for (int i = 0; i < (checkedListBoxFun2.Items.Count); i++)
+            {
+                if (checkedListBoxFun2.GetItemCheckState(i) == CheckState.Checked)
+                {
+                    resultado = true;
+                }
+            }
+            return resultado;
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
-
-            if (!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) && checkedListBoxFun2.SelectedItems.Count > 0)
+            Console.WriteLine(!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) + "," + (this.algunoChequeado()));
+            if (!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) && this.algunoChequeado())
             {
 
                 Rol rolModificado = new Rol();
                 rolModificado.Nombre = this.textBoxNomb.Text;
                 Console.WriteLine(rolSeleccionado.Nombre);
 
-                servidor.realizarQuery("EXEC MATE_LAVADO.eliminarFuncionalidadesRol_sp '" + rolSeleccionado.Nombre + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.eliminarFuncionalidadesRol_sp '" + comboBoxRoles.Text + "'");
 
                 //eliminamos todas las funcionalidades  y recuperamos las que habian sido seleccionadas para mostrarlas 
                 //como elegidas. La persona marca o desmarca las que quiera, las relacionamos con el rol, tambien podemos
@@ -167,10 +175,10 @@ namespace PalcoNet.Abm_Rol
                 }
                 foreach (String fun in funcionalidadesSeleccionadas)
                 {
-                    servidor.realizarQuery("EXEC MATE_LAVADO.AgregarFuncionalidadARol_sp '" + rolSeleccionado.Nombre + "', '" + fun + "'");
+                    servidor.realizarQuery("EXEC MATE_LAVADO.AgregarFuncionalidadARol_sp '" + comboBoxRoles.Text + "', '" + fun + "'");
                 }
 
-                servidor.realizarQuery("EXEC MATE_LAVADO.modificarNombreRol_sp '" + rolSeleccionado.Nombre + "' , '" + rolModificado.Nombre + "'");
+                servidor.realizarQuery("EXEC MATE_LAVADO.modificarNombreRol_sp '" + comboBoxRoles.Text + "' , '" + rolModificado.Nombre + "'");
                 rolSeleccionado = rolModificado;
 
                 for (int i = 0; i < this.checkedListBoxFun2.Items.Count; i++)
@@ -188,7 +196,7 @@ namespace PalcoNet.Abm_Rol
                 this.checkedListBoxFun2.Enabled = false;
 
                 MessageBox.Show("Se actualizó el rol de forma exitosa.", "Rol editado", MessageBoxButtons.OK);
-
+                this.recargarRoles();
             }
         }
 

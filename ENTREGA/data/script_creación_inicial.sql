@@ -543,7 +543,7 @@ GO
 --.--.--.--.--.--.--UTILIDADES--.--.--.--.--.--.--
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
-CREATE PROCEDURE MATE_LAVADO.verificarLogin_sp
+alter PROCEDURE MATE_LAVADO.verificarLogin_sp
 @usuario VARCHAR(255),
 @encriptada VARCHAR(255)
 AS
@@ -573,11 +573,11 @@ BEGIN
 		BEGIN
 			IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario)
 			BEGIN
-					IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
+					IF((select sum(convert(int, r.habilitado)) from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-													WHERE username = @usuario and alta = 1) != 1)
+													WHERE username = @usuario and alta = 1) < 1)
 						BEGIN
-						RAISERROR('El rol esta inhabilitado', 16, 1)
+						RAISERROR('El usuario no tiene un rol habilitado', 16, 1)
 						END
 					ELSE
 					BEGIN

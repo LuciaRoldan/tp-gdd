@@ -66,6 +66,7 @@ namespace PalcoNet
             }
             try
             {
+                Console.WriteLine("EXEC MATE_LAVADO.verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 SqlDataReader r = servidor.query("EXEC MATE_LAVADO.verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
                 while (r.Read())
@@ -107,8 +108,7 @@ namespace PalcoNet
                 if (roles.Count() > 1)
                 {
                     this.Hide();
-                    new SeleccionarRol().ShowDialog();
-                    this.Close();
+                    new SeleccionarRol().Show();
                 }
                 else
                 {

@@ -53,8 +53,13 @@ namespace PalcoNet
             switch (rol)
             {
                 case "Cli":
+
+                    sesion.rol.Nombre = "Cliente";
+                    new SeleccionarFuncionalidad().Show();
+                    this.Hide();
+                    break;
                     
-                    Cliente cli = new Cliente();
+                    /*Cliente cli = new Cliente();
                     cli.IdUsuario = sesion.usuario.IdUsuario;
 
                     SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.elClienteExiste_sp '" + sesion.usuario.IdUsuario + "'");
@@ -75,7 +80,7 @@ namespace PalcoNet
                             {
                                 sesion.rol.Nombre = "Cliente";
                                 new SeleccionarFuncionalidad().Show();
-                                //this.Hide();
+                                this.Hide();
                                 break;
                             }
                             else
@@ -84,12 +89,18 @@ namespace PalcoNet
                                 Console.Write("el cliente esta incompleto");
                                 cli = Sesion.getInstance().traerCliente();
                                 new ModificarCli(cli, this).Show();
-                                //this.Hide();
+                                this.Hide();
                                 break;
-                            }
+                            }*/
 
                 case "Emp":
-                    Empresa emp = new Empresa();
+                    
+                    sesion.rol.Nombre = "Empresa";
+                    new SeleccionarFuncionalidad().Show();
+                    this.Hide();
+                    break;
+
+                    /*Empresa emp = new Empresa();
                     emp.IdUsuario = sesion.usuario.IdUsuario;
 
                     SqlDataReader reader3 = servidor.query("EXEC MATE_LAVADO.laEmpresaExiste_sp '" + sesion.usuario.IdUsuario + "'");
@@ -110,7 +121,7 @@ namespace PalcoNet
                     {
                         sesion.rol.Nombre = "Empresa";
                         new SeleccionarFuncionalidad().Show();
-                        //this.Hide();
+                        this.Hide();
                         break;
                     }
                     else
@@ -118,12 +129,14 @@ namespace PalcoNet
                         sesion.rol.Nombre = "Empresa";
                         emp = Sesion.getInstance().traerEmpresa();
                         new ModificarEmp(emp, this).Show();
-                        //this.Hide();
+                        this.Hide();
                         break;
-                    }
+                    }*/
                 
                 default:
+                    sesion.rol.Nombre = this.comboBox1.Text;
                     new SeleccionarFuncionalidad().Show();
+                    this.Hide();
                     break;
             }
         }
