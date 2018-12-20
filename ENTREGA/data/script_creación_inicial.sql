@@ -260,7 +260,7 @@ GO
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
-VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('adminOP', 1, 1)
+VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('Admin Maestro', 1, 1)
 GO
 
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
