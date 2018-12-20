@@ -260,3 +260,4 @@ C:\Users\chipi\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\Pal
 C:\Users\chipi\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.SeleccionarFuncionalidad.resources
 C:\Users\chipi\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.SeleccionarRol.resources
 C:\Users\chipi\Desktop\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.csproj.GenerateResource.Cache
+C:\Users\ivi96\Documents\GitHub\gdd_mate_lavado\Aplicacion Desktop\PalcoNet\obj\Debug\PalcoNet.Comprar.ModificarMP.resources

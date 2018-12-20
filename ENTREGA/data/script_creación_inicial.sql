@@ -159,7 +159,7 @@ GO
 ALTER TABLE MATE_LAVADO.Medios_de_pago ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
 descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
-nro_tarjeta NUMERIC(30),
+nro_tarjeta NUMERIC(30) UNIQUE,
 titular NVARCHAR(50)
 GO
 
@@ -2024,5 +2024,35 @@ BEGIN
 END
 go
 
+-----obtener datos de tarjeta-----
+CREATE PROCEDURE MATE_LAVADO.getDatosTarjeta_sp 
+@numeroTarjeta NUMERIC(30)
+AS
+BEGIN
+	SELECT titular from MATE_LAVADO.Medios_de_pago
+	WHERE nro_tarjeta = @numeroTarjeta
+END
+GO
+
+-----modificar datos de tarjeta-----
+CREATE PROCEDURE MATE_LAVADO.modificarTarjeta_sp
+@id int,
+@numeroTarjetaNueva NUMERIC(30),
+@titular varchar(50)
+AS
+BEGIN
+	IF NOT EXISTS(select * from MATE_LAVADO.Medios_de_pago where nro_tarjeta = @numeroTarjetaNueva)
+		BEGIN
+			UPDATE MATE_LAVADO.Medios_de_pago
+			SET nro_tarjeta = @numeroTarjetaNueva,
+			titular = @titular
+			WHERE id_medio_de_pago = @id
+		END
+		ELSE
+		BEGIN
+			RAISERROR('El número de tarjeta ya existe, intente de nuevo', 16, 1)
+		END
+END
+GO
 -----deshabilitarUsuario-----
 create procedure deshabilitarUsuario_sp (@id_u)
