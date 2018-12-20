@@ -123,9 +123,9 @@ BEGIN
 			RAISERROR('Su usuario esta bloqueado', 16, 1)
 		END	
 		END	
-		ELSE --no existe el usuario
-			BEGIN
-			RAISERROR('Usuario inexistente', 16, 1)
+	ELSE --no existe el usuario
+	BEGIN
+		RAISERROR('Usuario inexistente', 16, 1)
 		END
 	END
 END

@@ -78,6 +78,17 @@ namespace PalcoNet.Abm_Cliente
             string errores = "";
             int numero;
             long num;
+            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
+                && !string.IsNullOrWhiteSpace(textBoxApellido.Text)
+                && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
+                && !string.IsNullOrWhiteSpace(textBoxMail.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
+                && !string.IsNullOrWhiteSpace(textBoxNumeroCalle.Text)
+                && !string.IsNullOrWhiteSpace(textBoxCalle.Text)
+                && !string.IsNullOrWhiteSpace(textBoxLocalidad.Text)
+                && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
+                && comboBoxDocumento.SelectedIndex > -1
+                && dateTimePickerNacimiento.Value != null;
 
             if (!string.IsNullOrWhiteSpace(textBoxNombre.Text)) { errores += "El campo Nombre no puede estar vacio.\n"; }
             if (!string.IsNullOrWhiteSpace(textBoxApellido.Text)) { errores += "El campo Apellido no puede estar vacio.\n"; }
@@ -96,14 +107,53 @@ namespace PalcoNet.Abm_Cliente
             if (dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { errores += "La fecha de nacimiento no puede ser anterior al 1900. \n"; }
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
 
-
-            if (errores != "")
-            {
-                MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
-                return false;
+                if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
             }
 
-            return true;
+                //Si posee DNI, valido DNI y CUIL
+                if (comboBoxDocumento.Text == "DNI")
+                {
+
+                    if (int.TryParse(textBoxDocumento.Text, out numero))
+                    {
+                        //Verificamos que el documento tenga el largo que corresponde
+
+                        if (!(Int32.Parse(textBoxDocumento.Text) > 9999999 & Int32.Parse(textBoxDocumento.Text) < 100000000))
+                        { errores += "El documento debe poseer 8 digitos. \n"; }
+                    }
+
+                    if (long.TryParse(textBoxCuil.Text, out num))
+                    {
+                        //Verificamos que el CUIL tenga el largo que corresponde
+                        Console.Write(long.Parse(textBoxCuil.Text));
+                        if (!(long.Parse(textBoxCuil.Text) > 9999999999 & long.Parse(textBoxCuil.Text) < 100000000000))
+                        { errores += "El CUIL debe poseer 11 digitos. \n";
+                        }else
+                        {
+                            //Verificamos que el CUIL sea valido
+                            Servidor servidor = Servidor.getInstance();
+                            string query = "'" + Int64.Parse(textBoxCuil.Text) + "', '" + Int64.Parse(textBoxDocumento.Text) + "'";
+                            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+                            while (reader.Read())
+                            {
+                                if (!bool.Parse(reader["valido"].ToString()))
+                                {
+                                    errores += "Ingrese un CUIL válido. \n";
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+                if (errores != "")
+                {
+                    MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
+                    return false;
+                }
+
+                return true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -121,7 +171,7 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.Mail = textBoxMail.Text;
                 clienteModificado.Telefono = long.Parse(textBoxTelefono.Text);
                 clienteModificado.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-                clienteModificado.Cuil = long.Parse(textBoxCuil.Text);
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { clienteModificado.Cuil = long.Parse(textBoxCuil.Text); }
                 clienteModificado.TipoDocumento = comboBoxDocumento.Text;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
                 //Aca hay que hacer el update en la base
