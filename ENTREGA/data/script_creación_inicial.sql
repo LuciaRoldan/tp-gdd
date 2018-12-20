@@ -1944,23 +1944,23 @@ CREATE TRIGGER MATE_LAVADO.insertarNuevaCompra ON MATE_LAVADO.Compras
 INSTEAD OF INSERT
 AS
 BEGIN
-	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT
+	DECLARE @id_cliente INT, @id_medio_de_pago INT, @fecha DATETIME, @importe BIGINT, @cantidad numeric(18,2)
 	DECLARE cur CURSOR FOR 
-	SELECT id_cliente, id_medio_de_pago, fecha, importe FROM inserted
+	SELECT id_cliente, id_medio_de_pago, fecha, importe, cantidad FROM inserted
 	DECLARE @last_id INT
 	SET @last_id = (SELECT MAX(id_compra) FROM MATE_LAVADO.Compras) + 1
 	OPEN cur
-		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, id_compra)
-		VALUES (@id_cliente, @id_medio_de_pago, @fecha, @importe, @last_id)
+		INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, id_compra, cantidad)
+		VALUES (@id_cliente, @id_medio_de_pago, @fecha, @importe, @last_id, @cantidad)
 
 		INSERT INTO Puntos(cantidad_puntos, id_cliente, fecha_vencimiento)
 		VALUES(@importe, @id_cliente, DATEADD(year, 1, @fecha))
 
 		SET @last_id += 1
-		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe
+		FETCH NEXT FROM cur INTO @id_cliente, @id_medio_de_pago, @fecha, @importe, @cantidad
 		END
 	CLOSE cur
 	DEALLOCATE cur
