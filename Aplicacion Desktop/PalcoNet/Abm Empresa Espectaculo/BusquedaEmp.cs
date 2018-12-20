@@ -118,6 +118,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         }
 
+        //Se limpian los campos para una nueva busqueda
         private void button4_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
