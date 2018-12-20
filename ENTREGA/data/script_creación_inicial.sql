@@ -491,6 +491,7 @@ GO
 
 update MATE_LAVADO.UbicacionXEspectaculo set facturado = 1 
 
+
 --.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.ItemFactura(id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, descripcion)
@@ -2175,3 +2176,9 @@ create procedure MATE_LAVADO.habilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
 end
 go
+
+-----crearItemFactura-----
+create procedure MATE_LAVADO.crearItemFactura_sp (@id_factura int, @id_compra int, @id_ubicacion int, @cantidad int, @importe numeric(18,2), @comision numeric(3,3)) as begin
+insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, comision)
+values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
+end
