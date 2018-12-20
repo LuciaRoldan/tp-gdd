@@ -1093,7 +1093,7 @@ END
 GO
 
 -----buscarEmpresaPorCriterio-----
-CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
+alter PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @cuit VARCHAR(20),
 @razon_social VARCHAR(20),
 @email VARCHAR(20)
@@ -1101,7 +1101,7 @@ AS
 BEGIN
 	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, e.id_usuario,
 	depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad, habilitado FROM MATE_LAVADO.Empresas e
-	join MATE_LAVADO.Usuarios u on e.id_usuario = e.id_usuario
+	join MATE_LAVADO.Usuarios u on e.id_usuario = u.id_usuario
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
