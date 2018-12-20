@@ -122,11 +122,6 @@ namespace PalcoNet.Registro_de_Usuario
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
 
 
-
-
-
-
-
                 //Agregamos la tarjeta
                 Tarjeta tarjeta = new Tarjeta();
                 tarjeta.NumeroDeTarjeta = long.Parse(textBoxNumero.Text);

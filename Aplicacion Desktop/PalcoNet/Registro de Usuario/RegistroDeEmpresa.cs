@@ -95,7 +95,7 @@ namespace PalcoNet.Registro_de_Usuario
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
 
                 
-                if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
+                if (string.IsNullOrWhiteSpace(empresa.NombreUsuario) || empresa.DebeCambiarContraseña)
                 {
                     empresa.NombreUsuario = textBoxCUIT.Text;
                    
