@@ -2050,6 +2050,18 @@ BEGIN
 		END
 END
 GO
+
+-----modificar titular de tarjeta-----
+CREATE PROCEDURE MATE_LAVADO.modificarTitularTarjeta_sp
+@id int,
+@titular varchar(50)
+AS
+BEGIN
+	UPDATE MATE_LAVADO.Medios_de_pago
+	SET titular = @titular
+	WHERE id_medio_de_pago = @id
+END
+GO
 -----deshabilitarUsuario-----
 create procedure MATE_LAVADO.deshabilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
