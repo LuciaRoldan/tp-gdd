@@ -106,7 +106,8 @@ namespace PalcoNet.Abm_Rol
             {
                 string nombre = textBoxNombre.Text;
                 servidor.realizarQuery("EXEC MATE_LAVADO.agregarRol_sp '" + nombre + "'");
-                foreach(String f in checkedListBoxFuncionalidades.CheckedItems){
+                foreach (String f in checkedListBoxFuncionalidades.CheckedItems)
+                {
                     funcionalidadesSeleccionadas.Add(f);
                 }
                 foreach (String fun in funcionalidadesSeleccionadas)
@@ -126,10 +127,14 @@ namespace PalcoNet.Abm_Rol
 
 
                 this.recargarRoles();
-            
-            } 
+
+            }
+            else {
+                MessageBox.Show("Se deben completar el nombre y seleccionar al menos una funcionalidad.", "Error", MessageBoxButtons.OK);
+            }
         }
 
+        //Vuelve a traer todos los roles de la base de datos
         public void recargarRoles() {
             SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
             comboBoxRoles.Items.Clear();
@@ -155,7 +160,6 @@ namespace PalcoNet.Abm_Rol
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) + "," + (this.algunoChequeado()));
             if (!string.IsNullOrWhiteSpace(this.textBoxNomb.Text) && this.algunoChequeado())
             {
 
@@ -197,6 +201,9 @@ namespace PalcoNet.Abm_Rol
 
                 MessageBox.Show("Se actualizó el rol de forma exitosa.", "Rol editado", MessageBoxButtons.OK);
                 this.recargarRoles();
+            }
+            else {
+                MessageBox.Show("Se deben completar el nombre y seleccionar al menos una funcionalidad.", "Error", MessageBoxButtons.OK);
             }
         }
 
