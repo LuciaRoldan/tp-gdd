@@ -957,6 +957,8 @@ BEGIN
 END
 GO
 
+
+
 --Vuela?
 -----registroEmpresaConUsuario-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp

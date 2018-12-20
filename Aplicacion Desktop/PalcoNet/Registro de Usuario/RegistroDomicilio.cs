@@ -36,7 +36,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (string.IsNullOrWhiteSpace(textBoxNro.Text)) { error += "El campo 'Número de Calle' no puede estar vacío\n"; }
             if (!int.TryParse(textBoxNro.Text, out x)) { error += "El campo 'Número de Calle' debe ser numerico\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { error += "El campo 'Código Postal' no puede estar vacío\n"; }
-            if (string.IsNullOrWhiteSpace(textBoxCiudad.Text)) { error += "El campo 'Ciudad' no puede estar vacío\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { error += "El campo 'Localidad' no puede estar vacío\n"; }
 
             if (error != "")
             {
@@ -71,10 +71,11 @@ namespace PalcoNet.Registro_de_Usuario
                     this.Usuario.Calle = textBoxCalle.Text;
                     this.Usuario.NumeroDeCalle = Int32.Parse(textBoxNro.Text);
                     this.Usuario.Ciudad = textBoxCiudad.Text;
-                    if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { this.Usuario.Localidad = textBoxLocalidad.Text; }
+                    this.Usuario.Localidad = textBoxLocalidad.Text;
                     if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
                     this.Usuario.Departamento = textBoxDepto.Text;
                     this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
+
                 
                 //se pasan los parametros al stored procedure y persiste ya sea empresa o cliente
                     if (this.Usuario is Empresa)
@@ -83,7 +84,7 @@ namespace PalcoNet.Registro_de_Usuario
                         + ((Empresa)this.Usuario).RazonSocial + "', '" + ((Empresa)this.Usuario).Mail + "', '"
                         + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "', '" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
                         + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '"
-                        + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ((Empresa)this.Usuario).Ciudad + "', '" + ((Empresa)this.Usuario).Localidad + "'";
+                        + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Ciudad + "', '" + this.Usuario.Localidad + "'";
 
                         Console.WriteLine("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
 
@@ -91,6 +92,7 @@ namespace PalcoNet.Registro_de_Usuario
                         {
                             servidor.realizarQuery("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
                             if (this.Usuario.DebeCambiarContraseña) { cambioContraseña += "Deberá utilizar su CUIT como nombre de usuario y contraseña la primera vez que ingrese."; }
+                            servidor.closeReader();
                         }
                         catch (Exception ee)
                         {
@@ -106,7 +108,7 @@ namespace PalcoNet.Registro_de_Usuario
                                 + ((Cliente)this.Usuario).Cuil + "', '" + ((Cliente)this.Usuario).Mail + "', '" + ((Cliente)this.Usuario).Telefono + "', '"
                                 + ((Cliente)this.Usuario).FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Calle + "','" + this.Usuario.NumeroDeCalle + "', '"
                                 + this.Usuario.Piso + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña
-                                + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + ((Cliente)this.Usuario).Ciudad + "', '" + ((Cliente)this.Usuario).Localidad + "', '"
+                                + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + this.Usuario.Ciudad + "', '" + this.Usuario.Localidad + "', '"
                                 + ((Cliente)this.Usuario).Tarjetas[0].Titular + "', " + ((Cliente)this.Usuario).Tarjetas[0].NumeroDeTarjeta;
 
                         Console.WriteLine(queryCli);
