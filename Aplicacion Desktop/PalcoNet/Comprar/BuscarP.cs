@@ -140,7 +140,7 @@ namespace PalcoNet.Comprar
                 }
 
                 String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
-
+                Console.WriteLine("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
 
                 while (reader.Read())

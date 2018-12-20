@@ -54,8 +54,7 @@ namespace PalcoNet.Comprar
         }
 
         public void actualizar(Tarjeta tarjeta) {
-            Console.WriteLine("*********************************");
-            this.comboBoxTarjeta.Items.Add("*******" + (tarjeta.NumeroDeTarjeta % 10000));
+            this.comboBoxTarjeta.Items.Add(tarjeta.NumeroDeTarjeta);
             this.Tarjetas.Add(tarjeta);
         }
 
@@ -145,11 +144,11 @@ namespace PalcoNet.Comprar
             while (reader.Read())
             {
                 Tarjeta tarjeta = new Tarjeta();
-                tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
+                tarjeta.NumeroDeTarjeta = long.Parse(reader["digitos"].ToString());
                 tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
                 if (tarjeta.NumeroDeTarjeta != 0)
                 {
-                    comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
+                    comboBoxTarjeta.Items.Add(tarjeta.NumeroDeTarjeta);
                     this.tarjetas.Add(tarjeta);
                 }
             }
@@ -157,8 +156,6 @@ namespace PalcoNet.Comprar
 
         private void button4_Click(object sender, EventArgs e)
         {
-            ModificarMP modificar = new ModificarMP(this, this.Tarjetas[this.comboBoxTarjeta.SelectedIndex]);
-            modificar.Show();
         }
     }
 }

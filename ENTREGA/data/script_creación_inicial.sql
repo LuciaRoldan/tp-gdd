@@ -1268,7 +1268,7 @@ create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion var
 	declare @query nvarchar(2000)
 	set @query = 
 	'select distinct p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id, p.id_grado_publicacion FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
-	JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
+	LEFT JOIN MATE_LAVADO.Rubros r on r.id_rubro = p.id_rubro
 	where e.estado_espectaculo = ''Publicada'''
 
 	if ( @desde is not null and @hasta is not null) begin set @query = 
@@ -1279,7 +1279,7 @@ create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion var
 	if ( @categorias is not null) begin set @query = @query + 'and r.descripcion in (' + (@categorias) + ') ' end
 
 	set @query = @query + 'order by p.id_grado_publicacion ASC offset ' + (select convert(varchar, @offset)) + ' rows fetch next 10 rows only'
-
+	print @query
 	exec sp_executesql @query
 end
 GO
@@ -1548,11 +1548,11 @@ end
 GO
 
 -----getMediosDePago-----
-CREATE PROCEDURE MATE_LAVADO.getMediosDePago_sp
+alter PROCEDURE MATE_LAVADO.getMediosDePago_sp
 @id_cliente INT
 AS
 BEGIN
-	SELECT id_medio_de_pago, coalesce(RIGHT(nro_tarjeta, 4),0) digitos FROM MATE_LAVADO.Medios_de_pago WHERE id_cliente =  @id_cliente
+	SELECT id_medio_de_pago, coalesce(nro_tarjeta,0) digitos, titular FROM MATE_LAVADO.Medios_de_pago WHERE id_cliente =  @id_cliente
 END
 GO
 
