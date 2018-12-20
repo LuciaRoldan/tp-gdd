@@ -61,6 +61,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxLocalidad = new System.Windows.Forms.TextBox();
             this.textBoxCiudad = new System.Windows.Forms.TextBox();
+            this.buttonH = new System.Windows.Forms.Button();
+            this.buttonD = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -76,7 +78,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(219, 131);
+            this.label9.Location = new System.Drawing.Point(217, 105);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(109, 13);
             this.label9.TabIndex = 62;
@@ -84,7 +86,7 @@
             // 
             // dateTimePickerNacimiento
             // 
-            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(218, 149);
+            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(216, 123);
             this.dateTimePickerNacimiento.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
             this.dateTimePickerNacimiento.Size = new System.Drawing.Size(226, 20);
@@ -116,7 +118,7 @@
             this.comboBoxDocumento.Items.AddRange(new object[] {
             "DNI",
             "CI"});
-            this.comboBoxDocumento.Location = new System.Drawing.Point(323, 71);
+            this.comboBoxDocumento.Location = new System.Drawing.Point(321, 45);
             this.comboBoxDocumento.Name = "comboBoxDocumento";
             this.comboBoxDocumento.Size = new System.Drawing.Size(121, 21);
             this.comboBoxDocumento.TabIndex = 58;
@@ -141,7 +143,7 @@
             // 
             // textBoxDocumento
             // 
-            this.textBoxDocumento.Location = new System.Drawing.Point(324, 97);
+            this.textBoxDocumento.Location = new System.Drawing.Point(322, 71);
             this.textBoxDocumento.Name = "textBoxDocumento";
             this.textBoxDocumento.Size = new System.Drawing.Size(121, 20);
             this.textBoxDocumento.TabIndex = 55;
@@ -150,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(216, 100);
+            this.label6.Location = new System.Drawing.Point(214, 74);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 13);
             this.label6.TabIndex = 54;
@@ -159,7 +161,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(216, 74);
+            this.label5.Location = new System.Drawing.Point(214, 48);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(102, 13);
             this.label5.TabIndex = 53;
@@ -242,6 +244,7 @@
             this.textBoxCalle.Name = "textBoxCalle";
             this.textBoxCalle.Size = new System.Drawing.Size(121, 20);
             this.textBoxCalle.TabIndex = 64;
+            this.textBoxCalle.TextChanged += new System.EventHandler(this.textBoxCalle_TextChanged);
             // 
             // label10
             // 
@@ -254,7 +257,7 @@
             // 
             // textBoxNumeroCalle
             // 
-            this.textBoxNumeroCalle.Location = new System.Drawing.Point(261, 180);
+            this.textBoxNumeroCalle.Location = new System.Drawing.Point(259, 154);
             this.textBoxNumeroCalle.Name = "textBoxNumeroCalle";
             this.textBoxNumeroCalle.Size = new System.Drawing.Size(50, 20);
             this.textBoxNumeroCalle.TabIndex = 66;
@@ -263,7 +266,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(216, 183);
+            this.label11.Location = new System.Drawing.Point(214, 157);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 67;
@@ -272,7 +275,7 @@
             // 
             // textBoxPiso
             // 
-            this.textBoxPiso.Location = new System.Drawing.Point(395, 180);
+            this.textBoxPiso.Location = new System.Drawing.Point(393, 154);
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(50, 20);
             this.textBoxPiso.TabIndex = 70;
@@ -281,7 +284,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(321, 209);
+            this.label12.Location = new System.Drawing.Point(319, 183);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 13);
             this.label12.TabIndex = 71;
@@ -289,22 +292,24 @@
             // 
             // textBoxDepto
             // 
-            this.textBoxDepto.Location = new System.Drawing.Point(261, 206);
+            this.textBoxDepto.Location = new System.Drawing.Point(259, 180);
             this.textBoxDepto.Name = "textBoxDepto";
             this.textBoxDepto.Size = new System.Drawing.Size(50, 20);
             this.textBoxDepto.TabIndex = 72;
+            this.textBoxDepto.TextChanged += new System.EventHandler(this.textBoxDepto_TextChanged);
             // 
             // textBoxCodigoPostal
             // 
-            this.textBoxCodigoPostal.Location = new System.Drawing.Point(395, 206);
+            this.textBoxCodigoPostal.Location = new System.Drawing.Point(393, 180);
             this.textBoxCodigoPostal.Name = "textBoxCodigoPostal";
             this.textBoxCodigoPostal.Size = new System.Drawing.Size(50, 20);
             this.textBoxCodigoPostal.TabIndex = 73;
+            this.textBoxCodigoPostal.TextChanged += new System.EventHandler(this.textBoxCodigoPostal_TextChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(321, 183);
+            this.label13.Location = new System.Drawing.Point(319, 157);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(30, 13);
             this.label13.TabIndex = 74;
@@ -313,7 +318,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(216, 209);
+            this.label14.Location = new System.Drawing.Point(214, 183);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(39, 13);
             this.label14.TabIndex = 75;
@@ -343,6 +348,7 @@
             this.textBoxLocalidad.Name = "textBoxLocalidad";
             this.textBoxLocalidad.Size = new System.Drawing.Size(121, 20);
             this.textBoxLocalidad.TabIndex = 91;
+            this.textBoxLocalidad.TextChanged += new System.EventHandler(this.textBoxLocalidad_TextChanged);
             // 
             // textBoxCiudad
             // 
@@ -350,12 +356,35 @@
             this.textBoxCiudad.Name = "textBoxCiudad";
             this.textBoxCiudad.Size = new System.Drawing.Size(121, 20);
             this.textBoxCiudad.TabIndex = 90;
+            this.textBoxCiudad.TextChanged += new System.EventHandler(this.textBoxCiudad_TextChanged);
+            // 
+            // buttonH
+            // 
+            this.buttonH.Location = new System.Drawing.Point(219, 206);
+            this.buttonH.Name = "buttonH";
+            this.buttonH.Size = new System.Drawing.Size(107, 23);
+            this.buttonH.TabIndex = 94;
+            this.buttonH.Text = "Habilitar cliente";
+            this.buttonH.UseVisualStyleBackColor = true;
+            this.buttonH.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonD
+            // 
+            this.buttonD.Location = new System.Drawing.Point(335, 206);
+            this.buttonD.Name = "buttonD";
+            this.buttonD.Size = new System.Drawing.Size(107, 23);
+            this.buttonD.TabIndex = 95;
+            this.buttonD.Text = "Deshabilitar cliente";
+            this.buttonD.UseVisualStyleBackColor = true;
+            this.buttonD.Click += new System.EventHandler(this.button4_Click);
             // 
             // ModificarCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 287);
+            this.Controls.Add(this.buttonD);
+            this.Controls.Add(this.buttonH);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBoxLocalidad);
@@ -432,5 +461,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxLocalidad;
         private System.Windows.Forms.TextBox textBoxCiudad;
+        private System.Windows.Forms.Button buttonH;
+        private System.Windows.Forms.Button buttonD;
     }
 }

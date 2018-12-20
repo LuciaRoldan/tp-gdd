@@ -20,12 +20,6 @@ namespace PalcoNet.Comprar
         public List<Asiento> asientosDisponibles = new List<Asiento>();
         Ubicacion ubicacion = new Ubicacion();
 
-        public List<Asiento> AsientosDisponibles
-        {
-            get { return asientosDisponibles; }
-            set { asientosDisponibles = value; }
-        }
-
         internal Compra Compra
         {
             get { return compra; }
@@ -55,7 +49,7 @@ namespace PalcoNet.Comprar
 
             //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
 
-            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacion_sp " + compra.Publicacion.Id);
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp " + compra.Espectaculo.Id);
 
             while (reader.Read())
             {
@@ -110,12 +104,12 @@ namespace PalcoNet.Comprar
                         //a la pantalla de seleccionar asientos, actualizandola cada vez que se selecciona un asiento nuevo.
                         Char fila = (Convert.ToChar(reader["fila"]));
                         Int32 asiento = (Convert.ToInt32(reader["asiento"]));
-                        Int32 id = (Convert.ToInt32(reader["id_ubicacion"]));
+                        Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
                         Asiento unAsiento = new Asiento();
                         unAsiento.Asiento1 = asiento;
                         unAsiento.Fila = fila;
                         unAsiento.Id = id;
-                        this.AsientosDisponibles.Add(unAsiento);
+                        this.asientosDisponibles.Add(unAsiento);
                     }
                     reader.Close();
 
@@ -136,7 +130,9 @@ namespace PalcoNet.Comprar
 
                     Servidor servidor = Servidor.getInstance();
 
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'");
+                    String query = "EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'";
+
+                    SqlDataReader reader = servidor.query(query);
 
                     while (reader.Read())
                     {
@@ -145,20 +141,20 @@ namespace PalcoNet.Comprar
                         Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
                         Asiento unAsiento = new Asiento();
                         unAsiento.Id = id;
-                        this.AsientosDisponibles.Add(unAsiento);
+                        this.asientosDisponibles.Add(unAsiento);
                     }
                     reader.Close();
 
                     this.Compra.Ubicaciones.Add(ubicacion);
 
+                    List<Asiento> asientosDisponiblesActuales = new List<Asiento>();
+                        
+                    asientosDisponiblesActuales.AddRange(this.asientosDisponibles);
+
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
                     {
-
-                        Asiento elAsiento = asientosDisponibles[i];
-                        asientosDisponibles.Remove(elAsiento);
-                        Console.Write("ak removiendo asientos");
-                        Console.Write("id del asiento es: ");
-                        Console.Write(elAsiento.Id.ToString());
+                        Asiento elAsiento = asientosDisponiblesActuales[i];
+                        this.asientosDisponibles.Remove(elAsiento);
                         //Agrego el asiento elegido a la lista de asientos de la compra
                         this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
                     }
@@ -204,11 +200,8 @@ namespace PalcoNet.Comprar
          public void asientoSeleccionado(Char fila, int asiento)
          {
              Asiento elAsiento = asientosDisponibles.Find(a => a.Asiento1 == asiento && a.Fila == fila);
-             asientosDisponibles.Remove(elAsiento);
-             Console.Write("ak removiendo asientos");
-             //Agrego el asiento elegido a la lista de asientos de la compra
              this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
-
+             asientosDisponibles.Remove(elAsiento);             
          }
             
     }

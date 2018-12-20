@@ -14,7 +14,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 {
     public partial class ModificarEmp : MiForm
     {
-        bool fueModificada = false;
         Servidor servidor = Servidor.getInstance();
         Empresa empresaVieja;
         Int32 numeroCalle;
@@ -22,12 +21,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         String depto;
         String codigoPostal;
         SqlDataReader readerEmpresa;
-
-        public bool FueModificada
-        {
-            get { return fueModificada; }
-            set { fueModificada = value; }
-        }
 
         public ModificarEmp(Empresa empresa, MiForm anterior) : base(anterior)
         {
@@ -53,23 +46,36 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textBoxCodigoPostal.Text += empresaVieja.CodigoPostal;
             textBoxCiudad.Text += empresaVieja.Ciudad;
             textBoxLocalidad.Text += empresaVieja.Localidad;
-            
+
+            if (empresa.Habilitado)
+            {
+                buttonD.Enabled = true;
+                buttonH.Enabled = false;
+            }
+            else
+            {
+                buttonD.Enabled = false;
+                buttonH.Enabled = true;
+            }
+
+            button1.Enabled = false;
             
         }
-
+        //verifica que todos los campos esten completos y luego de si son los tipos de datos correspondientes en caso de que no devuelve
+        //mensaje con todos los errores
         public bool verificarCampos()
         {
             string errores = "";
             long numero;
-            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxMail.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCuit.Text)
-                && !string.IsNullOrWhiteSpace(textBoxRazonSocial.Text);
+            int num;
+            if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { errores += "El Mail no puede estar vacío. \n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCuit.Text)) { errores += "El CUIT no puede estar vacío. \n"; }
+            if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { errores += "La Razón Social no puede estar vacío. \n"; }
+            if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
+            if (string.IsNullOrWhiteSpace(textBoxPiso.Text)) {if (!int.TryParse(textBoxPiso.Text, out num)) { errores += "El Piso debe ser un valor numérico. \n"; }}
+            if (!int.TryParse(textBoxNumeroCalle.Text, out num)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) {if (!int.TryParse(textBoxCodigoPostal.Text, out num)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }}
 
-            if (!camposCompletos) {
-                errores += "Todos los campos deben estar completos.";
-            } else {
-                if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
-            }
 
             if (!long.TryParse(textBoxCuit.Text, out numero))
             {
@@ -114,7 +120,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (this.verificarCampos() && this.FueModificada) //Tambien faltaria verificar que no sean nulos los ingresados
+            if (this.verificarCampos()) //Tambien faltaria verificar que no sean nulos los ingresados
             {
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
@@ -144,17 +150,17 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         private void textBoxRazonSocial_TextChanged(object sender, EventArgs e)
         {
-            this.FueModificada = true;
+            button1.Enabled = true;
         }
 
         private void textBoxMail_TextChanged(object sender, EventArgs e)
         {
-            this.FueModificada = true;
+            button1.Enabled = true;
         }
 
         private void textBoxCuit_TextChanged(object sender, EventArgs e)
         {
-            this.FueModificada = true;
+            button1.Enabled = true;
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -162,9 +168,55 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         }
 
-        private void ModificarEmp_Load(object sender, EventArgs e)
+        private void buttonH_Click(object sender, EventArgs e)
         {
+            servidor.realizarQuery("exec habilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            MessageBox.Show("La empresa fue habilitada", "Editar Empresa", MessageBoxButtons.OK);
+            buttonD.Enabled = true;
+            buttonH.Enabled = false;
+        }
 
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            servidor.realizarQuery("exec deshabilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            MessageBox.Show("La empresa fue deshabilitada", "Editar Empresa", MessageBoxButtons.OK);
+            buttonD.Enabled = false;
+            buttonH.Enabled = true;
+        }
+
+        private void textBoxCalle_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxCiudad_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxLocalidad_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxNumeroCalle_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxDepto_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxPiso_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
+        }
+
+        private void textBoxCodigoPostal_TextChanged(object sender, EventArgs e)
+        {
+            button1.Enabled = true;
         }
     }
 }

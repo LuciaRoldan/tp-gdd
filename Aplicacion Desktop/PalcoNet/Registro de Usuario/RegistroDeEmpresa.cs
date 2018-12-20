@@ -90,7 +90,7 @@ namespace PalcoNet.Registro_de_Usuario
             if (this.camposCompletos()){
                 Empresa.RazonSocial = textBoxRazonSocial.Text;
                 Empresa.Cuit = Int64.Parse(textBoxCUIT.Text);
-                Empresa.FechaDeCreacion = DateTime.Now;
+                Empresa.FechaDeCreacion = Sesion.getInstance().fecha;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
 
                 

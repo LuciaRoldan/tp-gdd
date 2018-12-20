@@ -105,6 +105,8 @@ namespace PalcoNet.Abm_Cliente
                     clienteEnc.Localidad = reader["localidad"].ToString();
                     clienteEnc.Departamento = reader["depto"].ToString();
                     clienteEnc.Piso = Convert.ToInt32(reader["piso"]);
+                    clienteEnc.IdUsuario = int.Parse(reader["id_usuario"].ToString());
+                    clienteEnc.Habilitado = bool.Parse(reader["habilitado"].ToString());
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);

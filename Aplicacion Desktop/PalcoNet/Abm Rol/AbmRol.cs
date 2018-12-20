@@ -54,8 +54,8 @@ namespace PalcoNet.Abm_Rol
                 reader.Close();
 
                 //Aca traemos todos las funcionalidades de la base y las mostramos en el checkedList 
-                
-               reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
+
+                reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
 
                 while (reader.Read())
                 {
@@ -130,9 +130,9 @@ namespace PalcoNet.Abm_Rol
 
                 MessageBox.Show("Se creó el rol " + nombre + " de forma exitosa.", "Rol creado", MessageBoxButtons.OK);
 
-                
 
-               SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles");
+
+               SqlDataReader reader = servidor.query("SELECT DISTINCT nombre FROM MATE_LAVADO.Roles where alta = 1");
                comboBoxRoles.Items.Clear();
                 while (reader.Read())
                 {
