@@ -26,7 +26,7 @@ DROP PROCEDURE MATE_LAVADO.actualizarGradoPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.buscarEspectaculosPorPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.getMediosDePago_sp
 DROP PROCEDURE MATE_LAVADO.registrarMedioDePago_sp
-DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp
+--DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 DROP PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 DROP PROCEDURE MATE_LAVADO.agregarRol_sp
@@ -40,7 +40,7 @@ DROP PROCEDURE MATE_LAVADO.traerTodasRazonesSociales_sp
 DROP PROCEDURE MATE_LAVADO.top5ClienteComprasParaUnaEmpresa_sp
 DROP PROCEDURE MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp
 DROP PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp
-DROP PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp
+--DROP PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp
 DROP PROCEDURE MATE_LAVADO.agregarFactura_sp
 DROP PROCEDURE MATE_LAVADO.actualizarPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.actualizarUsuarioYContrasenia_sp
@@ -111,8 +111,9 @@ DROP PROCEDURE MATE_LAVADO.cuitEsValido_sp
 DROP PROCEDURE MATE_LAVADO.deshabilitarUsuario_sp
 DROP PROCEDURE MATE_LAVADO.habilitarUsuario_sp
 DROP PROCEDURE MATE_LAVADO.getDatosTarjeta_sp
-DROP PROCEDURE MATE_LAVADO.modificarDatosTarjeta_sp
+--DROP PROCEDURE MATE_LAVADO.modificarDatosTarjeta_sp
 drop procedure MATE_LAVADO.modificarTarjeta_sp
 drop procedure MATE_LAVADO.modificarTitularTarjeta_sp
+DROP PROCEDURE MATE_LAVADO.buscarEspectaculosBorradorPorPublicacion_sp
 
 drop schema MATE_LAVADO

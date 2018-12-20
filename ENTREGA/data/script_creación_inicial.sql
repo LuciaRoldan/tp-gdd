@@ -1,8 +1,14 @@
-﻿use GD2C2018
-go
-
-CREATE SCHEMA MATE_LAVADO
+﻿USE GD2C2018
 GO
+
+
+IF NOT EXISTS ( SELECT  *
+				FROM    sys.schemas
+				WHERE   name = N'MATE_LAVADO' ) 
+	EXEC('CREATE SCHEMA [MATE_LAVADO]')
+
+--CREATE SCHEMA MATE_LAVADO
+--GO
 ---------------CREACION DE TABLAS---------------
 
 CREATE TABLE MATE_LAVADO.Usuarios(
@@ -296,10 +302,7 @@ INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, i
 SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL
-GO
-
---select * from MATE_LAVADO.Usuarios where username = 'admin'
-
+Go
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
 SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), replace(Espec_Empresa_Cuit, '-', ''), 1, GETDATE(), 0, 0
@@ -885,9 +888,20 @@ BEGIN
 		INSERT INTO MATE_LAVADO.UsuarioXRol(id_usuario, id_rol) VALUES((SELECT id_usuario FROM MATE_LAVADO.Usuarios WHERE username like @username), 3)
 		COMMIT TRANSACTION
 		END
-	ELSE BEGIN
-	RAISERROR('Ya existe un cliente con el mismo nombre de usuario, cuil, numero de documento o email', 11, 1) WITH LOG END
-	
+	ELSE
+	BEGIN
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Clientes WHERE documento = @documento)
+		BEGIN
+			RAISERROR('Ya existe un Cliente con ese documento', 11, 1) WITH LOG
+		END
+		ELSE
+		BEGIN
+			IF EXISTS(SELECT * FROM MATE_LAVADO.Clientes WHERE cuil = @cuil)
+			BEGIN
+				RAISERROR('Ya existe un Cliente con ese CUIL', 11, 1) WITH LOG
+			END
+		END
+	END
 	DECLARE @id_cliente INT
 	SET	@id_cliente = (SELECT id_cliente from MATE_LAVADO.Clientes where mail = @mail)
 	INSERT INTO MATE_LAVADO.Medios_de_pago (id_cliente, titular, nro_tarjeta) VALUES (@id_cliente, @titular, @numeroTarjeta)
@@ -926,9 +940,22 @@ BEGIN
 		COMMIT TRANSACTION
 		END
 	ELSE
-	RAISERROR('El Cliente ya existe', 20, 1) WITH LOG
+	BEGIN
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Clientes WHERE documento = @documento)
+		BEGIN
+			RAISERROR('Ya existe un Cliente con ese documento', 11, 1) WITH LOG
+		END
+		ELSE
+		BEGIN
+			IF EXISTS(SELECT * FROM MATE_LAVADO.Clientes WHERE cuil = @cuil)
+			BEGIN
+				RAISERROR('Ya existe un Cliente con ese CUIL', 11, 1) WITH LOG
+			END
+		END
+	END
 END
 GO
+
 
 -----registroEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresa_sp(@username VARCHAR(255), @password VARCHAR(255),  @razon_social nvarchar(255), @mail nvarchar(50), 
@@ -951,10 +978,21 @@ BEGIN
 		COMMIT TRANSACTION
 	END
 	ELSE
-		RAISERROR( 'La empresa ya existe',11,1) WITH LOG
+	BEGIN
+		IF EXISTS (SELECT * FROM MATE_LAVADO.Empresas WHERE razon_social = @razon_social)
+		BEGIN
+			RAISERROR('Ya existe una empresa con esa razon social', 11, 1) WITH LOG
+		END
+		ELSE
+		BEGIN
+			IF EXISTS (SELECT * FROM MATE_LAVADO.Empresas WHERE cuit = @cuit)
+			BEGIN
+				RAISERROR('Ya existe una empresa con ese CUIT', 11, 1) WITH LOG
+			END
+		END
+	END
 END
 GO
-
 
 
 --Vuela?
@@ -974,7 +1012,19 @@ BEGIN
 		COMMIT TRANSACTION
 	END
 	ELSE
-		RAISERROR( 'La empresa ya existe',20,1) WITH LOG
+	BEGIN
+		IF EXISTS (SELECT * FROM MATE_LAVADO.Empresas WHERE razon_social = @razon_social)
+		BEGIN
+			RAISERROR('Ya existe una empresa con esa razon social', 11, 1) WITH LOG
+		END
+		ELSE
+		BEGIN
+			IF EXISTS (SELECT * FROM MATE_LAVADO.Empresas WHERE cuit = @cuit)
+			BEGIN
+				RAISERROR('Ya existe una empresa con ese CUIT', 11, 1) WITH LOG
+			END
+		END
+	END
 END
 GO
 
@@ -2205,5 +2255,3 @@ values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
 end
 go
 
-
-select * from mate_lavado.empresas order by id_empresa desc
