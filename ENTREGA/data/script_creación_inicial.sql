@@ -499,11 +499,14 @@ DROP TABLE MATE_LAVADO.#ComprasTemp
 GO
 
 --.--.--.--.--.--.--PUNTOS--.--.--.--.--.--.--
-
 INSERT INTO MATE_LAVADO.Puntos(id_cliente, cantidad_puntos, fecha_vencimiento)
-SELECT DISTINCT id_cliente, 0, NULL
-FROM MATE_LAVADO.Clientes
+SELECT c.id_cliente, SUM(precio), DATEADD(year, 1, fecha)
+		FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+		JOIN MATE_LAVADO.Ubicaciones u ON(uxe.id_ubicacion = u.id_ubicacion)
+		JOIN MATE_LAVADO.Compras c ON(c.id_compra = uxe.id_compra)
+		GROUP BY c.id_compra, c.id_cliente, c.fecha
 GO
+
 
 UPDATE MATE_LAVADO.Compras
 SET importe = u.precio
