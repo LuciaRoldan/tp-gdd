@@ -227,7 +227,8 @@ GO
 ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
-id_compra INT REFERENCES MATE_LAVADO.Compras;
+id_compra INT REFERENCES MATE_LAVADO.Compras,
+facturado BIT;
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -476,7 +477,7 @@ GO
 
 --.--.--.--.--.--.--UBICACIONXESPECTACULO--.--.--.--.--.--.--
 
-INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra)
+INSERT INTO MATE_LAVADO.UbicacionXEspectaculo(id_espectaculo, id_ubicacion, id_compra) 
 SELECT DISTINCT gd.Espectaculo_Cod, u.id_ubicacion, ct.id_compra
 FROM gd_esquema.Maestra gd
 JOIN MATE_LAVADO.Ubicaciones u ON (gd.Ubicacion_Tipo_Codigo = u.codigo_tipo_ubicacion
@@ -488,6 +489,8 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.fila = gd.Ubicacion_Fila
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 GO
+
+update MATE_LAVADO.UbicacionXEspectaculo set facturado = 1 
 
 --.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
 
@@ -1055,7 +1058,7 @@ BEGIN
 	set @id_ubicacion_espectaculo = (select id_ubicacion_espectaculo FROM MATE_LAVADO.UbicacionXEspectaculo where id_ubicacion = @id_ubicacion and id_espectaculo = @id_espectaculo)
 	
 	UPDATE MATE_LAVADO.UbicacionXEspectaculo
-	SET id_compra = @id_compra
+	SET id_compra = @id_compra, facturado = 0
 	WHERE id_ubicacion_espectaculo = @id_ubicacion_espectaculo
 END
 GO
@@ -1624,18 +1627,21 @@ GO
 */
 -----buscarComprasNoFacturadas-----
 /*REVISAR*/ --Ahora tenemos que buscar que el item no tenga la factura...
-/*
-create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
-	select c.id_compra, p.descripcion, coalesce(comision, 0) comision, coalesce(importe, 0) importe FROM MATE_LAVADO.Compras c 
-	JOIN MATE_LAVADO.UbicacionXEspectaculo u on c.id_compra = u.id_compra
-	JOIN MATE_LAVADO.Espectaculos es on es.id_espectaculo = u.id_espectaculo
-	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = es.id_publicacion
-	JOIN MATE_LAVADO.Empresas e on e.id_empresa = p.id_empresa and e.razon_social = @razonSocial
-	where c.id_factura is null 
-end
-*/
-GO
 
+create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
+	select tu.id_tipo_ubicacion, tu.descripcion, c.id_compra, coalesce(comision,0) comision, precio, count(*) cantidad  from MATE_LAVADO.Compras c
+	join MATE_LAVADO.UbicacionXEspectaculo uxe on uxe.id_compra = c.id_compra
+	join MATE_LAVADO.Ubicaciones u on u.id_ubicacion = uxe.id_ubicacion
+	join MATE_LAVADO.TiposDeUbicacion tu on tu.id_tipo_ubicacion = u.codigo_tipo_ubicacion
+	join MATE_LAVADO.Espectaculos e on e.id_espectaculo = uxe.id_espectaculo
+	join MATE_LAVADO.Publicaciones p on p.id_publicacion = e.id_publicacion
+	join MATE_LAVADO.Empresas em on em.id_empresa = p.id_empresa
+	where facturado = 0 and razon_social = @razonSocial
+	group by c.id_compra, tu.id_tipo_ubicacion, tu.descripcion, comision, precio
+end  --acaaaaaaaaa EXEC MATE_LAVADO.buscarComprasNoFacturadas_sp 'Razon Social Nº:10'
+
+
+GO
 CREATE PROCEDURE MATE_LAVADO.obtenerDatosAdicionalesCliente(
 @id_cliente INT)
 AS

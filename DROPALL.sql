@@ -101,5 +101,6 @@ DROP PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion
 DROP PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp
 DROP PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
 DROP PROCEDURE MATE_LAVADO.eliminarRol_sp
+drop procedure MATE_LAVADO.crearItemFactura_sp
 
 drop schema MATE_LAVADO
