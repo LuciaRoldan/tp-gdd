@@ -228,7 +228,7 @@ ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
 id_compra INT REFERENCES MATE_LAVADO.Compras,
-facturado BIT;
+facturado BIT DEFAULT 0;
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -260,7 +260,7 @@ GO
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
-VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('adminOP', 1, 1)
+VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('Admin Maestro', 1, 1)
 GO
 
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
@@ -517,15 +517,10 @@ WHERE c.id_compra = uxe.id_compra
 GO
 
 UPDATE MATE_LAVADO.UbicacionXEspectaculo
-SET facturado = 0
-FROM MATE_LAVADO.UbicacionXEspectaculo uxe
-LEFT JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
-WHERE c.id_compra IS NULL
-
-UPDATE MATE_LAVADO.UbicacionXEspectaculo
 SET facturado = 1
 FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
+GO
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 
@@ -580,9 +575,9 @@ BEGIN
 			BEGIN
 					IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-													WHERE username = '20959835' and alta = 1) != 1)
+													WHERE username = @usuario and alta = 1) != 1)
 						BEGIN
-						RAISERROR('El ROL esta inhabilitado', 16, 1)
+						RAISERROR('El rol esta inhabilitado', 16, 1)
 						END
 					ELSE
 					BEGIN
@@ -591,7 +586,7 @@ BEGIN
 							UPDATE MATE_LAVADO.Usuarios
 							SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
 							WHERE username = @usuario;
-							RAISERROR('Contrase�a invalida', 16, 1)
+							RAISERROR('Contraseña invalida', 16, 1)
 						END
 						ELSE --esta inhabilitado
 							BEGIN
@@ -804,9 +799,9 @@ CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 @email NVARCHAR(50)
 AS
 BEGIN
-	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
-		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad, id_usuario
-	FROM MATE_LAVADO.Clientes
+	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento, habilitado,
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad, c.id_usuario
+	FROM MATE_LAVADO.Clientes c join MATE_LAVADO.Usuarios u on c.id_usuario = u.id_usuario
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
 		AND documento = CAST(@dni AS INT)
@@ -817,6 +812,9 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 GO
+
+
+
 
 -----modificarCliente-----
 CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
@@ -955,7 +953,7 @@ BEGIN
 		COMMIT TRANSACTION
 	END
 	ELSE
-		RAISERROR( 'La empresa ya existe',20,1) WITH LOG
+		RAISERROR( 'La empresa ya existe',11,1) WITH LOG
 END
 GO
 
@@ -1098,7 +1096,9 @@ CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad FROM MATE_LAVADO.Empresas
+	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, e.id_usuario,
+	depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad, habilitado FROM MATE_LAVADO.Empresas e
+	join MATE_LAVADO.Usuarios u on e.id_usuario = e.id_usuario
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -1516,15 +1516,14 @@ BEGIN
 END
 GO
 
------buscarUbicacionesPorPublicacion-----
-create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
+-----buscarUbicacionesPorEspectaculo-----
+create PROCEDURE MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp (@id_espectaculo int) as begin
 	select t.descripcion descripcion, count(*) asientos, sin_numerar, precio, count(distinct fila) filas, MIN(u.id_ubicacion) as id_ubicacion
 	FROM MATE_LAVADO.Ubicaciones u 
 	JOIN MATE_LAVADO.UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
 	JOIN MATE_LAVADO.TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
 	JOIN MATE_LAVADO.Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
-	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
-	where p.id_publicacion = @id_publicacion and e.id_compra is null
+	where ee.id_espectaculo = @id_espectaculo and e.id_compra is null
 	group by t.descripcion, sin_numerar, precio
 end
 GO
@@ -1730,7 +1729,7 @@ CREATE PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicaci
 AS
 BEGIN
 	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
-	SELECT uxe.id_ubicacion, fila, asiento
+	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
 	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
@@ -1912,7 +1911,7 @@ GO
 
 --drop TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 -----actualizarUsuarioHabilitado-----
-/*CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
+CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 ON MATE_LAVADO.Usuarios
 AFTER UPDATE
 AS
@@ -1926,8 +1925,7 @@ BEGIN
 		WHERE username = @username
 	END
 END
-GO*/
-
+GO
 
 -----finalizarEspectaculo-----
 CREATE TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
@@ -2055,4 +2053,123 @@ BEGIN
 END
 GO
 -----deshabilitarUsuario-----
-create procedure deshabilitarUsuario_sp (@id_u)
+create procedure MATE_LAVADO.deshabilitarUsuario_sp (@id_usuario int) as begin
+update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
+end
+go
+
+
+-----validarDigitoVerificador-----
+create function MATE_LAVADO.fn_ValidarDigitoVerificador (@cuit_nro varchar(11))
+returns  bit
+as
+
+begin
+declare @verificador int
+declare @resultado int = 0
+declare @validacion bit
+declare @codes varchar(10) = '6789456789'
+
+if isnumeric(@cuit_nro) <> 1
+begin
+return 0
+end
+
+if len(@cuit_nro) <> 11
+begin
+set @validacion = 0
+end
+
+set @verificador = RIGHT(@cuit_nro, 1)
+
+declare @x int = 0
+
+while @x < 10
+begin
+declare @digitoValidador int = convert(int, substring(@codes, @x + 1, 1))
+declare @digito int = convert(int, substring(@cuit_nro, @x + 1, 1))
+declare @digitoValidacion int = @digitoValidador * @digito
+set @resultado = @resultado + @digitoValidacion
+set @x = @x + 1
+end
+
+set @resultado = @resultado % 11
+
+If @resultado = @verificador
+begin
+set @validacion = 1
+end
+else
+begin
+set @validacion = 0
+End
+
+return @validacion
+end
+GO
+
+-----cuitDeEmpresa-----
+create function MATE_LAVADO.fn_cuitDeEmpresa (@cuit varchar(11))
+returns  bit
+as
+begin
+	DECLARE @inicialesDeCuit VARCHAR(2) = LEFT(@cuit, 2)
+	
+	if(@inicialesDeCuit IN ('30', '33', '34'))
+	begin
+		return 1
+	end
+
+	return 0
+end
+GO
+
+
+-----cuilDeCliente-----
+create function MATE_LAVADO.fn_cuilDeCliente (@cuil varchar(11), @documento varchar(8))
+returns  bit
+as
+begin
+	DECLARE @documentoDeCuit VARCHAR(8) = SUBSTRING(@cuil, 3, 8)
+	DECLARE @inicialesDeCuit VARCHAR(2) = LEFT(@cuil, 2)
+
+	if(@inicialesDeCuit IN ('20', '23', '24', '27') AND @documento = @documentoDeCuit)
+	begin
+		return 1
+	end
+
+	return 0
+end
+GO
+
+
+-----cuitEsValido-----
+CREATE PROCEDURE MATE_LAVADO.cuitEsValido_sp(
+@cuit VARCHAR(11)
+)
+AS
+BEGIN
+	DECLARE @verificadorValido BIT = (SELECT MATE_LAVADO.fn_ValidarDigitoVerificador(@cuit))
+	DECLARE @datosDeEmpresaValidos BIT = (SELECT MATE_LAVADO.fn_cuitDeEmpresa(@cuit))
+	SELECT @verificadorValido & @datosDeEmpresaValidos AS valido
+END
+GO
+
+-----cuilEsValido-----
+CREATE PROCEDURE MATE_LAVADO.cuilEsValido_sp(
+@cuil VARCHAR(11),
+@documento VARCHAR(8)
+)
+AS
+BEGIN
+	DECLARE @verificadorValido BIT = (SELECT MATE_LAVADO.fn_ValidarDigitoVerificador(@cuil))
+	DECLARE @datosDeClienteValidos BIT = (SELECT MATE_LAVADO.fn_cuilDeCliente(@cuil, @documento))
+	SELECT @verificadorValido & @datosDeClienteValidos AS valido
+END
+GO
+
+-----habilitarUsuario-----
+create procedure MATE_LAVADO.habilitarUsuario_sp (@id_usuario int) as begin
+update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
+end
+go

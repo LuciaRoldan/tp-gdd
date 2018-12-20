@@ -19,6 +19,13 @@ namespace PalcoNet.Dominio
         string codigoPostal;
         bool debeCambiarContraseña = false;
         int idUsuario = 0;
+        bool habilitado;
+
+        public bool Habilitado
+        {
+            get { return habilitado; }
+            set { habilitado = value; }
+        }
 
         public bool DebeCambiarContraseña
         {

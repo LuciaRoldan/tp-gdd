@@ -32,10 +32,14 @@ namespace PalcoNet
         {
             //Cierra todas las pantallas anteriores hasta llegar al home (SeleccionarFuncionalidad) y si no encuentra nada abre el login
             this.Hide();
-            if ((this.anterior is SeleccionarFuncionalidad)) { anterior.ShowDialog(); }            
-            else if (this.anterior == null) { new LogIn().Show(); }
-            else { anterior.cerrarAnteriores(); }
-            this.Close();
+            if (this.anterior is SeleccionarFuncionalidad) { anterior.ShowDialog(); }
+            else
+            {
+                if (this.anterior == null) {
+                    new LogIn().ShowDialog(); }
+                else { anterior.cerrarAnteriores(); }
+            }
+            this.Hide();
         }
 
         private void MiForm_Load(object sender, EventArgs e)

@@ -43,8 +43,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridResultados = new System.Windows.Forms.DataGridView();
-            this.buttonModificar = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.IdCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,6 +64,8 @@
             this.FechaNa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.puntos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonModificar = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridResultados)).BeginInit();
             this.SuspendLayout();
@@ -172,6 +172,7 @@
             this.textBoxDni.Name = "textBoxDni";
             this.textBoxDni.Size = new System.Drawing.Size(164, 20);
             this.textBoxDni.TabIndex = 31;
+            this.textBoxDni.TextChanged += new System.EventHandler(this.textBoxDni_TextChanged);
             // 
             // groupBox1
             // 
@@ -237,26 +238,6 @@
             this.dataGridResultados.Size = new System.Drawing.Size(529, 153);
             this.dataGridResultados.TabIndex = 37;
             this.dataGridResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridResultados_CellContentClick);
-            // 
-            // buttonModificar
-            // 
-            this.buttonModificar.Location = new System.Drawing.Point(218, 394);
-            this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(92, 23);
-            this.buttonModificar.TabIndex = 38;
-            this.buttonModificar.Text = "Editar cliente";
-            this.buttonModificar.UseVisualStyleBackColor = true;
-            this.buttonModificar.Click += new System.EventHandler(this.buttonModificar_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(435, 394);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 23);
-            this.button4.TabIndex = 39;
-            this.button4.Text = "Nueva Búsqueda";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // IdCliente
             // 
@@ -434,6 +415,26 @@
             this.puntos.ReadOnly = true;
             this.puntos.Visible = false;
             this.puntos.Width = 65;
+            // 
+            // buttonModificar
+            // 
+            this.buttonModificar.Location = new System.Drawing.Point(218, 394);
+            this.buttonModificar.Name = "buttonModificar";
+            this.buttonModificar.Size = new System.Drawing.Size(92, 23);
+            this.buttonModificar.TabIndex = 38;
+            this.buttonModificar.Text = "Editar cliente";
+            this.buttonModificar.UseVisualStyleBackColor = true;
+            this.buttonModificar.Click += new System.EventHandler(this.buttonModificar_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(435, 394);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 23);
+            this.button4.TabIndex = 39;
+            this.button4.Text = "Nueva Búsqueda";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // BusquedaCli
             // 

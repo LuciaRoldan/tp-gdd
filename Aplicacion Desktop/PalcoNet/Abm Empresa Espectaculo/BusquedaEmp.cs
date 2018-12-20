@@ -21,6 +21,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         public BusquedaEmp(MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
+            
         }
 
         //verificamos que la persona complete al menos un campo
@@ -81,6 +82,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresaEnc.CodigoPostal = reader["codigo_postal"].ToString();
                     empresaEnc.Ciudad= reader["ciudad"].ToString();
                     empresaEnc.Localidad = reader["localidad"].ToString();
+                    empresaEnc.Habilitado = bool.Parse(reader["habilitado"].ToString());
+                    empresaEnc.IdUsuario = int.Parse(reader["id_usuario"].ToString());
 
                     resultados.Add(empresaEnc);
                 }
@@ -90,7 +93,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
                 this.dataGridViewResultados.Columns[1].Visible = false;
-
+                if (resultados.Count >= 1) { dataGridViewResultados.Rows[0].Selected = true; }
                 //Aca hay que buscar en la base y obtener una lista de empresas que cumplan con los criterios de busqueda
                 //y mostramos por pantalla los resultados de la busqueda
 

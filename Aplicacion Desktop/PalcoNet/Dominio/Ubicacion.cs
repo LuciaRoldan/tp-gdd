@@ -16,6 +16,21 @@ namespace PalcoNet.Dominio
         int cantidadFilas;
         int id;
 
+        public Ubicacion(Ubicacion ubicacion, decimal asientosSolicitados)
+        {
+            this.tipoAsiento = ubicacion.tipoAsiento;
+            this.numerada = ubicacion.numerada;
+            this.precio = ubicacion.precio;
+            this.asientos = ubicacion.asientos;
+            this.cantidadFilas = ubicacion.cantidadFilas;
+            this.id = ubicacion.id;
+            this.cantidadAsientos = (int) asientosSolicitados;
+        }
+
+        public Ubicacion()
+        {
+        }
+
         public int Id
         {
             get { return id; }

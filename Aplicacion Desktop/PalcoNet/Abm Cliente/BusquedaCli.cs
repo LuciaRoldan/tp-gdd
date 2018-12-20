@@ -105,6 +105,8 @@ namespace PalcoNet.Abm_Cliente
                     clienteEnc.Localidad = reader["localidad"].ToString();
                     clienteEnc.Departamento = reader["depto"].ToString();
                     clienteEnc.Piso = Convert.ToInt32(reader["piso"]);
+                    clienteEnc.IdUsuario = int.Parse(reader["id_usuario"].ToString());
+                    clienteEnc.Habilitado = bool.Parse(reader["habilitado"].ToString());
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);
@@ -115,6 +117,7 @@ namespace PalcoNet.Abm_Cliente
                 var bindingList = new BindingList<Cliente>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridResultados.DataSource = source;
+                if (resultados.Count >= 1) { dataGridResultados.Rows[0].Selected = true; }
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
                 //y mostramos por pantalla los resultados de la busqueda
 
@@ -138,6 +141,11 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void dataGridResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBoxDni_TextChanged(object sender, EventArgs e)
         {
 
         }

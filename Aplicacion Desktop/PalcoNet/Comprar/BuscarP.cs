@@ -165,6 +165,7 @@ namespace PalcoNet.Comprar
                 var bindingList = new BindingList<Publicacion> (this.Publicaciones);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
+                if (this.Publicaciones.Count >= 1) { dataGridViewResultados.Rows[0].Selected = true; }
             }
         }
 
