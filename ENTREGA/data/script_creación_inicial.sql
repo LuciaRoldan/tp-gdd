@@ -2029,6 +2029,7 @@ go
 create procedure deshabilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
 end
+GO
 
 -----habilitarUsuario-----
 create procedure habilitarUsuario_sp (@id_usuario int) as begin

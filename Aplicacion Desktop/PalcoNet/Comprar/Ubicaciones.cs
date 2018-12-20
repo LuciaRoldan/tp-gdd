@@ -113,7 +113,7 @@ namespace PalcoNet.Comprar
                     }
                     reader.Close();
 
-                    this.Compra.Ubicaciones.Add(ubicacion);
+                    this.Compra.Ubicaciones.Add(new Ubicacion(ubicacion, numericUpDownCantidad.Value));
 
                     List<Asiento> asientos = new List<Asiento>();
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
@@ -145,7 +145,7 @@ namespace PalcoNet.Comprar
                     }
                     reader.Close();
 
-                    this.Compra.Ubicaciones.Add(ubicacion);
+                    this.Compra.Ubicaciones.Add(new Ubicacion(ubicacion, numericUpDownCantidad.Value));
 
                     List<Asiento> asientosDisponiblesActuales = new List<Asiento>();
                         
