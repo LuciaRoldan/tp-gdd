@@ -17,6 +17,7 @@ namespace PalcoNet.Comprar
         Servidor servidor = Servidor.getInstance();
         Tarjeta tarjetaVieja = new Tarjeta();
         MedioPago anterior;
+        Boolean modificoTarjeta = false;
 
         public MedioPago Anterior1
         {
@@ -24,7 +25,7 @@ namespace PalcoNet.Comprar
             set { anterior = value; }
         }
 
-        //se trae la tarjeta que ha sido seleccionada para modificar
+        //se trae la tarjeta que ha sido seleccionada para modificar y el medio de pago anterior para poder usar sus metodos y actualizar las tarjetas
         public ModificarMP(MedioPago anterior, Tarjeta tarjeta) : base(anterior)
         {
             InitializeComponent();
@@ -34,8 +35,8 @@ namespace PalcoNet.Comprar
 
             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getDatosTarjeta_sp " + tarjeta.Id);
 
-            textBoxNumero.Text = "*******" + tarjetaVieja.NumeroDeTarjeta.ToString();
-            Console.WriteLine("EL ID DE TARJETA ES: " + tarjetaVieja.Id);
+            textBoxNumero.Text = "*******" + (tarjetaVieja.NumeroDeTarjeta % 10000);
+           
 
             while (reader.Read())
             {
@@ -49,7 +50,7 @@ namespace PalcoNet.Comprar
 
         private void textBoxNumero_TextChanged(object sender, EventArgs e)
         {
-
+            modificoTarjeta = true;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -62,15 +63,28 @@ namespace PalcoNet.Comprar
             if (this.verificarCampos())
             {
                 Tarjeta tarjetaModificada = new Tarjeta();
-                
-                tarjetaModificada.NumeroDeTarjeta = long.Parse(textBoxNumero.Text);
-                tarjetaModificada.Titular = textBox1.Text;
 
-                String query = tarjetaVieja.Id + ", '" + tarjetaModificada.NumeroDeTarjeta + "', '" + tarjetaModificada.Titular + "'";
+                if (modificoTarjeta)
+                {
+                    tarjetaModificada.NumeroDeTarjeta = long.Parse(textBoxNumero.Text);
+                    tarjetaModificada.Titular = textBox1.Text;
 
-                servidor.realizarQuery("EXEC MATE_LAVADO.modificarTarjeta_sp " + query);
+                    String query = tarjetaVieja.Id + ", '" + tarjetaModificada.NumeroDeTarjeta + "', '" + tarjetaModificada.Titular + "'";
 
-                this.Anterior1.actualizar(tarjetaModificada);
+                    servidor.realizarQuery("EXEC MATE_LAVADO.modificarTarjeta_sp " + query);
+
+                    this.Anterior1.actualizar(tarjetaModificada);
+                }
+                else
+                {
+                    tarjetaModificada.Titular = textBox1.Text;
+
+                    String query = tarjetaVieja.Id + ", '" + tarjetaModificada.Titular + "'";
+
+                    servidor.realizarQuery("EXEC MATE_LAVADO.modificarTitularTarjeta_sp " + query);
+
+                    this.Anterior1.actualizar(tarjetaModificada);
+                }
 
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar medio de pago", MessageBoxButtons.OK);
             }
@@ -100,7 +114,7 @@ namespace PalcoNet.Comprar
             }
             else
             {
-                if (!long.TryParse(textBoxNumero.Text, out i)) { error += "El número de tarjeta debe ser un valor numérico."; }
+                if ((!long.TryParse(textBoxNumero.Text, out i)) && modificoTarjeta) { error += "El número de tarjeta debe ser un valor numérico."; }
             }
 
             if (error != "")
