@@ -302,7 +302,7 @@ GO
 
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
+SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), replace(Espec_Empresa_Cuit, '-', ''), 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
 GO
 
@@ -322,7 +322,7 @@ SELECT DISTINCT u.id_usuario, Espec_Empresa_Razon_Social ,Espec_Empresa_Mail, RE
 				Espec_Empresa_Dom_Calle, Espec_Empresa_Nro_Calle, Espec_Empresa_Piso, Espec_Empresa_Depto,
 				Espec_Empresa_Cod_Postal
 FROM gd_esquema.Maestra gd
-JOIN MATE_LAVADO.Usuarios u ON(u.username = gd.Espec_Empresa_Cuit)
+JOIN MATE_LAVADO.Usuarios u ON(u.username = replace(gd.Espec_Empresa_Cuit,'-',''))
 WHERE Espec_Empresa_Cuit IS NOT NULL
 GO
 
@@ -490,6 +490,7 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 GO
 
 update MATE_LAVADO.UbicacionXEspectaculo set facturado = 1 
+go
 
 --.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
 
@@ -1095,7 +1096,7 @@ END
 GO
 
 -----buscarEmpresaPorCriterio-----
-CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
+alter PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @cuit VARCHAR(20),
 @razon_social VARCHAR(20),
 @email VARCHAR(20)
@@ -1103,7 +1104,7 @@ AS
 BEGIN
 	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, e.id_usuario,
 	depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad, habilitado FROM MATE_LAVADO.Empresas e
-	join MATE_LAVADO.Usuarios u on e.id_usuario = e.id_usuario
+	join MATE_LAVADO.Usuarios u on e.id_usuario = u.id_usuario
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -2063,6 +2064,18 @@ BEGIN
 		END
 END
 GO
+
+-----modificar titular de tarjeta-----
+CREATE PROCEDURE MATE_LAVADO.modificarTitularTarjeta_sp
+@id int,
+@titular varchar(50)
+AS
+BEGIN
+	UPDATE MATE_LAVADO.Medios_de_pago
+	SET titular = @titular
+	WHERE id_medio_de_pago = @id
+END
+GO
 -----deshabilitarUsuario-----
 create procedure MATE_LAVADO.deshabilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
@@ -2182,5 +2195,12 @@ GO
 -----habilitarUsuario-----
 create procedure MATE_LAVADO.habilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
+end
+go
+
+-----crearItemFactura-----
+create procedure MATE_LAVADO.crearItemFactura_sp (@id_factura int, @id_compra int, @id_ubicacion int, @cantidad int, @importe numeric(18,2), @comision numeric(3,3)) as begin
+insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, cantidad, importe, comision)
+values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
 end
 go
