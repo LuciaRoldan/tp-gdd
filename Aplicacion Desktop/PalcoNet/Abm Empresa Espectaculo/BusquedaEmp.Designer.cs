@@ -65,9 +65,10 @@
             // 
             // buttonModificar
             // 
-            this.buttonModificar.Location = new System.Drawing.Point(245, 425);
+            this.buttonModificar.Location = new System.Drawing.Point(368, 654);
+            this.buttonModificar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonModificar.Name = "buttonModificar";
-            this.buttonModificar.Size = new System.Drawing.Size(92, 23);
+            this.buttonModificar.Size = new System.Drawing.Size(138, 35);
             this.buttonModificar.TabIndex = 37;
             this.buttonModificar.Text = "Editar empresa";
             this.buttonModificar.UseVisualStyleBackColor = true;
@@ -75,9 +76,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(466, 425);
+            this.button4.Location = new System.Drawing.Point(699, 654);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 23);
+            this.button4.Size = new System.Drawing.Size(150, 35);
             this.button4.TabIndex = 36;
             this.button4.Text = "Nueva Búsqueda";
             this.button4.UseVisualStyleBackColor = true;
@@ -106,20 +108,22 @@
             this.nombreusuario,
             this.contrasenia});
             this.dataGridViewResultados.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewResultados.Location = new System.Drawing.Point(16, 212);
+            this.dataGridViewResultados.Location = new System.Drawing.Point(24, 326);
+            this.dataGridViewResultados.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridViewResultados.MultiSelect = false;
             this.dataGridViewResultados.Name = "dataGridViewResultados";
             this.dataGridViewResultados.ReadOnly = true;
             this.dataGridViewResultados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewResultados.Size = new System.Drawing.Size(551, 201);
+            this.dataGridViewResultados.Size = new System.Drawing.Size(826, 309);
             this.dataGridViewResultados.TabIndex = 35;
             this.dataGridViewResultados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewResultados_CellContentClick);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(18, 425);
+            this.button3.Location = new System.Drawing.Point(27, 654);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(112, 35);
             this.button3.TabIndex = 34;
             this.button3.Text = "Inicio";
             this.button3.UseVisualStyleBackColor = true;
@@ -128,26 +132,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 109);
+            this.label1.Location = new System.Drawing.Point(32, 168);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 13);
+            this.label1.Size = new System.Drawing.Size(316, 20);
             this.label1.TabIndex = 27;
             this.label1.Text = "Complete uno o mas campos de búsqueda.";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 140);
+            this.label4.Location = new System.Drawing.Point(32, 215);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(50, 20);
             this.label4.TabIndex = 24;
             this.label4.Text = "CUIT:";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 45);
+            this.button1.Location = new System.Drawing.Point(24, 69);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(551, 23);
+            this.button1.Size = new System.Drawing.Size(826, 35);
             this.button1.TabIndex = 32;
             this.button1.Text = "Crear nueva empresa";
             this.button1.UseVisualStyleBackColor = true;
@@ -155,18 +162,20 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(60, 137);
+            this.textBox1.Location = new System.Drawing.Point(90, 211);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
+            this.textBox1.Size = new System.Drawing.Size(180, 26);
             this.textBox1.TabIndex = 25;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(18, 14);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(286, 24);
+            this.label2.Size = new System.Drawing.Size(439, 33);
             this.label2.TabIndex = 26;
             this.label2.Text = "ABM Empresas de Espectáculos";
             // 
@@ -177,18 +186,21 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 82);
+            this.groupBox1.Location = new System.Drawing.Point(18, 126);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(561, 118);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(842, 182);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Búsqueda";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 81);
+            this.button2.Location = new System.Drawing.Point(9, 125);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(549, 23);
+            this.button2.Size = new System.Drawing.Size(824, 35);
             this.button2.TabIndex = 23;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
@@ -196,33 +208,37 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(434, 55);
+            this.textBox4.Location = new System.Drawing.Point(651, 85);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(121, 20);
+            this.textBox4.Size = new System.Drawing.Size(180, 26);
             this.textBox4.TabIndex = 31;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(358, 58);
+            this.label6.Location = new System.Drawing.Point(537, 89);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 13);
+            this.label6.Size = new System.Drawing.Size(104, 20);
             this.label6.TabIndex = 30;
             this.label6.Text = "Razón social:";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(222, 55);
+            this.textBox2.Location = new System.Drawing.Point(333, 85);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(121, 20);
+            this.textBox2.Size = new System.Drawing.Size(180, 26);
             this.textBox2.TabIndex = 29;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(183, 58);
+            this.label3.Location = new System.Drawing.Point(274, 89);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.Size = new System.Drawing.Size(52, 20);
             this.label3.TabIndex = 28;
             this.label3.Text = "EMail:";
             // 
@@ -268,7 +284,6 @@
             this.ciudad.HeaderText = "Ciudad";
             this.ciudad.Name = "ciudad";
             this.ciudad.ReadOnly = true;
-            this.ciudad.Visible = false;
             // 
             // localidad
             // 
@@ -276,7 +291,6 @@
             this.localidad.HeaderText = "Localidad";
             this.localidad.Name = "localidad";
             this.localidad.ReadOnly = true;
-            this.localidad.Visible = false;
             // 
             // calle
             // 
@@ -348,9 +362,9 @@
             // 
             // BusquedaEmp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 460);
+            this.ClientSize = new System.Drawing.Size(878, 708);
             this.Controls.Add(this.buttonModificar);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.dataGridViewResultados);
@@ -361,6 +375,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "BusquedaEmp";
             this.Text = "BusquedaEmp";
             this.Load += new System.EventHandler(this.BusquedaEmp_Load);

@@ -44,7 +44,6 @@ namespace PalcoNet.Registro_de_Usuario
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value ) { error += "La fecha de nacimiento no es válida\n"; }
             if (string.IsNullOrWhiteSpace(textBoxNumero.Text)) { error += "El Número de Tarjeta no puede estar vacío\n"; }
             if (!long.TryParse(textBoxNumero.Text, out x)) { error += "El Número de Tarjeta debe ser numérico\n"; }
-            if (string.IsNullOrWhiteSpace(textBoxTitular.Text)) { error += "El Titular no puede estar vacío\n"; }
 
             if (error != "")
             {
@@ -119,6 +118,11 @@ namespace PalcoNet.Registro_de_Usuario
         }
 
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxCiudad_TextChanged(object sender, EventArgs e)
         {
 
         }

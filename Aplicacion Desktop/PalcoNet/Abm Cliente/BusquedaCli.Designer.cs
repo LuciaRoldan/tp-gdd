@@ -46,6 +46,7 @@
             this.buttonModificar = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.IdCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CUIL = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -206,6 +207,7 @@
             this.dataGridResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridResultados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdCliente,
+            this.IdUsuario,
             this.Nombre,
             this.Apellido,
             this.CUIL,
@@ -263,6 +265,15 @@
             this.IdCliente.Name = "IdCliente";
             this.IdCliente.ReadOnly = true;
             this.IdCliente.Width = 73;
+            // 
+            // IdUsuario
+            // 
+            this.IdUsuario.DataPropertyName = "idUsuario";
+            this.IdUsuario.HeaderText = "IdUsuario";
+            this.IdUsuario.Name = "IdUsuario";
+            this.IdUsuario.ReadOnly = true;
+            this.IdUsuario.Visible = false;
+            this.IdUsuario.Width = 77;
             // 
             // Nombre
             // 
@@ -469,6 +480,7 @@
         private System.Windows.Forms.Button buttonModificar;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdUsuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn CUIL;

@@ -123,7 +123,8 @@ GO
 
 ALTER TABLE MATE_LAVADO.Roles ADD
 nombre CHAR(40),
-habilitado BIT
+habilitado BIT,
+alta BIT
 GO
 
 ALTER TABLE MATE_LAVADO.FuncionalidadXRol ADD
@@ -257,8 +258,8 @@ GO
 
 --.--.--.--.--.--.--ROLES--.--.--.--.--.--.--
 
-INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
-VALUES ('Administrativo', 1),('Empresa', 1),('Cliente', 1),('adminOP', 1)
+INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
+VALUES ('Administrativo', 1, 1),('Empresa', 1, 1),('Cliente', 1, 1),('adminOP', 1, 1)
 GO
 
 --.--.--.--.--.--.--FUNCIONALIDADES--.--.--.--.--.--.--
@@ -542,7 +543,7 @@ BEGIN
 	DECLARE @id_usuario INT
 	IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 												join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-												WHERE username = @usuario) = 1)
+												WHERE username = @usuario and alta = 1) = 1)
 		BEGIN
 		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1)
 			BEGIN
@@ -659,6 +660,7 @@ BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles r
 	JOIN MATE_LAVADO.Usuarios u ON(u.username = @usuario)
 	JOIN MATE_LAVADO.UsuarioXRol uxr ON(uxr.id_usuario = u.id_usuario AND uxr.id_rol = r.id_rol)
+	WHERE r.alta = 1
 END
 GO
 
@@ -668,6 +670,7 @@ AS
 BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles
 	WHERE habilitado = 1
+	AND alta = 1
 	AND nombre like 'Empresa' OR nombre like 'Cliente'
 END
 GO
@@ -796,7 +799,7 @@ CREATE PROCEDURE MATE_LAVADO.buscarUsuarioPorCriterio_sp
 AS
 BEGIN
 	SELECT id_cliente, nombre, apellido, coalesce(cuil,0) cuil, mail, coalesce(telefono,0) telefono, tipo_documento, fecha_nacimiento,
-		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso
+		fecha_creacion, coalesce(documento,0) documento, calle, coalesce(numero_calle,0) numero_calle, codigo_postal, depto, piso, ciudad, localidad
 	FROM MATE_LAVADO.Clientes
 	WHERE (nombre LIKE '%' + @nombre + '%'
 		AND apellido LIKE '%' + @apellido + '%'
@@ -824,7 +827,9 @@ CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @numero_calle NUMERIC(18,0),
 @piso NUMERIC(18,0),
 @depto NVARCHAR(255),
-@codigo_postal NVARCHAR(50)
+@codigo_postal NVARCHAR(50),
+@ciudad NVARCHAR(255),
+@localidad NVARCHAR(255)
 AS
 BEGIN 
 	IF EXISTS (SELECT * FROM MATE_LAVADO.Clientes WHERE id_cliente = @id_cliente) 
@@ -832,7 +837,7 @@ BEGIN
 		BEGIN TRANSACTION
 		UPDATE MATE_LAVADO.Clientes
 		SET nombre = @nombre, apellido = @apellido, mail = @mail, tipo_documento = @tipo_documento, documento = @documento, cuil = @cuil, telefono = @telefono, fecha_nacimiento = @fecha_nacimiento,
-		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
+		calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal, localidad = @localidad, ciudad = @ciudad
 		WHERE id_cliente = @id_cliente
 		COMMIT TRANSACTION
 		END
@@ -1087,7 +1092,7 @@ CREATE PROCEDURE MATE_LAVADO.buscarEmpresaPorCriterio_sp
 @email VARCHAR(20)
 AS
 BEGIN
-	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal  FROM MATE_LAVADO.Empresas
+	SELECT id_empresa, razon_social, mail, coalesce(cuit,null) cuit, mail, calle, numero_calle, piso, depto, fecha_creacion, codigo_postal, coalesce(ciudad,'') ciudad, coalesce(localidad,'') localidad FROM MATE_LAVADO.Empresas
 	WHERE (razon_social LIKE '%' + @razon_social + '%'
 		AND mail LIKE '%' + @email + '%'
 		AND cuit = @cuit)
@@ -1117,14 +1122,16 @@ CREATE PROCEDURE MATE_LAVADO.modificarEmpresa_sp
 @numero_calle NUMERIC(18,0),
 @piso NUMERIC(18,0),
 @depto NVARCHAR(255),
-@codigo_postal NVARCHAR(50)
+@codigo_postal NVARCHAR(50),
+@ciudad varchar(50),
+@localidad varchar(50)
 AS
 BEGIN
 	IF EXISTS (SELECT id_empresa FROM MATE_LAVADO.Empresas WHERE id_empresa = @id_empresa)
 	BEGIN
 		UPDATE MATE_LAVADO.Empresas
-		SET razon_social = @razon_social, mail = @mail, cuit = @cuit,
-			calle = @calle, numero_calle = @numero_calle, piso = @piso, depto = @depto, codigo_postal = @codigo_postal
+		SET razon_social = @razon_social, mail = @mail, cuit = @cuit, calle = @calle, numero_calle = @numero_calle, 
+		piso = @piso, depto = @depto, codigo_postal = @codigo_postal, ciudad = @ciudad, localidad = @localidad
 		WHERE id_empresa = @id_empresa
 	END
 	ELSE
@@ -1141,8 +1148,8 @@ AS
 BEGIN
 	IF NOT EXISTS (SELECT nombre FROM MATE_LAVADO.Roles WHERE nombre = @nombre_rol)
 		BEGIN
-		INSERT INTO MATE_LAVADO.Roles(nombre, habilitado)
-		VALUES(@nombre_rol, 1)		
+		INSERT INTO MATE_LAVADO.Roles(nombre, habilitado, alta)
+		VALUES(@nombre_rol, 1, 1)		
 		END
 	ELSE
 		BEGIN
@@ -1953,6 +1960,8 @@ BEGIN
 END
 GO
 
+
+
 -----usuarioEsEmpresa-----
 CREATE PROCEDURE MATE_LAVADO.usuarioEsEmpresa_sp(
 @id_usuario INT
@@ -1990,3 +1999,12 @@ DECLARE @bool BIT = 1
 	END
 END
 GO
+
+-----eliminarRol-----
+create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
+update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
+declare @id_rol int 
+set @id_rol = (select id_rol from MATE_LAVADO.Roles where nombre = @nombre)
+delete MATE_LAVADO.UsuarioXRol where id_rol = @id_rol
+end
+go
