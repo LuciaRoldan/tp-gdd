@@ -117,7 +117,7 @@ namespace PalcoNet.Registro_de_Usuario
                 cliente.Mail = textBoxMail.Text;
                 cliente.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
                 if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { cliente.Cuil = long.Parse(textBoxCuil.Text); }
-                cliente.TipoDocumento = comboBoxDocumento.SelectedText;
+                cliente.TipoDocumento = comboBoxDocumento.Text;
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = long.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
 

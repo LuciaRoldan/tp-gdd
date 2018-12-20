@@ -109,5 +109,9 @@ drop procedure MATE_LAVADO.crearItemFactura_sp
 DROP PROCEDURE MATE_LAVADO.cuilEsValido_sp
 DROP PROCEDURE MATE_LAVADO.cuitEsValido_sp
 DROP PROCEDURE MATE_LAVADO.deshabilitarUsuario_sp
+DROP PROCEDURE MATE_LAVADO.habilitarUsuario_sp
+DROP PROCEDURE MATE_LAVADO.getDatosTarjeta_sp
+DROP PROCEDURE MATE_LAVADO.modificarDatosTarjeta_sp
+
 
 drop schema MATE_LAVADO

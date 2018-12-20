@@ -175,8 +175,8 @@ namespace PalcoNet.Abm_Cliente
                 clienteModificado.Localidad = textBoxLocalidad.Text;
 
                 String query = clienteViejo.Id + ", '" + clienteModificado.Nombre + "', '" + clienteModificado.Apellido
-                                + "', '" + clienteModificado.Mail + "', '" + comboBoxDocumento.Text + "', " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
-                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento + "', '"
+                                + "', '" + clienteModificado.Mail + "', " + comboBoxDocumento.Text + ", " + clienteModificado.NumeroDeDocumento + ", " + clienteModificado.Cuil
+                                + ", " + clienteModificado.Telefono + ", '" + clienteModificado.FechaDeNacimiento.ToString("yyyy-MM-dd HH:mm:ss") + "', '"
                                 + calle + "', " + numeroCalle + ", " + piso + ", '" + depto + "', '" + codigoPostal + "', '" + clienteModificado.Ciudad + "', '" + clienteModificado.Localidad + "'";
 
                 servidor.realizarQuery("EXEC MATE_LAVADO.modificarCliente_sp " + query);
