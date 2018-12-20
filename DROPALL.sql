@@ -112,6 +112,7 @@ DROP PROCEDURE MATE_LAVADO.deshabilitarUsuario_sp
 DROP PROCEDURE MATE_LAVADO.habilitarUsuario_sp
 DROP PROCEDURE MATE_LAVADO.getDatosTarjeta_sp
 DROP PROCEDURE MATE_LAVADO.modificarDatosTarjeta_sp
-
+drop procedure MATE_LAVADO.modificarTarjeta_sp
+drop procedure MATE_LAVADO.modificarTitularTarjeta_sp
 
 drop schema MATE_LAVADO
