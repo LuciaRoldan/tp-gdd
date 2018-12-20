@@ -78,36 +78,26 @@ namespace PalcoNet.Abm_Cliente
             string errores = "";
             int numero;
             long num;
-            bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxNombre.Text)
-                && !string.IsNullOrWhiteSpace(textBoxApellido.Text)
-                && !string.IsNullOrWhiteSpace(textBoxTelefono.Text)
-                && !string.IsNullOrWhiteSpace(textBoxMail.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCuil.Text)
-                && !string.IsNullOrWhiteSpace(textBoxNumeroCalle.Text)
-                && !string.IsNullOrWhiteSpace(textBoxCalle.Text)
-                && !string.IsNullOrWhiteSpace(textBoxLocalidad.Text)
-                && !string.IsNullOrWhiteSpace(textBoxDocumento.Text)
-                && comboBoxDocumento.SelectedIndex > -1
-                && dateTimePickerNacimiento.Value != null;
-
-            if (!string.IsNullOrWhiteSpace(textBoxNombre.Text)) { errores += "El campo Nombre no puede estar vacio.\n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxApellido.Text)) { errores += "El campo Apellido no puede estar vacio.\n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { errores += "El campo Mail no puede estar vacio.\n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxDocumento.Text)) { errores += "El campo Documento no puede estar vacio.\n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { errores += "El campo CUIL no puede estar vacio.\n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { errores += "El campo Localidad no puede estar vacio.\n"; }
-            if (comboBoxDocumento.SelectedIndex > -1) { errores += "El campo Tipo de Documento no puede estar vacio.\n"; }
-            if (dateTimePickerNacimiento.Value > Sesion.getInstance().fecha) { errores += "La Fecha de Nacimiento no puede ser posterior a hoy.\n"; }
-            if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; } }
-            if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out numero)) { errores += "El Piso debe ser un valor numérico. \n"; }
-            if (!int.TryParse(textBoxNumeroCalle.Text, out numero)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
-            if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text) && !int.TryParse(textBoxCodigoPostal.Text, out numero)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }
-            if (dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { errores += "La fecha de nacimiento no puede ser anterior al 1900. \n"; }
-            if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
-
+  
+                if (string.IsNullOrWhiteSpace(textBoxNombre.Text)) { errores += "El campo Nombre no puede estar vacio.\n"; }
+                if (string.IsNullOrWhiteSpace(textBoxApellido.Text)) { errores += "El campo Apellido no puede estar vacio.\n"; }
+                if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { errores += "El campo Mail no puede estar vacio.\n"; }
+                if (string.IsNullOrWhiteSpace(textBoxDocumento.Text)) { errores += "El campo Documento no puede estar vacio.\n"; }
+                //if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) { errores += "El campo CUIL no puede estar vacio.\n"; }
+                if (string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { errores += "El campo Localidad no puede estar vacio.\n"; }
+                if (!(comboBoxDocumento.SelectedIndex > -1)) { errores += "El campo Tipo de Documento no puede estar vacio.\n"; }
+                if (dateTimePickerNacimiento.Value > Sesion.getInstance().fecha) { errores += "La Fecha de Nacimiento no puede ser posterior a hoy.\n"; }
+                if (!int.TryParse(textBoxDocumento.Text, out numero)) { errores += "El DNI debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) { if (!long.TryParse(textBoxCodigoPostal.Text, out num)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; } }
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { if (!long.TryParse(textBoxCuil.Text, out num)) { errores += "El CUIL debe ser un valor numérico. \n"; } }
+                if ((!string.IsNullOrWhiteSpace(textBoxCuil.Text))) { if (!long.TryParse(textBoxTelefono.Text, out num)) { errores += "El teléfono debe ser un valor numérico. \n"; } }
+                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out numero)) { errores += "El Piso debe ser un valor numérico. \n"; }
+                if (!int.TryParse(textBoxNumeroCalle.Text, out numero)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
+                if (dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { errores += "La fecha de nacimiento no puede ser anterior al 1900. \n"; }
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
+                if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
+
+            //}
 
                 //Si posee DNI, valido DNI y CUIL
                 if (comboBoxDocumento.Text == "DNI")
@@ -126,8 +116,10 @@ namespace PalcoNet.Abm_Cliente
                         //Verificamos que el CUIL tenga el largo que corresponde
                         Console.Write(long.Parse(textBoxCuil.Text));
                         if (!(long.Parse(textBoxCuil.Text) > 9999999999 & long.Parse(textBoxCuil.Text) < 100000000000))
-                        { errores += "El CUIL debe poseer 11 digitos. \n";
-                        }else
+                        {
+                            errores += "El CUIL debe poseer 11 digitos. \n";
+                        }
+                        else
                         {
                             //Verificamos que el CUIL sea valido
                             Servidor servidor = Servidor.getInstance();
@@ -143,13 +135,13 @@ namespace PalcoNet.Abm_Cliente
                         }
 
                     }
-            }
+                }
+
                 if (errores != "")
                 {
                     MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
                     return false;
                 }
-
                 return true;
         }
 

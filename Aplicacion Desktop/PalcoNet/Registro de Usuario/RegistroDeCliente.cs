@@ -41,10 +41,13 @@ namespace PalcoNet.Registro_de_Usuario
             if (comboBoxDocumento.SelectedItem == null) {error += "El Tipo de Documento no puede estar vacío\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) { if (!long.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; } }
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
-            if (!long.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxDocumento.Text)) { if (!long.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; } }
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value || dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { error += "La fecha de nacimiento no es válida\n"; }
             if (string.IsNullOrWhiteSpace(textBoxNumero.Text)) { error += "El Número de Tarjeta no puede estar vacío\n"; }
-            if (!long.TryParse(textBoxNumero.Text, out x)) { error += "El Número de Tarjeta debe ser numérico\n"; }
+            if (!string.IsNullOrWhiteSpace(textBoxNumero.Text)) { if (!long.TryParse(textBoxNumero.Text, out x)) { error += "El campo 'Nro. de Tarjeta' debe ser numérico\n"; } }
+            if (string.IsNullOrWhiteSpace(textBoxTitular.Text)) { error += "El Titular no puede estar vacío\n"; }
+
+
 
 
 
@@ -56,7 +59,7 @@ namespace PalcoNet.Registro_de_Usuario
             {
                 //Verificamos que el documento tenga el largo que corresponde
 
-                if (!(Int32.Parse(textBoxDocumento.Text) > 9999999 & Int32.Parse(textBoxDocumento.Text) < 100000000))
+                if (!(Int64.Parse(textBoxDocumento.Text) > 9999999 & Int64.Parse(textBoxDocumento.Text) < 100000000))
                 { error += "El documento debe poseer 8 digitos. \n"; }
             }
 

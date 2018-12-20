@@ -71,30 +71,31 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { errores += "El Mail no puede estar vacío. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxCuit.Text)) { errores += "El CUIT no puede estar vacío. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { errores += "La Razón Social no puede estar vacío. \n"; }
+            if (string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { errores += "La Localidad no puede estar vacía. \n"; }
             if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxPiso.Text)) {if (!int.TryParse(textBoxPiso.Text, out num)) { errores += "El Piso debe ser un valor numérico. \n"; }}
             if (!int.TryParse(textBoxNumeroCalle.Text, out num)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) {if (!int.TryParse(textBoxCodigoPostal.Text, out num)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }}
 
 
-            if (!long.TryParse(textBoxCuit.Text, out numero))
+            if (long.TryParse(textBoxCuit.Text, out numero))
             {
                 //Verificamos que el CUIT tenga el largo que corresponde
                 if (!(Int64.Parse(textBoxCuit.Text) > 9999999999 & Int64.Parse(textBoxCuit.Text) < 100000000000))
-                { errores += "El CUIL debe poseer 11 digitos. \n"; }
+                { errores += "El CUIT debe poseer 11 digitos. \n"; }
                 else
                 {
                     //Verificamos que el CUIL sea valido
 
                     Servidor servidor = Servidor.getInstance();
                     string query = "'" + Int64.Parse(textBoxCuit.Text) + "'";
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuitEsValido_sp " + query);
 
                     while (reader.Read())
                     {
                         if (!bool.Parse(reader["valido"].ToString()))
                         {
-                            errores += "Ingrese un CUIL válido. \n";
+                            errores += "Ingrese un CUIT válido. \n";
                         }
                     }
                 }

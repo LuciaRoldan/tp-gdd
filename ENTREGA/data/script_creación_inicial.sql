@@ -521,11 +521,13 @@ SET facturado = 0
 FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 LEFT JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
 WHERE c.id_compra IS NULL
+GO
 
 UPDATE MATE_LAVADO.UbicacionXEspectaculo
 SET facturado = 1
 FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
+GO
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 

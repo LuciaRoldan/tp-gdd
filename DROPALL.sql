@@ -51,6 +51,7 @@ DROP PROCEDURE MATE_LAVADO.vaciarEspectaculosPublicacion_sp
 DROP PROCEDURE MATE_LAVADO.filasDisponiblesSegunEspectaculo_sp
 DROP PROCEDURE MATE_LAVADO.asientosDisponiblesSegunEspectaculoYFila_sp
 DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacionEdicion_sp
+DROP PROCEDURE MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp
 
 DROP TRIGGER MATE_LAVADO.insertarNuevoEspectaculo
 DROP TRIGGER MATE_LAVADO.insertarNuevaFactura
@@ -59,6 +60,9 @@ DROP TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
 
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasEspectaculo
 DROP FUNCTION MATE_LAVADO.getCantidadEntradasVendidas
+DROP FUNCTION MATE_LAVADO.fn_cuilDeCliente
+DROP FUNCTION MATE_LAVADO.fn_cuitDeEmpresa
+DROP FUNCTION MATE_LAVADO.fn_ValidarDigitoVerificador
 
 
 
@@ -102,5 +106,8 @@ DROP PROCEDURE MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicaci
 DROP PROCEDURE MATE_LAVADO.getRolesHabilitados_sp
 DROP PROCEDURE MATE_LAVADO.eliminarRol_sp
 drop procedure MATE_LAVADO.crearItemFactura_sp
+DROP PROCEDURE MATE_LAVADO.cuilEsValido_sp
+DROP PROCEDURE MATE_LAVADO.cuitEsValido_sp
+DROP PROCEDURE MATE_LAVADO.deshabilitarUsuario_sp
 
 drop schema MATE_LAVADO
