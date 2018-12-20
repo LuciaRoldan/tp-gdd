@@ -83,13 +83,12 @@ namespace PalcoNet.Abm_Cliente
                                 ", '" + cliente.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUsuarioPorCriterio_sp '" + query);
-                Console.WriteLine(query);
+
                 while (reader.Read())
                 {
                     Cliente clienteEnc = new Cliente();
                     clienteEnc.Nombre = reader["nombre"].ToString();
                     clienteEnc.Apellido = reader["apellido"].ToString();
-                    Console.WriteLine(reader["nombre"]);
                     clienteEnc.Cuil = long.Parse(reader["cuil"].ToString());
                     clienteEnc.Mail = reader["mail"].ToString();
                     clienteEnc.Telefono = Int64.Parse(reader["telefono"].ToString());
@@ -132,6 +131,7 @@ namespace PalcoNet.Abm_Cliente
             new ModificarCli(cliente, this).Show();
         }
 
+        //con este boton limpiamos todos los campos para que se pueda hacer una nueva busqueda
         private void button4_Click(object sender, EventArgs e)
         {
             textBoxNombre.Text = "";

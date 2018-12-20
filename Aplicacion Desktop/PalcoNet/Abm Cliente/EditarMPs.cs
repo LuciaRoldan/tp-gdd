@@ -29,6 +29,7 @@ namespace PalcoNet.Abm_Cliente
             set { tarjetas = value; }
         }
 
+        //Nos trae la informacion del form anterior y del cliente que estabamos modificando la información
         public EditarMPs(MiForm anterior, Cliente cliente) : base(anterior)
         {
             InitializeComponent();
@@ -37,11 +38,12 @@ namespace PalcoNet.Abm_Cliente
             this.actualizarMP();
         }
 
+        //función para actualizar los medios de pago actuales que se utilizará luego de modificaciones
         public void actualizarMP() {
             this.Tarjetas.Clear();
             Servidor servidor = Servidor.getInstance();
             SqlDataReader reader = servidor.query("exec MATE_LAVADO.getMediosDePago_sp " + this.Cliente.Id);
-
+            //traemos los medios de pago del cliente para guardarlos en la data grid y que pueda seleccionar cual modificar
             while (reader.Read())
             {
                 Tarjeta tarjeta = new Tarjeta();
@@ -59,12 +61,14 @@ namespace PalcoNet.Abm_Cliente
             }
         }
 
+        //botón para volver a la modificación del cliente
         private void button1_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Hide();
         }
 
+        //Una vez seleccionada la tarjeta, éste botón nos llevará a editar su información
         private void button4_Click(object sender, EventArgs e)
         {
             Tarjeta tarjeta = (Tarjeta)dataGridView1.CurrentRow.DataBoundItem;

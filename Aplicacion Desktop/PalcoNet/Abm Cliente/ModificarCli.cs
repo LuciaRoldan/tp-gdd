@@ -83,7 +83,6 @@ namespace PalcoNet.Abm_Cliente
                 if (string.IsNullOrWhiteSpace(textBoxApellido.Text)) { errores += "El campo Apellido no puede estar vacio.\n"; }
                 if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { errores += "El campo Mail no puede estar vacio.\n"; }
                 if (string.IsNullOrWhiteSpace(textBoxDocumento.Text)) { errores += "El campo Documento no puede estar vacio.\n"; }
-                //if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) { errores += "El campo CUIL no puede estar vacio.\n"; }
                 if (string.IsNullOrWhiteSpace(textBoxLocalidad.Text)) { errores += "El campo Localidad no puede estar vacio.\n"; }
                 if (!(comboBoxDocumento.SelectedIndex > -1)) { errores += "El campo Tipo de Documento no puede estar vacio.\n"; }
                 if (dateTimePickerNacimiento.Value > Sesion.getInstance().fecha) { errores += "La Fecha de Nacimiento no puede ser posterior a hoy.\n"; }
@@ -97,7 +96,6 @@ namespace PalcoNet.Abm_Cliente
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
                 if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value) { errores += "La fecha de nacimiento no puede ser posterior a hoy. \n"; }
 
-            //}
 
                 //Si posee DNI, valido DNI y CUIL
                 if (comboBoxDocumento.Text == "DNI")
@@ -114,7 +112,6 @@ namespace PalcoNet.Abm_Cliente
                     if (long.TryParse(textBoxCuil.Text, out num))
                     {
                         //Verificamos que el CUIL tenga el largo que corresponde
-                        Console.Write(long.Parse(textBoxCuil.Text));
                         if (!(long.Parse(textBoxCuil.Text) > 9999999999 & long.Parse(textBoxCuil.Text) < 100000000000))
                         {
                             errores += "El CUIL debe poseer 11 digitos. \n";
@@ -139,18 +136,21 @@ namespace PalcoNet.Abm_Cliente
 
                 if (errores != "")
                 {
+                    //devolvemos mensaje con todos los errores
                     MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
                     return false;
                 }
                 return true;
         }
 
+        //boton para volver a la busqueda del cliente
         private void button3_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Close();
         }
 
+        //boton para aceptar los cambios
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos()){
@@ -163,8 +163,8 @@ namespace PalcoNet.Abm_Cliente
                 if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { clienteModificado.Cuil = long.Parse(textBoxCuil.Text); }
                 clienteModificado.TipoDocumento = comboBoxDocumento.Text;
                 clienteModificado.FechaDeNacimiento = dateTimePickerNacimiento.Value;
-                //Aca hay que hacer el update en la base
-                //sp que le paso el cuil (validamos que el nuevo cuil no exista)del cliente que es unico 
+                //Aca hacemos update en la base
+                //llamamos a un sp al que le paso el cuil (validamos que el nuevo cuil no exista)del cliente que es unico 
                 //para que busque el viejo y todos los datos nuevos para ser actualizados
                 calle = textBoxCalle.Text;
                 numeroCalle = Convert.ToInt32(textBoxNumeroCalle.Text);
@@ -185,46 +185,50 @@ namespace PalcoNet.Abm_Cliente
                 new SeleccionarFuncionalidad().Show();
                 this.Close();
 
-              
-                //formAnt.Show();
             }
         }
-
+        //funcion para saber si se selecciono un tipo de documento
         private void comboBoxDocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico el nombre del cliente
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico el apellido del cliente
         private void textBoxApellido_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
-
+        //funcion para saber si se modifico el telefono del cliente
         private void textBoxTelefono_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico el mail del cliente
         private void textBoxMail_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico el cuil del cliente
         private void textBoxCuil_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico el documento del cliente
         private void textBoxDocumento_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico la fecha de nacimiento del cliente
         private void dateTimePickerNacimiento_ValueChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
@@ -240,16 +244,19 @@ namespace PalcoNet.Abm_Cliente
 
         }
 
+        //funcion para saber si se modifico el piso del cliente
         private void textBoxPiso_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //funcion para saber si se modifico la calle del cliente
         private void textBoxNumeroCalle_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
         }
 
+        //llamamos a un sp para habilitar al cliente
         private void button2_Click(object sender, EventArgs e)
         {
             servidor.realizarQuery("exec MATE_LAVADO.habilitarUsuario_sp " + this.clienteViejo.IdUsuario);
@@ -258,6 +265,7 @@ namespace PalcoNet.Abm_Cliente
             buttonH.Enabled = false;
         }
 
+        //llamamos a un sp para deshabilitar al cliente
         private void button4_Click(object sender, EventArgs e)
         {
             servidor.realizarQuery("exec MATE_LAVADO.deshabilitarUsuario_sp " + this.clienteViejo.IdUsuario);
@@ -266,6 +274,7 @@ namespace PalcoNet.Abm_Cliente
             buttonH.Enabled = true;
         }
 
+        //seguimos validando las modificaciones en los campos
         private void textBoxCalle_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
@@ -291,6 +300,7 @@ namespace PalcoNet.Abm_Cliente
             button1.Enabled = true;
         }
 
+        //Boton que nos llevará a editar los medios de pago del cliente
         private void button2_Click_1(object sender, EventArgs e)
         {
             new EditarMPs(this, this.clienteViejo).Show();
