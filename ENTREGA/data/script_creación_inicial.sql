@@ -249,7 +249,7 @@ codigo_tipo_ubicacion INT,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
-precio NUMERIC(18, 2)
+precio NUMERIC(18)
 GO
 
 ALTER TABLE MATE_LAVADO.Premios ADD
@@ -517,6 +517,17 @@ JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 WHERE c.id_compra = uxe.id_compra
 GO
 
+UPDATE MATE_LAVADO.UbicacionXEspectaculo
+SET facturado = 0
+FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+LEFT JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
+WHERE c.id_compra IS NULL
+
+UPDATE MATE_LAVADO.UbicacionXEspectaculo
+SET facturado = 1
+FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
+
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 
 INSERT INTO MATE_LAVADO.Premios(descripcion, puntos)
@@ -674,7 +685,7 @@ BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles
 	WHERE habilitado = 1
 	AND alta = 1
-	AND nombre like 'Empresa' OR nombre like 'Cliente'
+	AND (id_rol = 2 OR id_rol = 3)
 END
 GO
 
@@ -1196,7 +1207,7 @@ GO
 
 -----buscarEspectaculosPorPublicacion-----
 create PROCEDURE MATE_LAVADO.buscarEspectaculosPorPublicacion_sp (@id_publicacion int) as begin
-	select fecha_evento, id_espectaculo FROM MATE_LAVADO.Espectaculos where id_publicacion = @id_publicacion
+	select fecha_evento, id_espectaculo FROM MATE_LAVADO.Espectaculos where id_publicacion = @id_publicacion AND estado_espectaculo = 'Publicada'
 end
 GO
 
@@ -1928,15 +1939,13 @@ GO*/
 
 -----finalizarEspectaculo-----
 CREATE TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
-ON MATE_LAVADO.Compras
-AFTER INSERT
+ON MATE_LAVADO.UbicacionXEspectaculo
+AFTER UPDATE
 AS
 BEGIN
-	DECLARE @id_espectaculo INT = (SELECT DISTINCT e.id_espectaculo FROM MATE_LAVADO.Espectaculos e
-								JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_espectaculo = e.id_espectaculo)
-								WHERE uxe.id_compra = (SELECT id_compra FROM INSERTED))
-	--DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
-	IF (MATE_LAVADO.getCantidadEntradasEspectaculo(@id_espectaculo) = MATE_LAVADO.getCantidadEntradasVendidas(@id_espectaculo))
+	DECLARE @id_espectaculo INT = (SELECT id_espectaculo FROM INSERTED)
+	DECLARE @id_publicacion INT = (SELECT id_publicacion FROM Espectaculos WHERE id_espectaculo = @id_espectaculo)
+	IF NOT EXISTS (SELECT 1 FROM MATE_LAVADO.UbicacionXEspectaculo WHERE @id_espectaculo = id_espectaculo AND id_compra IS NULL)
 	BEGIN
 		UPDATE MATE_LAVADO.Espectaculos
 		SET estado_espectaculo = 'Finalizada'
@@ -1944,7 +1953,6 @@ BEGIN
 	END
 END
 GO
-
 
 ----------FUNCIONES----------
 
@@ -2012,8 +2020,5 @@ GO
 -----eliminarRol-----
 create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
 update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
-declare @id_rol int 
-set @id_rol = (select id_rol from MATE_LAVADO.Roles where nombre = @nombre)
-delete MATE_LAVADO.UsuarioXRol where id_rol = @id_rol
 end
 go

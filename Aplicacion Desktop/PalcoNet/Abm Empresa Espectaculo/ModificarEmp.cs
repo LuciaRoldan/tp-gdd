@@ -56,11 +56,13 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             
             
         }
-
+        //verifica que todos los campos esten completos y luego de si son los tipos de datos correspondientes en caso de que no devuelve
+        //mensaje con todos los errores
         public bool verificarCampos()
         {
             string errores = "";
             long numero;
+            int num;
             bool camposCompletos = !string.IsNullOrWhiteSpace(textBoxMail.Text)
                 && !string.IsNullOrWhiteSpace(textBoxCuit.Text)
                 && !string.IsNullOrWhiteSpace(textBoxRazonSocial.Text);
@@ -69,6 +71,9 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 errores += "Todos los campos deben estar completos.";
             } else {
                 if (!long.TryParse(textBoxCuit.Text, out numero)) { errores += "El CUIT debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxPiso.Text) && !int.TryParse(textBoxPiso.Text, out num)) { errores += "El Piso debe ser un valor numérico. \n"; }
+                if (!int.TryParse(textBoxNumeroCalle.Text, out num)) { errores += "El Numero de la Calle debe ser un valor numérico. \n"; }
+                if (!string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text) && !int.TryParse(textBoxCodigoPostal.Text, out num)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }
             }
 
             if (errores != "") {
