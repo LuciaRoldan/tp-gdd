@@ -302,7 +302,7 @@ GO
 
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1, GETDATE(), 0, 0
+SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), replace(Espec_Empresa_Cuit, '-', ''), 1, GETDATE(), 0, 0
 FROM gd_esquema.Maestra
 GO
 
