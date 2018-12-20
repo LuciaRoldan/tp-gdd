@@ -63,6 +63,7 @@
             this.textBoxCiudad = new System.Windows.Forms.TextBox();
             this.buttonH = new System.Windows.Forms.Button();
             this.buttonD = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -378,11 +379,22 @@
             this.buttonD.UseVisualStyleBackColor = true;
             this.buttonD.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(219, 252);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 96;
+            this.button2.Text = "Editar tarjetas";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // ModificarCli
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 287);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonD);
             this.Controls.Add(this.buttonH);
             this.Controls.Add(this.label15);
@@ -463,5 +475,6 @@
         private System.Windows.Forms.TextBox textBoxCiudad;
         private System.Windows.Forms.Button buttonH;
         private System.Windows.Forms.Button buttonD;
+        private System.Windows.Forms.Button button2;
     }
 }

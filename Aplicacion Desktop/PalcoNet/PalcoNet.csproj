@@ -55,6 +55,18 @@
     <Compile Include="Abm Cliente\BusquedaCli.Designer.cs">
       <DependentUpon>BusquedaCli.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\EditarMPs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\EditarMPs.Designer.cs">
+      <DependentUpon>EditarMPs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\EditarTarjeta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\EditarTarjeta.Designer.cs">
+      <DependentUpon>EditarTarjeta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Cliente\ModificarCli.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,12 +132,6 @@
     </Compile>
     <Compile Include="Comprar\FinalizarCompra.Designer.cs">
       <DependentUpon>FinalizarCompra.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Comprar\ModificarMP.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Comprar\ModificarMP.Designer.cs">
-      <DependentUpon>ModificarMP.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\MedioPago.cs">
       <SubType>Form</SubType>
@@ -292,6 +298,12 @@
       <DependentUpon>BusquedaCli.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\EditarMPs.resx">
+      <DependentUpon>EditarMPs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\EditarTarjeta.resx">
+      <DependentUpon>EditarTarjeta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ModificarCli.resx">
       <DependentUpon>ModificarCli.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -328,9 +340,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\FinalizarCompra.resx">
       <DependentUpon>FinalizarCompra.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Comprar\ModificarMP.resx">
-      <DependentUpon>ModificarMP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar\MedioPago.resx">
       <DependentUpon>MedioPago.cs</DependentUpon>

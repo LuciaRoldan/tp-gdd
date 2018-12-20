@@ -290,5 +290,11 @@ namespace PalcoNet.Abm_Cliente
         {
             button1.Enabled = true;
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            new EditarMPs(this, this.clienteViejo).Show();
+            this.Hide();
+        }
     }
 }
