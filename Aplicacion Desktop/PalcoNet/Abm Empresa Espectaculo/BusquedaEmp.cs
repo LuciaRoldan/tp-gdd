@@ -92,14 +92,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 var bindingList = new BindingList<Empresa>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
-                this.dataGridViewResultados.Columns[1].Visible = false;
-                //if (resultados.Count >= 1) { dataGridViewResultados.Rows[0].Selected = true; }
-                if(dataGridViewResultados.Rows.Count > 0) {
-                    dataGridViewResultados.Rows[0].Selected = true;
-                }
-                //Aca hay que buscar en la base y obtener una lista de empresas que cumplan con los criterios de busqueda
-                //y mostramos por pantalla los resultados de la busqueda
-
+                if (resultados.Count >= 1) { dataGridViewResultados.Rows[0].Selected = true; }
             }
         }
 
@@ -125,6 +118,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         }
 
+        //Se limpian los campos para una nueva busqueda
         private void button4_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
