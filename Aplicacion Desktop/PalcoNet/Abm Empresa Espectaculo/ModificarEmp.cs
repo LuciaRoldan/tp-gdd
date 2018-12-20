@@ -77,6 +77,32 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) {if (!int.TryParse(textBoxCodigoPostal.Text, out num)) { errores += "El Codigo Postal debe ser un valor numérico. \n"; }}
 
 
+            if (!long.TryParse(textBoxCuit.Text, out numero))
+            {
+                //Verificamos que el CUIT tenga el largo que corresponde
+                if (!(Int64.Parse(textBoxCuit.Text) > 9999999999 & Int64.Parse(textBoxCuit.Text) < 100000000000))
+                { errores += "El CUIL debe poseer 11 digitos. \n"; }
+                else
+                {
+                    //Verificamos que el CUIL sea valido
+
+                    Servidor servidor = Servidor.getInstance();
+                    string query = "'" + Int64.Parse(textBoxCuit.Text) + "'";
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        if (!bool.Parse(reader["valido"].ToString()))
+                        {
+                            errores += "Ingrese un CUIL válido. \n";
+                        }
+                    }
+                }
+
+            }
+            
+
+
             if (errores != "") {
                 Console.WriteLine("Hay errores");
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);

@@ -79,6 +79,8 @@ namespace PalcoNet
                 //en el caso de que el usurio haya sido registrado por un administrador o en el login en el primer
                 //ingreso deberá cambiar su contraseña obligatoriamente
 
+                sesion.usuario = this.Usuario;
+
                 if (usuario.DebeCambiarContraseña)
                 {
                     CambioContrasenia c = new CambioContrasenia(usuario.NombreUsuario);
@@ -86,7 +88,6 @@ namespace PalcoNet
                     c.ShowDialog();
                 }
 
-                sesion.usuario = this.Usuario;
                 Console.Write(sesion.usuario.IdUsuario);
                 List<Rol> roles = new List<Rol>();
 
@@ -174,25 +175,22 @@ namespace PalcoNet
         {
             if (comboBoxUsuario.SelectedIndex > -1)
             {
-                if (comboBoxUsuario.SelectedIndex > -1)
+                switch (comboBoxUsuario.Text.Trim())
                 {
-                    switch (comboBoxUsuario.Text.Trim())
-                    {
-                        case "Cliente":
-                            new RegistroDeCliente(new Cliente(), this).Show();
-                            break;
-                        case "Empresa":
-                            new RegistroDeEmpresa(new Empresa(), this).Show();
-                            break;
-                    }
-                    this.Hide();
+                    case "Cliente":
+                        new RegistroDeCliente(new Cliente(), this).Show();
+                        break;
+                    case "Empresa":
+                        new RegistroDeEmpresa(new Empresa(), this).Show();
+                        break;
                 }
-                else
-                {
-                    MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
-                }
-                sesion.rol.Nombre = comboBoxUsuario.Text.Trim();
+                this.Hide();
             }
+            else
+            {
+                MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
+            }
+            //sesion.rol.Nombre = comboBoxUsuario.Text.Trim();
         }
 
         private void comboBoxUsuario_SelectedIndexChanged(object sender, EventArgs e)

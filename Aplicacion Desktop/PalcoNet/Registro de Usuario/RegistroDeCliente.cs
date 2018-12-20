@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Registro_de_Usuario
 {
@@ -27,7 +28,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.cliente = cliente;
             InitializeComponent();
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
-            dateTimePickerNacimiento.MinDate = Sesion.getInstance().fecha;
+            dateTimePickerNacimiento.MaxDate = Sesion.getInstance().fecha;
         }
         //Verificamos que todos los campos esten completos
         public bool VerificarCampos(){
@@ -38,13 +39,53 @@ namespace PalcoNet.Registro_de_Usuario
             if (string.IsNullOrWhiteSpace(textBoxDocumento.Text)) {error += "El Número de Documento no puede estar vacío\n"; }
             if (!long.TryParse(textBoxDocumento.Text, out x)) { error += "El campo 'Número de Documento' debe ser numérico\n"; }
             if (comboBoxDocumento.SelectedItem == null) {error += "El Tipo de Documento no puede estar vacío\n"; }
-            if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) {error += "El CUIL no puede estar vacío\n"; }
-            if (!long.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxCuil.Text)) { if (!long.TryParse(textBoxCuil.Text, out x)) { error += "El campo 'CUIL' debe ser numérico\n"; } }
             if (string.IsNullOrWhiteSpace(textBoxMail.Text)) {error += "El Mail no puede estar vacío\n"; }
             if (!long.TryParse(textBoxTelefono.Text, out x)) { error += "El campo 'Teléfono' debe ser numérico\n"; }
             if (Sesion.getInstance().fecha < dateTimePickerNacimiento.Value || dateTimePickerNacimiento.Value < dateTimePickerNacimiento.MinDate) { error += "La fecha de nacimiento no es válida\n"; }
             if (string.IsNullOrWhiteSpace(textBoxNumero.Text)) { error += "El Número de Tarjeta no puede estar vacío\n"; }
             if (!long.TryParse(textBoxNumero.Text, out x)) { error += "El Número de Tarjeta debe ser numérico\n"; }
+
+
+
+            //Si posee DNI, valido DNI y CUIL
+            if (comboBoxDocumento.Text == "DNI")
+            {
+
+            if (long.TryParse(textBoxDocumento.Text, out x))
+            {
+                //Verificamos que el documento tenga el largo que corresponde
+
+                if (!(Int32.Parse(textBoxDocumento.Text) > 9999999 & Int32.Parse(textBoxDocumento.Text) < 100000000))
+                { error += "El documento debe poseer 8 digitos. \n"; }
+            }
+
+            if (long.TryParse(textBoxCuil.Text, out x))
+            {
+                //Verificamos que el CUIL tenga el largo que corresponde
+                Console.Write(cliente.Cuil);
+                if (!(long.Parse(textBoxCuil.Text) > 9999999999 & long.Parse(textBoxCuil.Text) < 100000000000))
+                { error += "El CUIL debe poseer 11 digitos. \n"; }
+                else
+                {
+                    //Verificamos que el CUIL sea valido
+
+                    Servidor servidor = Servidor.getInstance();
+                    string query = "'" + Int64.Parse(textBoxCuil.Text) + "', '" + Int64.Parse(textBoxDocumento.Text) + "'";
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuilEsValido_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        if (!bool.Parse(reader["valido"].ToString()))
+                        {
+                            error += "Ingrese un CUIL válido. \n";
+                        }
+                    }
+                }
+
+            }
+
+            }
 
 
             if (error != "")
@@ -66,16 +107,22 @@ namespace PalcoNet.Registro_de_Usuario
         {
             if (this.VerificarCampos())
             {
-                //Creamos el objeto cliete con todos los datos que ingreso el usuario
+                //Creamos el objeto cliente con todos los datos que ingreso el usuario
                 cliente.FechaDeCreacion = Sesion.getInstance().fecha;
                 cliente.Apellido = textBoxApellido.Text;
                 cliente.Nombre = textBoxNombre.Text;
                 cliente.Mail = textBoxMail.Text;
                 cliente.NumeroDeDocumento = Int32.Parse(textBoxDocumento.Text);
-                cliente.Cuil = long.Parse(textBoxCuil.Text);
+                if (!string.IsNullOrWhiteSpace(textBoxCuil.Text)) { cliente.Cuil = long.Parse(textBoxCuil.Text); }
                 cliente.TipoDocumento = comboBoxDocumento.SelectedText;
                 if (!string.IsNullOrWhiteSpace(textBoxTelefono.Text)) { Cliente.Telefono = long.Parse(textBoxTelefono.Text); }
                 if (dateTimePickerNacimiento.Value != null) { Cliente.FechaDeNacimiento = dateTimePickerNacimiento.Value; }
+
+
+
+
+
+
 
                 //Agregamos la tarjeta
                 Tarjeta tarjeta = new Tarjeta();

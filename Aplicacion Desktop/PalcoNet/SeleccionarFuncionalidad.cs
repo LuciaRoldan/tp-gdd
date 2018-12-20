@@ -36,14 +36,15 @@ namespace PalcoNet
 
             InitializeComponent();
 
-            Console.WriteLine(sesion.rol.Nombre);
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
+            Console.WriteLine("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
 
-                while (reader.Read())
-                {
-                    comboBox1.Items.Add(reader["nombre"].ToString());
-                }
-                reader.Close();
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getFuncionalidadesDeRol_sp '" + sesion.rol.Nombre + "'");
+
+            while (reader.Read())
+            {
+                comboBox1.Items.Add(reader["nombre"].ToString());
+            }
+            reader.Close();
          
          }
 

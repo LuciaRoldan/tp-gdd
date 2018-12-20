@@ -580,9 +580,9 @@ BEGIN
 			BEGIN
 					IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-													WHERE username = '20959835' and alta = 1) != 1)
+													WHERE username = @usuario and alta = 1) != 1)
 						BEGIN
-						RAISERROR('El ROL esta inhabilitado', 16, 1)
+						RAISERROR('El rol esta inhabilitado', 16, 1)
 						END
 					ELSE
 					BEGIN
@@ -591,7 +591,7 @@ BEGIN
 							UPDATE MATE_LAVADO.Usuarios
 							SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
 							WHERE username = @usuario;
-							RAISERROR('Contrase�a invalida', 16, 1)
+							RAISERROR('Contraseña invalida', 16, 1)
 						END
 						ELSE --esta inhabilitado
 							BEGIN
@@ -817,6 +817,9 @@ BEGIN
 		AND mail LIKE '%' + @email + '%')
 END
 GO
+
+
+
 
 -----modificarCliente-----
 CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
@@ -1913,7 +1916,7 @@ GO
 
 --drop TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 -----actualizarUsuarioHabilitado-----
-/*CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
+CREATE TRIGGER MATE_LAVADO.actualizarUsuarioHabilitado
 ON MATE_LAVADO.Usuarios
 AFTER UPDATE
 AS
@@ -1927,8 +1930,7 @@ BEGIN
 		WHERE username = @username
 	END
 END
-GO*/
-
+GO
 
 -----finalizarEspectaculo-----
 CREATE TRIGGER MATE_LAVADO.finalizarEspectaculoAgotado_tg
@@ -2029,9 +2031,121 @@ go
 create procedure deshabilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
 end
+go
+
+
+-----validarDigitoVerificador-----
+create function MATE_LAVADO.fn_ValidarDigitoVerificador (@cuit_nro varchar(11))
+returns  bit
+as
+
+begin
+declare @verificador int
+declare @resultado int = 0
+declare @validacion bit
+declare @codes varchar(10) = '6789456789'
+
+if isnumeric(@cuit_nro) <> 1
+begin
+return 0
+end
+
+if len(@cuit_nro) <> 11
+begin
+set @validacion = 0
+end
+
+set @verificador = RIGHT(@cuit_nro, 1)
+
+declare @x int = 0
+
+while @x < 10
+begin
+declare @digitoValidador int = convert(int, substring(@codes, @x + 1, 1))
+declare @digito int = convert(int, substring(@cuit_nro, @x + 1, 1))
+declare @digitoValidacion int = @digitoValidador * @digito
+set @resultado = @resultado + @digitoValidacion
+set @x = @x + 1
+end
+
+set @resultado = @resultado % 11
+
+If @resultado = @verificador
+begin
+set @validacion = 1
+end
+else
+begin
+set @validacion = 0
+End
+
+return @validacion
+end
+GO
+
+-----cuitDeEmpresa-----
+create function MATE_LAVADO.fn_cuitDeEmpresa (@cuit varchar(11))
+returns  bit
+as
+begin
+	DECLARE @inicialesDeCuit VARCHAR(2) = LEFT(@cuit, 2)
+	
+	if(@inicialesDeCuit IN ('30', '33', '34'))
+	begin
+		return 1
+	end
+
+	return 0
+end
+GO
+
+
+-----cuilDeCliente-----
+create function MATE_LAVADO.fn_cuilDeCliente (@cuil varchar(11), @documento varchar(8))
+returns  bit
+as
+begin
+	DECLARE @documentoDeCuit VARCHAR(8) = SUBSTRING(@cuil, 3, 8)
+	DECLARE @inicialesDeCuit VARCHAR(2) = LEFT(@cuil, 2)
+
+	if(@inicialesDeCuit IN ('20', '23', '24', '27') AND @documento = @documentoDeCuit)
+	begin
+		return 1
+	end
+
+	return 0
+end
+GO
+
+
+-----cuitEsValido-----
+CREATE PROCEDURE MATE_LAVADO.cuitEsValido_sp(
+@cuit VARCHAR(11)
+)
+AS
+BEGIN
+	DECLARE @verificadorValido BIT = (SELECT MATE_LAVADO.fn_ValidarDigitoVerificador(@cuit))
+	DECLARE @datosDeEmpresaValidos BIT = (SELECT MATE_LAVADO.fn_cuitDeEmpresa(@cuit))
+	SELECT @verificadorValido & @datosDeEmpresaValidos AS valido
+END
+GO
+
+-----cuilEsValido-----
+CREATE PROCEDURE MATE_LAVADO.cuilEsValido_sp(
+@cuil VARCHAR(11),
+@documento VARCHAR(8)
+)
+AS
+BEGIN
+	DECLARE @verificadorValido BIT = (SELECT MATE_LAVADO.fn_ValidarDigitoVerificador(@cuil))
+	DECLARE @datosDeClienteValidos BIT = (SELECT MATE_LAVADO.fn_cuilDeCliente(@cuil, @documento))
+	SELECT @verificadorValido & @datosDeClienteValidos AS valido
+END
+>>>>>>> 81d97c62934445bda26e0dd7983ad4083026384a
 GO
 
 -----habilitarUsuario-----
 create procedure habilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
 end
+go
