@@ -79,6 +79,7 @@ namespace PalcoNet.Generar_Publicacion
             if (checkBoxNumerado.Checked ? !int.TryParse(textBoxFilas.Text, out x) : false) { errores += "El campo Cantidad de Filas debe contener un valor numérico.\n"; }
             if(!int.TryParse(textBoxCantidad.Text, out x)) {errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n" ;}
             if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
+            if (decimal.TryParse(textBoxPrecio.Text, out y)) { if (decimal.Parse(textBoxPrecio.Text) <= 0) { errores += "El campo Precio debe contener un valor positivo.\n"; } }
             if(string.IsNullOrWhiteSpace(textBoxTipo.Text)) {errores += "Se debe completar con un Tipo de Asiento.\n"; }
            
             if (errores != "") { 

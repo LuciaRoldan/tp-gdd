@@ -206,7 +206,7 @@ id_medio_de_pago INT REFERENCES MATE_LAVADO.Medios_de_pago,
 cantidad NUMERIC(18, 0),
 fecha DATETIME,
 importe NUMERIC(18,2),
-comision NUMERIC(3,3);
+comision NUMERIC(3,3) CHECK(comision >= 0)
 GO
 
 ALTER TABLE MATE_LAVADO.Publicaciones ADD
@@ -228,11 +228,11 @@ ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
 id_compra INT REFERENCES MATE_LAVADO.Compras,
-facturado BIT DEFAULT 0;
+facturado BIT DEFAULT 0
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
-comision NUMERIC(3,3),
+comision NUMERIC(3,3) CHECK(comision < 1 AND comision >=0),
 nombre NVARCHAR(20)
 GO
 
@@ -249,7 +249,7 @@ codigo_tipo_ubicacion INT,
 fila VARCHAR(3),
 asiento NUMERIC(18),
 sin_numerar BIT,
-precio NUMERIC(18)
+precio NUMERIC(18) CHECK(precio > 0)
 GO
 
 ALTER TABLE MATE_LAVADO.Premios ADD
@@ -1204,6 +1204,14 @@ create PROCEDURE MATE_LAVADO.buscarEspectaculosPorPublicacion_sp (@id_publicacio
 	select fecha_evento, id_espectaculo FROM MATE_LAVADO.Espectaculos where id_publicacion = @id_publicacion AND estado_espectaculo = 'Publicada'
 end
 GO
+
+
+-----buscarEspectaculosBorradorPorPublicacion-----
+create PROCEDURE MATE_LAVADO.buscarEspectaculosBorradorPorPublicacion_sp (@id_publicacion int) as begin
+	select fecha_evento, id_espectaculo FROM MATE_LAVADO.Espectaculos where id_publicacion = @id_publicacion AND estado_espectaculo = 'Borrador'
+end
+GO
+
 
 -----buscarPublicacionesPorCriterio_sp-----
 create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
@@ -2196,3 +2204,6 @@ insert into MATE_LAVADO.ItemFactura (id_factura, id_compra, id_tipo_ubicacion, c
 values (@id_factura, @id_compra, @id_ubicacion, @cantidad, @importe, @comision)
 end
 go
+
+
+select * from mate_lavado.empresas order by id_empresa desc

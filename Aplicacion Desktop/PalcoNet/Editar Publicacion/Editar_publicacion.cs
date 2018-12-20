@@ -109,6 +109,7 @@ namespace PalcoNet.Editar_Publicacion
             if (!int.TryParse(textBoxCantidad.Text, out x)) { errores += "El campo Cantidad de Asientos debe contener un valor numérico.\n"; }
             if(!decimal.TryParse(textBoxPrecio.Text, out y)){errores += "El campo Precio debe contener un valor numérico.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxAsiento.Text)) { errores += "Se debe escribir un Tipo de Asiento.\n"; }
+            if (decimal.TryParse(textBoxPrecio.Text, out y)) { if (decimal.Parse(textBoxPrecio.Text) <= 0) { errores += "El campo Precio debe contener un valor positivo.\n"; } }
            
             if (errores != "") { 
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
@@ -156,7 +157,7 @@ namespace PalcoNet.Editar_Publicacion
                 comboBoxRubro.Text = publicacionElegida.Rubro;
                 comboBoxEstado.Text = publicacionElegida.EstadoDePublicacion;
                 Servidor servidor = Servidor.getInstance();
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEspectaculosPorPublicacion_sp " + this.PublicacionElegida.Id);
+                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEspectaculosBorradorPorPublicacion_sp " + this.PublicacionElegida.Id);
 
                 this.PublicacionElegida.Fechas.Clear();
                 while (reader.Read())
@@ -486,6 +487,11 @@ namespace PalcoNet.Editar_Publicacion
         private void comboBoxRubro_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             this.HayCambiosDeBase = true;
+        }
+
+        private void textBoxPrecio_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
