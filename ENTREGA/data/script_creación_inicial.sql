@@ -227,7 +227,8 @@ GO
 ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
-id_compra INT REFERENCES MATE_LAVADO.Compras;
+id_compra INT REFERENCES MATE_LAVADO.Compras,
+facturado BIT;
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -513,6 +514,17 @@ JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
 JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 WHERE c.id_compra = uxe.id_compra
 GO
+
+UPDATE MATE_LAVADO.UbicacionXEspectaculo
+SET facturado = 0
+FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+LEFT JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
+WHERE c.id_compra IS NULL
+
+UPDATE MATE_LAVADO.UbicacionXEspectaculo
+SET facturado = 1
+FROM MATE_LAVADO.UbicacionXEspectaculo uxe
+JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
 
 --.--.--.--.--.--.--PREMIOS--.--.--.--.--.--.--
 
