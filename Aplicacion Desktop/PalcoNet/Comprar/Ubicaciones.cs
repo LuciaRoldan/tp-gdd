@@ -136,7 +136,9 @@ namespace PalcoNet.Comprar
 
                     Servidor servidor = Servidor.getInstance();
 
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'");
+                    String query = "EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'";
+
+                    SqlDataReader reader = servidor.query(query);
 
                     while (reader.Read())
                     {
@@ -151,14 +153,14 @@ namespace PalcoNet.Comprar
 
                     this.Compra.Ubicaciones.Add(ubicacion);
 
+                    List<Asiento> asientosDisponiblesActuales = new List<Asiento>();
+                        
+                    asientosDisponiblesActuales.AddRange(this.AsientosDisponibles);
+
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
                     {
-
-                        Asiento elAsiento = asientosDisponibles[i];
-                        asientosDisponibles.Remove(elAsiento);
-                        Console.Write("ak removiendo asientos");
-                        Console.Write("id del asiento es: ");
-                        Console.Write(elAsiento.Id.ToString());
+                        Asiento elAsiento = asientosDisponiblesActuales[i];
+                        this.AsientosDisponibles.Remove(elAsiento);
                         //Agrego el asiento elegido a la lista de asientos de la compra
                         this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
                     }
