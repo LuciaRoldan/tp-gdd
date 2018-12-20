@@ -22,6 +22,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         String codigoPostal;
         SqlDataReader readerEmpresa;
 
+        //Traemos el form anterior con su informacion y la empresa seleccionada a modificar 
         public ModificarEmp(Empresa empresa, MiForm anterior) : base(anterior)
         {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
    
             empresaVieja = empresa;
 
+            //A partir de los datos brindados por el cliente buscamos en resto en la base y se los presentamos al usuario para que pueda cambiarlos
             readerEmpresa = servidor.query("EXEC MATE_LAVADO.obtenerDatosAdicionalesEmpresa '" + empresa.Id + "'");
 
             readerEmpresa.Read();
@@ -47,6 +49,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             textBoxCiudad.Text += empresaVieja.Ciudad;
             textBoxLocalidad.Text += empresaVieja.Localidad;
 
+            //Habilitamos o dehabilitamos la funcion de habilitar y dehabilitar la empresa dependiendo de su estado actual
             if (empresa.Habilitado)
             {
                 buttonD.Enabled = true;
@@ -103,9 +106,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             }
             
 
-
+            //mostramos todos los errores 
             if (errores != "") {
-                Console.WriteLine("Hay errores");
                 MessageBox.Show(errores, "Error", MessageBoxButtons.OK);
                 return false;
             }
@@ -113,15 +115,17 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
 
         }
 
+        //Botón para volver a la busqueda de la empresa
         private void button3_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Close();
         }
 
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            if (this.verificarCampos()) //Tambien faltaria verificar que no sean nulos los ingresados
+            if (this.verificarCampos()) //verificamos los datos ingresados y de ser correctos se los pasamos al SP para que actualice la base
             {
                 Empresa empresaModificada = new Empresa();
                 empresaModificada.RazonSocial = textBoxRazonSocial.Text;
@@ -149,6 +153,24 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             
         }
 
+        //Botón para habilitar empresa
+        private void buttonH_Click(object sender, EventArgs e)
+        {
+            servidor.realizarQuery("exec MATE_LAVADO.habilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            MessageBox.Show("La empresa fue habilitada", "Editar Empresa", MessageBoxButtons.OK);
+            buttonD.Enabled = true;
+            buttonH.Enabled = false;
+        }
+        //Botón para deshabilitar empresa
+        private void buttonD_Click(object sender, EventArgs e)
+        {
+            servidor.realizarQuery("exec MATE_LAVADO.deshabilitarUsuario_sp " + this.empresaVieja.IdUsuario);
+            MessageBox.Show("La empresa fue deshabilitada", "Editar Empresa", MessageBoxButtons.OK);
+            buttonD.Enabled = false;
+            buttonH.Enabled = true;
+        }
+
+        //funciones para evaluar que datos han sido modificados
         private void textBoxRazonSocial_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = true;
@@ -167,22 +189,6 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         private void label11_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void buttonH_Click(object sender, EventArgs e)
-        {
-            servidor.realizarQuery("exec MATE_LAVADO.habilitarUsuario_sp " + this.empresaVieja.IdUsuario);
-            MessageBox.Show("La empresa fue habilitada", "Editar Empresa", MessageBoxButtons.OK);
-            buttonD.Enabled = true;
-            buttonH.Enabled = false;
-        }
-
-        private void buttonD_Click(object sender, EventArgs e)
-        {
-            servidor.realizarQuery("exec MATE_LAVADO.deshabilitarUsuario_sp " + this.empresaVieja.IdUsuario);
-            MessageBox.Show("La empresa fue deshabilitada", "Editar Empresa", MessageBoxButtons.OK);
-            buttonD.Enabled = false;
-            buttonH.Enabled = true;
         }
 
         private void textBoxCalle_TextChanged(object sender, EventArgs e)

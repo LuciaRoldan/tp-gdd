@@ -1546,7 +1546,7 @@ end
 GO
 
 -----getMediosDePago-----
-alter PROCEDURE MATE_LAVADO.getMediosDePago_sp
+CREATE PROCEDURE MATE_LAVADO.getMediosDePago_sp
 @id_cliente INT
 AS
 BEGIN

@@ -29,7 +29,8 @@ namespace PalcoNet.Abm_Cliente
             get { return cliente; }
             set { cliente = value; }
         }
-
+        
+        //Traemos el form anterior, la tarjeta seleccionada y el cliente dueño de la tarjeta a modificar
         public EditarTarjeta(EditarMPs anterior, Tarjeta tarjeta, Cliente cliente)
         {
             InitializeComponent();
@@ -41,36 +42,26 @@ namespace PalcoNet.Abm_Cliente
             textBox1.Text = TarjetaVieja.Titular;
         }
 
+        //Botón para volver al data grid de las tarjetas del cliente
         private void button1_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Hide();
         }
 
+        //Una vez hechas las modificaciones verificamos que los campos sean validos y usamos un sp para actualizar la informacion en la base
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos())
             {
                 Tarjeta tarjetaModificada = new Tarjeta();
 
-                //if (modificoTarjeta)
-                //{
                     tarjetaModificada.NumeroDeTarjeta = long.Parse(textBoxNumero.Text);
                     tarjetaModificada.Titular = textBox1.Text;
 
                     String query = tarjetaVieja.Id + ", '" + tarjetaModificada.NumeroDeTarjeta + "', '" + tarjetaModificada.Titular + "'";
-                    Console.WriteLine("EXEC MATE_LAVADO.modificarTarjeta_sp " + query);
+
                     servidor.realizarQuery("EXEC MATE_LAVADO.modificarTarjeta_sp " + query);
-                /*}
-                else
-                {
-                    tarjetaModificada.Titular = textBox1.Text;
-
-                    String query = tarjetaVieja.Id + ", '" + tarjetaModificada.Titular + "'";
-
-                    servidor.realizarQuery("EXEC MATE_LAVADO.modificarTitularTarjeta_sp " + query);
-
-                }*/
 
                 ((EditarMPs)this.Anterior).actualizarMP();
                 MessageBox.Show("Los cambios se realizaron exitosamente.", "Modificar medio de pago", MessageBoxButtons.OK);
@@ -79,6 +70,7 @@ namespace PalcoNet.Abm_Cliente
             }
         }
 
+        //Función para verificar todos los campos y tipos de datos
         public bool verificarCampos()
         {
             string error = "";
