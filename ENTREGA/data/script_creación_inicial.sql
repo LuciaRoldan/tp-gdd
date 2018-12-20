@@ -487,8 +487,6 @@ LEFT JOIN MATE_LAVADO.#ComprasTemp ct ON(ct.id_espectaculo = gd.Espectaculo_Cod
 		AND ct.tipo_codigo = gd.Ubicacion_Tipo_Codigo)
 GO
 
-update MATE_LAVADO.UbicacionXEspectaculo set facturado = 1 
-go
 
 --.--.--.--.--.--.--ITEMFACTURA--.--.--.--.--.--.--
 
@@ -1086,17 +1084,17 @@ end
 GO
 
 -----registrarCompra----- 
-/*REVISAR*/ --saque el id_factura que lo insertabamos como NULL
 CREATE PROCEDURE MATE_LAVADO.registrarCompra_sp
 @id_cliente INT,
 @id_medio_de_pago INT,
 @importe BIGINT,
-@fecha VARCHAR(30)
+@fecha VARCHAR(30),
+@cantidad int
 AS
 BEGIN
 	SET IDENTITY_INSERT MATE_LAVADO.Compras ON
-	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe)
-	VALUES(@id_cliente, @id_medio_de_pago, CONVERT(DATETIME, @fecha, 121), @importe)
+	INSERT INTO MATE_LAVADO.Compras(id_cliente, id_medio_de_pago, fecha, importe, cantidad)
+	VALUES(@id_cliente, @id_medio_de_pago, CONVERT(DATETIME, @fecha, 121), @importe, @cantidad)
 	SET IDENTITY_INSERT MATE_LAVADO.Compras OFF
 END
 GO
@@ -1785,14 +1783,15 @@ GO
 -----ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion-----
 CREATE PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp
 @id_espectaculo INT,
-@tipo_ubicacion VARCHAR(30)
+@tipo_ubicacion VARCHAR(30),
+@precio numeric(18,2)
 AS
 BEGIN
 	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
 	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
 	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
-	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
+	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion AND precio = @precio
 END
 GO
 

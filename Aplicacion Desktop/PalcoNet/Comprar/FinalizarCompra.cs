@@ -30,8 +30,7 @@ namespace PalcoNet.Comprar
             this.Compra = compra;
 
             this.Compra.Importe = this.Compra.calcularImporte();
-
-            //Estaria bueno hacer alguna magia para que en la compra aparezca el total calculado y la cantidad de entradas calculada
+            Console.WriteLine(this.Compra.calcularCantidadAsientos());
 
             this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
             this.textBoxCantidad.Text = this.Compra.calcularCantidadAsientos().ToString();
@@ -51,8 +50,8 @@ namespace PalcoNet.Comprar
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "'";
-
+            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "', " + this.Compra.calcularCantidadAsientos();
+            Console.WriteLine("exec MATE_LAVADO.registrarCompra_sp " + query);
             SqlDataReader reader = Servidor.getInstance().query("exec MATE_LAVADO.registrarCompra_sp " + query);
             while (reader.Read())
             {

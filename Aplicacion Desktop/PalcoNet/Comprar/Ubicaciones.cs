@@ -98,7 +98,7 @@ namespace PalcoNet.Comprar
                 {
                     Servidor servidor = Servidor.getInstance();
 
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'");
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "', " + this.ubicacion.Precio);
 
                     while (reader.Read())
                     {
