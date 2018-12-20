@@ -89,7 +89,7 @@ namespace PalcoNet.Dominio
         public int calcularCantidadAsientos()
         {
             int cantidad = 0;
-            foreach (Ubicacion u in this.Ubicaciones) { cantidad += u.CalcularCantidadAsientos(); }
+            foreach (Ubicacion u in this.Ubicaciones) { cantidad += u.CantidadAsientos; }
             return cantidad;
         }
 
