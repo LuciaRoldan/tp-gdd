@@ -159,7 +159,7 @@ GO
 ALTER TABLE MATE_LAVADO.Medios_de_pago ADD
 id_cliente INT REFERENCES MATE_LAVADO.Clientes,
 descripcion VARCHAR(10) CHECK(descripcion IN ('Efectivo', 'Tarjeta')),
-nro_tarjeta NUMERIC(30) UNIQUE,
+nro_tarjeta NUMERIC(30),
 titular NVARCHAR(50)
 GO
 
@@ -543,7 +543,7 @@ GO
 --.--.--.--.--.--.--UTILIDADES--.--.--.--.--.--.--
 -----CREAR PROCEDURES-----
 -----verificarLogin-----
-alter PROCEDURE MATE_LAVADO.verificarLogin_sp
+create PROCEDURE MATE_LAVADO.verificarLogin_sp
 @usuario VARCHAR(255),
 @encriptada VARCHAR(255)
 AS

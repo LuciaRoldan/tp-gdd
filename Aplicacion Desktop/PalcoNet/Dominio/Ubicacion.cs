@@ -49,11 +49,6 @@ namespace PalcoNet.Dominio
             set { cantidadAsientos = value; }
         }
 
-        public int CalcularCantidadAsientos()
-        {
-            return asientos.Count();
-        }
-
         public string TipoAsiento
         {
             get { return tipoAsiento; }
