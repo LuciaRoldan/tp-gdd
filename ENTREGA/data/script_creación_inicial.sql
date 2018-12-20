@@ -671,7 +671,7 @@ BEGIN
 	SELECT DISTINCT nombre FROM MATE_LAVADO.Roles
 	WHERE habilitado = 1
 	AND alta = 1
-	AND nombre like 'Empresa' OR nombre like 'Cliente'
+	AND (id_rol = 2 OR id_rol = 3)
 END
 GO
 
@@ -2003,8 +2003,5 @@ GO
 -----eliminarRol-----
 create procedure MATE_LAVADO.eliminarRol_sp (@nombre varchar(255)) as begin
 update MATE_LAVADO.Roles set alta = 0 where nombre = @nombre
-declare @id_rol int 
-set @id_rol = (select id_rol from MATE_LAVADO.Roles where nombre = @nombre)
-delete MATE_LAVADO.UsuarioXRol where id_rol = @id_rol
 end
 go

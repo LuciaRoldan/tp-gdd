@@ -56,7 +56,8 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             
             
         }
-
+        //verifica que todos los campos esten completos y luego de si son los tipos de datos correspondientes en caso de que no devuelve
+        //mensaje con todos los errores
         public bool verificarCampos()
         {
             string errores = "";
