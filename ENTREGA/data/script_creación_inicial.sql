@@ -580,9 +580,9 @@ BEGIN
 			BEGIN
 					IF((select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-													WHERE username = '20959835' and alta = 1) != 1)
+													WHERE username = @usuario and alta = 1) != 1)
 						BEGIN
-						RAISERROR('El ROL esta inhabilitado', 16, 1)
+						RAISERROR('El rol esta inhabilitado', 16, 1)
 						END
 					ELSE
 					BEGIN
@@ -591,7 +591,7 @@ BEGIN
 							UPDATE MATE_LAVADO.Usuarios
 							SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
 							WHERE username = @usuario;
-							RAISERROR('Contrase�a invalida', 16, 1)
+							RAISERROR('Contraseña invalida', 16, 1)
 						END
 						ELSE --esta inhabilitado
 							BEGIN

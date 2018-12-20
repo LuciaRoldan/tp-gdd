@@ -58,6 +58,7 @@ namespace PalcoNet.Generar_Publicacion
         private void button2_Click(object sender, EventArgs e)
         {
             //Se guarda todos los datos de la publicación en la base
+            this.progressBar1.Maximum = this.publicacion.Fechas.Count() * this.Publicacion.Ubicaciones.Sum(ubi => ubi.CantidadAsientos);
 
             string query = "'" + this.Empresa.RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
                     + publicacion.Rubro + "', '" + publicacion.Descripcion + "', '"
@@ -67,8 +68,6 @@ namespace PalcoNet.Generar_Publicacion
 
             while (reader.Read())
             {
-                Console.WriteLine(Convert.ToInt32(reader["id_publicacion"]));
-
                 publicacion.Id = Convert.ToInt32(reader["id_publicacion"]);                    
             } 
             
@@ -104,11 +103,9 @@ namespace PalcoNet.Generar_Publicacion
             {
                 foreach (Int32 id_e in ids_espectaculos)
                 {
-                    Console.WriteLine(id_e);
-                    Console.WriteLine(id_u);
-                    
                     string query4 = "'" + id_u + "', '"  + id_e + "'";
                     servidor.query("EXEC MATE_LAVADO.agregarUbicacionXEspectaculo_sp " + query4);
+                    this.progressBar1.Increment(1);
                 }
 
             }
