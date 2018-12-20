@@ -46,7 +46,7 @@ namespace PalcoNet.Generar_Publicacion
             //Hace que se guarde la fecha en la lista de abajo
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
             //Verificamos que la fecha no sea anterior a hoy
-            if (fecha > Sesion.getInstance().fecha && !this.Publicacion.Fechas.Contains(fecha)){
+            if (fecha > this.fechaMaximaActual() && !this.Publicacion.Fechas.Contains(fecha)){
                 this.Fechas.Add(fecha);
                 this.Publicacion.Fechas.Add(fecha);
                 this.actualizarFechas();
@@ -79,5 +79,12 @@ namespace PalcoNet.Generar_Publicacion
             this.publicacion.Fechas.Remove((DateTime) e.Row.DataBoundItem);
             this.actualizarFechas();            
         }
+
+        private DateTime fechaMaximaActual()
+        {
+            if (this.fechas.Count == 0) { return Sesion.getInstance().fecha; }
+            return this.fechas.Max();
+        }
+
     }
 }
