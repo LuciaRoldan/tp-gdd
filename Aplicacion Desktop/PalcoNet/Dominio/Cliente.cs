@@ -20,8 +20,6 @@ namespace PalcoNet.Dominio
         int puntos;
         int id;
         List<Tarjeta> tarjetas = new List<Tarjeta>();
-        string ciudad;
-        string localidad;
 
         public List<Tarjeta> Tarjetas
         {
@@ -42,7 +40,7 @@ namespace PalcoNet.Dominio
             set { nombre = value; }
         }
 
-        public string Ciudad
+        /*public string Ciudad
         {
             get { return ciudad; }
             set { ciudad = value; }
@@ -52,7 +50,7 @@ namespace PalcoNet.Dominio
         {
             get { return localidad; }
             set { localidad = value; }
-        }
+        }*/
 
         public string Apellido
         {

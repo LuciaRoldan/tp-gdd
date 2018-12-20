@@ -14,8 +14,6 @@ namespace PalcoNet.Dominio
         DateTime fechaDeCreacion;
         int telefono;
         long id;
-        string ciudad;
-        string localidad;
 
         public long Id
         {
@@ -41,7 +39,7 @@ namespace PalcoNet.Dominio
             set { mail = value; }
         }
 
-        public string Ciudad
+        /*public string Ciudad
         {
             get { return ciudad; }
             set { ciudad = value; }
@@ -51,7 +49,7 @@ namespace PalcoNet.Dominio
         {
             get { return localidad; }
             set { localidad = value; }
-        }
+        }*/
 
         public long Cuit
         {

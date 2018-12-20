@@ -550,9 +550,9 @@ AS
 BEGIN
 	DECLARE @id_usuario INT
 		BEGIN
-		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1 AND (select r.habilitado from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
+		IF EXISTS(SELECT * FROM MATE_LAVADO.Usuarios WHERE username = @usuario AND password = @encriptada AND habilitado = 1 AND (select sum(convert(int,r.habilitado)) from MATE_LAVADO.Usuarios u join MATE_LAVADO.UsuarioXRol ur ON (u.id_usuario = ur.id_usuario)
 													join MATE_LAVADO.Roles r ON (r.id_rol = ur.id_rol) 
-													WHERE username = @usuario and alta = 1) = 1)
+													WHERE username = @usuario and alta = 1) > 0)
 		BEGIN
 			UPDATE MATE_LAVADO.Usuarios
 			SET intentos_fallidos = 0
@@ -581,7 +581,7 @@ BEGIN
 						END
 					ELSE
 					BEGIN
-						IF((SELECT habilitado FROM MATE_LAVADO.Usuarios WHERE username = @usuario) = 1)
+						IF((SELECT habilitado FROM MATE_LAVADO.Usuarios WHERE username = @usuario and password != @encriptada) = 1)
 							BEGIN
 							UPDATE MATE_LAVADO.Usuarios
 							SET intentos_fallidos = (SELECT intentos_fallidos FROM MATE_LAVADO.Usuarios WHERE username = @usuario) + 1
@@ -956,6 +956,8 @@ BEGIN
 		RAISERROR( 'La empresa ya existe',11,1) WITH LOG
 END
 GO
+
+
 
 --Vuela?
 -----registroEmpresaConUsuario-----
