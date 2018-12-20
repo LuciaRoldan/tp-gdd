@@ -27,7 +27,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.cliente = cliente;
             InitializeComponent();
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
-            dateTimePickerNacimiento.MinDate = Sesion.getInstance().fecha;
+            dateTimePickerNacimiento.MaxDate = Sesion.getInstance().fecha;
         }
         //Verificamos que todos los campos esten completos
         public bool VerificarCampos(){

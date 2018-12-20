@@ -39,6 +39,7 @@
             this.textBoxFechas = new System.Windows.Forms.TextBox();
             this.textBoxUbicaciones = new System.Windows.Forms.TextBox();
             this.textBoxAsientos = new System.Windows.Forms.TextBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // label2
@@ -53,7 +54,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(195, 195);
+            this.button2.Location = new System.Drawing.Point(195, 235);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 88;
@@ -63,7 +64,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(16, 195);
+            this.button1.Location = new System.Drawing.Point(16, 235);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 87;
@@ -140,11 +141,19 @@
             this.textBoxAsientos.Size = new System.Drawing.Size(83, 20);
             this.textBoxAsientos.TabIndex = 96;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(16, 196);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(254, 23);
+            this.progressBar1.TabIndex = 97;
+            // 
             // Finalizar_publicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 230);
+            this.ClientSize = new System.Drawing.Size(284, 270);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.textBoxAsientos);
             this.Controls.Add(this.textBoxUbicaciones);
             this.Controls.Add(this.textBoxFechas);
@@ -176,5 +185,6 @@
         private System.Windows.Forms.TextBox textBoxFechas;
         private System.Windows.Forms.TextBox textBoxUbicaciones;
         private System.Windows.Forms.TextBox textBoxAsientos;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
