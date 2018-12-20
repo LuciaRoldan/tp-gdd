@@ -55,8 +55,8 @@ namespace PalcoNet.Comprar
 
             List<Char> lista = new List<Char>();
             Console.Write("una fila");
-            Console.Write(formUbicaciones.AsientosDisponibles[0].Fila);
-            lista = formUbicaciones.AsientosDisponibles.Select(a => a.Fila).ToList();
+            Console.Write(formUbicaciones.asientosDisponibles[0].Fila);
+            lista = formUbicaciones.asientosDisponibles.Select(a => a.Fila).ToList();
             this.filas = new HashSet<Char>(lista);
                         
             foreach (char f in filas) {
@@ -71,7 +71,7 @@ namespace PalcoNet.Comprar
             comboBoxAsiento.Items.Clear();
             comboBoxAsiento.ResetText();
 
-            List<Asiento> asientosSeleccionados = formUbicaciones.AsientosDisponibles.Where(a => a.Fila == filaSeleccionada).ToList();
+            List<Asiento> asientosSeleccionados = formUbicaciones.asientosDisponibles.Where(a => a.Fila == filaSeleccionada).ToList();
             List<Int32> numeroAsientosSeleccionados = asientosSeleccionados.Select(a => a.Asiento1).ToList();
             this.asientos = numeroAsientosSeleccionados;
             //Aca hay que buscar en la base todas los asientos disponibles para la fila seleccionada de la publicacion seleccionada

@@ -1516,15 +1516,14 @@ BEGIN
 END
 GO
 
------buscarUbicacionesPorPublicacion-----
-create PROCEDURE MATE_LAVADO.buscarUbicacionesPorPublicacion_sp (@id_publicacion int) as begin
+-----buscarUbicacionesPorEspectaculo-----
+create PROCEDURE MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp (@id_espectaculo int) as begin
 	select t.descripcion descripcion, count(*) asientos, sin_numerar, precio, count(distinct fila) filas, MIN(u.id_ubicacion) as id_ubicacion
 	FROM MATE_LAVADO.Ubicaciones u 
 	JOIN MATE_LAVADO.UbicacionXEspectaculo e on e.id_ubicacion = u.id_ubicacion 
 	JOIN MATE_LAVADO.TiposDeUbicacion t on t.id_tipo_ubicacion = u.codigo_tipo_ubicacion
 	JOIN MATE_LAVADO.Espectaculos ee on ee.id_espectaculo = e.id_espectaculo
-	JOIN MATE_LAVADO.Publicaciones p on p.id_publicacion = ee.id_publicacion
-	where p.id_publicacion = @id_publicacion and e.id_compra is null
+	where ee.id_espectaculo = @id_espectaculo and e.id_compra is null
 	group by t.descripcion, sin_numerar, precio
 end
 GO
@@ -1730,7 +1729,7 @@ CREATE PROCEDURE MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicaci
 AS
 BEGIN
 	DECLARE @id_tipo_ubicacion INT = (SELECT id_tipo_ubicacion FROM MATE_LAVADO.TiposDeUbicacion WHERE descripcion = @tipo_ubicacion)
-	SELECT uxe.id_ubicacion, fila, asiento
+	SELECT uxe.id_ubicacion_espectaculo, fila, asiento
 	FROM MATE_LAVADO.UbicacionXEspectaculo uxe
 	JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 	WHERE uxe.id_espectaculo = @id_espectaculo AND uxe.id_compra IS NULL AND u.codigo_tipo_ubicacion = @id_tipo_ubicacion
