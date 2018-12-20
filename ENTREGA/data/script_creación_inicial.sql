@@ -228,7 +228,7 @@ ALTER TABLE MATE_LAVADO.UbicacionXEspectaculo ADD
 id_espectaculo INT REFERENCES MATE_LAVADO.Espectaculos,
 id_ubicacion INT REFERENCES MATE_LAVADO.Ubicaciones,
 id_compra INT REFERENCES MATE_LAVADO.Compras,
-facturado BIT;
+facturado BIT DEFAULT 0;
 GO
 
 ALTER TABLE MATE_LAVADO.Grados_publicacion ADD
@@ -515,12 +515,6 @@ JOIN MATE_LAVADO.UbicacionXEspectaculo uxe ON(uxe.id_compra = c.id_compra)
 JOIN MATE_LAVADO.Ubicaciones u ON(u.id_ubicacion = uxe.id_ubicacion)
 WHERE c.id_compra = uxe.id_compra
 GO
-
-UPDATE MATE_LAVADO.UbicacionXEspectaculo
-SET facturado = 0
-FROM MATE_LAVADO.UbicacionXEspectaculo uxe
-LEFT JOIN MATE_LAVADO.Compras c ON (c.id_compra = uxe.id_compra)
-WHERE c.id_compra IS NULL
 
 UPDATE MATE_LAVADO.UbicacionXEspectaculo
 SET facturado = 1
@@ -2028,7 +2022,7 @@ END
 go
 
 -----deshabilitarUsuario-----
-create procedure deshabilitarUsuario_sp (@id_usuario int) as begin
+create procedure MATE_LAVADO.deshabilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 0 where id_usuario = @id_usuario
 end
 go
@@ -2141,11 +2135,10 @@ BEGIN
 	DECLARE @datosDeClienteValidos BIT = (SELECT MATE_LAVADO.fn_cuilDeCliente(@cuil, @documento))
 	SELECT @verificadorValido & @datosDeClienteValidos AS valido
 END
->>>>>>> 81d97c62934445bda26e0dd7983ad4083026384a
 GO
 
 -----habilitarUsuario-----
-create procedure habilitarUsuario_sp (@id_usuario int) as begin
+create procedure MATE_LAVADO.habilitarUsuario_sp (@id_usuario int) as begin
 update MATE_LAVADO.Usuarios set habilitado = 1 where id_usuario = @id_usuario
 end
 go
