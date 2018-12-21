@@ -54,6 +54,7 @@ namespace PalcoNet.Editar_Publicacion
         {
             InitializeComponent();
 
+            //verificamos que el usuario sea empresa
             if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
@@ -76,7 +77,8 @@ namespace PalcoNet.Editar_Publicacion
             button6.Enabled = true;
         }
 
-        //Aca buscamos en la base todas las publicaciones de la empresa y las guardamos en la lista
+        //Traemos todas las publicaciones de la empresa y las mostramos en el combo box para que el usuario pueda
+        //elegir cual modificar
         public void buscarPublicaciones() {
 
             comboBoxPublicaciones.Items.Clear();
@@ -99,7 +101,7 @@ namespace PalcoNet.Editar_Publicacion
             }
         }
 
-        //Verifica que tenga todos los campos completos
+        //Verifica que tenga todos los campos completos y con el tipo de dato correcto
         public bool VerificarCamposUbicacion()
         {
             string errores = "";
@@ -135,12 +137,14 @@ namespace PalcoNet.Editar_Publicacion
             return true;
         }
 
+        //Volvemos a la pantalla anterior a seleccionar funcionalidad
         private void button1_Click(object sender, EventArgs e)
         {
             new SeleccionarFuncionalidad().Show();
             this.Hide(); 
         }
 
+        //Cuando elegimos una publicacion se limpian todos los campos 
         private void button4_Click(object sender, EventArgs e)
         {
             this.HayCambiosDeFecha = false;
@@ -149,7 +153,7 @@ namespace PalcoNet.Editar_Publicacion
 
             this.limpiar();
 
-            //Hace se completan los campos con la informacion de la publicacion seleccionada
+            //Se completan los campos con la informacion (traida de la base) de la publicacion seleccionada
             if (comboBoxPublicaciones.SelectedIndex > -1) {
                 this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];
                 textBoxDescripcion.Text = publicacionElegida.Descripcion;
@@ -206,12 +210,14 @@ namespace PalcoNet.Editar_Publicacion
             reader.Close();
         }
 
+        //mostramos en la tabla las fehas traidas de la base de la publicación elegida
         public void actualizarFechas() {
           var bindingList = new BindingList<DateTime>(this.PublicacionElegida.Fechas);
             var source = new BindingSource(bindingList, null);
             dataGridViewFechas.DataSource = source;
         }
 
+        //mostramos en la tabla las ubicaciones traidas de la base de la publicación elegida
         public void actualizarUbicaciones(){
             var bindingList = new BindingList<Ubicacion>(this.PublicacionElegida.Ubicaciones);
             var source = new BindingSource(bindingList, null);
@@ -274,8 +280,8 @@ namespace PalcoNet.Editar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Hace los cambios correspondientes en la base
-            //Podria salir un cartelito que diga que los cambios se guardaron correctamente
+            //Verifica los cambios y valida que cosas han sido modificadas para luego mediante un sp actualizar 
+            //la informacion de la publicación en la base
 
             if (this.VerificarCampos() && (this.hayCambiosDeBase || this.HayCambiosDeUbicaciones || this.HayCambiosDeFecha))
             {
@@ -374,10 +380,8 @@ namespace PalcoNet.Editar_Publicacion
             }
         }
 
+        //Función para limpiar los campos
         public void limpiar() {
-            /*var bindingList = new BindingList<DateTime>(new List<DateTime>());
-            var source = new BindingSource(bindingList, null);
-            dataGridViewFechas.DataSource = source;*/
 
             dataGridViewFechas.DataSource = null;
             dataGridViewUbicaciones.DataSource = null;
@@ -390,10 +394,6 @@ namespace PalcoNet.Editar_Publicacion
             this.comboBoxEstado.SelectedIndex = -1;
             this.comboBoxRubro.SelectedIndex = -1;
             dateTimePickerFecha.Value = dateTimePickerFecha.MinDate;
-
-            /*var bindingList2 = new BindingList<Ubicacion>(new List<Ubicacion>());
-            var source2 = new BindingSource(bindingList2, null);
-            dataGridViewUbicaciones.DataSource = source2;*/
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -447,6 +447,7 @@ namespace PalcoNet.Editar_Publicacion
             this.actualizarFechas();
         }
 
+        //Borra la publicación de la base y los espectaculos relacionados a ella
         private void button7_Click_1(object sender, EventArgs e)
         {
             this.publicacionElegida = this.Publicaciones[comboBoxPublicaciones.SelectedIndex];

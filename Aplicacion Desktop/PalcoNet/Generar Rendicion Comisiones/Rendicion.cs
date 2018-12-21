@@ -32,7 +32,8 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
         public Rendicion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            //Aca hay que buscar en la base de datos todas las Empresas
+            //Aca hay que buscar en la base de datos todas las Empresas y las ponemos en el comboBox para que el
+            //usuario elija cual quiere
 
             Servidor servidor = Servidor.getInstance();
 
@@ -70,7 +71,8 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
             }
             if (comprasSeleccionadas.Count() > 0)
             {
-                //Aca se persiste la rendicion de las comprasSeleccionadas
+                //Aca se persiste la rendicion de las comprasSeleccionadas que consiste en la factura y los items
+                //de la factura
                 Factura factura = new Factura();
                 factura.ImporteTotal = comprasSeleccionadas.Sum(c => c.Importe * c.Comision);
 
@@ -94,8 +96,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
                 MessageBox.Show("La rendición de comisiones se realizó exitosamente.", "Rendición de Comisiones", MessageBoxButtons.OK);
                 checkedListBox1.Items.Clear();
-                //this.Anterior.Show();
-                //this.Close();
+
             }
             else
             {
@@ -111,7 +112,6 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
         private void actualizarCompras()
         {
-            Console.WriteLine(" \n Tengo que actualizar para " + this.EmpresaSeleccionada);
 
             //Aca guardo en esa lista las compras de la EmpresaSeleccionada que todavia
             //no hayan sido rendidas,

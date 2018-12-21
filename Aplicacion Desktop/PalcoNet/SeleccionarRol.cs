@@ -48,7 +48,6 @@ namespace PalcoNet
         {
             //Cuando se selecciona un rol se lo guarda en la sesion y se abre la siguiente pantalla
             String rol = comboBox1.Text.Substring(0, 3);
-            //String lol = comboBox1.Text.substring(0, Math.Min(3, comboBox1.Text.Length));
 
             switch (rol)
             {
@@ -58,40 +57,6 @@ namespace PalcoNet
                     new SeleccionarFuncionalidad().Show();
                     this.Hide();
                     break;
-                    
-                    /*Cliente cli = new Cliente();
-                    cli.IdUsuario = sesion.usuario.IdUsuario;
-
-                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.elClienteExiste_sp '" + sesion.usuario.IdUsuario + "'");
-                    reader.Read();
-
-                    if (!bool.Parse(reader["existe_el_cliente"].ToString()))
-                    {
-                        sesion.rol.Nombre = "Cliente";
-                        Console.Write("el cliente no existe");
-                        new RegistroDeCliente(cli, this).Show();
-                        //this.Hide();
-                        break;
-                    }
-
-                    SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.elClienteTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
-                            reader2.Read();
-                            if (bool.Parse(reader2["esta_completa"].ToString()))
-                            {
-                                sesion.rol.Nombre = "Cliente";
-                                new SeleccionarFuncionalidad().Show();
-                                this.Hide();
-                                break;
-                            }
-                            else
-                            {
-                                sesion.rol.Nombre = "Cliente";
-                                Console.Write("el cliente esta incompleto");
-                                cli = Sesion.getInstance().traerCliente();
-                                new ModificarCli(cli, this).Show();
-                                this.Hide();
-                                break;
-                            }*/
 
                 case "Emp":
                     
@@ -99,39 +64,6 @@ namespace PalcoNet
                     new SeleccionarFuncionalidad().Show();
                     this.Hide();
                     break;
-
-                    /*Empresa emp = new Empresa();
-                    emp.IdUsuario = sesion.usuario.IdUsuario;
-
-                    SqlDataReader reader3 = servidor.query("EXEC MATE_LAVADO.laEmpresaExiste_sp '" + sesion.usuario.IdUsuario + "'");
-                    reader3.Read();
-                    
-                    //Console.Write(bool.Parse(reader3["existe_la_empresa"].ToString()));
-                    if (!bool.Parse(reader3["existe_la_empresa"].ToString()))
-                    {
-                        sesion.rol.Nombre = "Empresa";
-                        new RegistroDeEmpresa(emp, this).Show();
-                        //this.Hide();
-                        break;
-                    }
-
-                    SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
-                    reader4.Read();
-                    if (bool.Parse(reader4["esta_completa"].ToString()))
-                    {
-                        sesion.rol.Nombre = "Empresa";
-                        new SeleccionarFuncionalidad().Show();
-                        this.Hide();
-                        break;
-                    }
-                    else
-                    {
-                        sesion.rol.Nombre = "Empresa";
-                        emp = Sesion.getInstance().traerEmpresa();
-                        new ModificarEmp(emp, this).Show();
-                        this.Hide();
-                        break;
-                    }*/
                 
                 default:
                     sesion.rol.Nombre = this.comboBox1.Text;
@@ -141,6 +73,7 @@ namespace PalcoNet
             }
         }
 
+        //Se guarda el rol en la sesion
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             sesion.rol.Nombre = comboBox1.Text;

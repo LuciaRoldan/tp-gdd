@@ -44,8 +44,8 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //verifica que los campos sean correctos y luego
             //Se agrega a la lista de abajo cada ubicación
-            //verificar campos
             if (this.VerificarCampos())
             {
                 Ubicacion ubicacion = new Ubicacion();
@@ -64,6 +64,7 @@ namespace PalcoNet.Generar_Publicacion
 
         }
 
+        //Se actualizan las ubicaciones luego de que se ha agregado alguna
         private void actualizarUbicaciones()
         {
             var bindingList = new BindingList<Ubicacion>(this.Ubicaciones);
@@ -71,6 +72,7 @@ namespace PalcoNet.Generar_Publicacion
             dataGridView.DataSource = source;
         }
 
+        //Verifica que el tipo de datos de los campos sean correctos
         public bool VerificarCampos()
         {
             string errores = "";
@@ -89,7 +91,7 @@ namespace PalcoNet.Generar_Publicacion
             return true;
         }
 
-        //Agregamos todas las ubicaciones a la publicacion
+        //Agregamos todas las ubicaciones a la publicacion y vamos a finalizar la publicación para agregarla a la base
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.Ubicaciones.Count() > 0) {
@@ -110,6 +112,7 @@ namespace PalcoNet.Generar_Publicacion
 
         }
 
+        //Verifica los campos modificados
         private void checkBoxNumerado_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxNumerado.Checked)

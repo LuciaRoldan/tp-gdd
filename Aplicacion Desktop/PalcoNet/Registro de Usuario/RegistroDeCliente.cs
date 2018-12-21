@@ -30,7 +30,7 @@ namespace PalcoNet.Registro_de_Usuario
             comboBoxDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
             dateTimePickerNacimiento.MaxDate = Sesion.getInstance().fecha;
         }
-        //Verificamos que todos los campos esten completos
+        //Verificamos que todos los campos esten completos y que su tipo de dato sea el correcto
         public bool VerificarCampos(){
             string error = "";
             long x;
@@ -66,7 +66,6 @@ namespace PalcoNet.Registro_de_Usuario
             if (long.TryParse(textBoxCuil.Text, out x))
             {
                 //Verificamos que el CUIL tenga el largo que corresponde
-                Console.Write(cliente.Cuil);
                 if (!(long.Parse(textBoxCuil.Text) > 9999999999 & long.Parse(textBoxCuil.Text) < 100000000000))
                 { error += "El CUIL debe poseer 11 digitos. \n"; }
                 else
@@ -142,7 +141,6 @@ namespace PalcoNet.Registro_de_Usuario
                         foreach (Byte b in result)
                             Sb.Append(b.ToString("x2"));
 
-                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
                     }
                     cliente.Contrasenia = Sb.ToString();
                     cliente.DebeCambiarContraseña = true;
