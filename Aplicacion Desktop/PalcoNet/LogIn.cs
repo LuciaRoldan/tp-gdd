@@ -125,40 +125,15 @@ namespace PalcoNet
                     {
                         case "Cliente":
                             Cliente cli = new Cliente();
-                            SqlDataReader reader2 = servidor.query("EXEC MATE_LAVADO.elClienteTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
-                            reader2.Read();
-                            if (bool.Parse(reader2["esta_completa"].ToString()))
-                            {
-                                sesion.rol.Nombre = "Cliente";
-                                new SeleccionarFuncionalidad().Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                sesion.rol.Nombre = "Cliente";
-                                cli = Sesion.getInstance().traerCliente();
-                                new ModificarCli(cli, this).Show();
-                                this.Hide();
-                            }
+                            sesion.rol.Nombre = "Cliente";
+                            new SeleccionarFuncionalidad().Show();
+                            this.Hide();
                             break;
-
                         case "Empresa":
                             Empresa emp = new Empresa();
-                            SqlDataReader reader4 = servidor.query("EXEC MATE_LAVADO.laEmpresaTieneInfoCompleta_sp '" + sesion.usuario.IdUsuario + "'");
-                            reader4.Read();
-                            if (bool.Parse(reader4["esta_completa"].ToString()))
-                            {
-                                sesion.rol.Nombre = "Empresa";
-                                new SeleccionarFuncionalidad().Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                sesion.rol.Nombre = "Empresa";
-                                emp = Sesion.getInstance().traerEmpresa();
-                                new ModificarEmp(emp, this).Show();
-                                this.Hide();
-                            }
+                            sesion.rol.Nombre = "Empresa";
+                            new SeleccionarFuncionalidad().Show();
+                            this.Hide();
                             break;
                         default:
                             this.Hide();
