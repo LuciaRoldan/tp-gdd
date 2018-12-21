@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,6 +55,7 @@ namespace PalcoNet.Comprar
             string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe 
                 + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "', " + this.Compra.calcularCantidadAsientos()
                 + " , '" + this.Compra.Publicacion.GradoDePublicacion + "'";
+
             SqlDataReader reader = Servidor.getInstance().query("exec MATE_LAVADO.registrarCompra_sp " + query);
             while (reader.Read())
             {
