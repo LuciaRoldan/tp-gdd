@@ -7,8 +7,6 @@ IF NOT EXISTS ( SELECT  *
 				WHERE   name = N'MATE_LAVADO' ) 
 	EXEC('CREATE SCHEMA [MATE_LAVADO]')
 
---CREATE SCHEMA MATE_LAVADO
---GO
 ---------------CREACION DE TABLAS---------------
 
 CREATE TABLE MATE_LAVADO.Usuarios(
@@ -813,9 +811,6 @@ BEGIN
 END
 GO
 
-
-
-
 -----modificarCliente-----
 CREATE PROCEDURE MATE_LAVADO.modificarCliente_sp
 @id_cliente INT,
@@ -909,7 +904,6 @@ BEGIN
 END
 GO
 
---Vuela?
 -----registroClienteConUsuario-----
 CREATE PROCEDURE MATE_LAVADO.registroClienteConUsuario_sp
 (@id_usuario INT,
@@ -995,8 +989,6 @@ BEGIN
 END
 GO
 
-
---Vuela?
 -----registroEmpresaConUsuario-----
 CREATE PROCEDURE MATE_LAVADO.registroEmpresaConUsuario_sp
 (@id_usuario INT, @razon_social nvarchar(255), @mail nvarchar(50), 
@@ -1684,17 +1676,7 @@ create PROCEDURE MATE_LAVADO.agregarFactura_sp (@razonSocial NVARCHAR(255), @tot
 end
 GO
 
------actualizarCompraFactura-----
-/*REVISAR*/ --Pareciera no tener sentido ahora
-/*
-create PROCEDURE MATE_LAVADO.actualizarCompraFactura_sp (@id_factura int, @id_compra int) as begin
-	UPDATE MATE_LAVADO.Compras set id_factura = @id_factura where id_compra = @id_compra
-end
-GO
-*/
------buscarComprasNoFacturadas-----
-/*REVISAR*/ --Ahora tenemos que buscar que el item no tenga la factura...
-
+-----buscarComprasNoFacturadas_sp
 create PROCEDURE MATE_LAVADO.buscarComprasNoFacturadas_sp (@razonSocial varchar(255)) as begin
 	select tu.id_tipo_ubicacion, tu.descripcion, c.id_compra, coalesce(comision,0) comision, precio, count(*) cantidad  from MATE_LAVADO.Compras c
 	join MATE_LAVADO.UbicacionXEspectaculo uxe on uxe.id_compra = c.id_compra
@@ -1837,7 +1819,7 @@ GO
 
 -----elClienteTieneInfoCompleta-----
 CREATE PROCEDURE MATE_LAVADO.elClienteTieneInfoCompleta_sp(@id_usuario INT)
-AS --es como una funcion truchita xd
+AS
 BEGIN
 	DECLARE @esta_completa BIT
 	IF (SELECT nombre FROM MATE_LAVADO.Clientes WHERE id_usuario = @id_usuario) IS NOT NULL AND
