@@ -34,16 +34,16 @@ namespace PalcoNet.Listado_Estadistico
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Busca las empresas segun el grado que se seleccione y las mustra en la tabla
+            //Busca las 5 empresas con mayor cantidad de localidades no vendidas segun el grado que 
+            //se seleccione y las mustran en la tabla
 
             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
             List<CantidadLocalidadesEmpresa> localidadesEmpresa = new List<CantidadLocalidadesEmpresa>();
-            Console.WriteLine("EXEC MATE_LAVADO.top5EmpresasLocalidadesNoVendidas_sp '" + comboBox1.Text.ToString() + "', '" + this.fechaInicio.ToString("yyyy-MM-dd HH:mm:ss.fff") + "', '" + this.fechaFin.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'");
+
             while (reader.Read())
             {
                 CantidadLocalidadesEmpresa localidad = new CantidadLocalidadesEmpresa();
                 localidad.Empresa = reader["Razon social"].ToString();
-                //localidad.Cuit = Int64.Parse(reader["cuit"].ToString());
                 localidad.Cuit = Convert.ToInt64(reader["cuit"]);
                 localidad.LocalidadesNoVendidas = Convert.ToInt32(reader["Ubicaciones no vendidas"]);
 

@@ -31,6 +31,7 @@ namespace PalcoNet.Registro_de_Usuario
 
         private RegistroDeEmpresa() { }
 
+        //Verificamos que los campos esten completos
         private bool camposCompletos()
         {
             string error = "";
@@ -74,12 +75,6 @@ namespace PalcoNet.Registro_de_Usuario
             return true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Hide();
@@ -87,6 +82,7 @@ namespace PalcoNet.Registro_de_Usuario
             this.Close();
         }
 
+        //verifica los datos, encripta la contraseña y nos lleva a la siguiente pantalla para completar el domicilio
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.camposCompletos()){
@@ -108,8 +104,6 @@ namespace PalcoNet.Registro_de_Usuario
 
                         foreach (Byte b in result)
                             Sb.Append(b.ToString("x2"));
-
-                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
                     }
                     empresa.Contrasenia = Sb.ToString();
                     empresa.DebeCambiarContraseña = true;

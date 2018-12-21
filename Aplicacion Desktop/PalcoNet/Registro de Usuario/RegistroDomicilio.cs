@@ -46,13 +46,8 @@ namespace PalcoNet.Registro_de_Usuario
             }
             return true;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
-        }
-
+        
+        //Vuelve a seleccionar funcionalidad
         private void button1_Click_1(object sender, EventArgs e)
         {
             this.Close();
@@ -76,8 +71,7 @@ namespace PalcoNet.Registro_de_Usuario
                     if (!string.IsNullOrWhiteSpace(textBoxPiso.Text)) { this.Usuario.Piso = Int32.Parse(textBoxPiso.Text); }
                     this.Usuario.Departamento = textBoxDepto.Text;
                     this.Usuario.CodigoPostal = textBoxCodigoPostal.Text;
-
-                
+ 
                 //se pasan los parametros al stored procedure y persiste ya sea empresa o cliente
                     if (this.Usuario is Empresa)
                     {
@@ -86,8 +80,6 @@ namespace PalcoNet.Registro_de_Usuario
                         + ((Empresa)this.Usuario).Cuit + "', '" + this.Usuario.Calle + "', '" + this.Usuario.NumeroDeCalle + "', '" + this.Usuario.Piso
                         + "', '" + this.Usuario.Departamento + "' , '" + Usuario.CodigoPostal + "', " + this.Usuario.DebeCambiarContraseña + ", '"
                         + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + this.Usuario.Ciudad + "', '" + this.Usuario.Localidad + "'";
-
-                        Console.WriteLine("EXEC MATE_LAVADO.registroEmpresa_sp " + query);
 
                         try
                         {
@@ -112,8 +104,6 @@ namespace PalcoNet.Registro_de_Usuario
                                 + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd HH:mm:ss") +"', '" + this.Usuario.Ciudad + "', '" + this.Usuario.Localidad + "', '"
                                 + ((Cliente)this.Usuario).Tarjetas[0].Titular + "', " + ((Cliente)this.Usuario).Tarjetas[0].NumeroDeTarjeta;
 
-                        Console.WriteLine(queryCli);
-
                         try
                         {
                             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.registroCliente_sp " + queryCli);
@@ -123,7 +113,6 @@ namespace PalcoNet.Registro_de_Usuario
                         {
                             error = true;
                             mensajeError += eee.Message;
-                            Console.WriteLine(eee.Message);
                         }
                     }
 

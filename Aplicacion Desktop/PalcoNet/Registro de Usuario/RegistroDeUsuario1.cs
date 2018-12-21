@@ -63,8 +63,6 @@ namespace PalcoNet.Registro_de_Usuario
 
                         foreach (Byte b in result)
                             Sb.Append(b.ToString("x2"));
-
-                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
                     }
                     cliente.Contrasenia = Sb.ToString();
 
@@ -86,8 +84,6 @@ namespace PalcoNet.Registro_de_Usuario
 
                             foreach (Byte b in result)
                                 Sb.Append(b.ToString("x2"));
-
-                            Console.WriteLine("EL HASH ES:" + Sb.ToString());
                         }
                         empresa.Contrasenia = Sb.ToString();
 

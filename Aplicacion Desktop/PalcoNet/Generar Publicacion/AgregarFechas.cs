@@ -35,6 +35,7 @@ namespace PalcoNet.Generar_Publicacion
             InitializeComponent();
         }
 
+        //Función para actualizar las fechas luego de que se haya agregado una nueva
         private void actualizarFechas() {
             var bindingList = new BindingList<DateTime>(this.Fechas);
             var source = new BindingSource(bindingList, null);
@@ -58,7 +59,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se le agrega una lista de fechas al objeto de la publicacion
+            //Se le agrega una lista de fechas al objeto de la publicacion y se dirige a la próxima pantalla
             if (this.Fechas.Count > 0){
                 new CrearPublicacionUbicaciones(this, this.Publicacion).Show();
                 this.Hide();

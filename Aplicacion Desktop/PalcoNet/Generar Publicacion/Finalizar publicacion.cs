@@ -30,6 +30,9 @@ namespace PalcoNet.Generar_Publicacion
             set { empresa = value; }
         }
 
+        //muestra todas los campos con la informacion recolectada para mostrarle al clientes para saber si esta
+        // de acuerdo y finalizar la creación de la publicación
+
         public Finalizar_publicacion(MiForm anterior, Publicacion publicacion) : base(anterior)
         {
             InitializeComponent();
@@ -57,7 +60,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se guarda todos los datos de la publicación en la base
+            //Se guarda todos los datos de la publicación en la base y la relacion con el espectaculo segun la fecha
             this.progressBar1.Maximum = this.publicacion.Fechas.Count() * this.Publicacion.Ubicaciones.Sum(ubi => ubi.CantidadAsientos);
 
             string query = "'" + this.Empresa.RazonSocial + "', '" + publicacion.GradoDePublicacion + "', '"
