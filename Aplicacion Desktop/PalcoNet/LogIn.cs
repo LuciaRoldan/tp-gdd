@@ -33,6 +33,9 @@ namespace PalcoNet
             this.Usuario = usuario;
             InitializeComponent();
 
+            //Mostramos si se quiere registrar desde el login solo los roles empresa y cliente ya que son los
+            //que se pueden crear y solo si estan habilitados
+
             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesHabilitados_sp");
             usuario.NombreUsuario = textBox1.Text.ToString();
             while (reader.Read())
@@ -66,7 +69,9 @@ namespace PalcoNet
             }
             try
             {
-                Console.WriteLine("EXEC MATE_LAVADO.verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
+                //verifica que exista el usuario, que la contraseña sea la correcta, que el usuario no este deshabilitado,
+                //que el rol no este deshabilitado y/o que no deba cambiar la contraseña para dejar ingresar al usuario
+
                 SqlDataReader r = servidor.query("EXEC MATE_LAVADO.verificarLogin_sp '" + textBox1.Text.Trim() + "', '" + Sb.ToString() + "'");
                 usuario.NombreUsuario = textBox1.Text.ToString();
                 while (r.Read())
@@ -89,7 +94,6 @@ namespace PalcoNet
                     c.ShowDialog();
                 }
 
-                Console.Write(sesion.usuario.IdUsuario);
                 List<Rol> roles = new List<Rol>();
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRolesDeUsuario_sp '" + sesion.usuario.NombreUsuario + "'");
@@ -102,6 +106,8 @@ namespace PalcoNet
                     rol.Nombre = tokens[0];
                     roles.Add(rol);
                 }
+                //verificamos la cantidad de roles del usuario de tener mas de uno se redirigira a una pantalla
+                //para seleccionar con cual quiere operar
 
                 reader.Close();
 
@@ -114,6 +120,7 @@ namespace PalcoNet
                 {
          
                     //Verificamos que el usuario, si es Cliente o Empresa, tenga toda la información correspondiente completa
+                    // y luego lo enviamos a la pantalla para que elija la funcionalidad que quiere
                     switch (sesion.rol.Nombre)
                     {
                         case "Cliente":
@@ -146,6 +153,7 @@ namespace PalcoNet
 
         }
 
+        //Me redirige ha crear el tipo de usuario que haya seleccionado en el comboBox
         private void button3_Click(object sender, EventArgs e)
         {
             if (comboBoxUsuario.SelectedIndex > -1)
@@ -165,7 +173,6 @@ namespace PalcoNet
             {
                 MessageBox.Show("Se debe seleccionar el tipo de usuario que se quiere crear.", "Error", MessageBoxButtons.OK);
             }
-            //sesion.rol.Nombre = comboBoxUsuario.Text.Trim();
         }
 
         private void comboBoxUsuario_SelectedIndexChanged(object sender, EventArgs e)

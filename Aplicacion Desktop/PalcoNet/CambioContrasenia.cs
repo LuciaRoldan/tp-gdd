@@ -54,13 +54,10 @@ namespace PalcoNet
 
                     foreach (Byte b in result)
                         Sb.Append(b.ToString("x2"));
-
-                    Console.WriteLine("EL HASH ES:" + Sb);
                 }
                 string query = this.Username + "', '" + textBoxUser.Text + "', '" + Sb + "'";
                 Servidor servidor = Servidor.getInstance();
                 SqlDataReader reader = servidor.query("exec MATE_LAVADO.actualizarUsuarioYContrasenia_sp '" + query);
-                Console.WriteLine(textBoxUser.Text);
                 sesion.usuario = new Usuario();
                 Sesion.getInstance().usuario.NombreUsuario = textBoxUser.Text;
                 MessageBox.Show("El nombre de usuario y constraseña se acualizaron exitosamente!", "Cambiar Contraseña", MessageBoxButtons.OK);

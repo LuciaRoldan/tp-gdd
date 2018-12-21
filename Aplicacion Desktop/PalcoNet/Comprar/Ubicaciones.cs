@@ -47,7 +47,7 @@ namespace PalcoNet.Comprar
             InitializeComponent();
             numericUpDownCantidad.Enabled = false;
 
-            //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
+            //Aca traemos de la base una lista de las ubicaciones disponibles de la compra que se nos paso y las guardamos en ubicacionesDisponibles
 
             SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp " + compra.Espectaculo.Id);
 
@@ -72,12 +72,14 @@ namespace PalcoNet.Comprar
 
         }
 
+        //Volvemos a la pantalla para seleccionar la fecha del espectaculo
         private void button2_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Hide();
         }
 
+        //Con este botón vamos al siguiente paso, que consiste en elegir el medio de pago
         private void button3_Click(object sender, EventArgs e)
         {
             new MedioPago(this, this.Compra).Show();
@@ -87,13 +89,14 @@ namespace PalcoNet.Comprar
         private void button1_Click(object sender, EventArgs e)
         {
             //Aca hay que ir gurdando una lista de todas las entradas
-            //Tambien podria salir un cartelito de que las cosas salieron bien
+            //Verificamos que haya elegido al menos una ubicacion 
 
             if (this.numericUpDownCantidad.Value > 0 && this.comboBoxUbicaciones.SelectedIndex > -1)
             {
 
                 var ubicacionPedida = new Ubicacion(ubicacion, numericUpDownCantidad.Value);
 
+                //verificamos si el tipo de ubicacion es numerada para saber de que forma persistirla
                 if (ubicacion.Numerada)
                 {
                     Servidor servidor = Servidor.getInstance();
@@ -126,7 +129,7 @@ namespace PalcoNet.Comprar
                     }
                     
                 }
-
+                //igual que antes persistimos pero de la forma sin que las ubicaciones esten numeradas
                 if (!ubicacion.Numerada)
                 {
 
@@ -196,6 +199,7 @@ namespace PalcoNet.Comprar
              }
          }
 
+        //verifica que haya elegido al menos una ubicación
          private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
          {
              if (this.comboBoxUbicaciones.SelectedIndex > -1)
@@ -206,6 +210,8 @@ namespace PalcoNet.Comprar
 
          }
 
+        //Función que busca entre los asientos disponibles el tipo que eligio el usuario y una vez seleccionado
+        //lo eliminamos de la lista de los asientos disponibles.
          public void asientoSeleccionado(Char fila, int asiento)
          {
              Asiento elAsiento = asientosDisponibles.Find(a => a.Asiento1 == asiento && a.Fila == fila);

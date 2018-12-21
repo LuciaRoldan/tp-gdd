@@ -1268,7 +1268,7 @@ GO
 
 
 -----buscarPublicacionesPorCriterio_sp-----
-create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde datetime, @hasta datetime, @offset INT) as begin
+CREATE PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion varchar(255), @categorias varchar(255), @desde varchar(30), @hasta varchar(30), @offset INT) as begin
 	declare @query nvarchar(2000)
 	set @query = 
 	'select distinct p.descripcion descripcion, r.descripcion rubro, direccion, p.id_publicacion id, gr.nombre grado, p.id_grado_publicacion FROM MATE_LAVADO.Publicaciones p JOIN MATE_LAVADO.Espectaculos e on p.id_publicacion = e.id_publicacion 
@@ -1277,8 +1277,8 @@ create PROCEDURE MATE_LAVADO.buscarPublicacionesPorCriterio_sp (@descripcion var
 
 	if ( @desde is not null and @hasta is not null) begin set @query = 
 		@query + ' and e.fecha_evento between ' + 
-		'CONVERT(DATETIME, ''' + (select convert(varchar, @desde, 25)) + ''', 121)' + ' and ' +  
-		'CONVERT(DATETIME, ''' + (select convert(varchar, @hasta, 25)) + ''', 121)' + ' ' end
+		'CONVERT(DATETIME, ''' + @desde + ''', 121)' + ' and ' +  
+		'CONVERT(DATETIME, ''' + @hasta + ''', 121)' + ' ' end
 	if ( @descripcion is not null) begin set @query = @query + 'and p.descripcion like ''%' + @descripcion + '%''' end
 	if ( @categorias is not null) begin set @query = @query + 'and r.descripcion in (' + (@categorias) + ') ' end
 

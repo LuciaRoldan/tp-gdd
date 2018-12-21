@@ -26,11 +26,13 @@ namespace PalcoNet.Generar_Publicacion
         public CrearPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
+            //Verificamos que el usuario sea una empresa
             if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
             }
             else {
+                //En caso de que no lo sea no podrá crear una publicación
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.\n" +
                 "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
             }
@@ -70,7 +72,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se tiene que comenzar a crear el objeto de la publicacion con los datos cargados
+            //Se tiene que comenzar a crear el objeto de la publicacion con los datos cargados y pasamos a la siguiente pantalla
             if (this.verificarCampos())
             {
                 Publicacion publicacion = new Publicacion();

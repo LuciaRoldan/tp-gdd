@@ -39,11 +39,12 @@ namespace PalcoNet.Comprar
             
             if (cliente != null)
             {
-                //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
+                //Aca traemos todas las tarjetas del cliente y las guardamos en la lista para que el usuario pueda seleccionar la que desee
                 this.updateMP();              
             }
             else 
             {
+                //si no hay cliente no le permite ingresar una nueva tarjeta
                 this.button3.Enabled = false;
                 Tarjeta tarjeta = new Tarjeta();
                 tarjeta.NumeroDeTarjeta = 0;
@@ -53,17 +54,19 @@ namespace PalcoNet.Comprar
             }
         }
 
+        //actualiza la lista de tarjetas despues de agregar una o modificarla
         public void actualizar(Tarjeta tarjeta) {
             this.comboBoxTarjeta.Items.Add(tarjeta.NumeroDeTarjeta);
             this.Tarjetas.Add(tarjeta);
         }
 
+        //función para borrar una tarjeta de la lista porque ha sido modificada
         public void borrar(Tarjeta tarjeta)
         {
             this.tarjetas.Remove(tarjeta);
         }
 
-
+        //Función para validar que los campos esten completos y tengan el tipo que corresponda
         public bool verificarCampos() {
             string error = "";
             int i;
@@ -90,6 +93,7 @@ namespace PalcoNet.Comprar
             this.Hide();
         }
 
+        //Luego de verificar los campos, guardamos el medio de pago seleccionado y vamos a la proxima pantalla de finalizar la compra
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos()) {
@@ -97,7 +101,8 @@ namespace PalcoNet.Comprar
                 long NumeroDeTarjeta = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex].NumeroDeTarjeta;
                 string codigoSeguridad = this.textBoxCodigo.Text;
 
-                //Aca hay que verificar que la tarjeta exista en la base y que los datos coincidan
+                //La verificacion del codigo de seguridad no la hacemos ya que se haría con algún servicio porque no nos
+                //parece correcto guardar esa información en la base
                 if (/*verificacion es correcta*/true)
                 {
                     this.Compra.MedioDePago = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex];

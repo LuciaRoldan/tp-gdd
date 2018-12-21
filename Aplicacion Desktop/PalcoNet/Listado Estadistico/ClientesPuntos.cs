@@ -15,7 +15,7 @@ namespace PalcoNet.Listado_Estadistico
     {
         public ClientesPuntos(List<ClientePuntosListado> resultados, MiForm formAnterior) : base(formAnterior)
         {
-            //Se cargan los datos recibidos en la tabla
+            //Se cargan los datos recibidos en la tabla de los 5 clientes con mayor cantidad de puntos vencidos
             InitializeComponent();
             var bindingList = new BindingList<ClientePuntosListado>(resultados);
             var source = new BindingSource(bindingList, null);
