@@ -90,6 +90,7 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
                 {
                     string query2 = idFactura + ", " + c.Id + " , " + c.Ubicaciones[0].Id + " , " + c.CantidadEntradas + " , " + c.Importe + " , " + c.Comision;
                     servidor.query("EXEC MATE_LAVADO.crearItemFactura_sp " + query2);
+                    Console.WriteLine("EXEC MATE_LAVADO.crearItemFactura_sp " + query2);
                 }
 
                 MessageBox.Show("La rendición de comisiones se realizó exitosamente.", "Rendición de Comisiones", MessageBoxButtons.OK);
