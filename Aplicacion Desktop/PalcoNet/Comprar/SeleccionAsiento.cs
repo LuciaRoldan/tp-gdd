@@ -76,7 +76,6 @@ namespace PalcoNet.Comprar
             foreach (Int32 a in numeroAsientosSeleccionados)
             {
                 comboBoxAsiento.Items.Add(a);
-                Console.Write(a.ToString());
             }
         }
 
