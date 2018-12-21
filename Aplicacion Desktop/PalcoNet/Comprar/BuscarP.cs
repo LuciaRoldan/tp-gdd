@@ -138,7 +138,9 @@ namespace PalcoNet.Comprar
                     else { categorias = categorias + ", ''" + s + "''"; }
                 }
 
-                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ") + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault() + "', '" + hasta.GetValueOrDefault() + "', ") : ", null, null, ") + this.Offset * 10;
+                String query = (descripcion == "" ? "null" : "'" + descripcion + "' ") + ", " + (categorias == "" ? "null" : " '" + categorias + "' ")
+                    + (checkBox1.Checked ? (", '" + desde.GetValueOrDefault().ToString("yyyy-MM-dd HH:mm:ss") + "', '"
+                    + hasta.GetValueOrDefault().ToString("yyyy-MM-dd HH:mm:ss") + "', ") : ", null, null, ") + this.Offset * 10;
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarPublicacionesPorCriterio_sp " + query);
 
                 while (reader.Read())
