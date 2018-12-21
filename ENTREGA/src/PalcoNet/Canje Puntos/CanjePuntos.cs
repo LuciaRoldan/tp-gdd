@@ -50,37 +50,34 @@ namespace PalcoNet.Canje_Puntos
             InitializeComponent();
 
             this.Cliente = Sesion.getInstance().traerCliente();
-            Console.WriteLine("LLEGA A CREAR EL CLIENTE: " + this.Cliente.Nombre);
 
             //Se verifica que el usuario actual se un cliente
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            if (this.Cliente != null)
             {
                 //Aca traemos los puntos que tiene el usuario actual y los mostramos en el textBox
                 //Y  traemos una lista de todos los premios de la base, los guardamos en la lista premios y 
                 //los mostramos en el checkedListBox
 
-                Console.WriteLine("LLEGA A ACA CON PUNTOS: " + cliente.Puntos);
-                    puntosOriginales = this.Cliente.Puntos;
-                    textBoxPuntos.Text = this.Cliente.Puntos.ToString();
-                    Console.WriteLine("PASA ESA PARTE");
-
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
-                while (reader.Read())
-                {
-                    Premio p = new Premio();
-                    p.Descripcion = reader["descripcion"].ToString();
-                    p.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
-                    this.Premios.Add(p);
-                    checkedListBoxPremios.Items.Add(p.Descripcion + " (" + p.CantidadDePuntos + " puntos)");
-
-                }
-                reader.Close();
+                puntosOriginales = this.Cliente.Puntos;
+                textBoxPuntos.Text = this.Cliente.Puntos.ToString();
             }
             else
             {
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
                 button1.Enabled = false;
             }
+
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getPremios_sp");
+            while (reader.Read())
+            {
+                Premio p = new Premio();
+                p.Descripcion = reader["descripcion"].ToString();
+                p.CantidadDePuntos = Convert.ToInt16(reader["puntos"]);
+                this.Premios.Add(p);
+                checkedListBoxPremios.Items.Add(p.Descripcion + " (" + p.CantidadDePuntos + " puntos)");
+
+            }
+            reader.Close();
             
         }
 
@@ -91,7 +88,8 @@ namespace PalcoNet.Canje_Puntos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Aca hacemos que se actualicen los puntos
+            //Aca hacemos que se actualicen los puntos y agregamos al cliente el premio adquirido
+            //Como los puntos tienen un vencimiento usamos primero los puntos mas viejos y despues los mas nuevos
 
             if (this.puntosOriginales >= this.PuntosAcumulados)
             {
@@ -117,12 +115,6 @@ namespace PalcoNet.Canje_Puntos
             {
                 MessageBox.Show("Su monto actual de puntos no le permite canjear el obsequio, prube en otro momento.", "Premios", MessageBoxButtons.OK);
             }
-            
-
-            //Aca hay que actualizar los puntos del cliente y persistir los nuevos premios adquiridos
-            //Como los puntos tienen un vencimiento usamos primero los puntos mas viejos y despues los mas nuevos
-
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -133,11 +125,6 @@ namespace PalcoNet.Canje_Puntos
         //Con esto actualizamos los puntos acumulados actuales
         private void checkedListBoxPremios_SelectedIndexChanged(object sender, EventArgs e)
         {
-            for (int i = 0; i < this.Premios.Count(); i++)
-            {
-                Console.WriteLine(this.Premios[i].CantidadDePuntos);
-            }
-
             if (this.checkedListBoxPremios.GetItemCheckState(this.checkedListBoxPremios.SelectedIndex) == CheckState.Checked)
             {
                  this.PuntosAcumulados = this.PuntosAcumulados + this.Premios[this.checkedListBoxPremios.SelectedIndex].CantidadDePuntos;

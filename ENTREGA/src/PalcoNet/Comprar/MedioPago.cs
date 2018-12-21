@@ -23,6 +23,7 @@ namespace PalcoNet.Comprar
         }
 
         List<Tarjeta> tarjetas = new List<Tarjeta>();
+        Tarjeta tarjetaSeleccionada = new Tarjeta();
 
         internal List<Tarjeta> Tarjetas
         {
@@ -32,32 +33,40 @@ namespace PalcoNet.Comprar
 
         public MedioPago(MiForm anterior, Compra compra) : base(anterior)
         {
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            this.Compra = compra;
+            InitializeComponent();
+            Cliente cliente = Sesion.getInstance().traerCliente();
+            
+            if (cliente != null)
             {
-                Cliente cliente = Sesion.getInstance().traerCliente();
-                this.Compra = compra;
-                InitializeComponent();
-
-                //Aca hay que traer todas las tarjetas del cliente y guardarlas en la lista de arriba
-                this.updateMP();
-              
+                //Aca traemos todas las tarjetas del cliente y las guardamos en la lista para que el usuario pueda seleccionar la que desee
+                this.updateMP();              
             }
             else 
             {
+                //si no hay cliente no le permite ingresar una nueva tarjeta
+                this.button3.Enabled = false;
                 Tarjeta tarjeta = new Tarjeta();
                 tarjeta.NumeroDeTarjeta = 0;
-                this.Compra.MedioDePago = tarjeta;
-                new FinalizarCompra(this, this.Compra).Show();
-                this.Hide();
+                tarjeta.Id = 0;
+                comboBoxTarjeta.Items.Add("*******");
+                this.tarjetas.Add(tarjeta);
             }
         }
 
+        //actualiza la lista de tarjetas despues de agregar una o modificarla
         public void actualizar(Tarjeta tarjeta) {
-            Console.WriteLine("*********************************");
-            this.comboBoxTarjeta.Items.Add("*******" + (tarjeta.NumeroDeTarjeta % 10000));
+            this.comboBoxTarjeta.Items.Add(tarjeta.NumeroDeTarjeta);
             this.Tarjetas.Add(tarjeta);
         }
 
+        //función para borrar una tarjeta de la lista porque ha sido modificada
+        public void borrar(Tarjeta tarjeta)
+        {
+            this.tarjetas.Remove(tarjeta);
+        }
+
+        //Función para validar que los campos esten completos y tengan el tipo que corresponda
         public bool verificarCampos() {
             string error = "";
             int i;
@@ -84,13 +93,16 @@ namespace PalcoNet.Comprar
             this.Hide();
         }
 
+        //Luego de verificar los campos, guardamos el medio de pago seleccionado y vamos a la proxima pantalla de finalizar la compra
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.verificarCampos()) {
+                    
                 long NumeroDeTarjeta = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex].NumeroDeTarjeta;
                 string codigoSeguridad = this.textBoxCodigo.Text;
 
-                //Aca hay que verificar que la tarjeta exista en la base y que los datos coincidan
+                //La verificacion del codigo de seguridad no la hacemos ya que se haría con algún servicio porque no nos
+                //parece correcto guardar esa información en la base
                 if (/*verificacion es correcta*/true)
                 {
                     this.Compra.MedioDePago = this.Tarjetas[this.comboBoxTarjeta.SelectedIndex];
@@ -121,6 +133,12 @@ namespace PalcoNet.Comprar
 
         }
 
+        internal void resetearComboBox()
+        {
+            comboBoxTarjeta.ResetText();
+        }
+
+
         internal void updateMP()
         {
             tarjetas.Clear();
@@ -131,14 +149,18 @@ namespace PalcoNet.Comprar
             while (reader.Read())
             {
                 Tarjeta tarjeta = new Tarjeta();
-                tarjeta.NumeroDeTarjeta = int.Parse(reader["digitos"].ToString());
+                tarjeta.NumeroDeTarjeta = long.Parse(reader["digitos"].ToString());
                 tarjeta.Id = int.Parse(reader["id_medio_de_pago"].ToString());
                 if (tarjeta.NumeroDeTarjeta != 0)
                 {
-                    comboBoxTarjeta.Items.Add("*******" + tarjeta.NumeroDeTarjeta);
+                    comboBoxTarjeta.Items.Add(tarjeta.NumeroDeTarjeta);
                     this.tarjetas.Add(tarjeta);
                 }
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
         }
     }
 }

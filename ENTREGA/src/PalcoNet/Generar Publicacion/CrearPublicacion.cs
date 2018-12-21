@@ -26,29 +26,27 @@ namespace PalcoNet.Generar_Publicacion
         public CrearPublicacion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            if (Sesion.getInstance().rol.Nombre == "Empresa")
+            //Verificamos que el usuario sea una empresa
+            if (Sesion.getInstance().esEmpresa())
             {
                 Empresa empresa = Sesion.getInstance().traerEmpresa();
-                
-                SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
-                
-                while (reader.Read())
-                {
-                    comboBoxRubro.Items.Add(reader["descripcion"].ToString());
-                }
-                reader.Close();
-                //Cargamos los rubros existentes de la base y los ponemos en el combo box
             }
             else {
-                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad." +
+                //En caso de que no lo sea no podrá crear una publicación
+                MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.\n" +
                 "Podrá simular el proceso de generación de publicacion pero no generarla.", "Advertencia", MessageBoxButtons.OK);
-                textBoxDescripcion.Enabled = false;
-                comboBoxRubro.Enabled = false;
-                textBoxDireccion.Enabled = false;
-                comboBoxGrado.Enabled = false;
-                comboBoxEstado.Enabled = false;
             }
+
+            //Cargamos los rubros existentes de la base y los ponemos en el combo box
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.getRubros_sp");
+
+            while (reader.Read())
+            {
+                comboBoxRubro.Items.Add(reader["descripcion"].ToString());
+            }
+            reader.Close();
         }
+
         //verificamos que esten todos los campos necesarios completos
         public bool verificarCampos() {
             string errores = "";
@@ -74,7 +72,7 @@ namespace PalcoNet.Generar_Publicacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se tiene que comenzar a crear el objeto de la publicacion con los datos cargados
+            //Se tiene que comenzar a crear el objeto de la publicacion con los datos cargados y pasamos a la siguiente pantalla
             if (this.verificarCampos())
             {
                 Publicacion publicacion = new Publicacion();

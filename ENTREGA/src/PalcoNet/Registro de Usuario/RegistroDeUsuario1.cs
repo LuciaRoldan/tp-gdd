@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using PalcoNet.Dominio;
+using System.Security.Cryptography;
 
 namespace PalcoNet.Registro_de_Usuario
 {
@@ -53,7 +54,17 @@ namespace PalcoNet.Registro_de_Usuario
                 {
                     Cliente cliente = new Cliente();
                     cliente.NombreUsuario = textBox1.Text;
-                    cliente.Contrasenia = textBox2.Text;
+
+                    StringBuilder Sb = new StringBuilder();
+                    using (SHA256 hash = SHA256Managed.Create())
+                    {
+                        Encoding enc = Encoding.UTF8;
+                        Byte[] result = hash.ComputeHash(enc.GetBytes(textBox2.Text.ToString()));
+
+                        foreach (Byte b in result)
+                            Sb.Append(b.ToString("x2"));
+                    }
+                    cliente.Contrasenia = Sb.ToString();
 
                     new RegistroDeCliente(cliente,  this).Show();
                     this.Hide();
@@ -64,7 +75,18 @@ namespace PalcoNet.Registro_de_Usuario
                     {
                         Empresa empresa = new Empresa();
                         empresa.NombreUsuario = textBox1.Text;
-                        empresa.Contrasenia = textBox2.Text;
+
+                        StringBuilder Sb = new StringBuilder();
+                        using (SHA256 hash = SHA256Managed.Create())
+                        {
+                            Encoding enc = Encoding.UTF8;
+                            Byte[] result = hash.ComputeHash(enc.GetBytes(textBox2.Text.ToString()));
+
+                            foreach (Byte b in result)
+                                Sb.Append(b.ToString("x2"));
+                        }
+                        empresa.Contrasenia = Sb.ToString();
+
                         new RegistroDeEmpresa(empresa, this).Show();
                         this.Hide();
                     }

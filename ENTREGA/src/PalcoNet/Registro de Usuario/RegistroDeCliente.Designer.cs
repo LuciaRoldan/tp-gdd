@@ -49,6 +49,10 @@ namespace PalcoNet.Registro_de_Usuario
             this.siguiente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.volver = new System.Windows.Forms.Button();
+            this.textBoxNumero = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxTitular = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label9
@@ -56,13 +60,13 @@ namespace PalcoNet.Registro_de_Usuario
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(217, 109);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(109, 13);
+            this.label9.Size = new System.Drawing.Size(94, 13);
             this.label9.TabIndex = 78;
-            this.label9.Text = "Fecha de nacimiento:";
+            this.label9.Text = "Fecha nacimiento:";
             // 
             // dateTimePickerNacimiento
             // 
-            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(220, 128);
+            this.dateTimePickerNacimiento.Location = new System.Drawing.Point(220, 131);
             this.dateTimePickerNacimiento.Name = "dateTimePickerNacimiento";
             this.dateTimePickerNacimiento.Size = new System.Drawing.Size(226, 20);
             this.dateTimePickerNacimiento.TabIndex = 77;
@@ -187,7 +191,7 @@ namespace PalcoNet.Registro_de_Usuario
             // 
             // siguiente
             // 
-            this.siguiente.Location = new System.Drawing.Point(374, 199);
+            this.siguiente.Location = new System.Drawing.Point(572, 199);
             this.siguiente.Name = "siguiente";
             this.siguiente.Size = new System.Drawing.Size(75, 23);
             this.siguiente.TabIndex = 62;
@@ -215,11 +219,47 @@ namespace PalcoNet.Registro_de_Usuario
             this.volver.UseVisualStyleBackColor = true;
             this.volver.Click += new System.EventHandler(this.volver_Click_1);
             // 
+            // textBoxNumero
+            // 
+            this.textBoxNumero.Location = new System.Drawing.Point(542, 49);
+            this.textBoxNumero.Name = "textBoxNumero";
+            this.textBoxNumero.Size = new System.Drawing.Size(105, 20);
+            this.textBoxNumero.TabIndex = 83;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(470, 52);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 13);
+            this.label10.TabIndex = 82;
+            this.label10.Text = "Nro. Tarjeta:";
+            // 
+            // textBoxTitular
+            // 
+            this.textBoxTitular.Location = new System.Drawing.Point(542, 75);
+            this.textBoxTitular.Name = "textBoxTitular";
+            this.textBoxTitular.Size = new System.Drawing.Size(105, 20);
+            this.textBoxTitular.TabIndex = 81;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(470, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(36, 13);
+            this.label11.TabIndex = 80;
+            this.label11.Text = "Tiular:";
+            // 
             // RegistroDeCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 234);
+            this.ClientSize = new System.Drawing.Size(659, 234);
+            this.Controls.Add(this.textBoxNumero);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxTitular);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.volver);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.dateTimePickerNacimiento);
@@ -267,5 +307,9 @@ namespace PalcoNet.Registro_de_Usuario
         private System.Windows.Forms.Button siguiente;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button volver;
+        private System.Windows.Forms.TextBox textBoxNumero;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxTitular;
+        private System.Windows.Forms.Label label11;
     }
 }

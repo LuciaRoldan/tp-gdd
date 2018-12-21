@@ -34,13 +34,15 @@ namespace PalcoNet.Historial_Cliente
         {
             InitializeComponent();
             //Verificamos que sea cliente ya que esta funcionalidad es solo apta para ellos
-            if (Sesion.getInstance().rol.Nombre == "Cliente")
+            if (Sesion.getInstance().esCliente())
             {
                 this.Cliente = Sesion.getInstance().traerCliente();
                 this.leer(true);
             }
             else 
             {
+                button1.Enabled = false;
+                button3.Enabled = false;
                 MessageBox.Show("Se encuentra loggeado como " + Sesion.getInstance().rol.Nombre + " por lo cual no podrá utilizar esta funcionalidad.", "Advertencia", MessageBoxButtons.OK);
             }
         }

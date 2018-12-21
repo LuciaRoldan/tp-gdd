@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using PalcoNet.Dominio;
+using System.Data.SqlClient;
 
 namespace PalcoNet.Registro_de_Usuario
 {
@@ -30,13 +31,41 @@ namespace PalcoNet.Registro_de_Usuario
 
         private RegistroDeEmpresa() { }
 
+        //Verificamos que los campos esten completos
         private bool camposCompletos()
         {
             string error = "";
             long x;
             if (string.IsNullOrWhiteSpace(textBoxRazonSocial.Text)) { error += "La Razón Social no puede estar vacía.\n"; }
             if (string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { error += "El CUIT no puede estar vacío.\n"; }
-            if (!long.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; }
+            if (string.IsNullOrWhiteSpace(textBoxMail.Text)) { error += "El Mail no puede estar vacío.\n"; }
+            if (!string.IsNullOrWhiteSpace(textBoxCUIT.Text)) { if (!long.TryParse(textBoxCUIT.Text, out x)) { error += "El CUIT no puede estar vacío.\n"; } }
+
+
+            if (long.TryParse(textBoxCUIT.Text, out x))
+            {
+                //Verificamos que el CUIT tenga el largo que corresponde
+                if (!(Int64.Parse(textBoxCUIT.Text) > 9999999999 & Int64.Parse(textBoxCUIT.Text) < 100000000000))
+                { error += "El CUIT debe poseer 11 digitos. \n"; }
+                else
+                {
+                    //Verificamos que el CUIL sea valido
+
+                    Servidor servidor = Servidor.getInstance();
+                    string query = "'" + Int64.Parse(textBoxCUIT.Text) + "'";
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.cuitEsValido_sp " + query);
+
+                    while (reader.Read())
+                    {
+                        if (!bool.Parse(reader["valido"].ToString()))
+                        {
+                            error += "Ingrese un CUIT válido. \n";
+                        }
+                    }
+                }
+
+            }
+
 
             if (error != "")
             {
@@ -46,28 +75,24 @@ namespace PalcoNet.Registro_de_Usuario
             return true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new SeleccionarFuncionalidad().Show();
-            this.Hide();
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
+            this.Hide();
+            this.Anterior.ShowDialog();
             this.Close();
-            if (this.Anterior == null) { new LogIn().Show(); } else { this.Anterior.Show(); }
         }
 
+        //verifica los datos, encripta la contraseña y nos lleva a la siguiente pantalla para completar el domicilio
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.camposCompletos()){
                 Empresa.RazonSocial = textBoxRazonSocial.Text;
                 Empresa.Cuit = Int64.Parse(textBoxCUIT.Text);
-                Empresa.FechaDeCreacion = DateTime.Now;
+                Empresa.FechaDeCreacion = Sesion.getInstance().fecha;
                 if (!string.IsNullOrWhiteSpace(textBoxMail.Text)) { Empresa.Mail = textBoxMail.Text; }
 
                 
-                if (string.IsNullOrWhiteSpace(empresa.NombreUsuario))
+                if (string.IsNullOrWhiteSpace(empresa.NombreUsuario) || empresa.DebeCambiarContraseña)
                 {
                     empresa.NombreUsuario = textBoxCUIT.Text;
                    
@@ -79,8 +104,6 @@ namespace PalcoNet.Registro_de_Usuario
 
                         foreach (Byte b in result)
                             Sb.Append(b.ToString("x2"));
-
-                        Console.WriteLine("EL HASH ES:" + Sb.ToString());
                     }
                     empresa.Contrasenia = Sb.ToString();
                     empresa.DebeCambiarContraseña = true;

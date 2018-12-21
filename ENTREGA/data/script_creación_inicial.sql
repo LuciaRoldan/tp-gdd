@@ -297,13 +297,13 @@ VALUES('sa', 'gestiondedatos', 1, GETDATE(), 0, 0)
 GO
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 0
+SELECT DISTINCT Cli_Dni, Cli_Dni, 1, GETDATE(), 0, 1
 FROM gd_esquema.Maestra
 WHERE Cli_Dni IS NOT NULL
 Go
 
 INSERT INTO MATE_LAVADO.Usuarios (username, password, habilitado, alta_logica, intentos_fallidos, debe_cambiar_pass)
-SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), replace(Espec_Empresa_Cuit, '-', ''), 1, GETDATE(), 0, 0
+SELECT DISTINCT replace(Espec_Empresa_Cuit, '-', ''), replace(Espec_Empresa_Cuit, '-', ''), 1, GETDATE(), 0, 1
 FROM gd_esquema.Maestra
 GO
 

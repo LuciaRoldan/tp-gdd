@@ -17,11 +17,19 @@ namespace PalcoNet.Comprar
         Compra compra;
         Servidor servidor = Servidor.getInstance();
         Sesion sesion = Sesion.getInstance();
+        public List<Asiento> asientosDisponibles = new List<Asiento>();
+        Ubicacion ubicacion = new Ubicacion();
 
         internal Compra Compra
         {
             get { return compra; }
             set { compra = value; }
+        }
+
+        internal Ubicacion Ubicacion
+        {
+            get { return ubicacion; }
+            set { ubicacion = value; }
         }
 
         List<Ubicacion> ubicacionesDisponibles = new List<Ubicacion>();
@@ -39,9 +47,9 @@ namespace PalcoNet.Comprar
             InitializeComponent();
             numericUpDownCantidad.Enabled = false;
 
-            //Aca hay que traer de la base una lista de las ubicaciones disponibles de this.Compra.Publicacion y guardarlo en ubicacionesDisponibles
+            //Aca traemos de la base una lista de las ubicaciones disponibles de la compra que se nos paso y las guardamos en ubicacionesDisponibles
 
-            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorPublicacion_sp " + compra.Publicacion.Id);
+            SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUbicacionesPorEspectaculo_sp " + compra.Espectaculo.Id);
 
             while (reader.Read())
             {
@@ -64,12 +72,14 @@ namespace PalcoNet.Comprar
 
         }
 
+        //Volvemos a la pantalla para seleccionar la fecha del espectaculo
         private void button2_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
             this.Hide();
         }
 
+        //Con este botón vamos al siguiente paso, que consiste en elegir el medio de pago
         private void button3_Click(object sender, EventArgs e)
         {
             new MedioPago(this, this.Compra).Show();
@@ -79,40 +89,95 @@ namespace PalcoNet.Comprar
         private void button1_Click(object sender, EventArgs e)
         {
             //Aca hay que ir gurdando una lista de todas las entradas
-            //Tambien podria salir un cartelito de que las cosas salieron bien
+            //Verificamos que haya elegido al menos una ubicacion 
 
             if (this.numericUpDownCantidad.Value > 0 && this.comboBoxUbicaciones.SelectedIndex > -1)
             {
-                Ubicacion ubicacion = new Ubicacion();
-                ubicacion.TipoAsiento = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].TipoAsiento;
-                ubicacion.Precio = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Precio;
-                ubicacion.Numerada = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Numerada;
-                ubicacion.Id = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].Id;
-                ubicacion.CantidadAsientos = (int) this.numericUpDownCantidad.Value;
 
+                var ubicacionPedida = new Ubicacion(ubicacion, numericUpDownCantidad.Value);
 
+                //verificamos si el tipo de ubicacion es numerada para saber de que forma persistirla
                 if (ubicacion.Numerada)
                 {
+                    Servidor servidor = Servidor.getInstance();
+
+                    SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.ubicNumeradaDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "', " + this.ubicacion.Precio);
+
+                    while (reader.Read())
+                    {
+                        //Se guarda una lista con todos los asientos disponibles para ese espectaculo y ese tipo de ubicacion al comenzar la seleccion, para pasarsela
+                        //a la pantalla de seleccionar asientos, actualizandola cada vez que se selecciona un asiento nuevo.
+                        Char fila = (Convert.ToChar(reader["fila"]));
+                        Int32 asiento = (Convert.ToInt32(reader["asiento"]));
+                        Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
+                        Asiento unAsiento = new Asiento();
+                        unAsiento.Asiento1 = asiento;
+                        unAsiento.Fila = fila;
+                        unAsiento.Id = id;
+                        this.asientosDisponibles.Add(unAsiento);
+                    }
+                    reader.Close();
+
+                    this.Compra.Ubicaciones.Add(ubicacionPedida);
+
                     List<Asiento> asientos = new List<Asiento>();
                     for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
                     {
-                        SeleccionAsiento seleccion = new SeleccionAsiento(ubicacion, compra);
+                        SeleccionAsiento seleccion = new SeleccionAsiento(this, ubicacion, compra);
                         seleccion.ShowDialog();
-                        asientos.Add(seleccion.Asiento);
                         seleccion.Close();
                     }
-                    ubicacion.Asientos = asientos;
+                    
                 }
-                this.Compra.Ubicaciones.Add(ubicacion);
+                //igual que antes persistimos pero de la forma sin que las ubicaciones esten numeradas
+                if (!ubicacion.Numerada)
+                {
+
+                    Servidor servidor = Servidor.getInstance();
+
+                    String query = "EXEC MATE_LAVADO.ubicSinNumerarDisponiblesSegunEspectaculoYTipoUbicacion_sp " + this.compra.Espectaculo.Id + ", '" + this.ubicacion.TipoAsiento + "'";
+
+                    SqlDataReader reader = servidor.query(query);
+
+                    while (reader.Read())
+                    {
+                        //Se guarda una lista con todos los asientos disponibles para ese espectaculo y ese tipo de ubicacion al comenzar la seleccion, para pasarsela
+                        //a la pantalla de seleccionar asientos, actualizandola cada vez que se selecciona un asiento nuevo.
+                        Int32 id = (Convert.ToInt32(reader["id_ubicacion_espectaculo"]));
+                        Asiento unAsiento = new Asiento();
+                        unAsiento.Id = id;
+                        this.asientosDisponibles.Add(unAsiento);
+                    }
+                    reader.Close();
+
+                    this.Compra.Ubicaciones.Add(ubicacionPedida);
+
+                    List<Asiento> asientosDisponiblesActuales = new List<Asiento>();
+                        
+                    asientosDisponiblesActuales.AddRange(this.asientosDisponibles);
+
+                    for (int i = 0; i < this.numericUpDownCantidad.Value; i++)
+                    {
+                        Asiento elAsiento = asientosDisponiblesActuales[i];
+                        this.asientosDisponibles.Remove(elAsiento);
+                        //Agrego el asiento elegido a la lista de asientos de la compra
+                        this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
+                    }
+                }
+
                 MessageBox.Show("Los asientos se agregaron al carrito!", "Seleccionar Asientos", MessageBoxButtons.OK);
-                if (this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos == ubicacion.CantidadAsientos)
+
+                this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos -= ubicacionPedida.CantidadAsientos;
+
+                if (this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos == 0)
                 {
                     this.comboBoxUbicaciones.Items.RemoveAt(this.comboBoxUbicaciones.SelectedIndex);
                 }
-                else
-                {
-                    this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos -= ubicacion.CantidadAsientos;
-                }
+
+                numericUpDownCantidad.Enabled = false;
+                numericUpDownCantidad.Value = 0;
+                comboBoxUbicaciones.SelectedIndex = -1;
+
             }
 
         }
@@ -130,15 +195,28 @@ namespace PalcoNet.Comprar
          {
              if (this.comboBoxUbicaciones.SelectedIndex > -1)
              {
-                 Console.WriteLine(this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos);
-                 Console.WriteLine(numericUpDownCantidad.Value);
                  if (numericUpDownCantidad.Value > this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex].CantidadAsientos) { numericUpDownCantidad.Value--; }
              }
          }
 
+        //verifica que haya elegido al menos una ubicación
          private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
          {
-             numericUpDownCantidad.Enabled = true;
+             if (this.comboBoxUbicaciones.SelectedIndex > -1)
+             {
+                 this.ubicacion = this.UbicacionesDisponibles[this.comboBoxUbicaciones.SelectedIndex];
+                 numericUpDownCantidad.Enabled = true;             
+             }
+
+         }
+
+        //Función que busca entre los asientos disponibles el tipo que eligio el usuario y una vez seleccionado
+        //lo eliminamos de la lista de los asientos disponibles.
+         public void asientoSeleccionado(Char fila, int asiento)
+         {
+             Asiento elAsiento = asientosDisponibles.Find(a => a.Asiento1 == asiento && a.Fila == fila);
+             this.compra.Ubicaciones.Find(u => u.TipoAsiento == this.ubicacion.TipoAsiento).Asientos.Add(elAsiento);
+             asientosDisponibles.Remove(elAsiento);             
          }
             
     }

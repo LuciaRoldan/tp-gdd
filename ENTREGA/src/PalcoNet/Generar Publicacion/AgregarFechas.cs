@@ -35,6 +35,7 @@ namespace PalcoNet.Generar_Publicacion
             InitializeComponent();
         }
 
+        //Función para actualizar las fechas luego de que se haya agregado una nueva
         private void actualizarFechas() {
             var bindingList = new BindingList<DateTime>(this.Fechas);
             var source = new BindingSource(bindingList, null);
@@ -46,19 +47,19 @@ namespace PalcoNet.Generar_Publicacion
             //Hace que se guarde la fecha en la lista de abajo
             DateTime fecha = dateTimePickerFecha.Value.Date + dateTimePickerHora.Value.TimeOfDay;
             //Verificamos que la fecha no sea anterior a hoy
-            if (fecha > Sesion.getInstance().fecha){
+            if (fecha > this.fechaMaximaActual() && !this.Publicacion.Fechas.Contains(fecha)){
                 this.Fechas.Add(fecha);
                 this.Publicacion.Fechas.Add(fecha);
                 this.actualizarFechas();
             }
             else{
-                MessageBox.Show("La fecha debe ser posterior a la actual.", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("La fecha no puede ser anterior a la actual ni ser menor a la última fecha agregada.", "Error", MessageBoxButtons.OK);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Se le agrega una lista de fechas al objeto de la publicacion
+            //Se le agrega una lista de fechas al objeto de la publicacion y se dirige a la próxima pantalla
             if (this.Fechas.Count > 0){
                 new CrearPublicacionUbicaciones(this, this.Publicacion).Show();
                 this.Hide();
@@ -73,5 +74,18 @@ namespace PalcoNet.Generar_Publicacion
         {
             this.cerrarAnteriores();
         }
+
+        private void RemoverFechaAnteBorrado(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            this.publicacion.Fechas.Remove((DateTime) e.Row.DataBoundItem);
+            this.actualizarFechas();            
+        }
+
+        private DateTime fechaMaximaActual()
+        {
+            if (this.fechas.Count == 0) { return Sesion.getInstance().fecha; }
+            return this.fechas.Max();
+        }
+
     }
 }

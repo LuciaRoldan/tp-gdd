@@ -82,7 +82,6 @@ namespace PalcoNet.Comprar
                     }
                     this.Anterior.actualizar(this.Tarjeta);
 
-                    Console.WriteLine("+++++++++++++++++++++++++++++++++++++");
                     MessageBox.Show("El nuevo medio de pago se ha ingresado al sistema exitosamente.", "Medio de Pago", MessageBoxButtons.OK);
                     this.Close();
                 }
@@ -91,6 +90,11 @@ namespace PalcoNet.Comprar
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                 }
             }
+        }
+
+        private void textBoxNumero_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

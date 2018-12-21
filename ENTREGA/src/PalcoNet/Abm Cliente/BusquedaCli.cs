@@ -83,16 +83,15 @@ namespace PalcoNet.Abm_Cliente
                                 ", '" + cliente.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarUsuarioPorCriterio_sp '" + query);
-                Console.WriteLine(query);
+
                 while (reader.Read())
                 {
                     Cliente clienteEnc = new Cliente();
                     clienteEnc.Nombre = reader["nombre"].ToString();
                     clienteEnc.Apellido = reader["apellido"].ToString();
-                    Console.WriteLine(reader["nombre"]);
                     clienteEnc.Cuil = long.Parse(reader["cuil"].ToString());
                     clienteEnc.Mail = reader["mail"].ToString();
-                    clienteEnc.Telefono = long.Parse(reader["telefono"].ToString());
+                    clienteEnc.Telefono = Int64.Parse(reader["telefono"].ToString());
                     clienteEnc.NumeroDeDocumento = Convert.ToInt32(reader["documento"]);
                     clienteEnc.TipoDocumento = reader["tipo_documento"].ToString();
                     clienteEnc.Calle = reader["calle"].ToString();
@@ -101,7 +100,12 @@ namespace PalcoNet.Abm_Cliente
                     clienteEnc.FechaDeCreacion = (DateTime)reader["fecha_creacion"];
                     clienteEnc.CodigoPostal = reader["codigo_postal"].ToString();
                     clienteEnc.Id = int.Parse(reader["id_cliente"].ToString());
+                    clienteEnc.Ciudad = reader["ciudad"].ToString();
+                    clienteEnc.Localidad = reader["localidad"].ToString();
                     clienteEnc.Departamento = reader["depto"].ToString();
+                    clienteEnc.Piso = Convert.ToInt32(reader["piso"]);
+                    clienteEnc.IdUsuario = int.Parse(reader["id_usuario"].ToString());
+                    clienteEnc.Habilitado = bool.Parse(reader["habilitado"].ToString());
 
                     clientesEncontrados.Add(clienteEnc);
                     resultados.Add(clienteEnc);
@@ -112,6 +116,7 @@ namespace PalcoNet.Abm_Cliente
                 var bindingList = new BindingList<Cliente>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridResultados.DataSource = source;
+                if (resultados.Count >= 1) { dataGridResultados.Rows[0].Selected = true; }
                 //Aca hay que buscar en la base y obtener una lista de clientes que cumplan con los criterios de busqueda
                 //y mostramos por pantalla los resultados de la busqueda
 
@@ -126,6 +131,7 @@ namespace PalcoNet.Abm_Cliente
             new ModificarCli(cliente, this).Show();
         }
 
+        //con este boton limpiamos todos los campos para que se pueda hacer una nueva busqueda
         private void button4_Click(object sender, EventArgs e)
         {
             textBoxNombre.Text = "";
@@ -135,6 +141,11 @@ namespace PalcoNet.Abm_Cliente
         }
 
         private void dataGridResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBoxDni_TextChanged(object sender, EventArgs e)
         {
 
         }

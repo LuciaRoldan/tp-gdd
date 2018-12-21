@@ -32,7 +32,8 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
         public Rendicion(MiForm anterior) : base(anterior)
         {
             InitializeComponent();
-            //Aca hay que buscar en la base de datos todas las Empresas
+            //Aca hay que buscar en la base de datos todas las Empresas y las ponemos en el comboBox para que el
+            //usuario elija cual quiere
 
             Servidor servidor = Servidor.getInstance();
 
@@ -70,14 +71,13 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
             }
             if (comprasSeleccionadas.Count() > 0)
             {
-                //Aca se persiste la rendicion de las comprasSeleccionadas
+                //Aca se persiste la rendicion de las comprasSeleccionadas que consiste en la factura y los items
+                //de la factura
                 Factura factura = new Factura();
-                factura.Empresa = new Empresa();
-                factura.Empresa.RazonSocial = this.EmpresaSeleccionada;
                 factura.ImporteTotal = comprasSeleccionadas.Sum(c => c.Importe * c.Comision);
 
                 Servidor servidor = Servidor.getInstance();
-                string query = "'" + factura.Empresa.RazonSocial + "', '" + factura.ImporteTotal + "'";
+                string query = "'" + this.EmpresaSeleccionada + "', '" + factura.ImporteTotal + "'";
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.agregarFactura_sp " + query);
 
@@ -88,15 +88,16 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
                 }
 
-                foreach (Compra c in comprasSeleccionadas) {
-                    string query2 = "'" + idFactura + "', '" + c.Id + "'";
-                    servidor.query("EXEC MATE_LAVADO.actualizarCompraFactura_sp " + query2);
+                foreach (Compra c in comprasSeleccionadas)
+                {
+                    string query2 = idFactura + ", " + c.Id + " , " + c.Ubicaciones[0].Id + " , " + c.CantidadEntradas + " , " + c.Importe + " , " + c.Comision;
+                    servidor.query("EXEC MATE_LAVADO.crearItemFactura_sp " + query2);
+                    Console.WriteLine("EXEC MATE_LAVADO.crearItemFactura_sp " + query2);
                 }
 
                 MessageBox.Show("La rendición de comisiones se realizó exitosamente.", "Rendición de Comisiones", MessageBoxButtons.OK);
                 checkedListBox1.Items.Clear();
-                //this.Anterior.Show();
-                //this.Close();
+
             }
             else
             {
@@ -112,7 +113,6 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
 
         private void actualizarCompras()
         {
-            Console.WriteLine(" \n Tengo que actualizar para " + this.EmpresaSeleccionada);
 
             //Aca guardo en esa lista las compras de la EmpresaSeleccionada que todavia
             //no hayan sido rendidas,
@@ -129,12 +129,16 @@ namespace PalcoNet.Generar_Rendicion_Comisiones
             {
                 Compra compra = new Compra();
                 compra.Id = Int32.Parse(reader["id_compra"].ToString());
-                compra.Importe = decimal.Parse(reader["importe"].ToString());
                 compra.Comision = decimal.Parse(reader["comision"].ToString());
-                Publicacion publicacion = new Publicacion();
-                publicacion.Descripcion = reader["descripcion"].ToString();
-                compra.Publicacion = publicacion;
-                checkedListBox1.Items.Add(compra.Publicacion.Descripcion + ", $" + compra.Importe);
+                compra.CantidadEntradas = Int32.Parse(reader["cantidad"].ToString());
+                Ubicacion ubicacion = new Ubicacion();
+                ubicacion.Id = Int32.Parse(reader["id_tipo_ubicacion"].ToString());
+                ubicacion.TipoAsiento = reader["descripcion"].ToString();
+                ubicacion.Precio = decimal.Parse(reader["precio"].ToString());
+                compra.Ubicaciones = new List<Ubicacion>();
+                compra.Ubicaciones.Add(ubicacion);
+                checkedListBox1.Items.Add("Compra " + compra.Id + ", " + compra.CantidadEntradas + " entradas tipo " + ubicacion.TipoAsiento + " a $" + ubicacion.Precio);
+                compra.Importe = ubicacion.Precio * compra.CantidadEntradas;
                 this.ComprasEmpresaSeleccionada.Add(compra);
             }
         }

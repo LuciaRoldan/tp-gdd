@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 39);
+            this.label1.Location = new System.Drawing.Point(16, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 118;
@@ -72,7 +72,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(179, 184);
+            this.button2.Location = new System.Drawing.Point(165, 185);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 120;
@@ -83,7 +83,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 135);
+            this.label3.Location = new System.Drawing.Point(16, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(111, 13);
             this.label3.TabIndex = 121;
@@ -92,7 +92,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 161);
+            this.label4.Location = new System.Drawing.Point(16, 162);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(34, 13);
             this.label4.TabIndex = 122;
@@ -101,7 +101,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 109);
+            this.label5.Location = new System.Drawing.Point(16, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 123;
@@ -110,7 +110,7 @@
             // textBoxEspectaculo
             // 
             this.textBoxEspectaculo.Enabled = false;
-            this.textBoxEspectaculo.Location = new System.Drawing.Point(115, 36);
+            this.textBoxEspectaculo.Location = new System.Drawing.Point(101, 37);
             this.textBoxEspectaculo.Multiline = true;
             this.textBoxEspectaculo.Name = "textBoxEspectaculo";
             this.textBoxEspectaculo.Size = new System.Drawing.Size(139, 64);
@@ -119,7 +119,7 @@
             // textBoxFecha
             // 
             this.textBoxFecha.Enabled = false;
-            this.textBoxFecha.Location = new System.Drawing.Point(115, 106);
+            this.textBoxFecha.Location = new System.Drawing.Point(101, 107);
             this.textBoxFecha.Name = "textBoxFecha";
             this.textBoxFecha.Size = new System.Drawing.Size(139, 20);
             this.textBoxFecha.TabIndex = 125;
@@ -127,7 +127,7 @@
             // textBoxCantidad
             // 
             this.textBoxCantidad.Enabled = false;
-            this.textBoxCantidad.Location = new System.Drawing.Point(147, 132);
+            this.textBoxCantidad.Location = new System.Drawing.Point(133, 133);
             this.textBoxCantidad.Name = "textBoxCantidad";
             this.textBoxCantidad.Size = new System.Drawing.Size(107, 20);
             this.textBoxCantidad.TabIndex = 126;
@@ -135,7 +135,7 @@
             // textBoxTotal
             // 
             this.textBoxTotal.Enabled = false;
-            this.textBoxTotal.Location = new System.Drawing.Point(115, 158);
+            this.textBoxTotal.Location = new System.Drawing.Point(101, 159);
             this.textBoxTotal.Name = "textBoxTotal";
             this.textBoxTotal.Size = new System.Drawing.Size(139, 20);
             this.textBoxTotal.TabIndex = 127;
@@ -144,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 224);
+            this.ClientSize = new System.Drawing.Size(260, 224);
             this.Controls.Add(this.textBoxTotal);
             this.Controls.Add(this.textBoxCantidad);
             this.Controls.Add(this.textBoxFecha);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PalcoNet.Dominio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,10 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Registro_de_Usuario;
+using PalcoNet.Abm_Cliente;
+using PalcoNet.Abm_Empresa_Espectaculo;
 
 namespace PalcoNet
 {
-    public partial class SeleccionarRol : Form
+    public partial class SeleccionarRol : MiForm
     {
         Sesion sesion = Sesion.getInstance();
         Servidor servidor = Servidor.getInstance();
@@ -43,13 +47,36 @@ namespace PalcoNet
         private void button2_Click(object sender, EventArgs e)
         {
             //Cuando se selecciona un rol se lo guarda en la sesion y se abre la siguiente pantalla
-            sesion.rol.Nombre = comboBox1.Text.ToString();
-            new SeleccionarFuncionalidad().Show();
+            String rol = comboBox1.Text.Substring(0, 3);
+
+            switch (rol)
+            {
+                case "Cli":
+
+                    sesion.rol.Nombre = "Cliente";
+                    new SeleccionarFuncionalidad().Show();
+                    this.Hide();
+                    break;
+
+                case "Emp":
+                    
+                    sesion.rol.Nombre = "Empresa";
+                    new SeleccionarFuncionalidad().Show();
+                    this.Hide();
+                    break;
+                
+                default:
+                    sesion.rol.Nombre = this.comboBox1.Text;
+                    new SeleccionarFuncionalidad().Show();
+                    this.Hide();
+                    break;
+            }
         }
 
+        //Se guarda el rol en la sesion
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            sesion.rol.Nombre = comboBox1.Text;
         }
     }
 }

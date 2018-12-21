@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,24 +22,25 @@ namespace PalcoNet.Comprar
             set { compra = value; }
         }
 
+        //Completamos los campos con la info que recolectamos de los pasos anteriores para mostrarle una vista previa a la compra al cliente
         public FinalizarCompra(MiForm anterior, Compra compra) : base(anterior)
         {
             InitializeComponent();
-            if (Sesion.getInstance().rol.Nombre == "Cliente"){
-                Cliente cliente = Sesion.getInstance().traerCliente();
-                this.Compra = compra;
 
-                this.Compra.Importe = this.Compra.calcularImporte();
-                
-                //Estaria bueno hacer alguna magia para que en la compra aparezca el total calculado y la cantidad de entradas calculada
+            Cliente cliente = Sesion.getInstance().traerCliente();
+            this.Compra = compra;
 
-                this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
-                this.textBoxCantidad.Text = this.Compra.calcularCantidadAsientos().ToString();
-                this.textBoxTotal.Text = this.Compra.Importe.ToString();
-                this.textBoxFecha.Text = this.Compra.Espectaculo.Fecha.ToString();
-            } else{
+            this.Compra.Importe = this.Compra.calcularImporte();
+
+            this.textBoxEspectaculo.Text = this.Compra.Publicacion.Descripcion;
+            this.textBoxCantidad.Text = this.Compra.calcularCantidadAsientos().ToString();
+            this.textBoxTotal.Text = this.Compra.Importe.ToString();
+            this.textBoxFecha.Text = this.Compra.Espectaculo.Fecha.ToString();
+
+            if (cliente == null)
+            {
                 button2.Enabled = false;
-            }
+            } 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,9 +48,14 @@ namespace PalcoNet.Comprar
             this.cerrarAnteriores();
         }
 
+        //Cuando el cliente acepta esa información se registra la compra mediante un sp al que le pasamos todos los datos
+        // y las ubicaciones mediante otro sp donde se relacionara con la compra también
         private void button2_Click(object sender, EventArgs e)
         {
-            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "'";
+            string query = Sesion.getInstance().traerCliente().Id + ", " + this.Compra.MedioDePago.Id + ", " + this.Compra.Importe 
+                + ", '" + Sesion.getInstance().fecha.ToString("yyyy-MM-dd hh:mm:ss.fff") + "', " + this.Compra.calcularCantidadAsientos()
+                + " , '" + this.Compra.Publicacion.GradoDePublicacion + "'";
+
             SqlDataReader reader = Servidor.getInstance().query("exec MATE_LAVADO.registrarCompra_sp " + query);
             while (reader.Read())
             {
@@ -59,11 +65,11 @@ namespace PalcoNet.Comprar
 
             foreach (Ubicacion u in this.Compra.Ubicaciones)
             {
-                for (int i = 0; i < u.CantidadAsientos; i++)
-                {
-                    string q = this.Compra.Id + ", " + (u.Id + i) + ", " + this.Compra.Espectaculo.Id;
-                    Servidor.getInstance().query("exec MATE_LAVADO.registrarCompraExU_sp " + q);
-                }
+                        foreach (Asiento a in u.Asientos)
+                        {
+                            string q = this.Compra.Id + ", " + (a.Id);
+                            Servidor.getInstance().query("exec MATE_LAVADO.registrarCompraUbicacion_sp " + q);
+                        }
             }
             
 

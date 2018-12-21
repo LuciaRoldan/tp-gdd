@@ -21,6 +21,7 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
         public BusquedaEmp(MiForm formAnterior) : base(formAnterior)
         {
             InitializeComponent();
+            
         }
 
         //verificamos que la persona complete al menos un campo
@@ -64,10 +65,12 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                 String query = (empresa.Cuit == 0 ? "" : empresa.Cuit.ToString()) + "', '" + empresa.RazonSocial + "', '" + empresa.Mail + "'";
 
                 SqlDataReader reader = servidor.query("EXEC MATE_LAVADO.buscarEmpresaPorCriterio_sp '" + query );
-                Console.WriteLine(query);
+
                 while (reader.Read())
                 {
+
                     Empresa empresaEnc = new Empresa();
+                    empresaEnc.Id = Convert.ToInt64(reader["id_empresa"]);
                     empresaEnc.RazonSocial = reader["razon_social"].ToString();
                     empresaEnc.Mail = reader["mail"].ToString();
                     empresaEnc.Cuit = Convert.ToInt64(reader["cuit"]);
@@ -76,18 +79,20 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
                     empresaEnc.NumeroDeCalle = Convert.ToInt32(reader["numero_calle"]);
                     empresaEnc.Piso = Convert.ToInt32(reader["piso"]);
                     empresaEnc.Departamento = reader["depto"].ToString();
+                    empresaEnc.CodigoPostal = reader["codigo_postal"].ToString();
+                    empresaEnc.Ciudad= reader["ciudad"].ToString();
+                    empresaEnc.Localidad = reader["localidad"].ToString();
+                    empresaEnc.Habilitado = bool.Parse(reader["habilitado"].ToString());
+                    empresaEnc.IdUsuario = int.Parse(reader["id_usuario"].ToString());
 
                     resultados.Add(empresaEnc);
                 }
                 reader.Close();
-
+                
                 var bindingList = new BindingList<Empresa>(resultados);
                 var source = new BindingSource(bindingList, null);
                 dataGridViewResultados.DataSource = source;
-
-                //Aca hay que buscar en la base y obtener una lista de empresas que cumplan con los criterios de busqueda
-                //y mostramos por pantalla los resultados de la busqueda
-
+                if (resultados.Count >= 1) { dataGridViewResultados.Rows[0].Selected = true; }
             }
         }
 
@@ -110,8 +115,10 @@ namespace PalcoNet.Abm_Empresa_Espectaculo
             Empresa empresa = (Empresa)dataGridViewResultados.CurrentRow.DataBoundItem;
             this.Hide();
             new ModificarEmp(empresa, this).Show();
+
         }
 
+        //Se limpian los campos para una nueva busqueda
         private void button4_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";

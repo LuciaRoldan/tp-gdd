@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Dominio;
 using System.Data.SqlClient;
-using PalcoNet.Dominio;
 
 namespace PalcoNet.Comprar
 {
@@ -35,6 +34,8 @@ namespace PalcoNet.Comprar
             InitializeComponent();
             this.Compra = compra;
 
+            //Segun la publicacion seleccionada busca sus fechas disponibles y las muestra para que el usuario pueda elegir cual comprar
+
             Servidor servidor = Servidor.getInstance();
             SqlDataReader reader = servidor.query("exec MATE_LAVADO.buscarEspectaculosPorPublicacion_sp " + compra.Publicacion.Id);
             while (reader.Read()) {
@@ -46,6 +47,7 @@ namespace PalcoNet.Comprar
             }
         }
 
+        //Una vez elegida la fecha el siguiente paso será elegir las ubicaciones
         private void button3_Click(object sender, EventArgs e)
         {
             if (comboBoxFechas.SelectedIndex > -1)
@@ -59,6 +61,7 @@ namespace PalcoNet.Comprar
         private void button1_Click(object sender, EventArgs e)
         {
             this.Anterior.Show();
+            this.Hide();
         }
     }
 }
